@@ -1,0 +1,19 @@
+- content_for :title, '消息提醒'
+= jqm_header do
+  = jqm_menu_link
+  %h1 消息提醒
+  = link_to '全部忽略', :action => :clear_all
+%div(data-role='content')
+  - if @notifications && @notifications.size > 0
+    %ul#notifications_list(data-role='listview')
+      - @notifications.each do |n|
+        -  data = {}
+        -  data[:scope] = n.scope
+        -  if n.subject.is_a?(Article)
+          -  data[:article_url] = article_path(n.subject.group, n.subject)
+          -  data[:article_id] = n.subject.id
+          -  data[:comments_count] = n.subject.comments.size
+        %li{:id => "notification_#{n.id}", :class => "notification", :data => data}= render_notification(n) rescue '...'
+
+    = paginate @notifications
+

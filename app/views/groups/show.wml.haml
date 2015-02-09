@@ -1,0 +1,46 @@
+.group_hd
+  .group_pic
+    = link_to image_tag( @group.icon(:medium)), @group
+    .group_btn.gray9= @group.private ? '私有' : '公开'
+  .group_text
+    .group_title.clearfix
+      .group_titlel= link_to @group.name, @group
+      .group_titler
+        %span.issue_icon_01.gray9
+        %span.space |
+        - if logged_in?
+          - if current_user.is_member_of?(@group)
+            = link_to '退出小组', quit_group_path(@group),:class=>"quit_group"
+          - else
+            = link_to '我要加入', join_group_path(@group),:class=>"join_group"
+    .group_textinfo=@group.description
+
+    .group_operations
+      - if logged_in?
+        - if @group.preferred_only_member_can_post?
+          - if current_user.is_member_of?(@group)
+            = link_to '发表新贴', new_article_path(@group)
+          - else
+            = link_to '加入小组', join_group_path(@group),:class=>"join_group"
+        - else
+          = link_to '发表新贴', new_article_path(@group)
+      - else
+        登入后发言
+
+      = link_to '群设置', edit_group_path(@group) if @group.owner == current_user
+%p
+  = link_to_unless_current '最新', group_path(@group)
+  |
+  = link_to_unless_current '最热', hottest_group_articles_path(@group)
+  |
+  = link_to_unless_current '待审', pending_group_articles_path(@group) if logged_in? and current_user == @group.owner
+
+
+- @articles = @group.public_articles.order('id desc').includes(:top_post).page params[:page]
+= render @articles
+= paginate @articles
+
+- content_for :title, @group.name
+- content_for :head do
+  %link{:title=> "#{@group.name}近期文章", :type=>"application/rss+xml", :rel=>'alternative', :href=>group_articles_path(@group, :format=>:xml)}/
+

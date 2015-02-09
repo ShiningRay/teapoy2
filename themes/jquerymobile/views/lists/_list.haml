@@ -1,0 +1,10 @@
+.list.cf[list]
+  .name
+    =link_to list.name,list_path(list)
+    (
+    =list.articles.count
+    )
+  .owner
+    创建者：
+    =list.user.name_or_login
+

@@ -1,0 +1,8 @@
+- if @user
+  %h2="#{@user.name_or_login}的奖章"
+
+- @badges.each do |badge|
+  %div[badge]
+    %h3= link_to badge.title, badge
+    = link_to image_tag(badge.icon(:large)), badge
+    %p= h badge.description

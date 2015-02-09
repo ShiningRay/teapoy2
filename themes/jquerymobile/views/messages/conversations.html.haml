@@ -1,0 +1,10 @@
+= jqm_header do
+  = jqm_menu_link
+  %h1 收件箱
+  = link_to '发小纸条', new_conversation_path, data: { icon: 'edit', iconpos: 'notext', rel: 'dialog' }
+
+%div( data-role='content' )
+  %ul( data-role='listview' data-inset='false' )
+    - for c in @conversations
+      %li
+        = @conversation.target.name_or_login

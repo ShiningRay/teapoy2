@@ -1,0 +1,19 @@
+.new_groups {
+  ul {
+    margin:0;
+    padding:0;
+    list-style: none;
+    li {
+      img {
+        float:left;
+        margin-right: 8px;
+      }
+      h4 {}
+      margin: 10px 8px 10px 0px;
+      clear:left;
+      height:50px;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+  }
+}

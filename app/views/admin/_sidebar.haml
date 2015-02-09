@@ -1,0 +1,43 @@
+#right-title 管理功能
+%ul.menu
+  %li.groups
+    %form{:action => "/admin/groups"}
+      %input{:name => "search", :size => "6"}/
+      %input{:type => "submit", :value => "查找小组"}/
+    %ul.group-filter
+      %li= link_to '所有', admin_groups_path
+      %li= link_to '特色', admin_groups_path(:cond=>"feature > 0 ")
+      %li= link_to '隐藏', admin_groups_path(:cond=>"hide = 1 ")
+      %li= link_to '私人', admin_groups_path(:cond=>"private = 1 ")
+      %li= link_to '待审', admin_groups_path(:cond=>"status = 'pending' ")
+    %ul.group-list
+      - Group.each do |g|
+        %li[g]{:class => g == @group && 'current'}
+          \##{g.id}
+          \#{link_to_unless_current g.name, admin_articles_path(:group_id => g.id)}
+          (#{g.alias})
+  %li
+    =link_to "new mass email","/admin/emails/create"
+  %li
+    %form{:action => "/admin/articles"}
+      %input{:name => "status", :type => "hidden", :value => "all"}/
+      \#
+      %input{:name => "id", :size => "6"}/
+      %input{:type => "submit", :value => "查找帖子"}/
+  %h5 关键字过滤
+  %ul.menu
+    %li= link_to '关键字库维护', :controller => 'admin/keywords'
+  %h5 用户管理
+  %ul.menu
+    %li
+      %form{:action => "/admin/users"}
+        %input{:name => "status", :type => "hidden", :value => "all"}/
+        %input{:name => "search", :size => "6"}/
+        %input.btn{:type => "submit", :value => "查找用户"}/
+      =link_to "查看guest加入的小组",publicate_groups_admin_user_path(User.find(0))
+      %form{:action => join_group_admin_user_path(User.guest), :method => :post}
+        %input{:name => "group_id", :size => "6"}/
+        %input.btn{:type => "submit", :value => "join"}/
+      %form{:action=> quit_group_admin_user_path(User.guest),:method=>:post}
+        %input{:name => "group_id", :size => "6"}/
+        %input.btn{:type => "submit", :value => "quit"}/

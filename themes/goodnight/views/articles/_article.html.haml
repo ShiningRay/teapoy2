@@ -1,0 +1,57 @@
+- id=article.id
+- top_post = article.top_post
+- group = @group || article.group
+- group_id = article.group_id
+
+%article.cf.hentry[article]{:class => article.class_names}
+  - if top_post
+    %div[article.top_post]{:class => [article.top_post.class_names, is_mine_class(article.top_post)]}
+
+      - unless article.title.blank?
+        %h2.entry-title= link_to article.title, article_path(group, article), :rel => 'bookmark'
+      .entry-content= render_posts article.top_post
+      -# unless article.tag_line.blank?
+      -# %p.tags= raw(show_tags(article))
+      .post-signature.pull-right.cf{:class => article.anonymous ? article.user.class_names : '', :style => 'text-align:right'}
+        - unless article.anonymous
+          - user = article.user
+          - if user
+            = link_to user.name_or_login, user, :title => "@#{user.login}",:class => 'user', :data => {:login => user.login}
+          %br/
+        %time{:datetime => article.created_at, :title => article.created_at.to_s}= article.created_at.strftime("%Y-%m-%d %H:%M")
+
+      %ul.meta.cf
+        - unless top_post.blank?
+          %li.score
+            %span.value= top_post.score
+            人喜欢
+            = link_to '喜欢', up_post_path(top_post), :class=>'vote' if logged_in? and not current_user.has_rated?(article) and not current_user.own_article?(article)
+        - if logged_in?
+          %li.subscribe-button
+            - if current_user.has_subscribed?(article)
+              = link_to t('articles.unsubscribe'), unsubscribe_group_article_path(group, article), :class => 'unsubscribe'
+            - else
+              = link_to t('articles.subscribe'), subscribe_group_article_path(group, article), :class => 'subscribe'
+        - if logged_in?
+          %li.repost-button
+            = link_to t('articles.repost'), repost_form_path(:post_id => top_post.try(:id))
+        %li.comment-status
+          - if article.comment_status == 'closed'
+            %span.comment_head
+              禁止评论
+          - else
+            %a.comments{:href=>group_article_path(article.group, article,
+              :anchor => "comments_#{article.id}"),
+              :id=>"c-#{article.id}", 'data-url' => group_article_comments_path(article.group, article)}= article.posts.size > 1 ? "#{article.posts.size-1}条评论" : "暂无评论"
+
+        - if logged_in? && current_user == article.group.owner || current_user == article.user
+          %li.admin
+            = link_to 'Delete', article_path(group, article), :method => :delete, :remote => true, :confirm => 'Are you sure to delete this article?'
+            - if article.status == 'pending'
+              = link_to '通过', publish_article_path(article.group,article)
+              = link_to '移出', move_out_article_path(article.group,article)
+            = link_to 'Edit', edit_post_path(article.top_post)
+
+  - if controller_name == 'articles' and action_name == 'show'
+    - @comments = @article.comments.all || []
+    = render 'comments/index'

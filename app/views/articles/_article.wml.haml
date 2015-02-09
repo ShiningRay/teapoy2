@@ -1,0 +1,28 @@
+- group = @group || article.group
+- post = article.top_post
+- return if post.blank?
+- if article.title?
+  %p><
+    %strong><= link_to article.title, article_path(group, article)
+= render_posts post
+- unless article.anonymous
+  - user = article.user
+%p><
+  - if user
+    = link_to user.name_or_login, user
+  - if @show_group
+    发布于#{link_to group.name, articles_path(group)}#{time_ago_in_words article.created_at}
+%p><
+  - if logged_in? && current_user.own_article?(article)
+    =# link_to '删除', article_path(group, article, :_method => :delete)
+  - if logged_in? && current_user == article.group.owner && article.status == 'pending'
+    = link_to '通过', publish_article_path(group,article)
+    = link_to '移出', move_out_article_path(group,article)
+  = join_oneline(rating_link(post, :up), ' | ', rating_link(post, :dn))
+  |
+  - if article.comment_status == 'closed'
+    禁止评论
+  - else
+    = link_to article.posts.size > 1 ? "#{article.posts.size-1}条评论" : "暂无评论", article_path(group, article)
+='----------------'
+=br

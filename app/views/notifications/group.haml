@@ -1,0 +1,13 @@
+- content_for :title, '消息提醒'
+#clear_all_notifications
+  -#为了避免没有提醒的时候，左边的这个div宽度为零，所以加个空格占位子
+  &nbsp;
+  - unless @unread_notification_count == 0
+    = link_to '全部忽略', :action => :clear_all
+- if @notifications && @notifications.size > 0
+  - @subject_notifications.each do |subject, notifications|
+    - unless subject.blank?
+      - t = subject.class.name.underscore
+      = render :partial => "notifications/subjects/#{t}", :locals => {:notifications => notifications, :scoped_notifications => notifications.group_by{|i|i.scope}, t.to_sym => subject}
+  =# paginate @notifications
+

@@ -1,0 +1,17 @@
+%div(data-role='header')
+  %h1 写小纸条
+
+%div(data-role='content')
+  = form_for(@message, remote: true) do |f|
+    - if @message.recipient
+      %p(style="background:url(#{ @message.recipient.avatar.url("thumb")}) no-repeat top 320px;height:40px;")
+        To:
+        = @message.recipient.name_or_login
+        = f.hidden_field :recipient_id
+    - else
+      - users = current_user.publications("User").map{|fr|[fr.name_or_login,fr.id]}
+      = f.input :recipient, :as => :select, :collection => users, :label => '写给：'
+      - if users.size == 0
+        您尚未关注任何用户，请直接访问目标用户的个人页面，点击“传纸条”
+    = f.text_area :content
+    = f.submit '发送', data: { :disable_with => '发送中...', icon: 'arrow-r', iconpos: 'right' }

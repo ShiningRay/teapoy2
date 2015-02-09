@@ -1,0 +1,17 @@
+.wizard-steps
+  %div{:class => [@completed_steps.include?('create_account') && 'completed-step', action_name == 'create_account' && 'active-step']}
+    %a{:href => "#step-one"}
+      %span 1
+      填写注册信息
+  %div{:class => [@completed_steps.include?('confirm_login') && 'completed-step', action_name == 'confirm_login' && 'active-step']}
+    %a{:href => "#step-two"}
+      %span 2
+      确认您的唯一ID
+  %div{:class => [@completed_steps.include?('recommend_groups') && 'completed-step', action_name == 'recommend_groups' && 'active-step']}
+    %a{:href => "#"}
+      %span 3
+      推荐小组
+  %div{:class => [@completed_steps.include?('complete') && 'completed-step', action_name == 'complete' && 'active-step']}
+    %a{:href => "#"}
+      %span 4
+      完成注册

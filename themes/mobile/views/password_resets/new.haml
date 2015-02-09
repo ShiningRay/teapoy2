@@ -1,0 +1,8 @@
+%h1 重置密码
+
+%p 请输入您的邮箱，我们会把密码发到您的邮箱里面
+
+= form_tag password_resets_path do
+  = text_field_tag :email
+  = submit_tag "发送密码"
+

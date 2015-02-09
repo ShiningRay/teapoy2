@@ -1,0 +1,7 @@
+<h1>Admin::Themes#index</h1>
+<p>Find me in app/views/admin/themes/index.html.erb</p>
+<ul>
+<% for t in @themes %>
+  <li><%= link_to t.name, edit_admin_theme_path(t.name)%></li>
+<% end %>
+</ul>

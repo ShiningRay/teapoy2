@@ -1,0 +1,36 @@
+- group = @group || article.group
+- post = article.top_post
+%div[article]{:class => article.class_names}><
+  - if article.title?
+    %h2.title><= link_to article.title, article_path(group, article)
+  .content><= render_posts post
+  -# unless article.tag_line.blank?
+  -#  %p.tags= show_tags(article, @current_tag)
+  .post-signature{:class => article.anonymous ? '' : 'topic-owner'}><
+    - unless article.anonymous
+      - user = article.user
+      - if user
+        - if user.name?
+          = link_to user.name, user, :class => 'user'
+        - else
+          = link_to user.login, user, :class => 'user'
+    %span.user-action-time><
+      发布于
+      = link_to group.name, group if @show_group
+      %span.relativetime><= time_ago_in_words(article.created_at)
+    - if logged_in? && current_user.own_article?(article)
+      =# link_to '删除', article_path(group, article, :_method => :delete)
+    - if logged_in? && current_user == article.group.owner && article.status == 'pending'
+      = link_to '通过', publish_article_path(group,article)
+      = link_to '移出', move_out_article_path(group,article)
+  .meta><
+    - if post
+      = rating_link(post, :up)
+      = rating_link(post, :dn)
+    %span.comments_link><
+      - if article.comment_status == 'closed'
+        禁止评论
+      - else
+        = link_to article_path(group, article, :anchor => "comments-list") do
+          = image_tag(asset_path('comment_reply.png'), :alt => '评论')
+          = article.posts.size - 1

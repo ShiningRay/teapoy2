@@ -1,0 +1,10 @@
+.group_hd
+  .group_pic
+    = link_to image_tag( @group.icon(:medium)), @group
+  .group_text
+    .group_title.clearfix
+      .group_titlel= link_to @group.name, @group
+    .group_meta_content
+      - cache ['grouppage', @group], :expires_in => 1.hour do
+        = sanitize @group.to_post.content
+      = link_to '编辑', [:editinfo, @group] if logged_in? && (current_user.own_group?(@group) || current_user.is_admin?)

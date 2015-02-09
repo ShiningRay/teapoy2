@@ -1,0 +1,18 @@
+
+#main {
+  @include border-radius(10px);
+  background-color: #E2F1F8;
+  margin-top:20px;
+
+}
+
+#content{
+  @include border-left-radius(10px);
+  background-color:#FFFFFF;
+}
+
+#sidebar {
+  ul {
+    padding: 0
+  }
+}

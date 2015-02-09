@@ -1,0 +1,25 @@
+=link_to group.name, group, :class => 'channel-name'
+%div[group]
+  %h3=link_to group.name, group
+  .detail
+    = link_to image_tag(group.icon(:thumb), :alt => group.name), group, :class => 'icon'
+    .description
+      = h group.description
+    .meta
+      .owner
+        - if group.owner
+          = link_to group.owner do
+            = group.owner.name_or_login
+      .status
+        .join
+          - if logged_in?
+            - unless current_user.is_member_of?(group)
+              = link_to '加入小组', join_group_path(group), {:class => "join_group", :data => {:alternative_path => quit_group_path(group), :alternative_text => '退出小组' }}
+            - else
+              = link_to '退出小组', quit_group_path(group), {:class => "quit_group", :data => {:alternative_path => join_group_path(group), :alternative_text => '加入小组' }}
+        - cache [group, 'status'], :expires_in => 1.hour do
+          = t('groups.topics')
+          = group.public_articles.size
+          |
+          = t('groups.members')
+          = group.memberships.size

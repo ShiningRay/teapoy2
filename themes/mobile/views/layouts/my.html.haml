@@ -1,0 +1,8 @@
+- content_for :nav do
+  = Inbox.by_user(current_user).count
+  篇待读
+  = link_to_unless_current '最新', :controller => 'my', :action => 'latest'
+  ='.'
+  = link_to_unless_current '最热', :controller => 'my', :action => 'inbox'
+
+= render :template => 'layouts/onecolumn'

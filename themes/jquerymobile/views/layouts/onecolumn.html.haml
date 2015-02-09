@@ -1,0 +1,47 @@
+!!! Mobile
+%html
+  = render 'head'
+  %body
+    %noscript
+      = link_to '旧版手机网站', 'http://m.bling0.com'
+    %div(data-role="page")
+      = content_for?(:main) ? (yield :main) : yield
+
+      #leftpanel(data-role='panel' data-theme="b" data-position-fixed='true')
+        %ul(data-role='listview' data-theme='c' data-divider-theme='d')
+          - if logged_in?
+            %li( data-icon="false" )
+              = link_to current_user.name, current_user
+            %li( data-icon="false" )
+              = link_to '小纸条', conversations_path
+              - umc =  current_user.unread_messages_count
+              - if umc > 0
+                %span.ui-li-count= umc
+            %li( data-icon="false" data-theme="#{current_page?(notifications_path) && "a"}")
+              = link_to '通知', notifications_path, 'data-ajax'=>"false"
+              - unc = current_user.notifications.unread.count
+              - if unc > 0
+                %span.ui-li-count= unc
+            %li( data-icon="false" data-theme="#{current_page?('/my/groups') && "a"}")
+              = link_to '我的小组', '/my/groups'
+          - else
+            %li( data-icon="false" )
+              = link_to '登录', login_path, data: { rel: 'dialog' }
+          %li(data-role='list-divider')
+          %li( data-icon="false" data-theme="#{controller_name == 'articles' && action_name == 'recent_hot' && "a"}")
+            = link_to '近期热点', '/all/'
+          %li( data-icon="false" data-theme="#{current_page?('/all/latest') && "a"}")
+            = link_to '最新帖子', '/all/latest'
+          %li(data-role='list-divider')
+
+          %li( data-icon="false" data-theme="#{current_page?(groups_path) && "a"}")
+            = link_to '所有小组', groups_path
+
+          %li(data-role='list-divider')
+
+          %li( data-icon="false" )
+            = link_to '退出', session_path(format: :js), method: :delete, remote: true
+
+
+    = render 'flashes'
+    = render 'photoswipe'

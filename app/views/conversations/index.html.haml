@@ -1,0 +1,23 @@
+%h1 Listing conversations
+
+%table
+  %tr
+    %th Owner
+    %th Target
+    %th Messages count
+    %th
+    %th
+    %th
+
+  - @conversations.each do |conversation|
+    %tr
+      %td= conversation.owner_id
+      %td= conversation.target_id
+      %td= conversation.messages_count
+      %td= link_to 'Show', conversation
+
+      %td= link_to 'Destroy', conversation, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Conversation', new_conversation_path

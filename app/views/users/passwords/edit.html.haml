@@ -1,0 +1,25 @@
+- content_for :title do
+  修改密码
+%h2 修改密码
+= flash[:error]
+= form_tag [current_user, :password], method: 'put' do
+  -#%form#new_user.new_user{action: "", method: "post"}
+  = hidden_field :authenticity_token, form_authenticity_token
+  %label{for: "old_password"} 当前密码：
+  %br/
+  %input#old_password{name: "old_password", size: "30", type: "password"}/
+  %br/
+  %span{style: "color: red"}
+  %br/
+  %label{for: "new_password"} 新密码(6~40个字符)：
+  %br/
+  %input#new_password{name: "password", size: "30", type: "password"}/
+  %br/
+  %span{style: "color: red"}
+  %br/
+  %label{for: "password_confirmation"} 重复新密码：
+  %br/
+  %input#password_confirmation{name: "password_confirmation", size: "30", type: "password"}/
+  %br/
+  %br/
+  = submit_tag '确认修改', disable_with: '正在提交...'

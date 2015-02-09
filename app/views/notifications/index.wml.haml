@@ -1,0 +1,11 @@
+- content_for :title, '消息提醒'
+#clear_all_notifications
+  -#为了避免没有提醒的时候，左边的这个div宽度为零，所以加个空格占位子
+  &nbsp;
+  - unless @unread_notification_count == 0
+    = link_to '全部忽略', :action => :clear_all
+    = br
+- if @notifications && @notifications.size > 0
+  - @notifications.each do |n|
+    = render_notification n
+  = paginate @notifications

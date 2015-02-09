@@ -1,0 +1,106 @@
+!!! XML
+= raw '<!DOCTYPE wml PUBLIC "-//WAPFORUM//DTD WML 1.1//EN" "http://www.wapforum.org/DTD/wml_1.1.xml">'
+%wml><
+  %head><
+    %meta{:name => 'author', :content => ''}><
+  %card{:title => yield(:title)}><
+    - if logged_in?
+      = link_to(current_user.name_or_login, :controller => :my, :action => :latest)
+      = link_to '[+]', edit_user_path(current_user)
+      = link_to "小纸条", inbox_messages_path
+      - umc =  current_user.unread_messages_count
+      - if umc > 0
+        = link_to "[#{umc}]", inbox_messages_path
+      = link_to '我的小组', :controller => 'my', :action => 'groups'
+      = link_to salaries_path do
+        积分
+        = current_user.balance.credit rescue nil
+        - if current_user.salaries.unpaid.size > 0
+          = current_user.salaries.unpaid.size
+          项未领取工资
+      = link_to '退出', logout_path
+      %br>
+    - if logged_in?
+      - unc = current_user.notifications.unread.count
+      - if unc > 0
+        %p><= join_oneline( |
+             "!!!!!!", |
+             link_to("您有#{unc}条提醒", notifications_path) ) |
+        %br>
+    - unless flash.empty?
+      - flash.each do |key, msg|
+        %p><= "!!!!!!#{msg}"
+    %p
+      %big
+        = link_to "博聆bling",root_path
+        = link_to('全部', '/all')
+        - if @group and not @group.new_record?
+          =  '/'
+          = link_to(@group.name, articles_path(@group))
+          - if @article and not @article.new_record?
+            - y,m,d = @article.created_at.year,@article.created_at.month,@article.created_at.day
+            =  '/'
+            = link_to_unless_current(y, archive_path(:year => y))
+            =  '/'
+            = link_to_unless_current(m, archive_path(:year => y, :month => m))
+            =  '/'
+            = link_to_unless_current(d, archive_path(:year => y, :month => m, :day => d))
+        - if @user and not @user.new_record?
+          = '/'
+          = link_to_unless_current(@user.name, @user)
+        = yield :breadcrumbs
+
+      %br>
+      - if @group and not @group.new_record?
+        帖子
+        = @group.public_articles.size
+        = '.'
+        = link_to_unless_current( '最新', latest_group_articles_path(@group))
+        = '.'
+        = link_to_unless_current( '最热', hottest_group_articles_path(@group))
+        = '.'
+        = link_to_unless_current("发表", new_article_path(@group)) if logged_in?
+        ='|'
+        成员
+        =# link_to @group.memberships.size, group_memberships_path(@group)
+        - if logged_in?
+          - if current_user.is_member_of?(@group)
+            = link_to '退出小组', quit_group_path(@group), :class => "quit_group"
+          - else
+            = link_to '加入', join_group_path(@group), :class => "join_group"
+      - elsif @user
+      - elsif  ['articles','groups'].include?(controller_name)
+        = link_to_unless_current( '小组导航', groups_path)
+        |
+        = link_to_unless_current( '最新', latest_all_articles_path)
+        |
+        = link_to_unless_current( '最热', hottest_all_articles_path)
+        |
+        - if logged_in?
+          = link_to_unless_current("发表", new_all_article_path)
+        - else
+          = link_to_unless_current('登录', login_path)
+      = yield :nav
+
+
+    = content_for?(:main) ? (yield :main) : yield
+    %p
+      - unless controller_name == 'articles' and not @group and not @user
+        = link_to_unless_current( '小组导航', groups_path)
+        |
+        = link_to_unless_current( '最新', latest_all_articles_path)
+        |
+        = link_to_unless_current( '最热', hottest_all_articles_path)
+        |
+        = link_to("发表", new_all_article_path) if logged_in?
+    = join_oneline( |
+      link_to('问题反馈', articles_path('feedback')), |
+      '|', |
+      link_to('常见问题', articles_path('faq')), |
+      '<br/>', |
+      '&lt;极速版', |
+      '|', |
+      link_to('炫彩版', :host => 'm.bling0.com'), |
+      '&gt;', '<br/>',  Time.now.strftime("%m-%d %H:%M:%S")       ) |
+    = link_to '电器城618大促', 'http://r.m.taobao.com/m3?p=mm_10109371_4314397_14584413&c=1670', target: '_blank'
+    %img{:src=>img_for_google_analysis,:alt=>""}

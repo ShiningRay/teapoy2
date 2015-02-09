@@ -1,0 +1,37 @@
+-# coding: utf-8
+- id=article.id
+- top_post = article.top_post
+- group = @group || article.group
+- group_id = article.group_id
+- fullurl = group_article_url(article.group, article)
+- if top_post
+  - unless article.anonymous
+    - user = article.user
+    - if user
+      - if user.name?
+        = link_to user.name, user, :title => "@#{user.login}", :class => 'user'
+      - else
+        = link_to user.login, user, :title => "@#{user.login}", :class => 'user'
+    发布于
+    = link_to article.group.name, articles_url(article.group)
+    = article.created_at
+  .content= render_posts article.top_post
+  %hr/
+  %p
+    - if article.comment_status == 'closed'
+      禁止评论
+    - else
+      %a{:href=>group_article_url(article.group, article,
+        :anchor => "comments_#{article.id}"),
+        :id=>"c-#{article.id}"}= article.posts.size > 1 ? "#{article.posts.size-1}条评论" : "暂无评论"
+    |
+    本文链接：
+    = link_to h(fullurl), fullurl
+欢迎访问
+%a(href='http://www.bling0.com') 博聆Bling
+分享您的兴趣
+手机请访问
+%a(href='http://m.bling0.com') m.bling0.com
+纯文字版
+%a(href='http://wap.bling0.com') wap.bling0.com
+

@@ -1,0 +1,15 @@
+= jqm_header do
+  = jqm_menu_link
+  %h1 收件箱
+  = link_to '发小纸条', new_conversation_path, data: { icon: 'edit', iconpos: 'notext', rel: 'dialog' }
+
+%div( data-role='content' )
+  %ul.conversations-list( data-role='listview' data-inset='false' )
+    - for conversation in @conversations
+      %li.conversation(data-icon='false')
+        = link_to conversation do
+          = image_tag conversation.target.avatar.url(:thumb)
+          %h2= conversation.target.name_or_login
+          %p= conversation.last_content
+          - if conversation.unread_count > 0
+            .ui-li-count= conversation.unread_count

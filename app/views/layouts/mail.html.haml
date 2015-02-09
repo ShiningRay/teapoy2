@@ -1,0 +1,39 @@
+!!! 4
+%html
+  %head
+    %meta(http-equiv="Content-Type" content="text/html; charset=utf-8")
+    %title
+      = yield :title
+      |
+      博聆 Bling
+  %body{ :lang => 'en'}
+    %div{:style => "margin:0;padding:0"}
+      %table{:border => "0", :cellpadding => "40", :cellspacing => "0", :width => "98%"}
+        %tbody
+          %tr
+            %td{:bgcolor => "#f7f7f7", :style => "font-family:'lucida grande',tahoma,verdana,arial,sans-serif", :width => "100%"}
+              %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "620"}
+                %tbody
+                  %tr
+                    %td{:style => "background:#C2E2F2;color:#000000;font-weight:bold;font-family:'lucida grande',tahoma,verdana,arial,sans-serif;vertical-align:middle;padding:4px 8px;font-size:16px;text-align:left"}
+                      %span 博聆网
+                  %tr
+                    %td{:colspan => "2", :style => "border:2px solid #C2E2F2;font-family:'lucida grande',tahoma,verdana,arial,sans-serif;padding: 15px 15px 0px;font-size:12px;", :valign => "top"}
+                      %table{:width => "100%"}
+                        %tbody
+                          = yield
+                          %hr
+                          感谢您使用
+                          %a{:href => "http://www.bling0.com", :target => "_blank"} 博聆网
+                          %p
+                            博聆网--做一个有人情味的社区
+                  %tr
+                    %td{:colspan => "2", :style => "color:#999999;font-size:12px;font-family:'lucida grande',tahoma,verdana,arial,sans-serif"}
+                      这邮件由
+                      %a{:href => "mailto:admin@bling0.com", :target => "_blank"} admin@bling0.com
+                      发送，请不要直接回复
+                      %br
+                      %span 博聆网手机版地址：http://m.bling0.com
+                      %br
+                      %span 博聆网手机纯文字版地址：http://wap.bling0.com
+                    %td{:colspan => "2", :style => "color:#999999;padding:10px;font-size:12px;font-family:'lucida grande',tahoma,verdana,arial,sans-serif"}

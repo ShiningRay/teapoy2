@@ -1,0 +1,14 @@
+-# coding: utf-8
+- c = change_log
+- op = c.user
+- if c.changed_fields
+  - if change = c.changed_fields.delete(:group_id)
+    moved from #{Group.find(change[0]).name} to #{Group.find(change[1]).name}
+  - c.changed_fields.each do |field, change|
+    =# link_to op.name_or_login, op
+    changed
+    %span.field.value= field
+    from
+    %span.original.value= change[0]
+    to
+    %span.new.value= change[1]

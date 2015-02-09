@@ -1,0 +1,11 @@
+
+= link_to "返回文章#{@article.id}", group_article_path(@article.group,@article)
+= br
+
+回复
+=link_to @parent.user.login,user_path(@parent.user)
+的评论:
+
+=@parent.content
+= br
+= render 'form'

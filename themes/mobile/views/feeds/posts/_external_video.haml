@@ -1,0 +1,7 @@
+- v = external_video
+
+%embed{:src => v.video_flash_link, :width => 550, :height => 400}
+  %a{:href => article_url(v.article.group, v.article)} 看不到视频请点此
+
+= render :partial => 'posts/post', :object => v
+

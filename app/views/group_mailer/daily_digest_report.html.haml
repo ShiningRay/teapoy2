@@ -1,0 +1,42 @@
+%p
+  尊敬的
+  = @user.name_or_login
+  =':'
+-  if @articles.size == 0
+  %p
+    您所管理的“#{@group.name}”小组在#{@date.strftime("%Y-%m-%d")}一篇新文章也没有
+
+  %p 作为组长您要再接再厉啊！
+
+- else
+  %p
+    您所管理的“#{@group.name}”小组在#{@date.strftime("%y-%m-%d")}有#{ @articles.size }篇文章
+
+  - if @articles.pending.size > 0
+    %p
+      其中有
+      = link_to pending_group_articles_url(@group) do
+        #{@articles.pending.size}个新帖子等待审核
+
+  %ul
+    - @articles.each do |article|
+      %li
+        = link_to article_author(article), article.user
+        发表了
+        = link_to article_title(article), [@group, article]
+  - if @new_users_count > 0
+    %p
+      有#{@new_users_count}新用户加入
+      - if @new_pending_users_count > 0
+        其中有#{@new_pending_users_count}等待审核
+
+  %p
+    请及时与组员们互动哦～
+
+  %p
+    = link_to articles_url(@group) do
+      请点击小组链接查看&gt;&gt;
+  %p
+    如果不想再接受此类信息，
+    = link_to '请进入小组管理界面', edit_group_url(@group)
+    ，将“接受小组报表频率”改为“不接受”

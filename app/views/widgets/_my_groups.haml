@@ -1,0 +1,12 @@
+%h3 我的小组
+%ul
+  - mygroups = current_user.publications(Group)
+  - if mygroups.size == 0
+    您还没有加入任何小组，
+    = link_to "去小组导航看看吧", groups_path
+  - else
+    - mygroups.each do |g|
+      %li
+        = link_to articles_path(g) do
+          = g.name
+

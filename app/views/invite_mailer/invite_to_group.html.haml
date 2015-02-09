@@ -1,0 +1,4 @@
+%p
+  您的好友#{@inviter.name_or_login}邀请您加入圈子
+
+= link_to @group.name , signup_url(:group_id => @group.id,:user_id=>@inviter.id)

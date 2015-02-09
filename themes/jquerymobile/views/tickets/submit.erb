@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<!--
+      ::       :::::::     ::::::::    ::
+     ::                                 ::
+     ::     ::                          ::
+     ::      ::                         ::
+      ::        ::::::::::::::::       ::
+                                               -->
+  <title>审核新帖 :: 冇问题</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="description" content="<%= @title_description || "凡人的世界" -%>" />
+  <link rel="Shortcut Icon" type="image/x-icon" href="http://moumentei.com/favicon.ico" />
+
+<style type="text/css">
+    body {background: no-repeat scroll center top #252525; color:#BDE3EC}
+	#center-container  {width:auto;padding-left:25px}
+      #topbar {background-color:#252525;color:#ccc;border-bottom:1px solid #000}
+      a {
+      color: #ccc; text-decoration: underline;
+      }
+      a:hover {
+              background: #D7D7D7; color: #000
+      }
+      #toplogo a {
+      text-decoration:none; color:#ccc;
+      }
+      .qiushi_body2 {
+        width: 500px;background:#E8E7E3;border-color:#393636;
+border-style:solid;
+border-width:0 5px 5px 0;color:#000;padding:25px;font-size:14px
+      }
+      .tags a {text-decoration:none; color:#009900;font-weight:bold}
+      h4 {color:#fff;padding-top:40px;padding-bottom:40px;font-size:14px;line-height:120%;text-align:left;padding-left:8px;}
+      #container-foot {width: 100%;}
+      #footerline {
+      padding-right: 0; padding-left: 0; background: #000; padding-bottom: 0px; padding-top: 1px; text-align: left; margin-bottom: 8px;
+      }
+      #tickets {
+      height:auto;
+      line-height:100%;
+      padding:12px;
+      position:fixed!important;
+      position:absolute;
+      left:600px;
+      top:60px;
+      width:auto;
+      z-index:8765;}
+
+      .approve {background:none repeat scroll 0 0 #00CC00;text-align:left;
+      border:medium none;
+      color:#FFFFFF;
+      font:bold 14px verdana;
+      width:200px;
+      height:28px;
+      padding:0 8px;}
+      .kill {background:none repeat scroll 0 0 #663366;text-align:left;
+      border:medium none;
+      color:#FFFFFF;
+      font:bold 14px verdana;
+      width:200px;
+      height:28px;
+      padding:0 8px;}
+      .skip {background:none repeat scroll 0 0 #585858;text-align:left;
+      border:medium none;
+      color:#FFFFFF;
+      font:bold 14px verdana;
+      width:200px;
+      height:28px;
+      padding:0 8px;
+      }
+      .newsticker {
+	      list-style-type: none;
+	      padding: 3px;
+	      margin: 0;
+	      width: 550px;
+      }
+   .newsticker li{display:none}
+  </style>
+    <script type="text/javascript">
+    $(function(){
+    $('#hints').newsticker(10000);
+    });
+    </script>
+</head>
+
+<body>
+<div id="divFlashNumber" class="ad"></div>
+<div id="container">
+  <div id="topbar">
+    <div id="toplogo">冇问题&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://secret.moumentei.com/">秘密</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.qiushibaike.com/">糗事百科</a></div>
+    <%#= render :partial => 'users/user_bar'%>
+  </div>
+  <div id="center-container">
+  <p style="color:white">谢谢大家一直以来的支持！</p>
+    <p><%=flash[:notice]%></p>
+<% if @article %>
+<% article = @article %>
+    <%= link_to_unless article.status != 'publish', "##{article.id}", article_path(article.group,article)%> <%= link_to article.user.login, article.user unless article.anonymous? %>
+
+<% if article.status == 'publish' %>
++<%= article.pos_score %> <%= article.neg_score %> <%= article.public_comments_count %>条评论
+<% end %>
+<div class="qiushi_body2" id="article<%=article.id%>" title="<%= article.created_at.strftime("%Y.%m.%d %H:%M") %>/<%= article.updated_at.strftime("%Y.%m.%d %H:%M")%>">
+标题: <%= article.title%><br />
+内容：  <%=render_posts article.top_post%>
+</div>
+
+<p>还有<%= @rest_queue.size %>个待审
+  <a href="http://blog.moumentei.com/qiushibaike/audit-standards" target="_blank">审核标准</a>
+</p>
+<% else %>
+暂时没有新帖需要审核。感谢您的辛勤劳动，我们已将您的人品+1。<br />
+<b>黑衣大葛格</b>
+<% end %>
+  <ul id="hints" class='newsticker'>
+    <li>如果您觉得这篇贴子挺有意思，而且也没有出现以下一些问题，那么就请让它通过并且投上一票赞成票吧。</li>
+    <li>如果并没有出现以上情况，但是无论如何您都觉得阅读这篇糗事感到吃力（可能由于排但零乱、无意义符号过多或其他原因），即可界定为阅读困难。</li>
+    <li>（无关糗事内容的格式规范）和糗事无关的内容（包括CNT、求码、求人品之类的内容）请写在糗事结尾部分后，并且和糗事之间用分割线分开。</li>
+    <li>（分割线格式规范）分割线必须单独一行出现。分割线使用连续的“-”或“=”来分割，不允许使用其它符号作为分割线，也不允许在分割线中穿插各种文字内容。</li>
+    <li>（合辑规范）不同的糗事内容请勿发在同一篇文章中，如的确是相关糗事，可以在糗事结尾部分后附带其他糗事的链接，并且和糗事之间用分割线分开。如果需要其它糗事作为背景的，可以在交待背景时附上糗事链接。</li>
+    <li>在帖子中不允许出现任何给出明确的文字形式的网站链接内容，即可界定为广告贴。对于内容不错的图片，如果图片中如出现网站链接，可以酌情放宽标准。</li>
+    <li>将涉及具体商品、品牌、网站名的内容删除后不影响糗事的理解，则可认为该贴为广告贴。</li>
+    <li>如果您曾经在其他地方发现看过相同或明显相似的内容，而文章中没有注明转载的，即可界定为我以前看过。</li>
+    <li>如果您曾经在本站看过相同或明显相似的内容，或者通过搜索发现相同或类似内容，即可界定为我以前看过。</li>
+    <li>内容污秽不堪的粗口，对于他人缺陷、隐私的嘲笑等内容，让您感觉到不适即可界定为低俗 或 色情 或 恶心。</li>
+    <li>凡涉及到生殖器官、性、伦理方面并且引起您任何不适感觉的内容即可界定为低俗 或 色情 或 恶心。</li>
+    <li>涉及到排泄物、女性生理期、侮辱、谩骂等其他让您感到不适的内容可以界定为低俗 或 色情 或 恶心</li>
+    <li>凡是违反国家法律法规的内容，都可以界定为有政治风险。</li>
+    <li>涉及到国家、党派、民族、政府、规章制度、领导人以及宗教的内容，如果出现有破坏国家、党派、政府及领导人荣誉或形象的内容，即可界定为有政治风险。</li>
+    <li>涉及时政新闻的，过多的宣传以及不够恰当地影射政治事件，即可界定为有政治风险。</li>
+    <li>事情我是看懂了，但是我的嘴角就是没有一点点地上扬，笑点在哪？即可界定为不好笑 或 虚假。</li>
+    <li>文章看到结束没能明白具体说的什么事情，即可界定为没看懂 或 无意义 或 不是糗事。</li>
+    <li>一堆没有意义的字母、数字和文字的堆砌，即可界定为没看懂 或 无意义 或 不是糗事。</li>
+    <li>求码、放码、求人品贴，以及回忆录之类的不能算糗事的事情，即可界定为没看懂 或 无意义 或 不是糗事。</li>
+    <li>如果您真不确定这个事情能不能通过，那么就请跳过吧。</li>
+    </ul>
+
+</div>
+
+</div><!-- container -->
+
+<div id="tickets">
+<% if @ticket %>
+  <%= form_for @ticket do |f| %>
+  <%= f.hidden_field :article_id %>
+  <%= f.hidden_field :ticket_type_id, :value => 0 %>
+  <%= f.hidden_field :viewed_at %>
+  <% TicketType.all.each do |t| %>
+    <input type="button" class="<%= t.weight > 0 ? 'approve': 'kill' %>" value="<%= t.name %>" title="<%=t.description%>" onclick="this.form['ticket[ticket_type_id]'].value=<%=t.id%>;this.form.submit()" />
+    <!-- <strong>X <%#@tickets[t.id].to_i%></strong>-->
+    <br/>
+    <br/>
+  <% end %>
+  <label><%= f.submit '跳过', :class => 'skip' %></label>
+  <% end %>
+<% end %>
+  <br/>
+  </div>
+</body>
+</html>

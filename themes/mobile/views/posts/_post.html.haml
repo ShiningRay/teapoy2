@@ -1,0 +1,8 @@
+- plain_text = post.plain_text
+- plain_text_size = post.plain_text.mb_chars.size
+- if @list_view && plain_text_size > 500
+  = plain_text.mb_chars[0, 150]
+  = link_to "(剩余#{plain_text_size-150}字)", article_path(post.group||post.article.group, post.article,:read=>"full"), :class => 'more'
+- else
+  = post_content post
+

@@ -1,0 +1,82 @@
+!!!
+-ie_html :class => 'no-js', :xmlns => "http://www.w3.org/1999/xhtml" do
+  %head
+    %meta{:charset => "utf-8" }/
+    %link(rel="profile" href="http://microformats.org/profile/hcard")
+    %title
+      = @title_name
+      = yield :title
+      \::
+      = @group.try(:name)
+      \::
+      博聆
+    %meta{:content => "IE=edge,chrome=1", "http-equiv" => "X-UA-Compatible" }/
+    %meta{:content => "True", :name => "HandheldFriendly"}/
+    %meta{:content => @title_description || "快乐就是要建立在别人的痛苦之上", :name => "description"}/
+    %link{:href => "http://www.qiushibaike.com/favicon.ico", :rel => "Shortcut Icon", :type => "image/x-icon"}/
+    = stylesheet_link_tag current_theme_stylesheet_path('qiushi')
+    = stylesheet_link_tag current_theme_stylesheet_path('colorbox')
+
+    = javascript_include_tag 'modernizr.min.js'
+    = csrf_meta_tag
+    - if logged_in?
+      :javascript
+        var currentUser = #{current_user.to_json};
+    - else
+      :javascript
+        var currentUser = false;
+  %body
+    = render 'header'
+    #container
+      #center-container
+        #header
+          - if @group
+            = link_to image_tag( @group.icon.url(:small), :alt => ''), articles_path(@group), :class => 'logo'
+            %h1
+              = link_to @group.name, articles_path(@group)
+            %h2= h @group.description
+            #container-nav
+              = render 'articles/hottest_nav'
+          / container-nav
+          %center
+            :plain
+              <script type="text/javascript"><!--
+              google_ad_client = "ca-pub-8174826747566365";
+              /* qiushi_top */
+              google_ad_slot = "2985310522";
+              google_ad_width = 468;
+              google_ad_height = 60;
+              //-->
+              </script>
+              <script type="text/javascript"
+              src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+              </script>
+        = yield
+      #bottom_space
+        #bottom_text
+          #bottom_col3
+        #copy
+      / container
+      #report-form(style="display:none")
+        %form{:action => "/comments/report", :method => "post"}
+          请选择理由
+          %input{:name => "comment_id", :type => "hidden", :value => ""}/
+          %p
+            %label
+              %input{:name => "reason", :type => "radio", :value => "abusive"}>/
+              侮辱、漫骂
+          %p
+            %label
+              %input{:name => "reason", :type => "radio", :value => "porn"}>/
+              色情
+          %p
+            %label
+              %input{:name => "reason", :type => "radio", :value => "spam"}>/
+              垃圾广告
+          %input{:type => "submit", :value => "举报"}/
+          %input#close-form{:type => "button", :value => "关闭"}/
+      =# production_partial 'common/analytics'
+    = javascript_include_tag 'plugins'
+    = javascript_include_tag current_theme_javascript_path( 'qiushi')
+    = production_partial 'google_analytics'
+    = production_partial 'baidu_tongji'

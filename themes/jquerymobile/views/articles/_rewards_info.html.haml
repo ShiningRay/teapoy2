@@ -1,0 +1,13 @@
+%h4
+  - if @article.top_post.rewarders.exists?
+    收到了来自 #{@article.top_post.rewarders.count}个用户的 #{@article.top_post.total_rewards} 积分打赏
+  - else
+    尚无打赏
+= render 'rewarders'
+- if logged_in? && @article.top_post.rewarders != current_user
+  - reward = @article.top_post.new_reward
+  = form_for [@group, @article, reward], remote: true do |f|
+    .ui-field-contain
+      %fieldset(data-role="controlgroup" data-type="horizontal" data-mini="true")
+      = f.text_field :amount, :placeholder => 10, :'data-mini' => true
+      = f.submit '打赏'

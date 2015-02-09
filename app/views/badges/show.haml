@@ -1,0 +1,12 @@
+- content_for :title, @badge.title
+%div{:style => "float:left;"}
+  = image_tag @badge.icon(:medium),:alt=>"#{h @badge.name}"
+%h2= h @badge.title
+%p
+  = h @badge.description
+%hr/
+%h3
+  共有#{@badge.users.size}人获得此称号 ，排名不分先后
+%ul
+  - for u in @badge.users
+    = render :partial => 'users/person', :object => u

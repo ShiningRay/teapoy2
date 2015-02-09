@@ -1,0 +1,15 @@
+- content_for :title, " | #{@group.try(:name)}"
+!!! 5
+-ie_html :class => 'no-js' do
+  = render 'head'
+  %body
+    = render 'navbar'
+    .container
+      .row
+        %h1#logo= link_to @group.name, articles_path(@group) if @group
+        .span8.offset2
+          = content_for?(:main) ? (yield :main) : yield
+    %footer#footer
+      = render 'footer'
+    = render 'javascripts'
+    = javascript_include_tag current_theme_javascript_path('goodnight')

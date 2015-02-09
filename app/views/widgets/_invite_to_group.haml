@@ -1,0 +1,9 @@
+-if logged_in?
+  .sect
+    %h2 邀请朋友注册并加入此小组
+    %p 把下面的网址通过MSN/QQ发送给朋友
+    %p
+      %textarea#invite-url.auto-select{ :name => "invite-url", :readonly => "readonly"}
+        ="http://www.bling0.com/signup?invite=#{current_user.login}&group=#{@group.alias}"
+    %p.formtip 朋友注册后会自动关注你
+    %p.formtip 邀请一个用户将会获得50积分

@@ -1,0 +1,54 @@
+= form_for ['admin', @group], :html => {:class => ''} do |f|
+  = @group.errors.full_messages
+  = f.label :name, t("Name")
+  = f.text_field :name
+  %label 组长大人的id
+  = f.text_field :owner_id
+  = link_to @group.owner.login, [:admin, @group.owner] if @group.owner
+  = f.label :description, '描述'
+  = f.text_area :description
+  = f.label :alias
+  = f.text_field :alias
+  = f.label :theme
+  = f.text_field :theme
+  = f.text_field :domain
+  = image_tag @group.icon.url if @group.icon.file?
+  %label 图标：
+  \#{f.file_field :icon}
+  %label 特色小组：
+  \#{f.text_field :feature}
+  = f.label :status
+  = f.select :status,{"通过" => "open", "不通过" => "pending"}
+  %label.checkbox
+    = f.check_box :private
+    私人小组
+  %fieldset
+    %legend 'options'
+    %label.checkbox
+      = f.check_box :hide
+      不允许出现在列表中
+    = options_check_box_for_preference @group, 'only_member_can_view', '只有成员可以浏览'
+    = options_check_box_for_preference @group, 'only_member_can_reply', '仅成员可回复'
+    = options_check_box_for_preference @group, 'only_member_can_post', '仅成员可发贴'
+    = options_check_box_for_preference @group, 'articles_need_approval', '文章必须经过审核'
+    = options_check_box_for_preference @group, 'comments_need_approval', '评论必须经过审核'
+    = options_check_box_for_preference @group, 'membership_need_approval', '加入小组需要审核'
+    = options_check_box_for_preference @group, 'guest_can_post', '游客可以发帖'
+    = options_check_box_for_preference @group, 'guest_can_reply', '游客可以回帖'
+
+    / %label css name:
+    / \#{f.text_field :preferred_css}
+    / %label seo_keywords:
+    / \#{f.text_field :preferred_seo_keywords}
+    / %label seo_description:
+    / \#{f.text_field :preferred_seo_description}
+    / %label background:
+    / = f.text_field :preferred_background
+    / %label background style(repeat or center):
+    / = f.text_field :preferred_background_style
+    / %label 标签:
+    / \#{f.text_field :tag_list}
+  .form-actions
+    = f.submit '更新', :class => 'btn btn-primary'
+    = link_to t('Back'), admin_groups_path, :class => 'btn'
+    = link_to t('Delete'), admin_group_path(@group), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-danger pull-right' unless @group.new_record?

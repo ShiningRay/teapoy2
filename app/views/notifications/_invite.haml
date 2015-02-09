@@ -1,0 +1,7 @@
+
+= invite.actors.collect{|c| c.name_or_login}.join(',').html_safe
+
+邀请你加入小组
+= link_to group.name, group
+
+= link_to '接受', join_group_path(group)

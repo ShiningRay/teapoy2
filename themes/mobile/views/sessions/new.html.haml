@@ -1,0 +1,31 @@
+- content_for :breadcrumbs do
+  = '/'
+  登录
+=form_tag session_path do
+  .bling_login
+    %br
+    %label{:for=>"password"}
+      用户名或邮箱:(
+      =link_to "还没注册？", signup_path
+      )
+    %br
+    =text_field_tag 'user_session[login]', nil, :tabindex => 1
+    %br
+    %label{:for=>"password"}
+      密码：
+      (
+      =link_to "忘记密码？", new_password_reset_path
+      )
+    %br
+    =password_field_tag 'user_session[password]', nil, :tabindex => 2
+    %br
+    - if ( @msg || flash[:notice] )
+      %span{:color=>"red"}
+        ( @msg || flash[:notice] )
+    %br
+    =check_box_tag 'user_session[remember_me]', '1', @remember_me
+    %label
+      记住我
+    %br
+    %input{:name=>"commit",:type=>"submit", :value=>"登录", :tabindex=>"3"}
+

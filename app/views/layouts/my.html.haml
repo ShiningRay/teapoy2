@@ -1,0 +1,53 @@
+-content_for :javascripts do
+  = javascript_include_tag '/javascripts/swfobject'
+- content_for :header do
+  #top
+    #top_area
+      #logo
+        %a.discovery{:href => "/my/latest", :title => ""}
+      %ul.nav
+        %li{:class => ((action_name == 'latest'||action_name=='inbox') && 'current')}
+          = link_to '未读文章', '/my/latest'
+        %li{:class => (action_name == 'index' && 'current')}
+          = link_to '随便看看', '/all'
+        %li{:class => (action_name == 'liked' && 'current')}
+          = link_to '小组导航', '/groups'
+        %li= link_to '我的文章', user_articles_path(current_user)
+        -if current_user
+          %li.user-name
+            %a.user-name{:href=>"users/#{current_user.login}"}
+              =current_user.name
+          %li.user-balance
+            = link_to salaries_path, :id => 'salary', :class => 'salary' do
+              = image_tag asset_path('coins.gif')
+              = current_user.balance.credit
+              - if current_user.salaries.unpaid.size > 0
+                %sup{:title => "#{current_user.salaries.unpaid.size}项工资未领取"}
+                  (
+                  = current_user.salaries.unpaid.size
+                  )
+      - if logged_in?
+        .actions
+          %ul.action-list
+            %li.messages
+              = link_to '', inbox_messages_path,:title=>"小纸条"
+            %li.settings
+              = link_to '', edit_user_path(current_user),:title=>"设置"
+            %li.logout
+              = link_to '', logout_path,:title=>"退出"
+- content_for :before_content do
+  .user-avatar
+    =image_tag current_user.avatar.url("small"), :alt => "#{current_user.name_or_login}", :class => 'avatar'
+  .arraw-a.arraw
+  .new-article
+    %ul
+      %li.first
+        %a.post{:href=>"/articles/new?type=post",:title=>"文章"}
+      %li.second
+        %a.pic{:href=>"/articles/new?type=picture",:title=>"图片"}
+      %li.third
+        %a.video{:href=>"/articles/new?type=externalvideo",:title=>"视频"}
+      %li.forth
+        %a.poll{:href=>"/articles/new?type=poll",:title=>"投票"}
+  .open-form
+= render :template => 'layouts/tailake'

@@ -1,0 +1,20 @@
+
+%h2
+  尊敬的
+  = @user.name_or_login
+  ：
+
+%p 您收到了一条新的通知如下
+
+%blockquote= render_notification @notification
+- c = @user.notifications.unread.count
+= link_to notifications_url do
+  点击查看全部
+  = c == 0 ? '' : "#{c}条"
+  通知
+
+%p
+  您可以点击
+  =link_to "此处", edit_user_url(@user)
+  修改，决定是否要接收新通知提醒邮件
+

@@ -1,0 +1,15 @@
+- if params[:action] == 'tag'
+  #sub-nav.ad
+    您正在浏览：关于
+    %strong{:style => "color:#5BBA56"}>= @current_tag
+    的糗事
+- if params[:action] == 'search'
+  #sub-nav.ad
+    搜索
+    %b= params[:term]
+    获得约
+    %b= @articles.total_entries
+    条结果
+.hfeed
+  = render(:partial => "/articles/article",:collection=>@articles.reject{|a|a.top_post.nil?})
+  = paginate @articles

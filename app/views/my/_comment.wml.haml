@@ -1,0 +1,17 @@
+="#{comment.floor}L:"
+- if comment.status == 'deleted'
+  已被删除
+- else
+  - if comment.anonymous
+    [匿名人士]
+  - else
+    = link_to comment.user.name_or_login, comment.user
+  - if comment.score != 0
+    - s = comment.score > 0 ? "+#{comment.score}" : comment.score.to_s
+    = "(#{s})"
+  =":"
+  = render_posts comment
+  %br>
+
+  %a{:href=>new__article_comment_path(comment.group||comment.article.group,comment.article, :parent_id=>comment.floor)} 回复
+  %br>

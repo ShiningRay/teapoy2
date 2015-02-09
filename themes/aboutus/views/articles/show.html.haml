@@ -1,0 +1,5 @@
+- content_for :title, "#{article_title} - #{@group.name}"
+- if @article
+  = render(:partial => @article )
+- content_for :sidebar do
+  = render :partial => 'groups/sidebar'

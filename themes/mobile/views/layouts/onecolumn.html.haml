@@ -1,0 +1,100 @@
+!!! Mobile
+%html><
+  %head><
+    %meta(http-equiv="Content-Type" content="text/html; charset=utf-8")
+    %title><= join_oneline(yield( :title), '| 博聆 Bling')
+    %meta(name="HandheldFriendly" content="True")><
+    %link{ :href => "/apple-touch-icon.png", :rel => "apple-touch-icon" }><
+    -#<meta name="description" content="快乐就是要建立在别人的痛苦之上"/>
+    -#<link rel="Shortcut Icon" type="image/x-icon" href="http://www.qiushibaike.com/favicon.ico"/>
+    %meta(content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=2.0" name="viewport")><
+    %meta(name="MobileOptimized" content="320")><
+    %meta(name="format-detection" content="telephone=no")><
+    = stylesheet_link_tag 'mobile_old'
+    %style><
+      = 'body{font-size:0.85em}' if cookies[:fontsize] == 'small'
+      = 'body{font-size:1.2em}' if cookies[:fontsize] == 'large'
+  %body><
+    #logo><
+      = link_to('全部', '/all')
+      - if @group and not @group.new_record?
+        =  '/'
+        = link_to(@group.name, @group)
+        - if @article and not @article.new_record?
+          - y,m,d = @article.created_at.year,@article.created_at.month,@article.created_at.day
+          =  '/'
+          = link_to_unless_current(y, archive_path(:year => y))
+          =  '/'
+          = link_to_unless_current(m, archive_path(:year => y, :month => m))
+          =  '/'
+          = link_to_unless_current(d, archive_path(:year => y, :month => m, :day => d))
+      - if @user and not @user.new_record?
+        = '/'
+        = link_to_unless_current(@user.name, @user)
+      = yield :breadcrumbs
+    .main-nav><
+      - if @group and not @group.new_record?
+        = link_to_unless_current( '最新', latest_group_articles_path(@group))
+        = '.'
+        = link_to_unless_current( '最热', hottest_group_articles_path(@group))
+        = '.'
+        = link_to_unless_current("发表", new_article_path(@group)) if logged_in?
+      - elsif @user
+      - elsif controller_name == 'articles'
+        = link_to_unless_current( '小组导航', groups_path)
+        |
+        = link_to_unless_current( '最新', latest_all_articles_path)
+        |
+        = link_to_unless_current( '最热', hottest_all_articles_path)
+        |
+        - if logged_in?
+          = link_to_unless_current("发表", '/articles/new')
+        - else
+          = link_to_unless_current('登录', login_path)
+      = yield :nav
+    #main><
+      - if logged_in?
+        - unc = current_user.notifications.unread.count
+        - if unc > 0
+          .notice><= link_to "您有#{unc}条提醒", notifications_path
+      = render_flash
+      = content_for?(:main) ? (yield :main) : yield
+
+    .footer><
+      - unless controller_name == 'articles' and not @group and not @user
+        %p
+          = link_to( '小组导航', groups_path)
+          |
+          = link_to( '全部最新', latest_all_articles_path)
+          |
+          = link_to( '最热', hottest_all_articles_path)
+          |
+          = link_to("发表", '/articles/new') if logged_in?
+      = render 'user_actions' if logged_in?
+      %p><
+        %a{:href=>'#logo'}>< 回到顶部
+        = precede '|' do
+          = link_to '问题反馈', articles_path('feedback')
+        = precede '|' do
+          = link_to '常见问题', articles_path('faq')
+      %p><
+        &lt;
+        - if Rails.env.production?
+          = link_to '极速版', :host => 'wap.bling0.com'
+        - else
+          = link_to '极速版', :wap => 1
+        | 炫彩版 &gt;
+      %p><
+        字体选择
+        = link_to_unless (cookies[:fontsize] == 'small'), '小', { :fontsize => 'small'}
+        = link_to_unless (cookies[:fontsize].blank? or cookies[:fontsize] == 'normal'), '中', {:fontsize => 'normal'}
+        = link_to_unless (cookies[:fontsize] == 'large'), '大', :fontsize => 'large'
+      %p><
+        = link_to_unless (cookies[:pic]=='show'), '有图', {:pic => 'show'}
+        = link_to_unless (!cookies[:pic] || cookies[:pic]=='hide'), '无图', {:pic => 'hide'}
+      %p><
+        = Time.now.strftime("%m-%d %H:%M:%S")
+      %p.version><
+        &copy; 2011 博聆网
+    -# = production_partial 'google_analytics'
+    =# production_partial 'baidu_tongji'

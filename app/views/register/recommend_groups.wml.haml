@@ -1,0 +1,34 @@
+- content_for :title, '确认您的唯一ID'
+%p
+  %fieldset
+    加入小组
+    %br
+    加入小组后，您可以收到所加入小组的更新
+    %br
+    推荐小组
+    %br
+    - @groups.each_with_index do |group,index|
+      =group.name
+      %br
+      (
+      =group.description
+      )
+      %br
+      %select(name="group_ids#{index}" title="Vote" default="#{group.id}" )><
+        %option(value="#{group.id}")><  加入
+        %option(value="")><  不加入
+      %br
+
+%anchor
+  加入小组
+
+  %go{:href=>"/register/recommend_groups", :method=>"post"}
+    %postfield{:value=>"✓",:name=>"utf8"}
+    %postfield{:value=>"#{form_authenticity_token}",:name=>"authenticity_token"}
+    %postfield{:value=>"$group_ids0",:name=>"group_ids[0]"}
+    %postfield{:value=>"$group_ids1",:name=>"group_ids[1]"}
+    %postfield{:value=>"$group_ids2",:name=>"group_ids[2]"}
+    %postfield{:value=>"$group_ids3",:name=>"group_ids[3]"}
+    %postfield{:value=>"$group_ids4",:name=>"group_ids[4]"}
+
+=link_to '跳过', :controller => :register, :action => 'complete'

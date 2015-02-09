@@ -1,0 +1,11 @@
+= form_tag "/admin/emails/create",:method => :post do
+  =select_tag :group_id, options_from_collection_for_select(Group.all, "alias", "name"), :include_blank => true
+  %br
+  = text_field_tag "title"
+  = text_area_tag "content",nil, :rows => 60, :cols => 60
+  = submit_tag "create"
+- content_for :javascripts do
+  = javascript_include_tag 'http://js.nicedit.com/nicEdit-latest.js'
+
+  :javascript
+    bkLib.onDomLoaded(nicEditors.allTextAreas);

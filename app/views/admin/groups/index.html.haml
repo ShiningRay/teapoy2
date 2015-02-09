@@ -1,0 +1,30 @@
+- title :page_title=>t("Group")
+= link_to t('New_Category'), new_admin_group_path , :class => 'btn'
+%table.table
+  %tr
+    %th ID
+    %th alias
+    %th name
+  - for c in @groups
+    %tr
+      %td
+        = c.id
+      %td
+        = c.alias
+      %td
+        = link_to c.name,admin_group_path(c)
+        = link_to "edit", edit_admin_group_path(c)
+      %td
+        feature : #{c.feature}
+      %td
+        hide : #{c.hide}
+      %td
+        private : #{c.read_attribute("private")}
+
+
+%form.form-inline{:action=> merge_admin_groups_path}
+  %label 从
+  %input.input-small{:name => "from_id", :size => "6"}/
+  %label 到
+  %input.input-small{:name => "to_id", :size => "6"}/
+  %input.btn{:type => "submit", :value => "合并"}/

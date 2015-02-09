@@ -1,0 +1,1 @@
+$('#<%= params[:anchor] %>').before("<%= j render(@articles.reject{|a|a.top_post.nil?}) %>")

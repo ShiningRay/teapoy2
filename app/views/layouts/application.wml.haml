@@ -1,0 +1,4 @@
+- content_for :main do
+  = render 'sidebar' rescue nil
+  = yield
+= render :template => 'layouts/onecolumn'

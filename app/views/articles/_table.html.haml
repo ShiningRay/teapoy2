@@ -1,0 +1,12 @@
+%table.articles-table
+  %thead
+    %th 标题
+    %th 小组
+    %th 作者
+    %th 回复数
+    %th 最后更新时间
+    /%th 最后回复人
+  %tbody
+    = render :partial => 'articles/table_row', :collection => table
+  %tfooter
+

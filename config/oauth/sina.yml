@@ -1,0 +1,10 @@
+development:
+  key:    "3930127042"
+  secret: "99f72cbd93afa422900e240b54d8c6f9"
+  url:    "http://localhost:3000"
+  callback: "http://localhost:3000/syncs/sina/callback"
+production:
+  key:    "1898592352"
+  secret: "1cf8056abde9b4dcb97f7bfa6bae74a5"
+  url:    "http://www.bling0.com"
+  callback: "http://www.bling0.com/syncs/sina/callback"

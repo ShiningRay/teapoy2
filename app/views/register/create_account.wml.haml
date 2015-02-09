@@ -1,0 +1,43 @@
+- content_for :breadcrumbs do
+  = '/'
+  注册
+- if @user and !@user.errors.empty?
+  - @user.errors.each do |attr, err|
+    %p=err
+%p
+  %fieldset
+    用户名(必填)
+    %br
+    %input(type="text" name="name" size="16" maxlength="15" value="#{@user.name}")
+    %br
+    昵称是您想展示给网友的名字。名字中不可加入@、&amp;、‘、&lt;、或&gt;符号，不可在开头和结尾使用空格或缩格，最多10个字符
+  %fieldset
+    邮箱(必填)
+    %br
+    %input(type="text" name="email" size="16" maxlength="50" value="#{@user.email}")
+    %br
+    仅用来与您联系, 绝不公开
+  %fieldset
+    密码
+    %br
+    %input(type="password" name="password" size="16")
+    %br
+    重复密码
+    %br
+    %input(type="password" name="password_confirmation" size="16")
+  %fieldset
+    验证码(不区分大小写)
+    %br
+    %input(type="text" name="captcha" size="16")
+    %br
+    -#=show_simple_captcha_for_wml
+  %anchor
+    注册
+    %go{:href=>register_path, :method=>"post"}
+      %postfield{:value=>"✓",:name=>"utf8"}
+      %postfield{:value=>"#{form_authenticity_token}",:name=>"authenticity_token"}
+      %postfield{:value=>"$email",:name=>"user[email]"}
+      %postfield{:value=>"$name",:name=>"user[name]"}
+
+      %postfield(value='$password' name='user[password]')
+      %postfield(value='$password_confirmation' name='user[password_confirmation]')

@@ -1,0 +1,33 @@
+= jqm_header do
+  = jqm_back_link_to conversations_path
+  %h1= @conversation.target.name_or_login
+  = link_to "其他", "\##{dom_id(@conversation, :option)}", data: {rel: 'popup', icon: 'gear', iconpos: 'notext'}
+
+%div#single_conversation( data-role='content' )
+  .msg_box
+    = render @messages.reverse
+
+%div(data-role="footer" data-position="fixed")
+  %form(action="#{messages_path(format: :js)}" data-remote="true" method='post')
+    %input(type='hidden' name='message[recipient_id]' value="#{@conversation.target_id}")
+    %button.send-message(data-icon='arrow-r' data-iconpos='notext' style='float:right') 发送
+    %textarea#message_content(name='message[content]' style='width:80%' data-clear-btn="true")
+
+%div{id: dom_id(@conversation, :option), data: {role: 'popup'}}
+  %ul{data: {role: 'listview'}, style: 'min-width: 210px'}
+    %li= link_to '删除整个对话', @conversation, method: :delete, remote: true
+
+:javascript
+  $(document).one('pageshow', function(){
+    $.mobile.silentScroll($(document).height());
+  })
+  window.poller = new Puller('#{conversation_messages_path(@conversation)}',8000);
+  $(document).one('pageshow', function(){
+    console.log('init')
+    window.poller.start();
+    $(document).one('pagebeforehide', function(){
+      console.log('stop');
+      window.poller.stop();
+      window.poller = null;
+    })
+  })

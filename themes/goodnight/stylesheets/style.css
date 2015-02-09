@@ -1,0 +1,129 @@
+/* For modern browsers */
+.cf:before,
+.cf:after {
+    content:"";
+    display:table;
+}
+
+.cf:after {
+    clear:both;
+}
+
+/* For IE 6/7 (trigger hasLayout) */
+.cf {
+    *zoom:1;
+}
+
+body {
+  background:rgb(18,30,49) url(img/bg.jpg) fixed;
+
+  color: rgb(138,166,193);
+  padding-top: 40px;
+}
+a:link {
+  color: white;
+}
+
+#logo {
+  width:623px;
+  height:140px;
+  margin-left:180px;
+  background: url(img/logo.png) no-repeat;
+  text-align: center;
+  margin-bottom: 20px;
+}
+#logo a {
+  display:block;
+  width:623px;
+  height:140px;
+  font-size: 0;
+  text-indent:-999px;
+
+}
+
+h1, h2 {
+  color: rgb(248,187,0);
+}
+#new_article #article_content {
+  height: 40px;
+}
+#new_article #article_content:focus, #new_article #article_content.focus {
+  background-color:#F0F0D4;
+}
+.hentry {
+  border: 1px solid black;
+  padding: 20px;
+  border-radius: 4px;
+  background-color: rgb(18,30,49);
+  margin: 20px 0;
+}
+.hentry .entry-title {
+  text-align:center;
+  font-size: 18px;
+  font-weight: normal;
+  background:transparent url(img/titlebg.png) no-repeat center center;
+  padding: 0 70px;
+}
+.hentry .entry-content {
+  font-size: 16px;
+  line-height: 1.5em;
+}
+.hentry .entry-content p {
+  margin: 0.5em 0;
+}
+.user-avatar, .user-details {
+  float: left;
+}
+.hentry .meta {
+  list-style: none;
+  margin:auto;
+  clear:both;
+  text-align: center;
+}
+.hentry .meta li {
+  display: inline-block;
+}
+#tabs{
+  text-align:center;
+  margin:auto;
+}
+ul.comment-list {  margin: 0; border-top: 2px solid #999; margin-top: 10px; padding-top: 10px;}
+.comment {  list-style: none;  clear:both; border-bottom: 1px dotted #475979;
+padding: 7px 0;}
+.comment .name {  float:left;  margin-right: 10px;}
+.comment .body {  float:left;}
+.comment .body p { margin: 0;}
+.comment .floor {  float:right;}
+.comment .operator { display:block; visibility:hidden; float:right;}
+.comment:hover .operator { visibility:visible;}
+.comment .avatar img {width:16px;height:16px;vertical-align: top;}
+.comment-form { clear: both; margin-top: 10px;}
+nav.sibling .previous {  float: left;}
+nav.sibling .next {  float: right;}
+nav.pagination ul {width: 100%;}
+nav.pagination .previous {  float: left;}
+nav.pagination .next {  float: right;}
+.tip-twitter .tip-inner img {
+  width:64px;
+  height:64px;
+}
+.tip-twitter .tip-inner .icon {
+  float:left;
+  margin-right:5px;
+}
+.tip-twitter .tip-inner .detail {
+  float:left;
+}
+ul.nav li span{
+  display: none;
+}
+ul.level-2{
+  display: none;
+}
+#calendar{
+  margin-left: 230px;
+}
+#sub-nav.ad{
+  margin-left: 180px;
+}
+

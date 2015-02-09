@@ -1,0 +1,39 @@
+- content_for :title, '完成注册'
+
+%p
+  恭喜您已经完成了注册!
+%p
+  我们已向您的邮箱
+  %span.email= @user.email
+  发送了认证邮件，请使用其中的链接激活您的账号
+  %br/
+  如果您无法收到认证邮件，您可以通过注册邮箱向我们的认证邮箱 <a href="mailto:auth@bling0.com">auth@bling0.com</a> 发送一封标题为您用户名的邮件，我们会自动帮您激活账号
+%p
+  快去
+  = link_to '新人板块', '/groups/non'
+  报个道吧
+%p
+  去
+  = link_to '自己的页面', :controller => 'my', :action => 'latest'
+  看看
+
+.how-to-play
+  %p
+    %img{:src=>"/assets/tailake/important.png",:alt=>"朴素的说明"}
+    %span.important
+      朴素的说明：
+  %span
+    博聆网由创立于2011年7月，是一个有人情味的<strong>轻论坛</strong>社区。
+  %p
+    %span
+      和普通论坛不一样的是：
+  %ul
+    %li
+      %span
+        普通论坛的板块是固定的，在博聆网，你可以建立自己的板块
+    %li
+      %span
+        普通论坛以最后回贴时间为排序手段，博聆网增加了质量排序，可以让质量高的帖子排名靠前
+    %li
+      %span
+        普通论坛需要用户一个版面一个版面去扫，在博聆网的个人主页，你可以看到你所加入的板块所有更新的帖子，而且可以按照帖子质量和时间来排序

@@ -1,0 +1,65 @@
+@import "compass/css3/text-shadow";
+@import "compass/typography/lists/horizontal-list";
+#footer {
+  clear: both;
+  margin-top: 44px;
+  overflow: hidden;
+  padding: 10px 0 10px;
+  text-align: left;
+  ul {
+    @include horizontal-list();
+    float: right;
+    li {
+      margin-right: 5px;
+      padding: 0 23px 0 13px;
+      background: url('diamond-black.gif') 100% 50% no-repeat;
+      &:last-child, &.last {
+        background: none;
+      }
+    }
+  }
+
+  h1, a {
+    @include single-text-shadow(white, 1px, 1px);
+  }
+
+  a {
+    color: #1E598E;
+    text-decoration: none;
+    &:hover {
+      background-image: none;
+      background-color: transparent;
+      text-decoration: underline;
+    }
+  }
+  p, small {
+    color: #666;
+    line-height: 1.5em;
+    margin-bottom: 10px;
+  }
+  p.rev {
+    float:left;
+  }
+  dl{
+    display:block;
+    @include clearfix();
+    dt {
+      font-size: 13px;
+      float:left;
+      margin-right: 10px;
+      margin-top: 2px;
+      }
+    dd {
+      float:left;
+      margin-right:1em;
+      font:15px Georgia,Times,serif;
+      font-weight: bold;
+      }
+    p{
+      float:right;
+       img {
+        vertical-align:top;
+       }
+     }
+  }
+}

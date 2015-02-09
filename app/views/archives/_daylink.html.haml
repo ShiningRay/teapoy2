@@ -1,0 +1,8 @@
+%td{:class=>cell_attrs[:class]}
+  - unless cell_attrs[:class].include?("otherMonth")
+    - if @group
+      =link_to date.day,archive_path(:date => date),:title=>"查看#{date.strftime('%Y-%m-%d')}的帖子"
+    -elsif @user
+      =link_to date.day,user_archive_path(:date => date)
+  -else
+    %span=date.day

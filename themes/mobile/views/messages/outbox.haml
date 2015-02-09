@@ -1,0 +1,7 @@
+- content_for :title, '发出去的纸条'
+= render 'nav'
+- if @messages.size > 0
+  = render @messages
+- else
+  没有发出去的纸条
+= paginate @messages

@@ -1,0 +1,8 @@
+#new_list_form
+  =  semantic_form_for(@list) do |f|
+    = f.inputs do
+      = f.input :name,:label => '列表名字'
+      = f.input :notes,:as => :text, :label => '列表说明'
+      = f.input :private,:as => :radio, :label => '设置为私有'
+    = f.actions do
+      = f.action :submit, :label => @list.new_record? ? '创建' : '更新',:button_html => {:disable_with => '...'}

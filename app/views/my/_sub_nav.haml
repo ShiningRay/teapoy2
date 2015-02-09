@@ -1,0 +1,8 @@
+.subnav
+  .clear_all(style='float:left')
+    = link_to '标记所有为已读', {:controller => 'my', :action => 'mark_all_as_read'}, :remote => true
+  = link_to image_tag("/assets/tailake/Help.png"),"#",:class=>'question'
+  = link_to_unless_current '按时间排序', :controller => 'my', :action => 'latest'
+  = link_to_unless_current '按热度排序', :controller => 'my', :action => 'inbox'
+  .question-answer
+    这个页面显示的文章有 : 1，加入的小组的文章 ； 2，关注的人发表的文章

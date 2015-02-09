@@ -1,0 +1,9 @@
+%form(method='post')
+  %table
+    - @groups.each do |g|
+      %tr
+        %th= g.name
+        %td
+          %input{:type => "text", :name => "tags[#{g.id}]", :value => g.tag_list}
+
+  %input(type='submit')

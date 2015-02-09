@@ -1,0 +1,107 @@
+//@import "partials/formtastic_base";
+//@import "partials/skintastic";
+
+#signup-area > form , #new_user {
+  //@include float-form();
+  width: 400px;
+  margin: auto;
+  overflow: visible !important;
+  ol, ul, p {
+    line-height: 1.5;
+  }
+  li {
+    margin: 0 0 .75em;
+    position:relative;
+    &.required {
+      label abbr {
+        color: red;
+      }
+    }
+    &.error {
+      input {
+        border-color: red;
+        background: #ffdfdf;
+        &:focus {
+        }
+      }
+    }
+    &.action {
+      text-align: center;
+    }
+  }
+
+  .inline-errors {
+    color: red;
+    display: block;
+    line-height: 1.8;
+    text-align: left;
+    white-space: nowrap;
+    position: absolute;
+    top: 0;
+    left: 100%;
+    margin: 0;
+    &:before {
+      content: "←";
+    }
+  }
+  .inline-hints {
+    font-size: small;
+    width: 287px;
+    margin-left: 90px;
+    color: #999;
+  }
+
+  legend {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-left: 5%;
+    padding: 0 20px;
+  }
+  fieldset {
+    //border-top: 1px solid #666;
+  }
+  label {
+    text-align: right;
+    margin-right: 10px;
+    margin-top: 4px;
+  }
+  input, textarea, select {
+//    background: #F0FEF0;
+    height: 24px;
+    padding-left: 5px;
+    border: 1px solid #ddd;
+    width: 280px;
+    clear: none;
+    vertical-align: middle;
+    line-height: 24px;
+
+    &:focus {
+      background: #fff;
+      border: 1px solid #000;
+    }
+  }
+  input[type=submit] {
+    @include border-radius(10px);
+    height: auto;
+    width:100px;
+    clear: both;
+    font-size: 1.2em;
+    padding: 5px 10px;
+     &:hover {
+            background: #fff;
+            border-color: black;
+     }
+  }
+  margin-bottom: 20px;
+  @include clearfix();
+  .user_captcha_input{
+    input{
+      width: 160px;
+      float:left;
+    }
+    img{
+      float:left;
+      padding-right: 25px;
+    }
+   }
+}

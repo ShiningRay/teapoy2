@@ -1,0 +1,22 @@
+.box
+  = render 'form'
+
+  #add_collection_items_form
+    %ul#collection-items
+      - for item in @collection.list_items
+        = content_tag_for :li,item do
+          -#%span.handle [拖动]
+          = link_to article_title(item.article), item.article
+          = link_to 'X', remove_collection_path(@collection, :post_id => item.id), :method => :post
+    = form_tag append_collections_path do
+      = hidden_field_tag :collection_id, @collection.id
+      %label
+        帖子ID:
+        %br
+        =text_field_tag :article_id
+        = submit_tag '添加'
+    = link_to '显示', @collection
+    |
+    =link_to '返回', collections_path
+  :javascript
+    var collection_id = #{@collection.id}

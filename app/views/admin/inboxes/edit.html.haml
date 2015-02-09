@@ -1,0 +1,5 @@
+= link_to @inbox.article.title, @inbox.article
+= form_for [:admin, @inbox] do |f|
+	= f.label :score
+	= f.text_field :score
+	= f.submit

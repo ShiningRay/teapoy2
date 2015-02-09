@@ -1,0 +1,14 @@
+%p
+  = message.read ? '' : '*'
+  - if params[:action] == 'inbox'
+    - u = message.sender
+  - else
+    - u = message.recipient
+  - if u
+    = link_to u, :title => u.name_or_login do
+      = h(u.name_or_login)
+  = message.created_at.strftime("%m-%d %H:%M")
+  %br
+  = simple_format h(message.content)
+  = link_to '回复', new_message_path(:id => message.sender_id)
+  = link_to "删除", message_path(message, :_method => :delete)

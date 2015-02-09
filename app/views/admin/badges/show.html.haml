@@ -1,0 +1,17 @@
+= image_tag @badge.icon(:medium),:alt=>"#{h @badge.name}"
+= h @badge.name
+= h @badge.title
+
+%p
+  %b Description:
+  = h @badge.description
+
+= link_to 'Back', admin_badges_path, :class => 'btn'
+= link_to 'Edit', edit_admin_badge_path(@badge), :class => 'btn'
+
+- if @users
+  = @users.size
+
+  %ul
+    - for u in @users
+      %li= link_to u.login, u

@@ -1,0 +1,13 @@
+%div[message]{data: {id: message.id}}
+  -# %fieldset.msg_time
+  -#   %legend.detail_time= message.created_at
+
+  %div{:class => message.in? ? 'bubble_l' : 'bubble_r'}
+    .bubble_user
+      = link_to image_tag(message.sender.avatar.url(:thumb)), message.sender
+    .bubble_cont
+      .bubble_arrow
+        %i
+        %em
+      .cont
+        %p= message.content

@@ -1,0 +1,17 @@
+- content_for :title, "#{article_title} - #{@group.name}"
+= render( @article )
+= render 'sibling_nav'
+- if logged_in? && current_user.is_admin?
+  %form{:action => move_group_article_url(@group, @article), :method => :post}
+    %label Group ID
+    %input(type="text" name="dest_group_id" value="")
+    %input(type="checkbox" name="repost" value="1")
+    %input(type='submit' value='Move')
+  = link_to 'Delete', article_path(@group, @article), :method => :delete, :confirm => 'are you sure?'
+= render 'rewards_info'
+- @comments = @article.comments.all || []
+= render('comments/index')
+
+- content_for :sidebar do
+  = render 'groups/sidebar'
+

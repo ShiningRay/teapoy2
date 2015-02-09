@@ -1,0 +1,45 @@
+- if @group.preferred_only_member_can_reply? and logged_in? and !current_user.is_member_of?(@article.group)
+  = link_to '加入小组发表评论', join_group_path(@article.group) ,:class=>"join_group"
+- else
+  - unless logged_in?
+    您目前是游客身份，
+    = link_to '登录', login_path
+  - @parent ||= @article.top_post
+  %p><
+    %fieldset><
+      发表我的评论:
+      %br>
+      %input(type="text" name="content" size="16" maxlength="65535")><
+      %br>
+      -if logged_in? && !(current_user.has_rewarded(@article) || current_user.own_article?(@article))
+        打赏积分(每个帖子只能打赏一次)：
+        %br>
+        %input(type="text" name="reward" size="16" maxlength="65535")><
+      %br>
+      -if logged_in?
+        %select(name="anonymous" title="Anonymous?")><
+          %option( value="0")>< 署名
+          %option( value="1")>< 匿名
+    -if logged_in?
+      %fieldset><
+        投票
+        - r = logged_in? && current_user.has_rated?(@parent)
+        - if r
+          您已投了
+          = r > 0 ? '顶' : '拍'
+        - unless current_user == @parent.user
+          %select(name="vote" title="Vote" default="#{r||1}")><
+            %option(value="1")><  顶
+            %option(value="-1")><  拍
+            %option(value="0")><  无
+
+  %anchor><
+    评论
+    %go{:href=>_article_comments_path(@group, @article), :method=>"post"}><
+      %postfield{:value=>"✓",:name=>"utf8"}>
+      %postfield{:value=>"#{form_authenticity_token}",:name=>"authenticity_token"}>
+      %postfield{:value=>"#{@post.try(:parent_id)} ",:name=>"post[parent_id]"}>
+      %postfield{:value=>"$content",:name=>"post[content]"}>
+      %postfield{:value=>"$reward",:name=>"reward"}>
+      %postfield{:value=>"$vote",:name=>"vote"}>
+      %postfield(value='$anonymous' name='post[anonymous]')>

@@ -1,0 +1,32 @@
+
+%div(style="padding:20px;margin-top: 10px;")
+  = link_to '关于积分的说明',  '/faq/guan-yu-ji-fen-de-shuo-ming'
+  %p= link_to '领取所有', get_all_salaries_path
+  %table.salaries
+    - @salaries.group_by(&:created_on).each do |date, salaries|
+      %tr
+        %th.date(colspan=3)= date
+      - salaries.each do |s|
+        %tr{:class => s.paid? ? 'paid' : 'unpaid'}
+          %td=t s.type, :scope => :salaries
+          %td.amount=s.amount
+          %td
+            = link_to "领取", get_salary_path(s), :class => "get_salary" if s.unpaid? and s.amount > 0
+- content_for :stylesheets do
+  :css
+    table {
+      width: 100%;
+    }
+      th.date {
+        text-align: left;
+      }
+      tr.paid {
+        background-color: #efefef;
+      }
+      td.amount {
+        text-align: right;
+      }
+    table.salaries td {
+      width: 30%;
+    }
+= paginate @salaries

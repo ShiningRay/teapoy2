@@ -1,0 +1,36 @@
+- content_for :title, '发表文章'
+.breadcrumb
+  = link_to '首页', root_path
+  &raquo;
+  = link_to @group.name, @group if @group
+.notice(style="margin-left:20px;")
+  = '发帖需要审核' if @group and @group.options.articles_need_approval
+  %p
+    发帖需要花费10积分，其中5积分将成为所发表小组的奖励，积分可以通过每日登陆等任务获得奖励
+    - if logged_in? and current_user.credit < 10
+      您的积分不足发表新内容
+- if @group.blank? and logged_in?
+  - @groups = current_user.joined_groups
+
+  - if @groups.size == 0
+    您还没加入任何小组，无法发表文章
+    = link_to '赶紧去找一个找自己喜欢的吧', groups_path
+  - else
+    = render 'articles/omni_form'
+- else
+  = render 'articles/omni_form'
+- content_for :javascripts do
+  :javascript
+  $(function(){
+      $('<div id="faceTitle"></div>').insertBefore($("#article_top_post_attributes_content"));
+      $('<label for="article_top_post_attributes_external_image_url">或者您可以填写图片地址</label>').insertBefore("#article_top_post_attributes_external_image_url");
+      var fields_count=0;
+      var picture_attachment_fields = $('#picture_attachment_fields').html();
+      $('#picture_attachment_fields').remove();
+      $('#add_more_picture').click(function(){
+        var html = picture_attachment_fields.replace(/\[0\]/g, '['+ fields_count++ + ']');
+        $(html).insertBefore($(this));
+        return false;
+      })
+      $("#article_top_post_attributes_type_"+$.url().param("type")).click();
+  })

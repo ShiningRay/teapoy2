@@ -1,0 +1,24 @@
+defaults: &defaults
+  host: '192.168.2.110'
+  identity_map_enabled: true
+  # slaves:
+  #   - host: slave1.local
+  #     port: 27018
+  #   - host: slave2.local
+  #     port: 27019
+
+development:
+  <<: *defaults
+  database: teapoy_dev
+
+test:
+  <<: *defaults
+  database: teapoy_test
+
+# set these environment variables on your prod server
+production:
+  database: teapoy
+  host: '127.0.0.1'
+  # port: 
+  # username: ''
+  # password: ''

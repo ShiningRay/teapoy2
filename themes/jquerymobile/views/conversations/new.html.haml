@@ -1,0 +1,11 @@
+%div(data-role='header')
+  %h1 写小纸条
+
+%div(data-role='content')
+  = form_for(@conversation) do |f|
+    - users = current_user.publications("User").map{|fr|[fr.name_or_login,fr.id]}
+    %label 写给：
+    = f.select :target_id, users
+    - if users.size == 0
+      您尚未关注任何用户，请直接访问目标用户的个人页面，点击“传纸条”
+    = f.submit '开始聊天', data: { :disable_with => '发送中...', icon: 'arrow-r', iconpos: 'right' }

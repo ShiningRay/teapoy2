@@ -1,0 +1,12 @@
+= jqm_header do
+  = jqm_menu_link
+  %h1 我的小组
+
+%div(data-role='content')
+  %ul(data-role='listview' data-inset='true')
+    - @groups.each do |g|
+      %li
+        = link_to g do
+          = image_tag g.icon.url(:small)
+          %h2= g.name
+

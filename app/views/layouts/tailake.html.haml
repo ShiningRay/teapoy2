@@ -1,0 +1,26 @@
+- content_for :stylesheets do
+  = stylesheet_link_tag 'tailake'
+- content_for :javascripts do
+  -  info = {:logged => logged_in?}
+  -  if logged_in?
+    -  info[:current_user] = current_user.as_json(:except => [:crypted_password, :salt, :persistence_token])
+    -  info[:current_user][:groups] = current_user.joined_groups.collect{|g|{:id => g.id, :name => g.name}}
+  :javascript
+    var current_user = #{info[:current_user].to_json};
+    window.current_user = current_user;
+  = javascript_include_tag 'tailake'
+  /[if IE 6]
+    = javascript_include_tag 'fuckie'
+- body_attributes :id => 'tailake'
+
+- content_for :main do
+  #main{ :role => 'main' }
+    #content.cf
+      = yield :before_content
+      = yield
+    #sidebar.cf= render 'sidebar'
+
+= render_skeleton
+= render 'facecontent'
+%a#gototop.fixed{:href=>"#top"}
+  回顶部

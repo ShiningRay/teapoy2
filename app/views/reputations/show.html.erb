@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>User:</b>
+  <%= @reputation.user_id %>
+</p>
+
+<p>
+  <b>Group:</b>
+  <%= @reputation.group_id %>
+</p>
+
+<p>
+  <b>Value:</b>
+  <%= @reputation.value %>
+</p>
+
+<p>
+  <b>State:</b>
+  <%= @reputation.state %>
+</p>
+
+
+<%= link_to 'Edit', edit_reputation_path(@reputation) %> |
+<%= link_to 'Back', reputations_path %>

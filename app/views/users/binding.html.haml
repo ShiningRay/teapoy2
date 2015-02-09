@@ -1,0 +1,5 @@
+- unless @user.user_tokens.where(:client_name =>"sina")
+  %h2
+    =link_to "绑定你的新浪微博帐号","/syncs/sina/new"
+-else
+  %h2 已经成功绑定新浪微博帐号

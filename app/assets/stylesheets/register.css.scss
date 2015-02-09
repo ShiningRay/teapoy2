@@ -1,0 +1,385 @@
+@import 'compass/css3/border-radius';
+@import "components/login_form";
+#wrapper {
+  margin:0 auto;
+  width:940px;
+  font-size:12px;
+  padding:10px;
+}
+#logo{
+  margin-right:50px;
+  margin-top: 0px !important;
+  margin-bottom:15px !important;
+}
+#logo-2 {
+  width: 550px;
+}
+
+#banner {
+  float:left;
+  width: 300px;
+  margin-left: 100px;
+  padding:0px 0;
+  padding-right:20px;
+  font-size: 14px;
+  line-height: 200%;
+  .welcome {
+    font-size: 24px;
+    //text-align: right;
+    margin-bottom: 20px;
+  }
+}
+#confirm_login {
+  margin-top:20px;
+  .confirm_section {
+    font-size: 24px;
+    line-height: 2em;
+    #login_input {
+      font-size: 24px;
+      line-height: 2em;
+      height: 2em;
+      outline: 0;
+      border: none;
+      border-bottom: 1px solid #ccc;
+      &:focus {
+        border-color: #666;
+      }
+    }
+    #confirm_button {
+    background: none repeat scroll 0 0 #F0FEFE;
+    border: 1px solid #AAAAAA;
+    border-radius: 5px 5px 5px 5px;
+    padding: 5px 10px;
+    width: 90px;
+    font-size:24px;
+     cursor :pointer;
+     &:hover {
+            background: #fff;
+            border-color: black;
+     }
+    }
+    p.inline-errors{
+       float:right;color:red;
+    }
+  }
+}
+#tailake {
+  .introduction {
+    width: 300px;
+    float: right;
+    ul{
+      margin-left: 20px;
+      li{
+        list-style-type: square;
+      }
+    }
+  }
+}
+
+
+#signup-area{
+padding-top:20px;
+  width: 400px;
+  float:left;
+  background-color: #fff;
+  border: 2px solid #CCC;
+  li{
+    list-style-type: none;
+  }
+  fieldset.actions {
+    padding-left: 10px !important;
+    width: 90% !important;
+    li.action {
+      float: right;
+      input {
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.actions{
+  border:none;
+}
+#new_user input[type="submit"]{
+  width: 291px;
+  background-color:#358989;
+}
+.ie6 #recommend_groups_form {
+  bottom: auto;
+}
+
+/* For modern browsers */
+.cf:before,
+.cf:after {
+    content:"";
+    display:table;
+}
+
+.cf:after {
+    clear:both;
+}
+
+/* For IE 6/7 (trigger hasLayout) */
+.cf {
+    zoom:1;
+}
+#recommend_groups_form {
+  position: absolute;
+  z-index: 1;
+  top: 100px;
+  left: 50%;
+  //right: 0;
+  bottom: 0;
+  margin-left: -410px;
+  margin-top:50px;
+  width: 820px;
+
+  ul.recommended_groups {
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 100px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+  .group {
+    width: (820 - 120-25)px;
+    height: 110px;
+    margin-bottom: 1em;
+    padding: 25px;
+    padding-right: 120px;
+    cursor: pointer;
+    list-type: none;
+    @include border-radius(5px);
+    color: #175445;
+    &:hover {
+      background-color: #fafafa; }
+    .name {
+      font-size: 24px;
+      color: black;
+    }
+    .description {
+      margin-top: 10px;
+      font-size: 16px;
+    }
+
+    img {
+      @include border-radius(5px);
+      float: left;
+      margin-right: 25px;
+    }
+
+    .stats {
+      ul {
+        list-type: none;
+        margin-top: 15px;
+      }
+      li {
+        float: left;
+        width: 100px;
+      }
+    }
+  }
+  .selected {
+    background-color: #146B91;
+    color: white;
+    background-image: url('tailake/choose.png');
+    background-repeat: no-repeat;
+    background-position: 95%;
+    &:hover {
+      background-color: #146B91;
+    }
+    .description {
+      color: #D0EBF6;
+    }
+    .name {
+      color: white;
+      a {
+        color: white;
+        &:hover {
+          color: white;
+        }
+      }
+    }
+  }
+  .submit_block {
+      position: absolute;
+      left: 50%;
+      margin-left: -350px;
+      z-index: 999;
+      bottom: 50px;
+      width: 700px;
+  }
+  #submit {
+      position: static;
+      float: right;
+      cursor :pointer;
+      background: none repeat scroll 0 0 #F0FEFE;
+      border: 1px solid #AAAAAA;
+      border-radius: 5px 5px 5px 5px;
+      padding: 5px 10px;
+      width: 120px;
+      font-size:24px;
+      &:hover {
+        background: #fff;
+        border-color: black;
+      }
+  }
+  input {
+    &[type=checkbox] {
+      display: none; }
+    &[type=submit] {
+      position: absolute;
+      left: 50%;
+      z-index: 999;
+      bottom: 50px;
+      width:100px;
+      cursor :pointer;
+      background: none repeat scroll 0 0 #F0FEFE;
+      border: 1px solid #AAAAAA;
+      border-radius: 5px 5px 5px 5px;
+      padding: 5px 10px;
+      width: 120px;
+      font-size:24px;
+      &:hover {
+        background: #fff;
+        border-color: black;
+      }
+    }
+  }
+}
+.how-to-play{
+  margin-top:20px;
+  span.important{
+    color:#000;
+  }
+  ul{
+    li{
+      background-image:url("tailake/star.png");
+      background-repeat:no-repeat;
+      background-position:left  10px;
+      list-style-type: none;
+      padding-left: 20px !important;
+      padding-top: 10px !important;
+      padding-bottom: 10px !important;
+    }
+  }
+}
+body#tailake #main a {
+  text-decoration: underline;
+}
+
+.ie6{
+  #logo{
+   position:absolute;
+   top:15px;
+  }
+      label {
+        position:relative;
+        width:80px;
+        float:left;
+        text-align:right;
+    }
+     input, textarea, select {
+      clear: right !important;
+      width:200px;
+    }
+
+
+  .actions{
+     li.action{
+      float:left !important;
+      margin-left:45px !important;
+      input.create{
+      width:80px !important;
+     }
+  }
+}
+
+    .inline-hints,.inline-errors {
+      margin-left:50px !important;
+      float:left !important;
+      width:300px !important;
+      clear:both;
+      text-align:left;
+      overflow: hidden;
+      margin-right:20px;
+      position: relative;
+    }
+    .inline-errors{
+      color:red !important;
+    }
+    .user_captcha_input{
+      input{
+        clear:none !important;
+        width: 100px !important;
+        float:left !important;
+        margin-left:19px;
+      }
+    img{
+      float:left;
+      padding-right: 25px !important;
+      clear:right !important;
+    }
+   }
+
+}
+.ie7{
+   #logo{
+   position:absolute;
+   top:15px;
+  }
+  .inline-hints {
+    margin-left: 120px;
+  }
+  .buttons{
+     li.commit{
+      margin-top:20px !important;
+     }
+  }
+  .user_captcha_input{
+    label{
+      margin-right:27px !important;
+    }
+  }
+  input[type=submit] {
+    width:100px !important;
+  }
+}
+
+
+
+.ie6 #recommend_groups_form {
+  .selected {
+    background-color: #146B91 !important;
+    background-image: url('choose-ie6.png');
+  }
+  .group {
+
+  background-color: #E8ECEC;
+  img {
+    float: left;
+  }
+  .name {
+    float: left !important;
+    clear: none;
+    width: 600px;
+    a {
+      display: inline;
+      position: static;
+    }
+    label {
+      display: inline;
+      position: static;
+      width: auto;
+    }
+
+    input {
+      display:none ;
+    }
+  }
+}
+}

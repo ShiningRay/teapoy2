@@ -1,0 +1,362 @@
+/* Reset */
+
+body,div,h1,h2,h3,h4,p,a,table,textarea,form,input,img,ul,li,ol,fieldset{ margin:0; padding:0; word-wrap:break-word; word-break:break-all }
+
+body{ font-size:0.875em; width:100%;}
+
+p { line-height: 1.2em; margin-bottom: 0.2em; }
+li{ list-style:none; text-indent:0;}
+a img {
+  border: none;
+  max-width: 100%;
+  background: transparent;
+}
+/* html color */
+html {
+  color: #111111;
+}
+
+/* Common Elements */
+a{ text-decoration: none; }
+
+/* Header Details */
+#logo {
+    padding: 2px 7px 2px 7px;
+    color: #fff;
+    background: #8ed1ef;
+    height: 30px;
+    line-height:30px;
+    font-size: 120%;
+}
+.login-info {
+  padding: 2px 7px 2px 7px;
+  background: #e9f4e9;
+  a{
+    padding: 0 2px;
+    color: #566d5e;
+    margin: 0;
+    padding: 0;
+   }
+  a:hover {
+    background: #566D5E;
+    color: #fff;
+  }
+}
+
+
+/* Module Details */
+
+/* Footer Details */
+.footer {
+  background:#e9f4e9;
+  margin: 10px 0;
+  border-top: 1px solid #d9d9d9;
+  padding: 5px 7px;
+  p {
+    text-align: left;
+    line-height: 18px;
+    color:#999999;
+    a {
+      color:#336699;
+    }
+    a:hover {
+      color: #fff;
+      background: #336699;
+    }
+  }
+  .separate{
+    margin-left:3px;
+    margin-right:3px;
+  }
+  .txt-em{}
+}
+/* Header Details */
+.main-nav{
+  padding: 2px 0px 2px 7px;
+  background: #0099ff;
+  //height: 1.62em;
+  line-height: 1.62em;
+  color: #e1f2d3;
+  a{
+    color:#fff;
+    font-weight: bold;
+    text-decoration: underline;
+
+  }
+  a.current {
+    color:yellow;
+  }
+  a:hover{
+    background: #666699;
+  }
+}
+/* Footer */
+.footer .version a{ color:#004299;}
+
+.article {
+    .title {
+        font-size: 1em;
+        padding: 0 7px;
+        margin: 5px 0 5px 0;
+        line-height: 1em;
+        a{
+          color: #000;
+          }
+        a:hover {
+            color:#fff;
+            background:#000;
+          }
+    }
+    .content {
+      line-height: 1em;
+      padding: 5px 0px 3px 7px;
+      margin-bottom: 5px;
+      a {
+        color: #336699;
+      }
+      a:hover {
+        color: #fff;
+        background: #336699;
+      }
+    }
+    .meta {
+      background: #E9F4E9;
+      //height: 1.62em;
+      //line-height: 1.2em;
+      margin: 5px 0 15px 0;
+      padding: 2px 0 2px 7px;
+      //border-bottom: 1px solid #ccc;
+      //border-top: 1px solid #dedede;
+      vertical-align:middle;
+      a img {
+        vertical-align:middle;
+        }
+      a{
+      vertical-align:middle;
+      }
+    }
+    .post-signature {
+      text-align: left;
+      padding: 0 0 0px 7px;
+      a{
+        color: #006600;
+        padding: 0px 4px;
+      }
+      a:hover {
+      color: #fff;
+      background: #006600;
+      padding: 0px 4px;
+      }
+    }
+
+}
+.breadcrumb {
+  padding: 5px 0 5px 7px;
+  a{
+    color: #006600;
+  }
+  a:hover{
+    background: #006600;
+    color: #fff;
+  }
+}
+
+.comment {
+  padding-top: 0.4em;
+  padding-bottom: 0.4em;
+  .author {
+    color: #777;
+    a {
+      color: #336699 !important;
+      padding: 0 4px;
+      &:hover {
+        color: #fff !important;
+        background: #336699;
+        padding: 0 4px;
+       }
+     }
+  }
+  .score {
+    text-decoration: italic;
+    &.pos {
+        color: red;
+    }
+    &.neg {
+        color: blue;
+    }
+  }
+  .time {
+      font-size: 0.8em;
+      color: #777;
+  }
+}
+
+@media screen and (max-device-width:480px) {
+  .comment {
+    padding-left: 7px;
+    padding-right: 7px;
+  }
+}
+
+
+.even {
+  background-color: #F8F8F8;
+  border-top: 1px solid #D9D9D9;
+  border-bottom: 1px solid #D9D9D9;
+}
+
+span.sep {
+    color: #ccc;
+}
+
+form, fieldset { width: 100% }
+textarea { width: 99%; margin: 0 auto; }
+
+.pagination {
+    border-top: 1px solid #D9D9D9;
+    border-bottom: 1px solid #D9D9D9;
+    background: none repeat scroll 0 0 #E9F4E9;
+    padding: 0.4em 7px 0.4em 7px;
+    margin: 0.4em 0 0.8em 0;
+    .prev,
+    .next {
+      a {
+       padding: 0 4px;
+       color: #000;
+      }
+      a:hover {
+       padding: 0 4px;
+       color: #fff;
+       background: #006699;
+      }
+    }
+}
+h3 {
+  font-size: 1em;
+  margin-bottom: 0.4em;
+  padding: 0 7px;
+  color: #333;
+}
+
+.comments-list {
+
+}
+.formtastic {
+    label {
+        display: block;
+        }
+    fieldset {
+        border: none;
+    }
+    .required { color: red; }
+    .inline label {
+        display: inline;
+    }
+    .file input {
+        width: 100%;
+    }
+    textarea {
+        height: 5em;
+    }
+    input[type=submit] {
+      height: 2em;
+      font-size: 1.3em;
+      width: 5em;
+    }
+    .action {
+      text-align: left;
+    }
+}
+
+#comment_form {
+    background: none repeat scroll 0 0 #E9F4E9;
+    //border-bottom: 1px solid #FFFFFF;
+    //border-top: 1px solid #FFFFFF;
+    padding: 0.4em 7px;
+}
+
+
+
+.notice {
+    background: none repeat scroll 0 0 #FFF9E3;
+    border: 1px solid #FADC80;
+}
+
+.flash_error {
+    background: none repeat scroll 0 0 #FFF9E3;
+    border: 1px solid red;
+}
+
+
+.topic-owner .name, .topic-owner .author {
+
+}
+.topic-owner .floor {
+  font-weight: bold;
+
+}
+.topic-owner {
+  .author {
+    font-weight: bold;
+    padding: 0 2px 0 2px;
+    color:#ccc;
+    a{
+      color: #006600 !important;
+      background: #E9F4E9;
+      padding: 0 4px 0 4px;
+    }
+    a:hover {
+        background:#006600;
+        color: #fff !important;
+        padding: 0 4px 0 4px;
+    }
+  }
+}
+
+.top_post .post-signature {
+  background-color: #E0EAF1;
+}
+.articles-list .top_post .post-signature{
+    background-color: transparent !important;
+}
+
+.notification {
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid #DDD;
+}
+
+.message {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  border-bottom: 1px solid #ddd;
+
+  .meta {
+    text-align: right;
+  }
+
+  .time {
+    color: #666;
+    display: inline;
+  }
+
+  .sender img {
+    width: 1em;
+    height: 1em;
+  }
+}
+
+.message.unread {
+  background-color:#FFFFCC !important;
+}
+
+
+.sex-female {
+  .author a {
+    color: MediumOrchid !important;
+  }
+}
+
+.submit_button_form {
+  display: inline;
+}

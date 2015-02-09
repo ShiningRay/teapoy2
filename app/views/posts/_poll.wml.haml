@@ -1,0 +1,29 @@
+= render_post_content poll
+- if logged_in?
+  -if poll.voted_by?(current_user)
+    - poll.questions.each_index do |i|
+      %p
+        =h poll.questions[i]
+        (
+        =h poll.stats[i].to_i
+        )
+  - else
+    %select(name="comment[choice]" title="选项")><
+      - if poll.single?
+        - poll.questions.each_index do |i|
+          %option( value="#{i}")>< "#{poll.questions[i]}"
+    %anchor
+      投票
+      %go{:href=>"#{_article_comments_path(poll.group, poll.article)}", :method=>"post"}
+        %postfield{:value=>"✓",:name=>"utf8"}
+        %postfield{:value=>"#{form_authenticity_token}",:name=>"authenticity_token"}
+        %postfield{:value=>"Vote",:name=>"user_session[login]"}
+        %postfield{:value=>"$password",:name=>"user_session[password]"}
+        %postfield{:value=>"1",:name=>"user_session[remember_me]"}
+- else
+  投票：
+  %select(name="comment[choice]" title="选项")><
+    - if poll.single?
+      - poll.questions.each_index do |i|
+        %option( value="#{i}")>< "#{poll.questions[i]}"
+  =link_to "登录",login_path

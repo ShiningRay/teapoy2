@@ -1,0 +1,15 @@
+- title :page_title=>t("Group")
+%table
+  - for c in @groups
+    %tr
+      %td
+        = c.id
+      %td
+        = c.alias
+        = link_to c.name,admin_group_path(c)
+      %td
+        feature : #{c.feature}
+      %td
+        hide : #{c.hide}
+      %td
+        private : #{c.read_attribute("private")}

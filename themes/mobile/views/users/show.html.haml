@@ -1,0 +1,7 @@
+= render @user
+- if current_user?
+  = link_to '我的小组', '#'
+  = link_to '小纸条', ''
+  = link_to '关注的人', ''
+  = link_to '粉丝', ''
+  = link_to '设置', edit_user_path(@user)

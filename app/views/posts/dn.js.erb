@@ -1,0 +1,4 @@
+<% id = dom_id @post %>
+$('#<%= id %> .up').buttonMarkup({theme: ''}).find('.ui-btn-text').text('<%= @post.pos %>');
+$('#<%= id %> .down').buttonMarkup({theme: 'b'}).find('.ui-btn-text').text('<%= @post.neg %>');
+$.toast('-1');

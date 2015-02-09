@@ -1,0 +1,23 @@
+- content_for :title, '消息提醒'
+#clear_all_notifications
+  -#为了避免没有提醒的时候，左边的这个div宽度为零，所以加个空格占位子
+  &nbsp;
+  - unless @unread_notification_count == 0
+    = link_to '全部忽略', :action => :clear_all
+
+= link_to_unless_current '未读', notifications_path
+= link_to_unless_current '已读', notifications_path(:read => true)
+
+- if @notifications && @notifications.size > 0
+  %ul#notifications_list
+    - @notifications.each do |n|
+      -  data = {}
+      -  data[:scope] = n.scope
+      -  if n.subject.is_a?(Article)
+        -  data[:article_url] = article_path(n.subject.group, n.subject)
+        -  data[:article_id] = n.subject.id
+        -  data[:comments_count] = n.subject.comments.size
+      %li{:id => "notification_#{n.id}", :class => "notification", :data => data}= render_notification(n) rescue n.destroy
+
+  = paginate @notifications
+

@@ -1,0 +1,16 @@
+- content_for :title, @collection.title
+.collection-info.article.collection
+  %h2
+    = h @collection.title
+    - if @collection.article.status == 'private'
+      %span.status= '[未公开]'
+  .meta.cf
+    列表创建人:
+    %span.creator= link_to @collection.user.name_or_login, @collection.user
+
+  = render_posts @collection
+
+  .collection-edit
+    = link_to '编辑/添加', edit_collection_path(@collection) if logged_in? and current_user == @collection.user
+    |
+    =link_to '返回收藏夹列表', collections_path

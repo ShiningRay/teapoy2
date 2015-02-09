@@ -1,0 +1,6 @@
+- if @user
+  - content_for :sidebar do
+    = render 'users/sidebar'
+  - content_for :title, "#{@user.name_or_login} 发表的文章评论"
+= render :partial => 'comments/index'
+

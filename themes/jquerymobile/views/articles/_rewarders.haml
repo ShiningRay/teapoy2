@@ -1,0 +1,4 @@
+= div_for @article, 'rewarders' do
+  - if @article.top_post && @article.top_post.rewarders.exists?
+    - @article.top_post.rewarders.each do |rewarder|
+      = link_to image_tag(rewarder.avatar.url(:thumb)), rewarder

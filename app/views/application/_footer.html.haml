@@ -1,0 +1,44 @@
+.container
+  = render 'stat'
+  %ul
+    %li= link_to '问题反馈', articles_path('feedback')
+    %li= link_to '常见问题', articles_path('faq')
+    %li.last= link_to '网友交流群', article_path('faq', 'qqqun-tong-ji')
+  %p.links
+    = link_to '友情链接', article_path('faq', 'links')
+    = raw '&raquo;'
+    = link_to '暴走漫画', 'http://baozoumanhua.com', :target=>'_blank'
+    = link_to '2345网址大全', 'http://www.2345.com', :target => '_blank'
+    = raw '<a href="http://www.114la.com" target="_blank">114啦网址导航</a>'
+    =# raw '<a href="http://www.1122.com/" target="_blank">1122网址导航</a>'
+    =# raw '<a href="http://www.tianqi.com/" target="_blank">天气预报查询</a>'
+    = link_to '牧野兔官方网站', 'http://www.muyetu.com/', :target => '_blank'
+    = link_to '科举网', 'http://www.kejuwang.com/', :target => '_blank'
+    %br
+    = link_to '微小说', 'http://www.whylo.com/', :target=> '_blank'
+    = link_to '节日网', 'http://www.jieday.com/', :target => '_blank'
+    = link_to '草蛋网', 'http://www.caoegg.cn', :target => '_blank'
+    = link_to '福特车友会', 'http://www.sh-ford.com', :target => '_blank'
+    = link_to '南京房产网', 'http://nanjing.aifang.com/', :target => '_blank'
+    = link_to '糗百迷', 'http://www.qiubaimi.com', :target => '_blank'
+    = link_to '花开里', 'http://www.huakaili.com/', :target => '_blank'
+    = link_to '青年图摘', 'http://qntz.cc/', :target => '_blank'
+    = link_to '八客网', 'http://www.bakewang.com/', :target => '_blank'
+    = link_to '江大论坛', 'http://bbs.da.jx.cn', :target => '_blank'
+    %br
+    = link_to '糗友论坛', 'http://www.qiuyou69.com/', :target => '_blank'
+    = link_to '博游吧', 'http://www.boyouba.com', :target => '_blank'
+    = link_to '百万站', 'http://www.baiwanzhan.com', :target => '_blank'
+    = link_to '糗友窝', 'http://www.qiuyouwo.com', :target => '_blank'
+    = link_to '坑爹网', 'http://kengdie.com/', :target => '_blank'
+    = link_to '红衫倩影', 'http://blog.lcx520.com/', :target => '_blank'
+    = link_to '安徽搜车网', 'http://www.ahsouche.com', :target => '_blank'
+    = link_to '365趣图网', 'http://www.365qutu.com', :target => '_blank'
+
+  %p.copyright
+    Copyright &copy; #{Date.today.year}
+    %a(href="http://shiningray.cn")
+      ShiningRay
+    沪ICP备13000706号
+  %p.rev
+    %tt= "$REV:#{$revision}$"

@@ -1,0 +1,12 @@
+- user = user_car
+.user-info
+  .user-action-time
+    posted
+    %time.relativetime{:datetime => article.created_at}= time_ago_in_words(article.created_at)
+  .user-avatar= image_tag user.avatar.url("thumb"), :alt => "#{user.name_or_login}", :size => '32x32', :class => 'avatar'
+  .user-details
+    - unless user.name?
+      = link_to user.login, user
+    - else
+      = link_to user.name, user
+      = link_to(user.login, user, :class=> 'user-login')

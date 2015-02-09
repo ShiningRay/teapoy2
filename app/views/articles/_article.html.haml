@@ -1,0 +1,88 @@
+﻿-# coding: utf-8
+- id=article.id
+- top_post = article.top_post
+- group = @group || article.group
+- group_id = article.group_id
+
+%article.cf.hentry[article]{:class => article.class_names}
+  - if top_post
+    %div[article.top_post]{:class => [article.top_post.class_names, is_mine_class(article.top_post)]}
+      = render :partial => "posts/votecell", :locals => {:post => top_post} if top_post
+
+      - if article.title?
+        %h2.entry-title= link_to article.title, [group, article], :rel => 'bookmark'
+
+      .entry-content= render_posts article.top_post
+      -# unless article.tag_line.blank?
+      -# %p.tags= raw(show_tags(article))
+      - if article.attachments.size > 0
+        = article.attachments.size
+        个附件
+      .attachments
+        =render_posts article.attachments.reverse
+
+      %ul.meta.cf
+        -#
+          - if logged_in?
+            %li.subscribe-button
+              - if current_user.has_subscribed?(article)
+                = link_to unsubscribe_article_path(group, article), :class => 'unsubscribe' do
+                  = typicon('eye')
+                  = t('articles.unsubscribe')
+              - else
+                = link_to subscribe_article_path(group, article), :class => 'subscribe' do
+                  = typicon('eye-outline')
+                  = t('articles.subscribe')
+
+        %li.comment-status
+          - if article.comment_status == 'closed'
+            %span.comment_head
+              禁止评论
+          - else
+
+            %a{:class=>"comments #{@list_view? "list_view" :  ""}",
+              :href=> group_article_path(article.group, article, :anchor => "comments_#{article.id}"),
+              :id=>"c-#{article.id}"}
+              = typicon 'messages'
+              = article.comments.size > 0 ? "#{article.comments.size}条评论" : "暂无评论"
+        - if logged_in? and not top_post.is_a?(Repost)
+          %li.repost-button
+            = link_to repost_form_path(:post_id => top_post.try(:id)) do
+              = typicon 'export'
+              = t('articles.repost')
+              = "(#{article.top_post.reposts.size})" if article.top_post.reposts.size > 0
+        -# if logged_in? and (current_user.is_admin? or current_user.has_role?('publisher'))
+          %li
+            = link_to select_collections_path(:post_id => top_post.id) do
+              = typicon 'heart'
+              收藏
+        - if logged_in? && (current_user.own_group?(group) || current_user.own_article?(article) || current_user.is_admin?)
+          %li.admin
+            = link_to [group, article], :method => :delete, :remote => true, :data => {:confirm => '确定要删除这篇帖子吗?'} do
+              = typicon 'trash'
+              删除
+            - if article.status == 'pending'
+              = link_to '通过', [:publish, group,article],:class=>"publish-article"
+              = link_to '移出', [:move_out,group,article],:class=>"move-out-article"
+            = link_to '修改', [:edit, group, article] if current_user.own_article?(article)
+            = link_to '隐藏', [:unpublish,group, article], :method => 'post' if current_user.own_article?(article) && article.status == 'publish'
+        %li.post-signature{:class => article.anonymous ? article.user.class_names : ''}
+          .user-info
+            - unless article.anonymous
+              - user = article.user
+              - if user
+                .user-avatar= image_tag user.avatar.url("thumb"), :alt => "#{user.name_or_login}", :class => 'avatar'
+                .user-details
+                  = link_to user.name_or_login, user, :title => "@#{user.login}",:class => 'user', :data => {:login => user.login} #user_detail_for(user)
+
+            .user-action-time
+              - if top_post and top_post.is_a?(Repost)
+                转发于
+              - else
+                发布于
+              = link_to group.name, group_articles_path(group),:data => {:alias => group.alias},:class => 'group'
+              = link_to [group,article], :rel => 'permalink' do
+                %time.relativetime{:datetime => article.created_at, :title => article.created_at.to_s}= time_ago_in_words(article.created_at)
+  - if defined?(comments) and not comments.blank?
+    - @comments = comments
+    = render 'comments/index'

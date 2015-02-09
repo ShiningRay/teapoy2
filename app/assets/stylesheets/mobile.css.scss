@@ -1,0 +1,168 @@
+//= require 'photoswipe'
+//= require 'photoswipe/default-skin/default-skin'
+//= require_tree ./mobile
+/* Module Details */
+
+@import 'bourbon';
+body > input {
+  display: none;
+}
+a.ui-slider-handle-snapping { -webkit-transition: none; -moz-transition: none; }
+
+.article {
+  margin: 1em 0;
+  .title {
+    font-size: 1.2em;
+    margin: 5px ;
+    line-height: 1em;
+    a {
+       color: #000;
+       text-decoration: none;
+    }
+  }
+    .content {
+      font-size: 16px;
+      line-height: 1.5em;
+      margin: 5px;
+      a {
+        color: #336699;
+      }
+    }
+    .post-signature {
+      text-align: left;
+      padding: 0 0 0px 7px;
+      a{
+        color: #006600;
+        padding: 0px 4px;
+      }
+    }
+
+}
+
+.comments-list {
+  padding: 0;
+  .comment {
+    list-style: none;
+    padding: 0.4em;
+    margin: 0;
+    img.ui-li-icon {
+      float: left;
+      margin-right: 8px;
+      margin-bottom: 10px;
+    }
+    .reply {
+      display: none;
+    }
+    .author {
+      color: blue;
+      a {
+        color: #000 !important;
+        padding: 0 4px;
+       }
+    }
+    .score {
+      text-decoration: italic;
+      &.pos {
+          color: red;
+      }
+      &.neg {
+          color: blue;
+      }
+    }
+    .time {
+        font-size: 0.8em;
+        color: #777;
+    }
+  }
+}
+
+.even {
+  background-color: #F8F8F8;
+  border-top: 1px solid #D9D9D9;
+  border-bottom: 1px solid #D9D9D9;
+}
+
+span.sep {
+    color: #ccc;
+}
+
+.comments-list {
+
+}
+
+#comment_form {
+    padding: 0.4em 7px;
+}
+
+
+
+.notice {
+    background: none repeat scroll 0 0 #FFF9E3;
+    border: 1px solid #FADC80;
+}
+
+.flash_error {
+    background: none repeat scroll 0 0 #FFF9E3;
+    border: 1px solid red;
+}
+
+
+.topic-owner {
+  .floor {
+  font-weight: bold;
+
+  }
+  .author {
+    font-weight: bold;
+    padding: 0 2px 0 2px;
+    color:#ccc;
+    a{
+      color: #006600 !important;
+      background: #E9F4E9;
+      padding: 0 4px 0 4px;
+    }
+  }
+}
+
+.top_post .post-signature {
+  background-color: #E0EAF1;
+}
+.articles-list .top_post .post-signature{
+    background-color: transparent !important;
+}
+
+.notification {
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid #DDD;
+}
+
+.sex-female {
+  .author a {
+    color: MediumOrchid !important;
+  }
+}
+
+.rewarders_article {
+  img {
+    width: 64px;
+    height: 64px;
+    margin: 10px;
+  }
+}
+.conversations-list {
+  .conversation {
+    img {
+      margin-left: 32px;
+      margin-top: 24px;
+    }
+  }
+}
+.conversation .message {
+  &.in p {
+    text-align:left;
+  }
+  &.out p {
+    text-align:right;
+  }
+}

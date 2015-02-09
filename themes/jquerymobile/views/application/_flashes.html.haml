@@ -1,0 +1,3 @@
+- flash.each do |key, msg|
+  %div.ui-content{:id => "message-#{key}", 'data-role' => 'popup'}
+    = raw msg

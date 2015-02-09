@@ -1,0 +1,61 @@
+= @article.id
+= form_for [:admin, @article], :html => {:multipart => true} do |f|
+  = f.label :group
+  = f.select :group_id, Group.all.collect{|g|[g.name, g.id]}
+  = f.label :title
+  = f.text_field :title
+  = f.label :user_id
+  = f.text_field :user_id
+  = link_to @article.user.login, [:admin, @article.user] if @article.user
+  %br
+  = image_tag @article.top_post.picture(:medium) if @article.top_post.is_a?(Picture)
+  %fieldset
+    = f.fields_for(:top_post) do |top_post|
+      %label Post Type:
+      = top_post.select :type, ['','Picture', 'ExternalPage', 'ExternalVideo', "Repost"]
+      = top_post.label :content
+      = top_post.text_area :content, :rows => 7, :class => 'span6'
+      -if @article.top_post.is_a?(ExternalVideo)
+        %label 原网页地址:
+        = top_post.text_area :video_page_link, :value => "#{@article.top_post.video_page_link}",:rows=>"2",:label => 'video_page_link'
+        %br
+        %label 视频连接
+        = top_post.text_area :video_flash_link, :value => "#{@article.top_post.video_flash_link}",:rows=>"2",:label => 'video_flash_link'
+        %br
+        %label 缩略图地址
+        = top_post.text_area :thumb_img_link, :value => "#{@article.top_post.thumb_img_link}",:rows=>"2",:label => 'thumb_img_link'
+        %img{:src=>"#{@article.top_post.thumb_img_link}"}
+        %br
+  = f.label :tag_line
+  = f.text_field :tag_line
+
+  %label.checkbox
+    = f.check_box :anonymous
+    匿名
+  %label.checkbox
+    = f.check_box :comment_status, {}, 'closed'
+    禁止评论
+  .control-group
+    = f.label :created_at
+    = f.datetime_select :created_at, {}, :class => 'span1'
+  = f.label :status
+  = f.select :status, Article::STATUSES
+  .form-actions
+    = f.submit @article.new_record? ? 'Create' : 'Update', :class => 'btn btn-primary'
+    = link_to "Back", admin_articles_path, :class => 'btn'
+
+- if Inbox.guest.where(:article_id => @article.id).exists?
+  已投递到首页
+  - item = Inbox.guest.where(:article_id => @article.id).first
+  = item.score
+  = link_to 'edit', [:edit, :admin, item]
+- else
+  - if User.guest.has_read?(@article)
+    已从首页撤离
+  - else
+    = link_to '投递到首页',{ :controller => 'admin/frontpage', :action => 'deliver', :article_id => @article.id}, { :remote => true}
+
+- unless @article.prev_in_group.blank?
+  = link_to "上一个", edit_admin_article_path(@article.prev_in_group),:rel => 'prev', :class => 'previous'
+- unless @article.next_in_group.blank?
+  = link_to "下一个", edit_admin_article_path(@article.next_in_group),:rel => 'next', :class => 'next'

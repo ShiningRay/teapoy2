@@ -1,0 +1,15 @@
+尊敬的<%= @user.name_or_login %>:
+
+您收到了一条新的通知如下
+
+<%= strip_tags render_notification @notification%>
+
+<%- c = @user.notifications.unread.count %>
+
+点击下面的链接查看全部<%=c%>条通知
+<%= notifications_url %>
+
+您可以点击下面的链接修改配置，以决定是否要接收新通知提醒邮件
+<%= edit_user_url(@user) %>
+
+

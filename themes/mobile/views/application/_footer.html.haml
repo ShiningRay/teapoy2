@@ -1,0 +1,12 @@
+- if logged_in?
+  .current-user-groups(style="display:none")
+    %ul
+      - current_user.publications(Group).each do |s|
+        %li= link_to s.publication.name, s.publication
+        - if s.unread_count > 0
+          %sup= s.unread_count
+#footer-inner
+  %p.copyright
+    Copyright &copy; #{Date.today.year}
+    %a(href="http://shiningray.cn")
+      ShiningRay

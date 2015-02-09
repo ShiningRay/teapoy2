@@ -1,0 +1,8 @@
+= render_post_content collection
+
+%ol
+  - collection.each do |item|
+    - if item.top?
+      %li= link_to article_title(item.article), [item.group, item.article]
+    - else
+      %li= render_posts item

@@ -1,0 +1,29 @@
+
+%h2
+  尊敬的
+  = @user.name_or_login
+  ：
+-count = @notifications.count
+%p
+  您今日一共有
+  =count
+  个新提醒
+-for c in @notifications
+  %blockquote= render_notification c
+= link_to notifications_url do
+  点击查看
+  = count == 0 ? '' : "#{c}条"
+  通知
+
+%p
+  您可以点击
+  =link_to "此处", edit_user_url(@user)
+  修改，决定是否要接收新通知提醒邮件
+
+%hr/
+
+%p
+  感谢您使用博聆网，
+  %a(href='http://www.bling0.com') 博聆网
+  是高质量兴趣小组的聚集社区
+

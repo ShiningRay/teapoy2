@@ -1,0 +1,107 @@
+.list{
+  margin-left:20px;
+  margin-top:5px;
+  margin-bottom:5px;
+  .name{
+    float:left;
+  }
+  .owner{
+    float:right;
+    width:200px;
+  }
+}
+.new-list, .all-lists, .list-info ,.list-edit,.lists-search{
+  margin-left:20px;
+  margin-top:5px;
+  margin-bottom:5px;
+}
+ul#list-items{
+  margin-left:1em;
+}
+body.lists-edit{
+  content{
+    h3{
+       margin-left:20px;
+        margin-top:5px;
+        margin-bottom:5px;
+    }
+  }
+}
+#add_list_items_form{
+    border-radius: 10px 10px 10px 10px;
+    clear: both;
+    margin-left: 35px;
+    padding: 0px 20px 10px 0px;
+    form {
+        border-bottom: none;
+        padding-top:0px;
+        padding-bottom:0px;
+
+        #article_url{
+          height:20px;
+          width:400px;
+          background-color: white;
+          border: 1px solid #ccdcef;
+          padding: 3px 0px 4px;
+        }
+
+        input[type="submit"]{
+          margin-top:10px;
+          background: #f0fefe;
+          border: 1px solid #ddd;
+          @include border-radius(5px);
+          padding: 5px 10px;
+          width: 70px;
+          font-size:1.1em;
+          color:#000000;
+          &:hover {
+            background: #fff;
+            border-color: black;
+          }
+        }
+  }
+}
+#new_list_form{
+    border-radius: 10px 10px 10px 10px;
+    clear: both;
+    padding: 0px 10px 10px 10px;
+    form {
+        border-bottom: none;
+        padding-top:0px;
+        padding-bottom:0px;
+        input{
+          width:300px;
+          background-color: white;
+          border: 1px solid #ccdcef;
+          padding: 3px 0px 4px;
+        }
+        textarea {
+          background-color: white;
+          border: 1px solid #ccdcef;
+          padding: 3px 0px 4px;
+          @include border-radius(5px);
+          width:500px;
+          height:400px;
+        }
+        li {
+          padding: 5px;
+          clear: none;
+          width: auto;
+        }
+      }
+     li.action {
+        input {
+          background: #f0fefe;
+          border: 1px solid #ddd;
+          @include border-radius(5px);
+          padding: 5px 10px;
+          width: 70px;
+          font-size:1.1em;
+          color:#000000;
+          &:hover {
+            background: #fff;
+            border-color: black;
+          }
+        }
+      }
+}

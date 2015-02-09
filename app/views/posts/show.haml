@@ -1,0 +1,16 @@
+-# coding: utf-8
+- group = @post.group
+- article = @post.article
+%nav.breadcrumb
+  = link_to group.name, group
+  &raquo;
+  = link_to article_title(article), [group, article]
+  &raquo;
+
+
+%article[@post]
+  = render_comments (@post.ancestors + [@post])
+
+- if @post.children.size > 0
+  %ol#comments
+    = render_comments @post.children.all.compact

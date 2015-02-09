@@ -1,0 +1,24 @@
+%table
+	- @items.each do |item|
+		%tr[item]
+			- if item.article
+				%td
+					= link_to item.article.group.name, item.article.group
+				%td
+					= link_to item.article_id, article_path(item.article.group, item.article)
+				%td
+					=link_to article_title(item.article), [:edit, :admin, item.article]
+				%td
+					= link_to [:admin, item.article.user] do
+						= item.article.user.login
+						(
+						= item.article.user.name
+						)
+			%td
+				=item.score
+			%td
+				= link_to 'edit', [:edit, :admin, item]
+			%td
+				= link_to 'remove', [:admin, item], :method => :delete, :remote => true, :data => {:confirm => 'Are you sure to remove?'}
+
+= paginate @items

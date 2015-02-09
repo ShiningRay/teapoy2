@@ -1,0 +1,64 @@
+= image_tag @user.avatar.url(:medium)
+= link_to 'delete_avatar',:method=>:post
+= h @user.name
+= h @user.login
+= h @user.email
+= h @user.state
+
+- @user.roles.each do |role|
+  = h role.name
+
+%ul
+  %li
+    Articles: #{@user.articles.count}
+  %li
+    comments: #{@user.comments.count}
+  %li
+    tickets: #{@user.tickets.count}
+%li Comments:
+%li Total Articles Score
+%li Total Comments Score
+%li Total articles comments
+%li average Articles Score
+%li average Comments Score
+%li average articles comments
+%li Followers
+%li
+  注册时间：#{@user.created_at}
+%li
+  updated_at：#{@user.updated_at}
+%li
+  = link_to "加入的小组   #{@user.joined_groups.count}个", publicate_groups_admin_user_path(@user)
+%li
+  激活时间
+  - if @user.activated_at?
+    = @user.activated_at.strftime("%Y.%m.%d %H:%M:%S")
+%li
+  balance:
+  = link_to @user.credit, admin_user_transactions_path(@user)
+%li
+  Badges
+  %ul
+    - @user.badges.each do |badge|
+      %li= badge.name
+%p
+  = link_to 'Articles', admin_user_articles_path(@user)
+
+= link_to 'edit', edit_admin_user_path(@user)
+|
+= link_to 'back', admin_users_path
+
+%p
+  = link_to 'delete_comments',:method=>:post
+%form{:action=>add_credit_admin_user_path(@user),:method=>:post}
+  reason：
+  %input{:name => "reason", :size => "6"}/
+  amount：
+  %input{:name => "amount", :size => "6"}/
+  %input{:type => "submit", :value => "发工资"}/
+%table
+  - for r in @user.reputations
+    %tr
+      %td= r.group.name
+      %td= r.value
+      %td= r.level

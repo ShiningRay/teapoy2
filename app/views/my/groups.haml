@@ -1,0 +1,20 @@
+- content_for :title, '我加入的小组'
+.groups-list
+  .grouplist
+    - @groups.each do |group|
+      .groupitem
+        = link_to image_tag(group.icon(:medium), :alt => group.name), group, :class => 'group_link'
+        %h2.group_title
+          =link_to group.name, group
+        .group_desc
+          =h group.description
+        .join
+          - if logged_in?
+            - unless current_user.is_member_of?(group)
+              = link_to '加入小组', join_group_path(group), {:class => "join_group", :data => {:alternative_path => quit_group_path(group), :alternative_text => '退出小组' }}
+            - else
+              = link_to '退出小组', quit_group_path(group), {:class => "quit_group", :data => {:alternative_path => join_group_path(group), :alternative_text => '加入小组' }}
+- content_for :sidebar do
+  = link_to '全部小组', groups_path
+
+

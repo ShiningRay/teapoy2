@@ -1,0 +1,5 @@
+%ul
+  - for ms in @memebrships
+    %li
+      = image_tag ms.user.avatar(:thumb),:alt=>"#{ms.user.name_or_login}"
+= paginate @memebrships

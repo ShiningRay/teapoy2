@@ -1,0 +1,6 @@
+<% content_for :title do %>我发表过的文章<% end %>
+<h2>我发表过的文章</h2>
+<% if @articles %>
+  <%= render :partial => 'articles/article', :collection => @articles %>
+  <%= paginate @articles %>
+<% end %>

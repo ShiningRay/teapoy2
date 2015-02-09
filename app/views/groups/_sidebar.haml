@@ -1,0 +1,53 @@
+-# coding: utf-8
+- if @group and !@group.new_record?
+  %ul
+    %li.widget
+      .cf
+        = link_to image_tag(@group.icon.url(:thumb), :size => '64x64'), @group, :class => 'icon'
+      -unless @list_view
+        %div
+          = link_to t("groups.back_to", :group => @group.name), group_path(@group)
+      .cf
+        - if logged_in?
+          - unless current_user.is_member_of?(@group)
+            - unless @group.options.only_member_can_post
+              = link_to t("groups.start_new_topic"), new_article_path(@group) , :id => 'start_new_topic', :class => 'btn btn-default btn-lg'
+          -else
+            = link_to t("groups.start_new_topic"), new_article_path(@group) , :id => 'start_new_topic', :class => 'button'
+        - else
+          - if @group.options.guest_can_post
+            = link_to t("groups.start_new_topic"), new_article_path(@group) , :id => 'start_new_topic', :class => 'button'
+          - else
+            = link_to '立即注册 !', signup_path, :class => 'btn btn-default'
+        %br.clr
+      - if logged_in? && (current_user.own_group?(@group) || current_user.is_admin?)
+        .group_setting
+          = link_to '小组设置', edit_group_path(@group)
+          = link_to "审贴(#{@group.articles.pending.count}个待审)" ,pending_group_articles_path(@group)
+          = link_to "编辑小组页面",editinfo_group_path(@group)
+      .group_setting
+        = render 'groups/join_button', group: @group
+        %br
+        话题
+        = link_to @group.articles.public_articles.count, articles_path(@group)
+        %br
+        回复
+        = @group.posts.count
+
+      %div.group_description
+        :markdown
+          #{sanitize @group.description}
+    %li.widget
+      按照日期查看小组帖子：
+      = calendar_options_for_group(@group)
+    = widget 'group_search'
+    = widget 'invite_to_group' if logged_in?
+    = widget 'members_list'
+    = widget 'recent_hot'
+    %li(align='right')
+      = render 'common/ad'
+-else
+  - page = Group.meta_group.articles.find_by_cached_slug(Group.meta_group.alias)
+  - if page && page.top_post
+    = sanitize page.top_post.content
+= yield :sidebar

@@ -1,0 +1,14 @@
+%ul.group_nav
+  %li= link_to_unless_current '最新', group_path(@group)
+  %li= link_to_unless_current '最热', hottest_group_articles_path(@group)
+  %li= link_to_unless_current '待审', pending_group_articles_path(@group) if logged_in? and current_user == @group.owner
+
+
+- @articles = @group.public_articles.latest.includes(:top_post).page params[:page]
+.articles-list
+  = render @articles
+= paginate @articles
+
+- content_for :title, @group.name
+- content_for :head do
+  %link{:title=> "#{@group.name}近期文章", :type=>"application/rss+xml", :rel=>'alternative', :href=>group_articles_path(@group, :format=>:xml)}/

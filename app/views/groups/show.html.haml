@@ -1,0 +1,19 @@
+= render "groups/group_nav" if @group
+.subheader
+  %h1= "全部文章"
+  #tabs
+    = link_to t('nav.latest'), scoped_path(:order => ''), :class => (@limit.blank? && 'youarehere')
+    = link_to t('articles.day'), scoped_path(:order => 'hottest', :limit => 'day'), :class => (@limit == 'day' && 'youarehere')
+    = link_to t('articles.week'), scoped_path(:order => 'hottest', :limit => 'week'), :class => (@limit == 'week' && 'youarehere')
+    = link_to t('articles.month'), scoped_path(:order => 'hottest', :limit => 'month'), :class => (@limit == 'month' && 'youarehere')
+    = link_to t('articles.year'), scoped_path(:order => 'hottest', :limit => 'year'), :class => (@limit == 'year' && 'youarehere')
+    =link_to_unless_current '待审', pending_group_articles_path(@group) {raw "<a class='youarehere' href=\"#{pending_group_articles_path(@group) }\">待审</a>"} if logged_in? and current_user == @group.owner
+
+- @articles = @group.public_articles.latest.before.includes(:top_post).page params[:page]
+.articles-list.hfeed
+  = render @articles
+= paginate @articles
+
+- content_for :title, @group.name
+- content_for :head do
+  %link{:title=> "#{@group.name}近期文章", :type=>"application/rss+xml", :rel=>'alternative', :href=>group_articles_path(@group, :format=>:xml)}/

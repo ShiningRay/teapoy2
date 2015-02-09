@@ -1,0 +1,11 @@
+.box
+  %h2 收藏夹列表
+
+  %ol.collection-list
+    - @collections.each do |c|
+      %li
+        = link_to (c.title || 'No title'), "/collections/#{c.id}"
+        （
+        = c.size
+        ）
+  = link_to '创建收藏夹', new_collection_path

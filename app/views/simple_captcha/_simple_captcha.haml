@@ -1,0 +1,7 @@
+%li#user_captcha_input.user_captcha_input
+  %label{:for => "captcha"}
+    验证码
+    %abbr{:title => "required"} *
+  = simple_captcha_options[:field]
+  = simple_captcha_options[:image]
+  %p.inline-hints 大小写无关

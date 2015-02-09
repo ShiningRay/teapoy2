@@ -1,0 +1,28 @@
+- content_for :title, '确认您的唯一ID'
+
+#wrapper.cf
+  #flash_messages
+    =flash[:error]
+
+  =form_for(@user,:url => {:action => "confirm_login"},:html => {:id => 'confirm_login'}) do |f|
+    %p.hint
+      用户名是您在网站上
+      %strong
+        公开的
+      唯一ID，用来将您和其他用户区分。只能使用英文字母、数字、下划线和减号，3到16个字符之间，请勿使用QQ号或手机号
+    %p.confirm_section
+      %label.prefix><
+        http://www.bling0.com/users/
+      %input#login_input.need_verify(type="text" name="user[login]" value="#{@user.login}" check_area="login")
+      - unless @user.errors[:login].blank?
+        %p.inline-errors
+          = @user.errors[:login].join(' ')
+          = flash[:error]
+      %input#confirm_button(type="submit" value="确认")
+    %p.hint{:style=>"float:right;padding-right:250px;margin-top:10px;"}
+      如果你在想
+      %strong
+        这TMD是是什么玩意
+      请直接点击
+      %strong
+        确认

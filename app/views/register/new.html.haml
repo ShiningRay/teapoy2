@@ -1,0 +1,117 @@
+:css
+  #wrapper {
+    margin:0 auto;
+    width:940px;
+    font-size:12px;
+    padding:10px;
+  }
+  #logo-2 {
+    width: 550px;
+  }
+  #banner {
+    min-height:376px;
+    float:left;
+    width: 439px;
+    padding:0px 0;
+    position: relative;
+    border-right: 1px solid #FFFFFF;
+    padding-right: 40px; width: 420px;
+  }
+  .introduction ul li{
+  list-style-type: square;
+  }
+  #signup-area{
+  width: 400px;
+  float:left;
+  }
+  .buttons{
+  border:none;
+
+  }
+  .introduction ul li{
+  list-style-type: square;
+  margin-top: 5px; margin-bottom: 5px;
+  }
+  .welcome {
+  font-size:14px;
+  }
+  .introduction span{
+   font-size:14px;
+  }
+  .introduction span.first{
+   margin-bottom:10px;
+  }
+  #new_user input[type="submit"]{
+    width: 291px;
+    background-color:#358989;
+  }
+#wrapper.cf
+  #banner
+    .reg.logo
+      %a{:href => "/all"}
+    .welcome
+      %h2 欢迎来到博聆网
+      - unless params[:invite].blank?
+        - user = User.wrap(params[:invite])
+        - if user
+          .invite-area
+            = image_tag(user.avatar(:thumb))
+            = link_to user.name_or_login, user_path(user), :target => "_blank"
+            邀请您注册博聆网
+            - if params[:group]
+              - group = Group.wrap(params[:group])
+              - if group
+                并加入小组：
+                = link_to group.name, group_path(group), :target => "_blank"
+    .introduction
+      %span.first
+        博聆网由shiningray创立于2011年，是一个有人情味的轻论坛社区。和普通论坛不一样的是：
+      %ul
+        %li
+          %span
+            普通论坛的板块是固定的，在博聆网，你可以建立自己的板块
+        %li
+          %span
+            普通论坛以最后回贴时间为排序手段，博聆网增加了质量排序，可以让质量高的帖子排名靠前
+        %li
+          %span
+            普通论坛需要用户一个版面一个版面去扫，在博聆网的个人主页，你可以看到你所加入的板块所有更新的帖子，而且可以按照质量和时间来排序
+        %li
+          %span
+            相比普通论坛更多用户交互,更加便捷的发帖回帖，以及查看回复
+  #signup-area
+    #flash_messages
+      =flash[:error]
+    = semantic_form_for (@user,:url => {:action => "create_account"}) do |f|
+      = hidden_field_tag :group ,params[:group]
+      = hidden_field_tag :invite ,params[:invite]
+      = f.input :name, :label => '昵称', :hint => '昵称是您想展示给网友的名字。名字中不可加入@、&amp;、‘、&lt;、或&gt;符号，不可在开头和结尾使用空格或缩格，最多10个字符', :required => false,:input_html => { :class => 'need_verify',:check_area=>"name"}
+      = f.input :email, :label => '电子邮箱', :hint => '仅用来与您联系, 绝不公开', :required => true,:input_html => { :class => 'need_verify',:check_area=>"email"}
+      = f.input :password, :label => '密码', :required => true
+      = f.input :password_confirmation, :label => '重复密码', :required => true
+      = show_simple_captcha
+      = f.actions do
+        = f.action :submit, :label => '注册', :disable_with => "正在注册..."
+
+- content_for :javascripts do
+  :javascript
+  $(window).load(function(){
+      $('.need_verify').change(function(){
+      var myself = $(this);
+      myself.next(".inline-errors").remove();
+          $.ajax({
+              type: 'POST',
+              url: '/register/check',
+              data: {
+                  "check_area": myself.val(),
+                  "check_name": myself.attr("check_area")
+                  },
+              success: function(data){
+                  if (data.error_message){
+                      $("<p class='inline-errors'>"+data.error_message+"</p>").insertAfter(myself);
+                  }
+              },
+              dataType: "json"
+          });
+      });
+  });

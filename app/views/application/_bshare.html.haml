@@ -1,0 +1,17 @@
+%script{:charset => "utf-8", :src => "http://static.bshare.cn/b/button.js#uuid=52321512-0cab-42f7-bfee-31f29c63cb69&style=2&textcolor=#000&bgcolor=none&bp=sinaminiblog,qzone,renren,kaixin001,douban,qqmb,sohuminiblog,baiduhi&text=分享到", :type => "text/javascript"}
+%script{:type => "text/javascript",:charset => "utf-8",:src =>"http://static.bshare.cn/b/bshareMM.js#shareClass=BSHARE_IMAGE"}
+- content_for :javascripts do
+  :javascript
+  if typeof(bShare) != 'undefined'
+    $(".entry-content img").addClass("BSHARE_IMAGE")
+    $(".entry-content img.thumb_img_link").removeClass("BSHARE_IMAGE")
+    if ($.trim($(".entry-content").text()).length>0){
+        bShare.addEntry({
+            summary: $.trim($(".entry-content").text())
+        });
+    }
+    if ($(".entry-content img:first").length != 0){
+      bShare.addEntry({
+          pic: "http://bling0.com"+$(".entry-content img:first").attr("src")
+      });
+    }

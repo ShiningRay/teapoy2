@@ -1,0 +1,90 @@
+@import 'widgets/greeting';
+@import 'widgets/members_list';
+@import 'widgets/my_groups';
+@import 'widgets/new_groups';
+@import 'widgets/group_search';
+#sidebar{
+  //width: 280px !important;
+  //float: right !important;
+  padding-top: 10px;
+  ul {
+    // font-size: 1.1em;
+    list-style: none;
+    margin-bottom: 1.62em;
+    margin-left: 5px;
+    margin-right: 10px;
+
+    li.widget {
+      @include clearfix();
+      overflow: hidden;
+      word-wrap: break-word;
+      clear: both;
+      //padding: 0px 10px 0px 0px;
+      //margin-bottom: 10px;
+      h3 {
+        font-weight: bold;
+        font-size: 1.3em;
+        line-height: 1.4;
+        margin-top: 5px;
+        margin-bottom: 7px;
+        color: #555;
+      }
+      ul {
+        margin: 0;
+      }
+
+    }
+    li.t_qq {
+      border-bottom:0px;
+    }
+    li.t_sina{
+      border-bottom:0px;
+    }
+  }
+  .score {
+    background-color: #FFF7CA;
+    @include border-radius(3px);
+    color: #A19D84;
+    display: inline-block;
+    font-size: 0.916667em;
+    margin-right: 7px;
+    padding: 3px 3px 5px 5px;
+    strong{
+      color:#333333;
+    }
+   }
+  .title a {
+    color: #105CB6;
+  }
+
+a.icon{
+margin-left: 0px !important;
+}
+.group_pic{
+  margin-left:20px
+}
+.group_text{
+  margin-left:120px;
+  margin-top:20px;
+}
+.group_setting{
+  margin-top:5px;
+}
+.user_search{
+margin-top:5px;
+}
+  .sect{
+    margin-top:5px;
+    textarea {
+      overflow-y: hidden;
+      width: 260px;
+      padding: 4px;
+   }
+  }
+}
+
+.recommend_groups li{
+  float: left;
+  margin: 5px;
+}
+

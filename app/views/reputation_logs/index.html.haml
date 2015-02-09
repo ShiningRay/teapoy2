@@ -1,0 +1,26 @@
+= content_for :title, @title_name || "声望记录"
+-reputation_reasons= {"upvoted"=>"帖子被顶","article_deleted"=>"文章被删除","downvoting"=>"拍别人的帖子","downvoted"=>"帖子被拍"}
+.reputation_logs_div
+  - if @group
+    %h2
+      目前积分是
+      = @user.reputation_in(@group).value
+      ,距离升级还差
+      = Reputation.num_for_next_lever(@user.reputation_in(@group).value)
+      分
+    - if logged_in? and current_user.id == @user.id
+      %h2
+        声望记录
+        =link_to "(关于声望的说明)","/"
+      %table
+        %tr
+          %th 相关帖子
+          %th 数值
+          %th 理由
+        - @reputation_logs.each do |reputation_log|
+          %tr
+            %td.post=link_to reputation_log.post_id,"/articles/#{reputation_log.post_id}"
+            %td.amount= reputation_log.amount
+            %td.reason=reputation_reasons[reputation_log.reason]
+      %br/
+

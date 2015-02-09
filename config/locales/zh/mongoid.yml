@@ -1,0 +1,66 @@
+zh:
+  mongoid:
+    attributes:
+      group:
+        alias: 代号
+        description: 说明
+        icon: 图标
+        name: 名字
+      post:
+        anonymous: 匿名
+        content: 内容
+        type: 类型
+      user:
+        login: 登录名
+        name: 昵称
+    errors:
+      messages:
+        record_invalid: "验证失败: %{errors}"
+      models:
+        article:
+          attributes:
+            title:
+              taken: 这个标题的文章在小组里已经有了，请区分一下吧
+        balance:
+          attributes:
+            credit:
+              greater_than_or_equal_to: 余额不足
+        group:
+          attributes:
+            name:
+              blank: 小组名字不能为空
+              taken: 小组名已被注册
+        reword:
+          attributes:
+            user_id:
+              taken: 不能重复打赏
+        salary/daily_login:
+          attributes:
+            created_on:
+              taken: 积分已经领过了
+        salary/sequential_login:
+          attributes:
+            created_on:
+              taken: 积分已经领过了
+        user:
+          attributes:
+            email:
+              invalid: 格式错误
+              taken: 该Email已被注册
+            login:
+              invalid: 格式错误
+              taken: 该用户名已被注册
+              too_long: 太长
+              too_short: 用户名太短
+            name:
+              invalid: 格式错误
+              taken: 该昵称已被使用
+              too_long: 太长
+              too_short: 太短
+            password:
+              confirmation: 密码不匹配
+              too_long: 太长
+              too_short: 太短
+            password_confirmation:
+              too_long: 太长
+              too_short: 太短

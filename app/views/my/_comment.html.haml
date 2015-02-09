@@ -1,0 +1,47 @@
+=# f = comment.floor || (comment_counter + 1)  %>
+- f = comment.floor #comment_counter + 1
+- t = comment.total_score
+- user = comment.user
+- anon = comment.anonymous or comment.user_id == 0 or (not user) or user.deleted?
+=#comment.floor
+%li.comment.post{:id => "post_#{comment.id}",
+              :class => [comment.class_names, is_mine_class(comment),
+                          cycle('odd', 'even'), read_status_class(comment), user.class_names],
+              :data  => {:user_id => comment.anonymous ? '' : comment.user_id,
+                          :parent_id => comment.parent_id,
+                          :floor  => f,
+                          :date   => comment.created_at.strftime('%Y-%m-%d %H:%M:%S')}}
+  - if comment.status == 'deleted'
+    已被删除
+  - else
+    = image_tag anon ? '/images/anonymous.png' : user.avatar.url("small"), :alt => "#{user.name_or_login}", :class => 'avatar photo'
+    %div.name
+      - if anon
+        %span.nickname.anonymous
+          匿名人士
+      - else
+        %span.nickname= link_to h(user.name), user, :target => '_blank',:class=>"user",:data => {:login => user.login}
+        -#%span.identity= link_to h("@#{user.login}"), user, :target => '_blank',:class=>"user",:data => {:login => user.login}
+      %sup.floor{:name=>"floor-#{comment.floor}"}="#{comment.floor}"
+    -if comment.parent_id.to_i != 0
+      %a.in-reply-to{:href=>"#floor-#{comment.parent_id}"}
+        &nbsp;
+        →
+        ="#{comment.parent_id}L"
+    %ul.suckerfish
+      %li
+        %a.show-article-actions
+        %ul.article-actions
+          %li
+            %a.show-someone-comment{:href=>"#",:data=>{:login=>"#{comment.user.login}"}}="只看此人"
+          - if logged_in?
+            %li
+              =link_to t('posts.repost'), repost_form_path(:post_id => comment.id), :class => 'repost'
+            - if (current_user == comment.user or current_user.is_admin?)
+              %li
+                =link_to t('posts.destroy'), post_path(comment), :method => :delete, :remote => true, :confirm => '确定要删除吗?'
+    %sup.date=time_ago_in_words(comment.created_at)
+    %div.body= render_posts comment
+
+    %a.reply{:href=>"javascript:replyComment(#{comment.id},#{comment.article_id},#{f})",:data=>{:floor=>"#{comment.floor}"}}
+    = render 'posts/votecell', {:post => comment}

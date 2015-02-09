@@ -1,0 +1,146 @@
+//= require 'normalize'
+@import "compass/css3/transition";
+@import "compass/css3/border-radius";
+@import "compass/css3/box-shadow";
+@import "compass/css3/text-shadow";
+@import "compass/css3/images";
+@import "compass/css3/opacity";
+#background{
+  position:absolute;
+  display: none;
+}
+
+a {
+  color: #F0F0F0;
+  text-decoration: none;
+  @include single-text-shadow(#333, 1px, 1px, 0px);
+}
+.no-textshadow {
+  a, label {
+    background-color: #fdfdfd !important;
+    padding: 7px;
+    color: #333 !important;
+    @include opacity(0.25);
+  }  
+} 
+body {
+  color: #F0F0F0;
+  //color: rgba(240, 240, 255, 0.7);
+  font: 13px / 22px "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  //text-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  font-family: "HelveticaNeue","Helvetica Neue",Helvetica,Arial,sans-serif; }
+
+label, input, textarea, select, button {
+  font-family: "HelveticaNeue","Helvetica Neue",Helvetica,Arial,sans-serif; }
+
+#links div {
+  float: left; }
+#logo {
+  width:527px; 
+  height:110px;
+  margin: 10px auto 0px;
+  margin-bottom: 50px;
+  background: url('tailake/index-logo.png') no-repeat center center;
+}
+#login-form {
+  margin:0 auto;
+  text-align:center;
+  a {
+    @include single-transition(font-size, 0.7s);
+  }
+  a:hover {
+    font-size:24px;
+    @include single-transition(font-size, 0.5s);
+  }
+  label {
+    cursor: pointer;
+    color: #F0F0F0;
+    text-decoration: none;
+    @include single-text-shadow(#333, 1px, 1px, 0px);
+  }
+  .input {
+    //border: 1px solid #eee;
+    background: transparent;
+    float: left;
+    width: 273px;
+    height: 52px;
+    padding: 0;
+    margin-right: 7px;
+
+    //overflow: hidden;
+    @include border-radius(4px);
+
+    input {
+      //border: 1px solid black;
+      @include opacity(0.75);
+      border: 1px solid;
+      border-color: rgba(255,255,255,0.5);
+      color: #aaa;
+      width: 233px;
+      font-size: 20px;
+      line-height: 23px;
+      margin:0;
+      background-image: none;
+      background-color: #25282b;
+      padding: 13px 20px 14px;
+      height: 23px;
+      outline: 0;
+      @include border-radius(3px);//
+      @include single-box-shadow(#1d1f21, 0, 0, 10px, false, true);
+    }
+    input:focus {
+      @include opacity(1);
+    }
+
+    input:-webkit-autofill {
+      background-color: #25282b  !important;
+    }
+  }
+  .submit button {
+    background-color: #2c97ba;
+    border: none;
+    display: block;
+    float: left;
+    width: 130px;
+    height: 52px;
+    padding: 0; margin: 0;
+    outline: 0;
+    font-size: 26px;
+    letter-spacing: 6px;
+    color: white;
+    @include border-radius(3px);
+    @include single-text-shadow(#333,2px, 2px, 2px);
+    @include single-box-shadow(rgba(0,0,0,0.25),1px, 1px, 1px);
+    @include background(linear-gradient(top, #2c97ba, #357eac));
+    &:hover {
+      background: none;
+      background-color: #2d98bd;
+    }
+    &:focus {
+      @include background(linear-gradient(top, #357eac, #2c97ba));
+    }
+  }  
+  .actions {
+    float: left;
+    height: 19px;
+    padding: 17px 0 16px;
+    line-height: 19px;   
+
+  }
+  .links {
+    clear: left;
+    width:285px; 
+    padding-left: 5px;
+    float: left;
+    text-align: left;
+    height: 19px;
+    line-height: 19px;
+    padding: 17px 0 16px;    
+  }  
+    .signup{
+      color: red;
+    }   
+}
+.placeholder { color: #aaa; }
+.ie6 #login-form {}

@@ -1,0 +1,39 @@
+.my_groups{
+  margin: 0;
+  li {
+    list-style: none;
+    height: 25px;
+    vertical-align: middle;
+    .unread_count {
+      background-color: #578CCA;
+      color: #fff;
+      text-align: center;
+      @include border-radius(30px);
+      font-size: 11px;
+      //margin: 0 0 0 3px;
+      margin-right: 10px;
+      padding: 1px 5px;
+    }
+    span {
+      float: right;
+
+      //width: 30px;
+    }
+    a {
+      float: left;
+      width: 96%;
+      padding: 5px 0 5px 5px;
+      border-left:3px solid transparent;
+      img {
+        width: 16px;
+        height: 16px;
+      }
+      &:hover {
+        background: none repeat scroll 0 0 #A4D1E5;
+        border-left: 3px solid #8FC6DD;
+        color: #FFFFFF;
+        padding-right: 0;
+      }
+    }
+  }
+}

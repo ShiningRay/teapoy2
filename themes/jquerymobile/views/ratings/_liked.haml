@@ -1,0 +1,3 @@
+.ui-block-a
+  = link_to up_post_path(post), class: 'arrow up', rev: 'vote-for', rel: 'nofollow', data:{icon: 'arrow-u', role: 'button', mini: true, theme: 'b', shadow: 'false'}, remote: true do
+    = post.pos

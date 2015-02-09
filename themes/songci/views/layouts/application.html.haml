@@ -1,0 +1,9 @@
+- content_for :main do
+  #main{ :role => 'main' }
+    #content.cf= yield
+    #sidebar.cf= render 'sidebar'
+-content_for :stylesheets do
+  = stylesheet_link_tag current_theme_stylesheet_path('songci')
+- content_for :javascripts do
+  = javascript_include_tag current_theme_javascript_path('vote')
+= render :template => 'layouts/onecolumn'

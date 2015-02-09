@@ -1,0 +1,16 @@
+<% u = ticket.user %>
+<% w = u.ensure_weight %>
+<tr id="ticket-<%=ticket.id%>">
+  <td><%= u.id %></td>
+  <td><%= link_to u.login, ['admin', u] %></td>
+  <td><%= w.ratio%></td>
+  <% if ticket.ticket_type %>
+    <td><%= ticket.ticket_type.weight > 0 ? w.pos_weight : w.neg_weight %></td>
+    <td style="<%= 'text-decoration:line-through' if ticket.ticket_type.weight < 0 %>"><%= ticket.ticket_type.name %> </td>
+    <td style="<%= 'text-decoration:line-through' if ticket.ticket_type.weight < 0 %>"><%= ticket.ticket_type_id %> </td>
+    <td><%=ticket.ticket_type.weight%></td>
+    <td><%=ticket.created_at - ticket.viewed_at if ticket.viewed_at%></td>
+  <% else %>
+    <td colspan="4"></td>
+  <% end %>
+</tr>

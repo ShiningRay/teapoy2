@@ -1,0 +1,177 @@
+#single_conversation {
+  padding: 10px 0 0 0 ;
+}
+/*-- msg_time begin --*/
+.msg_time{
+  border-style: dashed;
+  border-width: 1px 0 0;
+  display: block;
+  position: relative;
+  border-color: #000;
+  margin-top: 15px;
+  color: #333;
+  border-color: #bbb;
+}
+.msg_time .detail_time{
+  left: 50%;
+  position: absolute;
+  top: -9px;
+  background-color: #f9f9f9;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-left: -54px;
+  text-align: center;
+}
+/*-- msg_time end --*/
+
+/*--bubble_l begin --*/
+.bubble_l{
+  clear: both;
+  float: left;
+  display: block;
+  margin-left: 10px;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.bubble_l .bubble_user{
+  float: left;
+  display: inline-block;
+}
+.bubble_l .bubble_cont{
+  float: left;
+  display: inline-block;
+  margin-left: 5px;
+  max-width: 80%;
+
+}
+.bubble_l .bubble_arrow{
+  position: relative;
+  left: 1px;
+}
+.bubble_l .bubble_arrow i{
+  height: 0;
+  width: 0;
+  border-style: solid;
+  border-color: #fff #fff transparent transparent;
+  border-width: 4px;
+  font-size: 0;
+  display: inline-block;
+  float: left;
+  position: absolute;
+  top: 5px;
+  left: 2px;
+
+
+}
+.bubble_l .bubble_arrow em{
+  height: 0;
+  width: 0;
+  border-style: solid;
+  border-color: #ddd #ddd #f9f9f9 #f9f9f9;
+  border-width: 5px;
+  font-size: 0;
+  display: inline-block;
+  float: left;
+  position: absolute;
+  top: 4px;
+  z-index: -2222;
+  left: 0px;
+}
+.bubble_l .cont{
+  border: 1px solid #ddd;
+  line-height: 35px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-left: 10px;
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 0 3px 3px rgba(0, 0, 0,0.05);
+
+}
+/*-- bubble_l end --*/
+
+
+/*--bubble_r begin --*/
+
+.bubble_r{
+  clear: both;
+  float: right;
+  display: block;
+  margin-right: 10px;
+  width: 100%;
+  margin-bottom: 15px;
+}
+.bubble_r .bubble_user{
+  float: right;
+  display: inline-block;
+}
+
+.bubble_r .bubble_cont{
+  float: right;
+  display: inline-block;
+  max-width: 80%;
+}
+
+.bubble_user{
+  height: 35px;
+  width: 35px;
+  display: inline-block;
+}
+.bubble_r .bubble_cont{
+  display: inline-block;
+  margin-right: 15px;
+  float: right;
+}
+.bubble_r .bubble_arrow{
+  position: relative;
+  right: 1px;
+  float: right;
+}
+.bubble_r .bubble_arrow i{
+  height: 0;
+  width: 0;
+  border-style: solid;
+  border-color: #fff transparent transparent #fff;
+  border-width: 4px;
+  font-size: 0;
+  display: inline-block;
+  float: right;
+  position: absolute;
+  top: 5px;
+
+
+}
+.bubble_r .bubble_arrow em{
+  height: 0;
+  width: 0;
+  border-style: solid;
+  border-color: #ddd #f9f9f9 #f9f9f9 #ddd;
+  border-width: 5px;
+  font-size: 0;
+  display: inline-block;
+  float: right;
+  position: absolute;
+  top: 4px;
+  z-index: -2222;
+  left: 0px;
+}
+.bubble_r .cont {
+  border: 1px solid #ddd;
+  line-height: 35px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-left: 10px;
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 0 3px 3px rgba(0, 0, 0,0.05);
+}
+
+/*--bubble_r end --*/
+.message .cont p {
+  line-height: 1.2em;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  word-wrap:break-word; word-break:break-all;
+  text-overflow: ellipsis;
+}

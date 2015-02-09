@@ -1,0 +1,13 @@
+<form action="" method="post">
+  <% if current_user.name.blank? %>
+  <p>您还没有设置昵称，将直接使用登录名</p>
+  <% else %>
+  <p>当前昵称<strong><%=h current_user.login%></strong></p>
+  <% end %>
+  <p>新昵称<br/>
+    <input type="text" name="new_name" />
+  </p>
+  <p>
+    <input type="submit" value="更改" />
+  </p>
+</form>

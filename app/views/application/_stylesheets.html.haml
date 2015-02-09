@@ -1,0 +1,9 @@
+= stylesheet_link_tag 'style', :media => 'all'
+= stylesheet_link_tag 'application', :media => 'screen'
+= stylesheet_link_tag 'handheld', :media => 'handheld'
+= stylesheet_link_tag 'handheld', :media => 'only screen and (max-device-width:480px)'
+-# Append your own using content_for :stylesheets
+= yield :stylesheets
+-unless params[:read].nil?
+  :css
+    li.read {display: block;}

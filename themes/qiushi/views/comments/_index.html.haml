@@ -1,0 +1,27 @@
+%div.comment-list{:id => "comments_#{@article.id}"}
+  - if @comments and @comments.size > 0
+    %ul.comments
+      = render_comments @comments
+
+  - if @article.comment_status != 'closed' and @article.status == 'publish'
+    .reply_form
+      -# article_comments_path(@group, @article)
+      - if logged_in?
+        %form.login{:method=>"post", :action => "/#{@group.alias}/#{@article.to_param}/comments", :data => {:article_id => @article.id}}
+          %input{:type=>"hidden", :name=>"authenticity_token", :value=>form_authenticity_token}
+          %input(type="hidden" name="comment[parent_id]")
+          %b.username
+          %input#comment_article_id{:type => "hidden", :value => @article.id, :name => "comment[article_id]"}
+          %p
+            %textarea.comment_input( rows="10" name="comment[content]")
+          %p.right
+            %input.comment_submit( type="submit" value="发表评论" name="commit" title="Ctrl + Enter可以快捷发表" )
+          %p.right.comment_anonymous
+            %input( type="hidden" value="0" name="comment[anonymous]" )
+            %label
+              %input.comment_checkbox( type="checkbox" value="1" name="comment[anonymous]") 匿名
+          .clear
+      - else
+        .logout
+          您尚未登录，无法发表评论。
+          %a.need-login(href="/login") 立即登录

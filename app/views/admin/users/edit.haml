@@ -1,0 +1,52 @@
+= form_for [:admin, @user] do |f|
+  %p
+    %label
+      name:
+      %br/
+      = f.text_field :name
+  %p
+    %label
+      login:
+      %br/
+      = f.text_field :login
+  %p
+    %label
+      Email
+      %br/
+      = f.text_field :email
+  %p
+    %label
+      state
+      %br/
+      = f.text_field :state
+  %br/
+  %p
+    Password
+    %br/
+    = f.password_field :password
+  %p
+    Password Confirmation
+    %br/
+    = f.password_field :password_confirmation
+  %fieldset{:style => "width:50%"}
+    %p
+      接受提醒邮件:
+      \#{radio_button "user","preferred_want_receive_notification_email",true}
+      yes
+      \#{radio_button "user","preferred_want_receive_notification_email",false}
+      no
+    %legend 权限
+    - Role.all.each do |role|
+      %label
+        = check_box_tag "user[role_ids][]", role.id, @user.role_ids.include?(role.id)
+        = role.name
+
+  %fieldset{:style => "width:50%"}
+    %legend 勋章
+    - Badge.find_each do |badge|
+      %label
+        = check_box_tag "user[badge_ids][]", badge.id, @user.badge_ids.include?(badge.id)
+        = badge.name
+  %p
+    %label
+  = f.submit

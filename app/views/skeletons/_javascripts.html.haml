@@ -1,0 +1,9 @@
+-#  Append your own using content_for :javascripts
+= yield :javascripts
+
+= production_partial 'application/google_analytics'
+= production_partial 'application/baidu_tongji'
+= NewRelic::Agent.browser_timing_footer rescue ""
+/[if IE 6]
+  =# javascript_include_tag "/javascripts/firebug-lite.js" unless Rails.env.production?
+  -#%textarea#debug.fixed(style="position:absolute; left: 0; top: 100px;" cols='100' rows='20')

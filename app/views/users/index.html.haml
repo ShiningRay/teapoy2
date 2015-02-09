@@ -1,0 +1,39 @@
+= content_for :title, @title_name || "用户列表"
+%div{:style => "margin:20px;"}
+  - if @group
+    %div{:style => "margin-bottom:20px;"}
+      %form{:action => "/#{@group.alias}/users"}
+        %input{:name => "status", :type => "hidden", :value => "all"}/
+        %input{:name => "search", :size => "40"}/
+        %input{:type => "submit", :value => "查找用户"}/
+    - if logged_in? && @group.owner_id == current_user.id
+      = link_to  'all', group_users_path(@group)
+      - {:pending => "待审核的",:subscriber => "已经加入小组的"}.each_pair do  |key,value|
+        = link_to_unless params[:state] == "#{key}", "#{value}", group_users_path(@group, :state => key)
+  %h2= @title_name
+  %br/
+  %table.user_lists
+    - for user in @users
+      %tr
+        %td.user_avatar= link_to(image_tag(user.avatar(:thumb)),user)
+        %td.user_name= link_to user.name_or_login, user_path(user)
+        - if @group
+          %td
+            - rep = user.reputation_in(@group)
+            = "#{t(rep.level, :scope => 'reputations')}/#{rep.value}"
+        %td.follow
+          - if logged_in?
+            - if current_user.following?(user)
+              = link_to '取消关注', unfollow_user_path(user), :class => "follow"
+            - else
+              = link_to '关注TA', follow_user_path(user), :class => "unfollow"
+
+        %td.new_message
+          = link_to '小纸条TA', new_message_path(:id => user.id)
+        - if logged_in? && @group && (current_user.id == @group.owner_id || current_user.is_admin?)
+          - if user.membership_role == 'pending'
+            %td.membership
+              = link_to '让TA加入',allow_join_group_path(@group,user),:method=>:post
+          - if user.membership_role == 'subscriber'
+            %td.membership= link_to '踢之', reject_join_group_path(@group,user),:method=>:post
+  = paginate @users

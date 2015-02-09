@@ -1,0 +1,11 @@
+- content_for :title do
+  时间地图
+%table
+  %tr
+    %th 年
+    %th 月
+  - for year in @start_year..@end_year
+    %tr
+      %th= year
+      - for month in 1..12
+        %td= link_to month, group_archive_path(@group, year, month)

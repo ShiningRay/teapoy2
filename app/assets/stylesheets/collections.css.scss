@@ -1,0 +1,14 @@
+// Place all the styles related to the collections controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.collection {
+  ol {
+    margin: 20px auto;
+    padding-left: 20px;
+  }
+}
+.collection-info h2 .status {
+  color: #999;
+  font-size: 14px;
+}

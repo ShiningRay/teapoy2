@@ -1,0 +1,33 @@
+- @group ||= @article.group
+- if logged_in? or @group.preferred_guest_can_reply?
+  .comment-form
+    .avatar
+      - if logged_in?
+        =# image_tag current_user.avatar.url(:thumb), :alt => "#{current_user.name_or_login}"
+        .name= current_user.name
+
+    =# link_to 'Not me?', logout_path
+    - if @group.preferred_only_member_can_reply? and !current_user.is_member_of?(@article.group)
+      = link_to '加入小组发表评论', join_group_path(@article.group) ,:class=>"join_group"
+    - else
+      - unless logged_in?
+        您目前是游客身份，请
+        = link_to '登录', login_path
+      = form_for((@post || [@article, @article.comments.new]), :url => "/#{@group.alias}/#{@article.to_param}/comments.html",:html=>{:multipart => true, :class => 'form-inline', :id => ''}) do |f|
+        = f.hidden_field :parent_id
+        #faceTitle
+        = f.text_area :content, :rows => 2, :placeholder=>"按 Ctrl+Enter 快速发表", :class => 'span6'
+        %label.checkbox
+          - if logged_in?
+            - if current_user.own_article?(@article) and @article.anonymous?
+              = f.check_box :anonymous, :checked => "checked"
+            -else
+              = f.check_box :anonymous
+            匿名
+        = f.submit '回复', :disable_with => '...', :class => 'btn btn-primary'
+
+- else
+  %div
+    = raw t('comments.must_login_or_signup_to_reply',
+        :login => raw(link_to( t('users.login'), login_path,:class=>"need-login")),
+        :signup => raw(link_to(t('users.signup'), signup_path)))

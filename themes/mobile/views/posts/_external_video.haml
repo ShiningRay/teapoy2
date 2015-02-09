@@ -1,0 +1,12 @@
+- v = external_video
+.flash_link
+  %a{:href=>v.video_page_link, :title => v.video_title, :data => {:flash => v.video_flash_link, :id => v.id}}
+    %img.thumb_img_link{:src => v.thumb_img_link}
+%a{:href=>"javascript: void(0)",:class => "close_flash", :style=>'display:none'}
+  %img{:src => "#{asset_path('close-video.gif')}"}
+  &nbsp;收起
+%div{:id => "video-#{v.id}"}
+  &nbsp;
+
+= render_post_content  v
+

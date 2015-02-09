@@ -1,0 +1,9 @@
+- id=article.id
+- top_post = article.top_post
+- permalink = article_url(@group, article)
+- expanded = current_page?(permalink) ? 'expanded' : ''
+%div[article]{:class => [expanded, article.class_names]}
+  %div[article.top_post]{:class => top_post.try(:class_names)}
+    - unless article.title.blank?
+      %h2.entry-title=link_to article.title, permalink, :class => 'permalink', :rel => 'bookmark'
+    .entry-content= sanitize  article.top_post.content

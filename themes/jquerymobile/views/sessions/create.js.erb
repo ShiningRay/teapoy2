@@ -1,0 +1,17 @@
+var l = $.mobile.path.parseLocation();
+<%# 如果页面是/session或者/login，当登录后跳转之后，仍然停留在这个页面，会让用户觉得无法登录，所以必须直接跳转页面 %>
+if(l.pathname.match(/^\/session/) || l.pathname.match(/^\/login/)) {
+  $.mobile.changePage('/all');
+} else {
+  $('[data-role=dialog]').dialog( "close" );
+  $.mobile.changePage(
+    '#<%= Time.now.to_i%>',  <%# 如果通过侧边栏的登录打开登录对话框然后登录的话，当前页面的侧边栏的用户信息无法更新，所以需要强制刷新当前页面 %>
+    {
+      changeHash: false,
+      allowSamePageTransition : true,
+      transition              : 'none',
+      showLoadMsg             : false,
+      reloadPage              : true
+    }
+  );
+}

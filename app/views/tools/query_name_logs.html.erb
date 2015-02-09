@@ -1,0 +1,22 @@
+<% content_for :title, '查询昵称记录' %>
+<%= show_flash %>
+<form>
+  <fieldset>
+    <legend>搜索条件</legend>
+    <label><input type="radio" name='field' value='login'>ID</label>
+    <label><input type="radio" name='field' value='name'>昵称</label>
+  </fieldset>
+  <input type="text" name="target" value="<%= params[:target]%>">
+  <input type="submit" value='查询昵称记录'> (消耗50积分)
+</form>
+<% if @user %>
+<%= link_to @user, :target => '_blank' do %>
+<%=@user.name%>
+@<%=@user.login %>
+<% end %>
+<ol>
+  <% @user.name_logs.order('created_at asc').each do |n| %>
+    <li><%= n.name %> (<%=n.created_at.strftime("%Y-%m-%d")%>)</li>
+  <% end %>
+</ol>
+<% end %>

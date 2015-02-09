@@ -1,0 +1,28 @@
+
+$female-color: #FF6682;
+$male-color: #55aaff;
+
+.members_list {
+  .sex-female {
+    a { border-color: $female-color !important; }
+  }
+  .sex-male {
+    a { border-color: $male-color !important; }
+  }
+}
+
+li.comment{
+&.sex-female {
+  .avatar {
+    border-color: $female-color !important;
+    background-color: $female-color;
+  }
+}
+
+&.sex-male {
+  .avatar {
+    border-color: $male-color !important;
+    background-color: $male-color;
+  }
+}
+}

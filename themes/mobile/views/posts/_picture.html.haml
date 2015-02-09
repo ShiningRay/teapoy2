@@ -1,0 +1,11 @@
+%p><
+  - if cookies[:pic] == 'show'
+    = link_to image_tag(picture.picture(:small)), picture.picture(:large)
+  - else
+    =link_to "查看大图#{picture.dim_size(:large)}",picture.picture(:large)
+    %br><
+    =link_to "中图#{picture.dim_size(:medium)}", picture.picture(:medium)
+    %br><
+    =link_to "小图#{picture.dim_size(:small)}", picture.picture(:small)
+  %br><
+= render_post_content picture

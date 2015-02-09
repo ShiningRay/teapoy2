@@ -1,0 +1,9 @@
+$(window).one('pagechange', function(){
+	var id = '#post_<%= @comment.id.to_s %>';
+	if($(id).size() == 0){
+		$('.comments-list').append('<%= j render(partial: "comments/comment", object: @comment) %>');
+	}
+	$.scrollTo(id);
+});
+
+$('[data-role=dialog]').dialog( "close" );

@@ -1,0 +1,12 @@
+-# Grab Google CDN's jQuery, with a protocol relative URL
+-# Looks for google_api_key first in ENV['GOOGLE_API_KEY'] then in config/google.yml
+-# remote_jquery and local_jquery helpers use minified jquery unless Rails.env is development
+
+= javascript_include_tag "mobile"
+= javascript_include_tag "http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"
+= javascript_include_tag "mobile2"
+- if Rails.env.production?
+  = javascript_include_tag 'https://leancloud.cn/scripts/lib/av-0.4.6.min.js'
+  :javascript
+    AV.initialize("uxv3vgi3tlzj834kxnocmuw0svp1vojic7arrfhxwwib9lp9", "797rjp5exlt5nj0ysmzu4hb5eugtpn3ow5w50ama22wqdv4s");
+= yield :javascripts

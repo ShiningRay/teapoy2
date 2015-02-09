@@ -1,0 +1,12 @@
+%ul.nav.nav-tabs
+  %li{:class => params[:by_state].blank? && 'active'}= link_to 'all', :by_state => nil
+  - %w(active pending suspended passive deleted).each do |state|
+    %li{:class => params[:by_state] == state && 'active'}= link_to state, :by_state => state
+%table.table.users
+  %tr
+    %th #
+    %th login
+    %th name
+    %th state
+  = render :partial => 'user_row', :collection => @users, :as => :user
+= paginate @users

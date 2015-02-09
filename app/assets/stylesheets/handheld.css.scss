@@ -1,0 +1,54 @@
+//* {
+//  float: none;       // Screens are not big enough to account for floats
+//  background: #fff;  // As much contrast as possible */
+//  color: #000;
+//}
+
+// Slightly reducing font size to reduce need to scroll
+html {
+  -webkit-text-size-adjust: 120%;
+}
+
+.container {
+  width: 100% !important;
+}
+
+#header #nav-menu {
+  ul {
+    float: left;
+    li {
+      a { display: inline; }
+      display: inline;
+      width: auto;
+    }
+  }
+}
+
+#content, #sidebar, #topbar, #footer-inner, #channel-bar {
+  display: block !important;
+  float: none !important;
+  margin: auto !important;
+  width: 100% !important;
+}
+
+#header {
+  height: auto;
+}
+
+#login-info {
+  clear: both;
+  float: none;
+  text-align: right;
+}
+
+li.comment {
+  .avatar { display: none; }
+  .floor { float: left; }
+  .body {margin:auto;padding:auto;}
+}
+
+
+#bshareF, .bshareF2, .bshareDiv {
+  display:none;
+}
+

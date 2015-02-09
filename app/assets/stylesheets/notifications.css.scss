@@ -1,0 +1,26 @@
+@import "compass/css3/border-radius";
+
+.notification-box {
+  background-color: white;
+  width: 260px;
+  border: 5px solid #ddd;
+  @include border-radius(5px);
+}
+
+.notification-box.empty {
+  display: none;
+}
+
+.notification-box li {
+  border-color: transparent;
+  border-width: 1px;
+
+  &:hover {
+    border: 1px solid #333;
+    cursor: pointer;
+  }
+}
+
+.article.current {
+  border: 1px solid #000;
+}

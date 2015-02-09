@@ -1,0 +1,33 @@
+#header
+  #logo
+  #login
+    =form_tag session_path do
+      %label{:for=>"password"}
+        用户名或邮箱:
+      =text_field_tag 'user_session[login]', nil, :tabindex => 1
+      %label{:for=>"password"}
+        密码：
+
+      =password_field_tag 'user_session[password]', nil, :tabindex => 2
+      - if ( @msg || flash[:notice] )
+        %span{:color=>"red"}
+          ( @msg || flash[:notice] )
+      =check_box_tag 'user_session[remember_me]', '1', @remember_me
+      %label
+        记住我
+      %input{:name=>"commit",:type=>"submit", :value=>"登录", :tabindex=>"3"}
+
+#banner
+
+
+#channel-bar-wrapper.cf
+  #channel-bar
+    %ul
+      %li= link_to_unless_current '全部', scoped_path(:scope => 'all')
+      - ApplicationController::Channels.each do |tag|
+        %li= link_to_unless @tag == tag, tag, scoped_path(:scope => "tags/#{tag}")
+- @list_view = true
+%ul.groups-list
+  = render @groups
+
+

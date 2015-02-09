@@ -1,0 +1,18 @@
+- group = nav
+- if group
+  .breadcrumb
+    = link_to group.name, group
+    &raquo;
+  帖子
+  = link_to group.public_articles.size, articles_path(group)
+  ='.'
+  成员
+  = link_to group.memberships.size, group_memberships_path(group)
+
+  ='.'
+  - if logged_in?
+    - if current_user.is_member_of?(group)
+      = link_to '退出', quit_group_path(group),:class=>"quit_group"
+    - else
+      = link_to '加入', join_group_path(group),:class=>"join_group"
+  %hr

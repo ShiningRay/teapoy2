@@ -1,0 +1,28 @@
+#topbar
+  =link_to '博聆 bling', root_path, :class => 'logo'
+  #nav-menu
+    %ul
+      /%li= link_to t('nav.hottest'), hottest_all_articles_path
+      /%li= link_to t('nav.latest'), latest_all_articles_path
+      - if logged_in?
+        %li= link_to '发表', :controller => 'articles', :action => 'new', :group_id => @group.try(:alias)
+        %li= link_to t( 'nav.my_groups'), {:controller => 'my', :action => 'groups'}, :class => 'my-groups'
+      %li=link_to t('nav.explore_groups'), groups_path
+  %div#login-info
+    - unless logged_in?
+      = link_to t('users.signup'), signup_path
+      |
+      = link_to t('users.login'), login_path,:class=>"need-login"
+    - else
+      = link_to image_tag(current_user.avatar(:thumb), :size => '16x16'), user_path(current_user)
+      = link_to current_user.login,'/my/index'
+      |
+      = link_to '小纸条', inbox_messages_path
+      - if current_user.unread_messages_count > 0
+        = link_to "[#{current_user.unread_messages_count}]" , inbox_messages_path
+      |
+      - if current_user.notifications.unread.count > 0
+        = link_to "#{current_user.notifications.unread.count} 个新通知", notifications_path
+        |
+      = link_to t('users.logout'), logout_path
+

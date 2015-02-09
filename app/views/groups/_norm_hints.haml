@@ -1,0 +1,4 @@
+.norm_hints
+  - if @group && @group.norm_hints
+    = render_posts @group.norm_hints.top_post
+    = link_to 'Edit', edit_post_path(@group.norm_hints.top_post) if logged_in? and (current_user.is_admin? or current_user.own_group?(@group) )

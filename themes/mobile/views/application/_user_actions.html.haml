@@ -1,0 +1,13 @@
+.login-info><
+  = link_to(current_user.name_or_login, current_user)
+  -# = link_to '未读文章', :controller => '/my', :action => 'latest'
+  - umc =  current_user.unread_messages_count
+  = link_to inbox_messages_path do
+    = image_tag('message.png', :alt => '小纸条')
+    = umc if umc > 0
+  = link_to salaries_path do
+    = image_tag('coins.gif', :alt => '积分')
+    = current_user.balance.credit rescue nil
+    - if current_user.salaries.unpaid.size > 0
+      %sup= "(#{current_user.salaries.unpaid.size})"
+  = link_to '退出', logout_path

@@ -1,0 +1,32 @@
+- content_for :title, "#{@group.name}-#{@year}-#{@month}-#{@day}"
+- content_for :breadcrumbs do
+  %li
+    = link_to(@year, archive_path(:year => @year))
+    %span=  '/'
+    %ul.level-2
+      -(@first.year..@last.year).to_a.each do |year|
+        %li
+          = link_to_unless_current(year, archive_path(:year => year))
+  %li
+    = link_to(@month, archive_path(:year => @year, :month => @month))
+    %span=  '/'
+    %ul.level-2.month
+      -(1..12).to_a.each do |month|
+        %li=link_to_unless_current(month, archive_path(:year => @year, :month => month))
+  %li.date
+    = link_to(@day, archive_path(:year => @year, :month => @month, :day => @day))
+    %span=  '/'
+    %ul.level-2.day
+      -(1..Time.days_in_month(@month)).to_a.each do |day|
+        %li=link_to_unless_current(day, archive_path(:year => @year, :month => @month, :day => day))
+#calendar
+  =my_calendar(:year =>  @year, :month => @month,:special_day=>@date)
+#sub-nav.ad
+  您正在浏览：
+  %strong{:style => "color:#5BBA56"}>
+    = @year
+    年#{@month}月#{@day}日
+  中发表的帖子
+.articles-list
+  = render(@articles)
+= paginate @articles

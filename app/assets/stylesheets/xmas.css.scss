@@ -1,0 +1,99 @@
+@import "compass/typography/text/replacement";
+body{
+    background-color: #bf1e2e !important;
+    background-image: url("/images/new-year4.png") !important;
+    background-position: center top !important;
+    background-attachment: scroll !important;
+    #container {
+      margin-top:160px !important;
+      background-color: #eedbb3 !important;
+      background-image: url("/images/new-year-bg4.png")  !important;
+    }
+    #sidebar {
+      color: #DEB23D;
+
+      h1, h2, h3, h4, h5, h6, p {
+        color: #333 !important;
+      }
+
+      .widget {
+        color: #666;
+      }
+
+      abbr {
+        color: #666;
+      }
+
+      a {
+        color: #b15208;
+        &:hover{
+            color: #e96c0b;
+        }
+            &:visited{
+            color: #ddd;
+            }
+      }
+      p{
+        color:#ddd;
+      }
+    }
+    #gototop{
+      width: 167px;
+      @include replace-text('top.gif');
+      opacity: 0;
+      a{
+       color:#EEEEEE;
+      }
+    }
+    #footer{
+      color:#f5e9d1;
+      a {
+        color: #f5e9d1 !important;
+        text-shadow: none !important;
+        }
+      p {color:#f5e9d1;}
+    }
+    a#start_new_topic {color:#FFFFFF;}
+    #topnavleft, #topnavright {
+      ul {
+        li {
+          &.current {
+            a {
+              &:hover {
+                color: #fff !important;
+                background: #430701 !important;
+              }
+            }
+          }
+          a {
+            &:hover {
+              background: #430701;
+            }
+          }
+        }
+      }
+    }
+    #top {
+        //background: url("global_nav_bg1.png") repeat-x scroll 0 0 transparent;
+    }
+}
+
+.groups-list {
+  background-color: #eedbb3;
+  .group_tag {
+    border-bottom-color: #bf1e2e;
+    ul li.current {
+
+      background-color: #b15208;
+      a {
+        color: #fff;
+      }
+    }
+  }
+
+  .group_title a {
+    color: #b15208;
+
+  }
+
+}

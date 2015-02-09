@@ -1,0 +1,17 @@
+.message.cf[message]{:class => message.read ? 'read' : 'unread', :title => message.created_at.strftime("%Y-%m-%d %H:%M:%S") }
+  .sender
+    - if params[:action] == 'inbox'
+      - u = message.sender
+    - else
+      - u = message.recipient
+    - if u
+      = link_to u, :title => u.name_or_login do
+        = image_tag u.avatar.url("thumb"), :alt => u.name_or_login
+        = h(u.name_or_login)
+    .time= message.created_at.strftime("%Y-%m-%d %H:%M:%S")
+
+  = simple_format h(message.content)
+  .meta
+    = link_to new_message_path(:id => message.sender_id), :class => 'reply' do
+      = typicon('arrow-forward')
+      回复

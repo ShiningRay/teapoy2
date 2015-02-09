@@ -1,0 +1,65 @@
+.graph {
+  width: 250px;
+  position: relative;
+
+}
+.bar-title {
+  position: relative;
+  clear: left;
+  float: left;
+  width: 104px;
+  line-height: 20px;
+  margin-right: 17px;
+  font-weight: bold;
+  text-align: right;
+}
+.bar-container {
+  position: relative;
+  float: left;
+  width: 110px;
+  height: 10px;
+  margin: 0px 0px 15px;
+}
+
+.bar-container {
+ .bar{ 
+  height: 20px;
+  }
+  .choice_1{
+    background:url("bar1-bg.png") repeat-x scroll 0 2px transparent;
+  }
+  .choice_2{
+    background:url("bar2-bg.png") repeat-x scroll 0 2px transparent;
+  }
+  .choice_3{
+    background:url("bar3-bg.png") repeat-x scroll 0 2px transparent;
+  }
+  .choice_4{
+    background:url("bar4-bg.png") repeat-x scroll 0 2px transparent;
+  }
+  .choice_5{
+    background:url("bar5-bg.png") repeat-x scroll 0 2px transparent;
+  }
+  .choice_6{
+    background:url("bar6-bg.png") repeat-x scroll 0 2px transparent;
+  }
+  .choice_7{
+    background:url("bar7-bg.png") repeat-x scroll 0 2px transparent;
+  }
+  .choice_8{
+    background:url("bar8-bg.png") repeat-x scroll 0 2px transparent;
+  }
+  .choice_9{
+    background:url("bar9-bg.png") repeat-x scroll 0 2px transparent;
+  }
+  
+}
+.bar-container strong {
+  position: absolute;
+  right: -42px;
+  top: 0px;
+  overflow: hidden;
+}
+#poll-results p {
+  text-align: center;
+}

@@ -1,0 +1,13 @@
+- content_for :title, '专题列表'
+.lists-search
+  #searchr
+    %form#searchr-form{:action => lists_path,:method => :get,:style=>"background-color:#FFFFFF"}
+      %input#searchr-input{:type=>"text", :autocomplete=>"off", :value => params[:search], :name => 'search'}
+      %input#searchr-submit{:value => "搜索",:type=>"submit"}
+%h3.all-lists
+  主题列表
+- if @lists.size > 0
+  = render @lists
+= paginate @lists
+.new-list
+  =link_to "创建新的列表",new_list_path

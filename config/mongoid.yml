@@ -1,0 +1,29 @@
+defaults: &default_settings
+  options:
+    raise_not_found_error: true
+
+
+development:
+  <<: *default_settings
+  sessions:
+    default:
+      database: teapoy_dev
+      hosts:
+        - 'localhost'
+
+test:
+  <<: *default_settings
+  sessions:
+    default:
+      database: teapoy_test
+      hosts:
+        - 'localhost'
+
+# set these environment variables on your prod server
+production:
+  <<: *default_settings
+  sessions:
+    default:
+      database: teapoy_dev
+      hosts:
+        - 'localhost'

@@ -1,0 +1,21 @@
+-# coding: utf-8
+- if picture.picture.file?
+  - alt = picture.content && picture.content.mb_chars[0,50] || picture.article.title || ''
+  - title = (picture.article.title || alt[0, 10])
+  - if @list_view
+    - if picture.gif?
+      = link_to image_tag(picture.picture(:thumb), :alt => alt), picture.picture.url(:original), :class => 'picture', :id => "picture-#{picture.id}", :title => title
+    - else
+      = link_to image_tag(picture.picture(:medium), :alt => alt), picture.picture.url(:large), :class => 'picture', :id => "picture-#{picture.id}", :title => title
+  - else
+    - if picture.gif?
+      = image_tag(picture.picture(:original), :alt => alt)
+    - else
+      = link_to image_tag(picture.picture(:medium), :alt => alt),  |
+                picture.picture.url(:large), |
+                :class => 'picture',  |
+                :id => "picture-#{picture.id}",  |
+                :title => title
+      =# link_to picture.is_original? ? '给这张图片配上可爱的台词' : '我配的台词更好',draw_picture_path(picture) %>
+
+= render_post_content  picture

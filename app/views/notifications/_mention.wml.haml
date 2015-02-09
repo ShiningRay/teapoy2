@@ -1,0 +1,9 @@
+- mention.actors.each do |u|
+  = link_to (u.name.blank? ? u.login : u.name), user_url(u)
+-if article
+  在主题
+  = link_to article_title(article), notification_url(notification)
+  中提到了你
+-else
+  原帖已经被删除
+= br

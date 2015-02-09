@@ -1,0 +1,28 @@
+尊敬的<%= @user.name_or_login %>:
+
+<% if @articles.size == 0 %>
+
+  您所管理的“<%= @group.name %>”小组在<%= @date %>一篇新文章也没有
+
+  作为组长您要再接再厉啊！
+
+<% else %>
+    您所管理的“<%= @group.name %>”小组在<%= @date %>有<%= @articles.size%>篇文章
+    其中有<%=@articles.pending.size %>个新帖子等待审核
+    <%=pending_group_articles_url(@group) if @articles.pending.size > 0%>
+    已经过通过的帖子:
+    <% @articles.public_articles.each do |article| %>
+      * <%= article_author article %> 发表了 <%= article_title article %>
+    <% end %>
+<% end %>
+
+<% if @new_users_count > 0 %>
+      有<%=@new_users_count%>新用户加入
+      其中有<%=@new_pending_users_count%>等待审核
+<% end %>
+
+请点击小组链接查看:
+<%= articles_url(@group) %>
+
+您可以配置接受此类邮件的频率
+<%= edit_group_url(@group)%>

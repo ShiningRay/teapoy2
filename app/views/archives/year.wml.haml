@@ -1,0 +1,4 @@
+- content_for :breadcrumbs, "/ #{@year}"
+- for i in 1..12
+  = link_to "#{i}月", archive_path(:year => @year, :month => i)
+  = br

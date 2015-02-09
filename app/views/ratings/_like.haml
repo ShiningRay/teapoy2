@@ -1,0 +1,4 @@
+.ui-block-a
+  = link_to up_post_path(post, :format => 'js'), :class => 'arrow up', :rev => 'vote-for', :rel => 'nofollow', 'data-icon' => 'arrow-u', 'data-role' => 'button', 'data-mini' => true, :remote => true do
+    =# image_tag(asset_path('up.png'), :alt => '支持', :class=>'voteicon')
+    = post.pos

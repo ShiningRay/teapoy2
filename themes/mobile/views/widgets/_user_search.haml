@@ -1,0 +1,13 @@
+#searchr
+  %form#searchr-form{:action => users_path}
+    %input#searchr-input{:type=>"text", :autocomplete=>"off", :value => params[:search], :name => 'search',:placeholder=>"搜索用户"}
+    %input#user-searchr-submit{:value => "搜索用户",:type=>"submit",:style=>'width:70px;'}
+- if logged_in?
+  .sect
+    %h2 邀请朋友加入
+    %p 把下面的网址通过MSN/QQ发送给朋友
+    %p
+      %textarea#invite-url.auto-select{:name => "invite-url", :readonly => "readonly"}
+        ="http://www.bling0.com/signup?invite=#{current_user.login}"
+    %p.formtip 朋友注册后会自动关注你
+    %p.formtip 邀请一个用户将会获得50积分

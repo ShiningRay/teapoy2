@@ -1,0 +1,13 @@
+- content_for :title, '完成注册'
+%br
+恭喜您已经完成了注册
+%br
+我们已向您的邮箱
+%br
+=@user.email
+%br
+发送了认证邮件，请使用其中的链接激活您的账号
+%br
+赶紧去
+= link_to '自己的页面', :controller => 'my', :action => 'latest'
+看看吧

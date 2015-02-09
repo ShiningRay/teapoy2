@@ -1,0 +1,10 @@
+.notification
+  在主题
+
+  = link_to article_title(article), notification_url(notification)
+  中
+  %br
+  - reply.actors.each do |u|
+    = link_to (u.name.blank? ? u.login : u.name), user_url(u)
+  回复了你
+

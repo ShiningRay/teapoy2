@@ -1,0 +1,34 @@
+%form#recommend_groups_form.cf(method='post')
+  %ul.recommended_groups
+    - @groups.each do |group|
+      %li[group]{:class => 'selected cf'}
+        =image_tag group.icon.url, :size => '110x110'
+        .name
+          %label
+            %input(type="checkbox" name="group_ids[]" value="#{group.id}" checked='checked')
+            =link_to group.name, articles_path(group)
+        .description= h group.description
+        .stats
+          %ul
+            %li
+              %span.term 成员
+              %span.value= group.members.size
+            %li
+              %span.term 主题
+              %span.value= group.articles.size
+            %li
+              %span.term 回复
+              %span.value= group.posts.size
+  .submit_block
+    %input#submit(type="submit" value="加入小组")
+    %p.hint
+      加入小组后，小组的内容会自动推送到个人页面，
+      %br
+      如果你在想
+      %strong
+        这TMD的又是什么玩意
+      请直接点击
+      %strong
+        加入小组
+      ，或者
+      =link_to '跳过>>', :controller => :register, :action => 'complete'

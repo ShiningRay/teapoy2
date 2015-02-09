@@ -1,0 +1,30 @@
+Todayloginuser表示今天登录人数
+TodayArticleUser表示今天发帖人数，TodayPostUser表示今天发评论的人，这三个都是统计的salaries表中的内容
+<br />
+<ul class='nav nav-tabs'>
+<% ['User', 'Todayloginuser','TodayArticleUser','TodayPostUser','Article','Post', 'Rating','Message','Notification'].each do |i|%>
+  <li class="<%= i==params[:object] && 'active'%>">
+  <%= link_to i, :object => i %></li>
+<% end %>
+</ul>
+<form action="" class="form-inline">
+  <%= hidden_field_tag :object, params[:object] %>
+<%= text_field_tag :start, @start %> -
+<%= text_field_tag :end, @end %>
+<%= submit_tag 'query', :class => 'btn' %>
+</form>
+<table>
+
+<% if @stats; stats =  @stats.to_a.sort; stats.each_index do |index|%>
+  <tr>
+    <td><%=stats[index][0]%></td>
+    <td><%=stats[index][1]%></td>
+  </tr>
+<% end; end %>
+
+</table>
+<table>
+
+<%= high_chart params[:object], @chart %>
+</table>
+

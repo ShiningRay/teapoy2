@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Reputation:</b>
+  <%= @reputation_log.reputation_id %>
+</p>
+
+<p>
+  <b>Post:</b>
+  <%= @reputation_log.post_id %>
+</p>
+
+<p>
+  <b>Amount:</b>
+  <%= @reputation_log.amount %>
+</p>
+
+<p>
+  <b>Reason:</b>
+  <%= @reputation_log.reason %>
+</p>
+
+
+<%= link_to 'Edit', edit_reputation_log_path(@reputation_log) %> |
+<%= link_to 'Back', reputation_logs_path %>

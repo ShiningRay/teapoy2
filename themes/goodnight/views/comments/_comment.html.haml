@@ -1,0 +1,35 @@
+=# f = comment.floor || (comment_counter + 1)  %>
+- f = comment.floor #comment_counter + 1
+- t = comment.total_score
+- user = comment.user
+- anon = comment.anonymous or comment.user_id == 0 or (not user) or user.deleted?
+=#comment.floor
+%li.comment.post.cf{:id => "post_#{comment.id}",
+              :class => [comment.class_names, is_mine_class(comment),
+                          cycle('odd', 'even'), read_status_class(comment), user.class_names],
+              :data  => {:user_id => comment.anonymous ? '' : comment.user_id,
+                          :parent_id => comment.parent_id,
+                          :floor  => f,
+                          :date   => comment.created_at.strftime('%Y-%m-%d %H:%M:%S')}}
+  %a{:name=>"floor-#{comment.floor}"}
+  - if comment.status == 'deleted'
+    已被删除
+  - else
+    %span.name.nickname
+      - if anon
+        匿名人士
+      - else
+        =  link_to image_tag(user.avatar.url(:thumb)), user, :target => '_blank', :class => 'avatar', :data => {:login => user.login}
+        = link_to h(user.name), user, :target => '_blank',:class=>"user",:data => {:login => user.login}
+
+      -if comment.parent_floor != 0
+        %a.in-reply-to{:href=>"#floor-#{comment.parent_id}"}
+          →
+          ="#{comment.parent_id}L"
+    %div.body= render_posts comment
+    %div.floor{:title => comment.created_at.strftime('%Y-%m-%d %H:%M:%S')}=f
+
+    %div.operator(style="text-align:right;")
+      %a.reply{:href=>"javascript:replyComment(#{comment.id},#{comment.article_id},#{f})",:data=>{:floor=>"#{comment.floor}"}} 回复
+      =#link_to t('posts.repost'), repost_form_path(:post_id => comment.id), :class => 'repost' if logged_in?
+      =#link_to t('posts.destroy'), post_path(comment), :method => :delete, :remote => true, :confirm => '确定要删除吗?' if logged_in? and (current_user == comment.user or current_user.is_admin?)

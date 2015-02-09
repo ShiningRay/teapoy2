@@ -1,0 +1,7 @@
+%p
+  =link_to group.name, group
+  %br
+  = t('groups.owner') + ":"
+  = link_to group.owner.name, group.owner if group.owner
+  %br
+  = '-------------'

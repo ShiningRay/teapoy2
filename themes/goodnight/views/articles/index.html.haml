@@ -1,0 +1,26 @@
+= render 'articles/form'
+= render 'articles/hottest_nav'
+
+- if @limit
+  - content_for :title, sprintf("浏览%s中最热的帖子", t("articles.#{@limit}"))
+- if @articles.num_pages == 0
+  - if @limit
+    .empty-list
+      = t("articles.#{@limit}")
+      尚无帖子
+      - if @next_limit
+        = link_to sprintf("浏览%s中最热的帖子", t("articles.#{@next_limit}")), :limit => @next_limit
+        或
+        = link_to "发表自己的帖子", :action => :new
+      - else
+        目前尚无帖子
+- else
+  .article-list.hfeed
+    = render(:partial => @articles.reject{|a|a.top_post.nil?})
+  = paginate @articles
+  - if @limit && @next_limit && @articles.num_pages == @articles.current_page && @articles.num_pages > 0
+    .empty-list
+      您已看完了
+      = t("articles.#{@limit}")
+      中最热的所有帖子，请继续
+      = link_to sprintf("浏览%s中最热的帖子", t("articles.#{@next_limit}")), :limit => @next_limit

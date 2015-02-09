@@ -1,0 +1,10 @@
+= form_for @change_log do |f|
+  - if @change_log.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@change_log.errors.count, "error")} prohibited this change_log from being saved:"
+      %ul
+        - @change_log.errors.full_messages.each do |msg|
+          %li= msg
+
+  .actions
+    = f.submit 'Save'

@@ -1,0 +1,11 @@
+- content_for :title, "#{@group.name}-#{@year}"
+- content_for :breadcrumbs do
+  %li
+    = link_to(@year, archive_path(:year => @year))
+    %span=  '/'
+    %ul.level-2
+      -(@first.year..@last.year).to_a.each do |year|
+        %li
+          = link_to_unless_current(year, archive_path(:year => year))
+- for i in 1..12
+  = my_calendar(:year => @year, :month => i)

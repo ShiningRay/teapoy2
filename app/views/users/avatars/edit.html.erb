@@ -1,0 +1,25 @@
+<%= javascript_include_tag "http://open.web.meitu.com/sources/xiuxiu.js" %>
+<script type="text/javascript">
+  window.onload=function(){
+    xiuxiu.embedSWF("avatar_editor",5,"100%","600");
+         /*第1个参数是加载编辑器div容器，第2个参数是编辑器类型，第3个参数是div容器宽，第4个参数是div容器高*/
+    xiuxiu.setUploadURL("<%= user_avatar_url(@user, :_method => :put) %>");//修改为您自己的上传接收图片程序
+    xiuxiu.onInit = function ()
+    {
+      <% if @user.avatar.file? %>
+      xiuxiu.loadPhoto("<%= absolute_attachment_url @user.avatar%>");
+      <% end %>
+    } 
+    xiuxiu.onUploadResponse = function (data)
+    {
+      if(data == 'ok'){
+          window.location.href='<%= user_path(@user) %>';
+      } else {
+          alert(data);
+      }
+    }
+  }
+</script>
+<div id="avatar_editor">
+  <h1> 美图秀秀 </h1>
+</div>

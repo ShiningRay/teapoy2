@@ -1,0 +1,5 @@
+= content_for :title, @title_name || "用户列表"
+- @users.each do |user|
+    = link_to user.name_or_login, user
+    = br
+=paginate @users

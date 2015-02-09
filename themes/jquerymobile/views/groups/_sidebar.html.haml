@@ -1,0 +1,27 @@
+- if @group and !@group.new_record?
+  = link_to image_tag(@group.icon.url(:thumb), :size => '64x64'), @group, :class => 'icon'
+  -unless @list_view
+    = link_to t("groups.back_to", :group => @group.name), group_path(@group)
+    - if logged_in?
+      - unless current_user.is_member_of?(@group)
+        - unless @group.preferred_only_member_can_post?
+          = link_to t("groups.start_new_topic"), new_article_path(@group) , :id => 'start_new_topic', :class => 'button'
+      -else
+        = link_to t("groups.start_new_topic"), new_article_path(@group) , :id => 'start_new_topic', :class => 'button'
+    - else
+      = link_to '立即注册 !', signup_path, :class => 'button'
+  - if logged_in? and current_user.own_group?(@group)
+    = link_to '群设置', edit_group_path(@group) if @group.owner == current_user
+    = link_to "审贴" ,pending_group_articles_path(@group)
+  - if logged_in?
+    -if  current_user.is_member_of?(@group)
+      =link_to "退出小组" , quit_group_path(@group),:class=>"join_group"
+    -else
+      =link_to "加入小组",join_group_path(@group),:class=>"quit_group"
+    %br
+  话题
+  = link_to @group.articles.public_articles.count, articles_path(@group)
+  , 回复
+  = @group.posts.count
+
+= yield :sidebar

@@ -1,0 +1,25 @@
+- content_for :header do
+  #top
+    #top_area
+      #logo
+        %a.discovery{:href => "/", :title => ""}
+      .steps
+        = render "step_by_step"
+
+- content_for :stylesheets do
+  = stylesheet_link_tag 'register'
+  = stylesheet_link_tag 'tailake'
+- content_for :javascripts do
+  = javascript_include_tag 'register'
+  /[if IE 6]
+    = javascript_include_tag 'vendor/dd_belatedpng'
+    :javascript
+      DD_belatedPNG.fix('a.discovery,a.discovery:hover,.how-to-play img');
+- body_attributes :id => 'tailake'
+- content_for :main do
+  #main{ :role => 'main' }
+    #content.cf
+      = yield :before_content
+      = yield
+    #sidebar.cf= render 'sidebar'
+= render :template => 'layouts/skeleton'

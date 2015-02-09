@@ -1,0 +1,35 @@
+- content_for :title, '浏览所有小组'
+- content_for :description, '浏览所有小组'
+- content_for :keywords, '所有小组'
+- content_for :keywords, ",#{@tag}" if @tag
+.groups-list
+  #searchr{:style=>"margin-left: 40px;margin-top:8px;margin-right:40px"}
+    %form#searchr-form{:action => search_groups_path,:method => :get,:style=>"background-color:#FFFFFF"}
+      %input#searchr-input{:type=>"text", :autocomplete=>"off", :value => params[:search], :name => 'search',:placeholder=>"搜索小组"}
+      %input#searchr-submit{:value => "搜索",:type=>"submit"}
+    -if logged_in?
+      =link_to "申请创建小组",new_group_path,:class=>"new-group"
+
+  .group_tag
+    %ul
+      - ActsAsTaggableOn::Tag.order('id asc').each do |tag|
+        %li{:class => @tag == tag.name && "current"}
+          %h2
+            =link_to tag.name, tag_path(tag.name)
+  .grouplist
+    - groups = @groups || Group.tagged_with("官方推荐").order('feature desc, score desc').includes(:owner).page(params[:page])
+    - groups.each do |group|
+      - content_for :keywords, ",#{group.name}"
+      .groupitem
+        = link_to image_tag(group.icon(:medium), :alt => group.name), group, :class => 'group_link'
+        %h2.group_title
+          =link_to group.name, group
+        .group_desc
+          =h group.description
+        .join
+          - if logged_in?
+            - unless current_user.is_member_of?(group)
+              = link_to '加入小组', join_group_path(group), {:class => "join_group", :data => {:alternative_path => quit_group_path(group), :alternative_text => '退出小组' }}
+            - else
+              = link_to '退出小组', quit_group_path(group), {:class => "quit_group", :data => {:alternative_path => join_group_path(group), :alternative_text => '加入小组' }}
+  =paginate groups

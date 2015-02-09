@@ -1,0 +1,19 @@
+- content_for :title, '我的首页'
+= render '/groups/nav'
+
+%h1= "我订阅的小组中的文章"
+%p
+  %a{:href=>"/my/index?order=hot",:class=>"#{params[:order] == 'hot' && 'youarehere'}"}
+    24小时最热
+  %a{:href=>"/my/index?order=time",:class=>"#{params[:order] == 'time' && 'youarehere'}"}
+    最新
+
+-if @articles.size == 0
+  您还没有加入任何小组，
+  = link_to "去小组导航看看吧", groups_path
+  %br
+  比较受欢迎的小组有：
+  = render Group.page(params[:page]).order("feature DESC , score DESC").limit(15)
+-else
+  = render @articles
+  = paginate @articles

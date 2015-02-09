@@ -1,0 +1,13 @@
+%ul
+  - @memberships.each do |ms|
+    - u = ms.user
+    - if u
+      %li
+        = link_to u.name_or_login, u
+        (
+        = link_to "@#{u.login}", u
+        )
+    - else
+      /
+        = ms.user_id
+

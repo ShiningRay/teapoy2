@@ -1,0 +1,90 @@
+.midcol {
+  background: none;
+  overflow: hidden;
+  font-weight: bold;
+  border: none;
+  @include border-radius(10px);
+  padding: 5px;
+  width: 25px;
+
+  .score {
+      color: #c6c6c6;
+      text-align: center;
+  }
+
+  .arrow {
+      margin: 2px auto 0px auto;
+      width: 100%;
+      height: 14px;
+      display: block;
+      cursor: pointer;
+      background-position: center center;
+      background-repeat: no-repeat;
+      width: 15px;
+  }
+  .up {
+      background-image: url("good.gif");  /* SPRITE */
+  }
+  .down {
+      background-image: url("bad.gif");  /* SPRITE */
+  }
+  &.likes{
+    .up {
+      background-image: url("good-selected.gif");  /* SPRITE */
+    }
+    .score {
+      color: #FF8B60;
+    }
+  }
+  &.dislikes {
+    .score {
+      color: #9494FF;
+    }
+    .down {
+      background-image: url("bad-selected.gif");  /* SPRITE */
+    }
+  }
+}
+.mine {
+  .up {
+    background-image: url("good-disabled.gif") !important;
+    cursor: default !important;
+  }
+   .down {
+    background-image: url("bad-disabled.gif") !important;
+    cursor: default !important;
+  }
+}
+
+  .midcol.unvoted.hover {
+    border: 1px solid #999;
+    padding: 4px;
+    background-color: #F0F5F8;
+  }
+    .midcol.hover {
+      border: none;
+      padding: 5px;
+      background-color: transparent;
+    }
+
+
+.ie6 {
+  article.hover , .comment.hover {
+    .midcol.unvoted {
+      border: 1px solid #999;
+      padding: 4px;
+      background-color: #F0F5F8;
+    }
+  }
+  .mine {
+    .midcol {
+      border: none;
+      padding: 5px;
+      background-color: transparent;
+    }
+  }
+}
+
+#vote-ani{line-height:0;position:absolute;display:none;font-weight:700;margin:0;padding:0;}
+#vote-ani.pos{color:red;}
+#vote-ani.neg{color:blue;}

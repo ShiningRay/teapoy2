@@ -1,0 +1,4 @@
+<%= render 'form' %>
+
+<%= link_to 'Back', [:admin, @badge], :class => 'btn' %>
+<%= link_to 'destroy', admin_badge_path(@badge), :method => :delete, :class => 'btn btn-danger pull-right' %>

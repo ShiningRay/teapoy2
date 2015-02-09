@@ -1,0 +1,120 @@
+
+#top{
+    background: url("tailake/min-top.png") repeat-x scroll 0 0 transparent;
+    height: 72px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 9998;
+    a{
+      color:#348989;
+      &:hover{color:#000000;}
+    }
+     #top_area{
+      margin: 0 auto;
+      width: 940px;
+      clear: both;
+      padding-left:10px;
+      padding-right:10px;
+      #logo{
+        margin-top: 18px;
+        position: relative;
+        float: left;
+        a {
+          width: 190px;
+          height: 33px;
+          display: block;
+          background: url("tailake/web-logo.png") no-repeat scroll 0 0 transparent;
+          &:hover {
+            background: url("tailake/web-logo.png") no-repeat scroll 0 0 transparent;
+            background-position:0 -33px;
+          }
+        }
+      }
+      ul.nav{
+        position: relative;
+        left:45px;
+        float: left;
+        list-style: none outside none;
+        top: 25px;
+        li{
+          margin-right:10px;
+          margin-left:10px;
+          float: left;
+          position: relative;
+          a {
+            float: left;
+            font-size: 16px;;
+          }
+        }
+        li.current{
+          height:22px;
+          top: 1px;
+          margin-bottom: 0;
+          padding-bottom: 28px;
+          background-image: url("tailake/comment-new.png");
+          background-position: center 94%;
+          background-repeat: no-repeat;
+        }
+        li.user-balance{
+        sup{
+        line-height:0px;
+        }
+        }
+      }
+      .actions {
+        padding-top:25px;
+           float: right;
+            height: 33px;
+            position: relative;
+            ul {
+              list-style: none outside none;
+              li {
+                display: inline;
+                float: left;
+                margin-left: 20px;
+                position: relative;
+              }
+              li.messages {
+                a{display: block;
+                    background: url("tailake/message.png") no-repeat scroll 0 0 transparent;
+                    height: 17px;
+                    width: 20px;
+                    margin-top:2px;
+                    &:hover{
+                       background: url("tailake/message-hover.png") no-repeat scroll 0 0 transparent;
+                    }
+                  }
+              }
+              li.balance{
+                a{display: block;
+                    background: url("tailake/balance.png") no-repeat scroll 0 0 transparent;
+                  height: 17px;
+                  width: 16px;
+                  }
+              }
+              li.settings{
+                a{display: block;
+                    background: url("tailake/settings.png") no-repeat scroll 0 0 transparent;
+                  height: 17px;
+                  width: 16px;
+                  &:hover{
+                     background: url("tailake/settings-b.png") no-repeat scroll 0 0 transparent;
+                  }
+                  }
+              }
+              li.logout{
+                  a{display: block;
+                    background: url("tailake/logout.png") no-repeat scroll 0 0 transparent;
+                  height: 17px;
+                  width: 10px;
+                  &:hover{
+                     background: url("tailake/logout-b.png") no-repeat scroll 0 0 transparent;
+                  }
+                  }
+              }
+            }
+      }
+     }
+}

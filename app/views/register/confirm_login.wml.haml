@@ -1,0 +1,15 @@
+- content_for :title, '确认您的唯一ID'
+%p
+  %fieldset
+    用户名
+    %br
+    用户名是您在网站上的唯一ID，用来将您和其他用户区分。只能使用英文字母、数字、下划线和减号，3到16个字符之间
+    %br
+    http://www.bling0.com/users/
+    %input(type="text" name="login" size="16" maxlength="15" value="#{@user.login}")
+%anchor
+  确认
+  %go{:href=>"/register/confirm_login", :method=>"post"}
+    %postfield{:value=>"✓",:name=>"utf8"}
+    %postfield{:value=>"#{form_authenticity_token}",:name=>"authenticity_token"}
+    %postfield{:value=>"$login",:name=>"user[login]"}

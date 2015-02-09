@@ -1,0 +1,28 @@
+- content_for :title, '近期热点'
+- content_for :keywords, '近期热点'
+= render 'articles/hottest_nav'
+
+- if @items.num_pages == 0
+  .empty-list
+    尚无帖子
+    - if @next_limit
+      = link_to sprintf("浏览%s中最热的帖子", t("articles.#{@next_limit}")), :limit => @next_limit
+      或
+      = link_to "发表自己的帖子", :controller => 'articles', :action => 'new'
+    - else
+      目前尚无帖子
+- else
+  .articles-list.hfeed
+    = render(@articles.reject{|a| a.nil? || a.top_post.nil?})
+  = paginate @items
+  - append_page_to_title @items
+  - if @items.num_pages == @items.current_page && @items.num_pages > 0
+    .empty-list
+      您已看完了近期的帖子，请继续
+  -#- @items.each do |item|
+    = item.article.id
+    = item.article.title
+    = item.score
+    ="===="
+- content_for :sidebar do
+  = render 'application/sidebar'

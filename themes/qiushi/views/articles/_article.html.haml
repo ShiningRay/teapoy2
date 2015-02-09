@@ -1,0 +1,50 @@
+- id=article.id
+- top_post = article.top_post
+- permalink = article_url(@group, article)
+- expanded = current_page?(permalink) ? 'expanded' : ''
+%div[article]{:class => [expanded, article.class_names]}
+  %div[article.top_post]{:class => top_post.try(:class_names)}
+    - if article.title?
+      %h2.entry-title=link_to article.title, permalink, :class => 'permalink', :rel => 'bookmark'
+    .entry-content= render_posts article.top_post
+    - unless article.anonymous
+      - user=article.user
+      - if user
+        %p.author.vcard
+          = link_to user, :title => "@#{user.login}", :class => 'url nickname' do
+            = image_tag user.avatar.url("thumb"), :alt => user.login, :size => '16x16', :class => 'avatar photo'
+            = user.name_or_login
+  .meta
+    .counts
+      - if top_post
+        .score{:id => "score-#{id}", :style => "display:inline"}
+          %a.icon.arrow.up{:href => up_post_path(top_post), :id => "up-#{id}", :rev => 'vote-for', :rel => 'nofollow'}
+            %strong
+              %span{:id => "pos-score-#{id}"}= article.pos_score
+          %span.space{:style => "zoom:1"} |
+          %a.icon.arrow.down{:href => dn_post_path(top_post), :id => "dn-#{id}", :rev => 'vote-against', :rel => 'nofollow'}
+            %strong
+              %span{:id => "neg-score-#{id}"}= article.neg_score
+      %span.space |
+      %span.favorite-button{:id => "favorite-#{id}"}
+        - unless logged_in?
+          %a.icon.star{:href => "/login"} 围观
+        - else
+          - if current_user.has_subscribed?(article)
+            = link_to t('articles.unsubscribe'), unsubscribe_article_path(@group, article), :class => 'icon stared'
+          - else
+            = link_to t('articles.subscribe'), subscribe_article_path(@group, article), :class => 'icon star'
+      %span.space |
+
+      - if article.comment_status == 'closed'
+        %span.comment_head 禁止评论
+      - else
+        %a.icon.comments{:href => article_path(@group, article, :anchor => "comments_#{article.id}"), :id => "c-#{article.id}", :data => {:path => _article_comments_path(@group, article)}}
+          = article.comments.size > 0 ? raw("<strong>#{article.comments.size}</strong>条评论") : "暂无评论"
+    .datetime
+      %time= article.created_at.strftime("%Y.%m.%d %H:%M")
+      = link_to "\##{article.id}", permalink, :class => 'permalink', :title => "单独打开糗事##{article.id}"
+      %span.report{:id => "#{id}-report", :title => "举报本文"} (!)
+  - if expanded == 'expanded'
+    - @comments = @article.comments.all
+    = render(:partial => 'comments/index')

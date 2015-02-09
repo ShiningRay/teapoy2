@@ -1,0 +1,14 @@
+= content_for :title, @title_name || "用户列表"
+
+
+%table.groups-list(width='100%')
+  - @users.each do |user|
+    %tr
+      %td= link_to image_tag(user.avatar(:thumb)), user
+      %td
+        = link_to user.name_or_login, user
+    %tr
+      %td(colspan='2')
+        %hr
+=paginate @users
+

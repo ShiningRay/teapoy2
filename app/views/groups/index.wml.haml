@@ -1,0 +1,35 @@
+- content_for :title, '浏览所有小组'
+- content_for :breadcrumbs do
+  = '/'
+  = link_to_unless_current '小组导航', groups_path
+  - if @tag
+    = '/'
+    = @tag
+=br
+搜索小组:
+%input(type="text" name="search" size="16" maxlength="60" value="#{params[:search]}")
+%anchor
+  搜索
+  %go{:href=>"#{search_groups_path}", :method=>"get"}
+    %postfield{:value=>"✓",:name=>"utf8"}
+    %postfield{:value=>"#{form_authenticity_token}",:name=>"authenticity_token"}
+    %postfield{:value=>"$search",:name=>"search"}
+=br
+-if @groups
+  - @groups.each do |g|
+    = link_to g.name, g
+    = br
+  -paginate @groups
+-else
+  %h4
+    标签
+  =br
+  -ActsAsTaggableOn::Tag.where("").order('id asc').each do |tag|
+    =link_to tag.name, tag_path(tag.name)
+  =br
+  %h4
+    推荐小组
+  =br
+  - @recommented_groups.each do |g|
+    = link_to g.name, g
+    = br

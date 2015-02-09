@@ -1,0 +1,36 @@
+- content_for :title, '浏览所有小组'
+- content_for :breadcrumbs do
+  = '/'
+  = link_to_unless_current '小组导航', groups_path
+  - if @tag
+    = '/'
+    = @tag
+
+.jqm-header{:data => {:role => 'header'}}
+  - if @tag
+    %a(data-icon='back' href='/groups' data-rel="back") 全部
+    %h1
+      = @tag
+
+  - else
+    = jqm_menu_link
+    %h1 小组
+.jqm-content{:data => {:role => 'content'}}
+  -if @groups
+    %ul{:data=>{:role => 'listview', :inset => 'true', :filter => true}}
+      - @groups.each do |g|
+        %li
+          = link_to g do
+            = image_tag g.icon.url(:small)
+            %h2= g.name
+    =paginate @groups
+  -else
+    %ul{:data=>{:role => 'listview', :inset => 'true'}}
+      - ActsAsTaggableOn::Tag.order('id asc').each do |tag|
+        %li= link_to tag.name, tag_path(tag.name), 'data-transition' => 'slide'
+    - if @recommented_groups
+      %h4
+        推荐小组
+      -@recommented_groups.each do |g|
+        = link_to g.name, g
+

@@ -1,0 +1,4 @@
+.ui-block-b
+  = link_to dn_post_path(post), class: 'arrow down', rev: 'vote-against', rel: 'nofollow', data: {icon: 'arrow-d', role: 'button', mini: true, shadow: 'false'}, remote: true do
+    =# image_tag(asset_path('down.png'), :alt => '反对', :class=>'voteicon')
+    = post.neg

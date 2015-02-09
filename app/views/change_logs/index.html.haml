@@ -1,0 +1,17 @@
+%h1 Listing change_logs
+
+%table
+  %tr
+    %th
+    %th
+    %th
+
+  - @change_logs.each do |change_log|
+    %tr
+      %td= link_to 'Show', change_log
+      %td= link_to 'Edit', edit_change_log_path(change_log)
+      %td= link_to 'Destroy', change_log, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Change log', new_change_log_path

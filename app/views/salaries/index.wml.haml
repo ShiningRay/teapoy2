@@ -1,0 +1,9 @@
+%p= link_to '领取所有', get_all_salaries_path
+
+- @salaries.group_by(&:created_on).each do |date, salaries|
+  %strong= date
+  - salaries.each do |s|
+    %p
+      =t s.type, :scope => :salaries
+      =s.amount
+      = link_to "领取", get_salary_path(s) if s.unpaid? and s.amount > 0

@@ -1,0 +1,50 @@
+.navbar.navbar-fixed-top
+  .navbar-inner
+    %a.brand{:href=>'/'} 博聆
+    %ul.nav
+      %li
+        = link_to '全部', '/all'
+      - if @group and not @group.new_record?
+        %li
+          = link_to(@group.name, articles_path(@group))
+        - if @article and not @article.new_record?
+          - y,m,d = @article.created_at.year,@article.created_at.month,@article.created_at.day
+          %li.date
+            = link_to_unless_current("#{y}年", archive_path(:year => y))
+          %li.date
+            = link_to_unless_current("#{m}月", archive_path(:year => y, :month => m))
+          %li.date
+            = link_to_unless_current("#{d}日", archive_path(:year => y, :month => m, :day => d))
+        = yield :breadcrumbs
+      - if logged_in?
+        %li= link_to '发表文章', :controller => '/articles', :action => 'new', :group_id => @group.try(:alias)
+    %ul.nav.pull-right
+      - unless logged_in?
+        %li= link_to t('users.signup'), signup_path
+        %li= link_to t('users.login'), login_path
+      - else
+        %li
+          = link_to salaries_path, :id => 'salary', :class => 'salary' do
+            = current_user.balance.credit
+            - if current_user.salaries.unpaid.size > 0
+              %sup{:title => "#{current_user.salaries.unpaid.size}项工资未领取"}
+                (
+                = current_user.salaries.unpaid.size
+                )
+
+        %li.image= link_to image_tag(current_user.avatar(:thumb), :size => '16x16'), edit_user_path(current_user)
+        %li= link_to current_user.login, :controller => '/my', :action => 'index'
+        %li= link_to t( 'nav.my_groups'), {:controller => '/my', :action => 'groups'}, :class => 'my-groups'
+        %li= link_to '我关注的文章', :controller => '/my', :action => 'watched'
+
+        %li.messages
+          = link_to inbox_messages_path do
+            小纸条
+            %sup.value
+              - if current_user.unread_messages_count > 0
+                = current_user.unread_messages_count
+        %li{:class => current_user.notifications.unread.count == 0 ? 'empty unread_notifications_count' : 'unread_notifications_count'}
+          = link_to notifications_path do
+            %span.value= current_user.notifications.unread.count
+            个新通知
+        %li= link_to t('users.logout'), logout_path

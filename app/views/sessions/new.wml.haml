@@ -1,0 +1,26 @@
+- content_for :breadcrumbs do
+  = '/'
+  登录
+- content_for :title, "博聆bling-登录"
+%p
+  = link_to '还没帐号？立即注册！', signup_path
+
+%p
+  %fiedset
+    用户名或邮箱:
+    %br
+    %input(type="text" name="login" size="16" maxlength="60")
+%p
+  %fiedset
+    密码:
+    %br
+    %input(type="password" name="password" size="16" maxlength="60")
+
+%anchor
+  马上登录
+  %go{:href=>"#{session_path}", :method=>"post"}
+    %postfield{:value=>"✓",:name=>"utf8"}
+    %postfield{:value=>"#{form_authenticity_token}",:name=>"authenticity_token"}
+    %postfield{:value=>"$login",:name=>"user_session[login]"}
+    %postfield{:value=>"$password",:name=>"user_session[password]"}
+    %postfield{:value=>"1",:name=>"user_session[remember_me]"}

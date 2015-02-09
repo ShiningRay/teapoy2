@@ -1,0 +1,25 @@
+- content_for :title, '浏览所有小组'
+- content_for :breadcrumbs do
+  = '/'
+  = link_to_unless_current '小组导航', groups_path
+  - if @tag
+    = '/'
+    = @tag
+%form{:action => search_groups_path,:method => :get}
+  %input{:type=>"text", :autocomplete=>"off", :value => params[:search], :name => 'search'}
+  %input{:value => "搜索",:type=>"submit"}
+-if @groups
+  - @groups.each do |g|
+    = link_to g.name, g
+    = br
+  =paginate @groups
+-else
+  %h4
+    标签
+  - ActsAsTaggableOn::Tag.where("").order('id asc').each do |tag|
+    =link_to tag.name, tag_path(tag.name)
+  %h4
+    推荐小组
+  - @recommented_groups and @recommented_groups.each do |g|
+    = link_to g.name, g
+    = br

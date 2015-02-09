@@ -1,0 +1,8 @@
+%form{:action => invite_group_path(@group), :method => :post}
+  - @users.each do |user|
+    %input{:type => 'checkbox', :name => 'user_ids[]', :value => user.id}
+      = link_to user.login, user
+  %input(type='submit' value='邀请')
+
+
+  %input{:type=> 'text', :name => 'emails'}

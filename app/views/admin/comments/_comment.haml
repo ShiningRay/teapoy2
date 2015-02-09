@@ -1,0 +1,18 @@
+- user = comment.original_user
+%li[comment]{:class => comment.class_names}
+  %span.left.comment-manage{:id => "entity#{comment.id}"}
+  = check_box_tag('id[]', comment.id.to_s, comment.status == 'publish', :id => 'id' + comment.id.to_s, :class => 'entry-id')
+  [
+  - if comment.status == 'publish'
+    %span{:style => "color: #fff; background-color:green"} 通过
+  - else
+    = link_to_unless_current("通过", :controller => 'admin/comments', :action => :set_status, :id => comment.id, :status => 'publish')
+  - if comment.status == 'private'
+    %span{:style => "color: #fff; background-color:black"} 删除
+  - else
+    = link_to_unless_current("删除", :controller => 'admin/comments', :action => :set_status, :id => comment.id, :status => 'private')
+  ]
+  %span.check_comment.right{:id => "entity_text#{comment.id}", :style => comment.status == 'private' && 'text-decoration: line-through;'}
+  = link_to user.name_or_login, admin_user_path(comment.user), :title => user.login, :class => 'user' if comment.user_id > 0
+  = render_posts comment
+  %span.clear

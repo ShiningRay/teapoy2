@@ -1,0 +1,15 @@
+%table
+  %thead
+    %tr
+      %th User
+      %th
+      %th
+  %tbody
+    - @memberships.each do |ms|
+      %tr
+
+        %td= ms.user.try :name_or_login
+        %td= ms.role
+        %td
+        -# link_to 'Destroy', ms, :confirm => 'Are you sure?', :method => :delete
+

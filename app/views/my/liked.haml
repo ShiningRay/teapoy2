@@ -1,0 +1,6 @@
+= @liked_posts_count
+.articles-list
+  - @posts.each do |post|
+    = post.top? ? post.article && render(:partial => 'my/article', :object => post.article) : render_post_with_parents(post)
+
+= paginate @posts

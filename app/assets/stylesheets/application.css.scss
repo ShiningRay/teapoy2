@@ -1,0 +1,456 @@
+/*
+ * This is a manifest file that'll automatically include all the stylesheets available in this directory
+ * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
+ * the top of the compiled file, but it's generally better to create a new file per style scope.
+ *= require "colorbox"
+ *= require "tip-twitter"
+ *= require "tip-green"
+ *= require 'emoji'
+ *= require 'notifications'
+ *= require 'jquery.atwho'
+ *= require 'collections'
+ *= require select2
+ * require "xmas"
+ * require "countdown"
+*/
+
+
+$grid-float-breakpoint:     480px;
+
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "font-awesome";
+@import "compass/css3/images";
+@import "compass/css3/border-radius";
+@import "compass/css3/opacity";
+@import "compass/utilities/general/clearfix";
+@import "compass/typography/lists/horizontal-list";
+@import "calendar_styles/blue";
+@import "layout";
+
+
+
+
+a {
+    color: #336699;
+    text-decoration: none;
+    outline: 0;
+}
+
+a:hover, a:active, a:focus {
+    //background: none repeat scroll 0 0 #003399;
+    //color: #FFFFFF;
+    color: #6699cc;
+    text-decoration: none;
+    outline: 0;
+}
+
+.cover {
+  display: block;
+  width: 150px;
+  height: 150px;
+}
+img{
+  vertical-align:middle;
+}
+h1 {
+  font-size: 32pt;
+  }
+body {
+  background: {
+    attachment: fixed;
+    color: #C2E1F3;
+    image: url("18.png");
+    position: center top;
+    repeat: no-repeat;
+  }
+  font-family: "Helvetica Neue", Helvetica, Arial, Geneva, "WenQuanYi Micro Hei", 'Microsoft Yahei', STHeiti, sans-serif;
+  font-size: 14px;
+  word-wrap:break-word; word-break:break-all;
+}
+
+#main {
+}
+#login-info {
+  float: right;
+}
+.img_link {
+  width: 120px;
+  height: 90px;
+  line-height: 0;
+    a.picture {
+    img {
+      float:left;
+      width: 65px;
+      height: 65px;
+      border: 1px solid #666;
+      padding: 1px;
+      margin-right: 5px;
+      margin-bottom: 3px;
+    }
+  }
+}
+.flash_link {
+  //position: relative;
+  width: 120px;
+  height: 90px;
+  line-height: 0;
+  img {
+    width: 120px;
+    height: 90px;
+  }
+  .overlay {
+    cursor: pointer;
+    //position: absolute;
+    @include opacity(0.5);
+    margin-top: -61.5px;
+    margin-left: 43.5px;
+    width: 33px;
+    height: 33px;
+    display: block;
+  }
+  &:hover .overlay {
+    @include opacity(0.8);
+  }
+}
+
+
+.read {
+  background-color:#F0F5F8 !important;
+}
+
+#channel-bar-wrapper {
+  clear: left;
+  background-color: #8FD401;
+  width: 100%;
+  margin:0;
+  padding:0;
+  text-align:center;
+  margin-bottom: 16px;
+}
+#channel-bar {
+  width: 950px;
+  margin: auto;
+  height: 20px;
+  padding: 7px 0;
+  ul {
+    list-style: none;
+    margin: 0;
+    li {
+      float: left;
+      margin-right: 20px;
+      font-size: 16px;
+      font-weight: bold;
+      a {
+        color: #447A00;
+        text-decoration: none;
+      }
+    }
+  }
+}
+
+@import 'components/new_user_form';
+.manage_readed {
+    background: none repeat scroll 0 0 #F0F5F8;
+    border-bottom: 1px solid #DDDDDD;
+    border-top: 1px solid #DDDDDD;
+    display: block;
+    padding: 8px 0;
+    text-align: center;
+    &:hover{
+      color:#047BB7;
+    }
+}
+br.clr {
+  clear: both;
+}
+@import "compass/css3/text-shadow";
+a.button {
+  background-image:url(button.png)!important;
+  background-position:left top;
+  color:#fff;
+  height:20px;
+  width:146px;
+  font-weight:700;
+  display:block;
+  float:left;
+  text-align:center;
+  font-size:16px;
+  @include single-text-shadow( #595, 1px, 1px, 0);
+  margin:0 5px 0 0;
+  padding:15px 0 5px;
+  line-height: 12px;
+  &:hover {
+    color:#fff;
+    background-color: transparent;
+    background-position:left 80px;
+  }
+  &:active {
+    background-color: transparent;
+    color:#fff;
+    background-position:left 40px;
+  }
+}
+.salary{
+color: goldenrod;
+vertical-align:middle;
+}
+@import "compass/typography/text/replacement";
+#gototop{
+  bottom: 15px;
+  position: fixed;
+  right: 15px;
+  width: 50px;
+  padding-right:15px;
+  height: 50px;
+  @include replace-text('back_to_top.png');
+  cursor: pointer;
+  &:hover {
+    @include opacity(0.5);
+  }
+  opacity: 0;
+}
+
+.ie6 #gototop {
+  opacity: 0;
+  position: absolute;
+  top: 600px;
+  left: 890px;
+  right: auto;
+  bottom: auto;
+}
+
+
+
+.empty-list {
+  width: 90%;
+  padding: 20px;
+  margin: auto;
+  text-align: center;
+}
+#searchr{
+    height: 28px;
+    margin: 3 0 3px 0px;
+    position: relative;
+}
+#searchr-input{
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-bottom-left-radius: 5px;
+    border-color: #999999;
+    border-style: solid none solid solid;
+    @include border-left-radius(5px);
+    border-width: 1px 0 1px 1px;
+    float: left;
+    font-size: 14px;
+    height: 16px;
+    line-height: 16px;
+    padding: 4px 0;
+    text-indent: 5px;
+    width: 200px;
+}
+#searchr-submit, #user-searchr-submit{
+    background: url("search_submit.png") repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #999999;
+    @include border-right-radius(5px);
+    color: #333333;
+    cursor: pointer;
+    float: left;
+    font-size: 14px;
+    height: 26px;
+    line-height: 26px;
+    text-align: center;
+    width: 50px;
+}
+#user-searchr-submit{
+    width: 50px;
+}
+.ie8#user-searchr-submit , .ie9#user-searchr-submit{
+  width:75px;
+}
+
+body.groups-index.groups, body.groups-search.groups{
+ #container{
+  background-image:none !important;
+  }
+  #searchr{
+    margin-left: 20px; margin-top: 8px; margin-bottom: 0px; padding-top: 0px;
+  }
+}
+body.users-new{
+ #container{
+  padding-top:20px;
+  }
+}
+body.home-index{
+  #container{
+  background-image:none !important;
+  }
+}
+body.my-groups{
+  #searchr{
+    margin-left: 15px; margin-top: 10px;
+  }
+  .groups-list{
+     margin-left: 10px;
+  }
+}
+body.users-update,body.users-edit{
+  #edit_user_form{
+    background-color: transparent;
+    }
+}
+fieldset.extra_fields {
+  display: none;
+}
+fieldset#picture_attachment_fields {
+  display: none;
+}
+fieldset.current_extra_fields {
+  display: block !important;
+}
+
+#article_top_post_attributes_type_input {
+  @include clearfix();
+    legend.label { display: none }
+    ol li {
+      float: left;
+    }
+}
+table.user_lists{
+td { height:40px;}
+td.user_avatar { width:40px;}
+td.user_name { width:200px;}
+td.follow , td.membership { width:60px;}
+td.new_message { width:80px;}
+}
+/*
+.star-particle {
+  @include experimental(animation-name, rotation);
+  @include experimental(animation-duration, 1s);
+  @include experimental(animation-iteration-count, infinite);
+  @include experimental(animation-timing-function, linear)
+}
+
+@-webkit-keyframes rotation {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@-moz-keyframes rotation {
+  from {
+    -moz-transform: rotate(0deg);
+  }
+  to {
+    -moz-transform: rotate(360deg);
+  }
+}
+
+@-o-keyframes rotation {
+  from {
+    -o-transform: rotate(0deg);
+  }
+  to {
+    -o-transform: rotate(360deg);
+  }
+}
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+*/
+@import "compass/css3/box-shadow";
+.role-admin {
+  .avatar {
+    @include single-box-shadow(#DAA520,0,0,3px,2px);
+  }
+  .name a, .user-details a{
+    //color: goldenrod;
+    font-weight: bold;
+  }
+}
+.role-admin.repost{
+  .avatar {
+    @include single-box-shadow(#DAA520,0,0,0px,0px);
+  }
+  .name a, .user-details a{
+    //color: goldenrod;
+    font-weight: normal;
+  }
+}
+.notifications-tip {
+  .pagination {
+    display: none;
+  }
+}
+.notification-box{
+  padding-top:5px;
+}
+ul#notifications_list{
+  margin-top:5px;
+  margin-bottom:5px;
+  padding-bottom:10px;
+}
+#faceTitle{height:22px; width:36px; background:url("/images/face.gif") no-repeat center center transparent;cursor:pointer;}
+#faceContent{width:364px; position:absolute;border:1px solid #aaa;border-top:none;z-index:9999; text-align:center;padding:3px;padding-bottom:6px;background:#fff;} #faceContent a img{float:left;cursor:pointer;margin:1px 1px; border:#cacaca 1px solid}  #faceContent a:hover img{border:1px solid #f51d69}
+  #invite-info{
+    margin: auto auto 20px;
+    overflow: visible !important;
+    width: 400px;
+  }
+   #flash_messages{
+    color:red;
+    margin: 10px auto 10px auto;
+    overflow: visible !important;
+    width: 400px;
+    text-align:center;
+  }
+  body.my-index{
+    #sidebar{
+      ul{
+         margin-left: 0px;
+      }
+    }
+}
+li.read{
+  display:none;
+}
+.reward .action {
+  clear: both;
+  padding-left: 20px;
+  background: {
+    image: url("coins.gif");
+    repeat: no-repeat;
+    position: 0 6px;
+  }
+  .value {
+    color: goldenrod;
+  }
+}
+#sub-nav{
+  padding-left:20px;
+  margin-top:10px;
+}
+#select_date_for_user{
+ margin-bottom:10px;
+  width: 113px;
+}
+#select_date_for_group{
+margin-left: 3px;
+ margin-bottom:10px;
+}
+#calendar{
+  margin-top:20px;
+}
+.box {
+  //background-color: #f6f6f6;
+  padding: 16px 0;
+  margin: 0 15px;
+}

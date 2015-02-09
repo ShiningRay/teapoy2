@@ -1,0 +1,10 @@
+<% title :page_title=>t("New_Group") %>
+<% form_for ['admin', @group] do |f|%>
+<%= f.error_messages %>
+  <p>
+  <%= f.label :name,t("Name") %><br />
+  <%= f.text_field :name %></p>
+
+  <p><%= f.label :parent_id, t("Parent") %><br /><%= f.select :parent_id, categories_options,{:include_blank => true} %>
+  <p><%= f.submit %></p>
+<% end %>

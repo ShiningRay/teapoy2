@@ -1,0 +1,8 @@
+<%= form_tag :action => 'update' do  %>
+  <label>敏感字（敏感字 替换之后的内容）</label><br/>
+    <%= text_area_tag :replacelist, @replacelist, :cols => 60, :rows=> 10 %><br/><br/>
+  <label>黑名单（命中之后直接删除）</label><br/>
+    <%= text_area_tag :blacklist, @blacklist, :cols => 60, :rows=> 10 %><br/><br/>
+  <%= submit_tag %>
+<% end %>
+

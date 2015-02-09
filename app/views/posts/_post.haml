@@ -1,0 +1,17 @@
+﻿-# coding: utf-8
+- plain_text = post.plain_text
+- plain_text_size = post.plain_text.mb_chars.size
+- if (@list_view && plain_text_size > 300)
+  = plain_text.mb_chars[0, 150]
+  = link_to "(剩余#{plain_text_size-150}字)", [post.group || post.article.group, post.article], :class => 'more'
+- else
+  = post_content post
+-#
+  %div.repost-info
+    - if post.meta[:reposted_to]
+      已分享至
+      - post.meta[:reposted_to].each do |group_id, sharer_id|
+        - g = Group.find(group_id)
+        %span.reposted_to{:data => {:group_id => g.id}}= link_to g.name, g
+  - if post.attachment?
+    = post.meta[:price] && post.meta[:price] > 0 && "售价#{post.meta[:price]}积分"

@@ -1,0 +1,9 @@
+.notification
+  在主题
+
+  = link_to article_title(article), notification
+  中
+  %br
+  - mention.actors.each do |u|
+    = link_to (u.name.blank? ? u.login : u.name), user_url(u)
+  提到了你

@@ -1,0 +1,18 @@
+= link_to quoted_post.user.name_or_login, quoted_post.user unless quoted_post.anonymous
+
+发布于
+
+= link_to quoted_post.group.name, articles_path(quoted_post.group) rescue '???'
+- if quoted_post.floor > 0
+  %sup=link_to quoted_post.floor, article_path(quoted_post.group, quoted_post.article, :anchor => "floor-#{quoted_post.floor}")
+- else
+  %span= link_to article_title(quoted_post.article), [quoted_post.group, quoted_post.article] if quoted_post.article
+%div.content
+  - if quoted_post.is_a?(Repost)
+    = render_post_content quoted_post
+  - else
+    = render_posts quoted_post
+
+- if quoted_post.parent
+  %blockquote
+    = render :partial => 'posts/quoted_post', :object => quoted_post.parent

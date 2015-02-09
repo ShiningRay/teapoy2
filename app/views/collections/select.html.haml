@@ -1,0 +1,19 @@
+
+%form.box(action='#{append_collections_path}' method='post')
+  %h2 选择一个收藏夹
+  %input(type='hidden' name='post_id' value='#{@post.id}')
+  - @collections.each do |c|
+    %p
+      %label
+        = radio_button_tag 'collection_id', c.id
+        = c.title || '未命名'
+        （
+        = c.size
+        ）
+  %p
+    %label
+      = radio_button_tag 'collection_id', '0'
+      新建
+      = text_field_tag 'collection_title'
+  %input(type='submit' value='收藏')
+:javascript

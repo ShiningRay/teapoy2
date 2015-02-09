@@ -1,0 +1,3 @@
+.ui-block-a
+  = link_to up_post_path(post), :class => 'arrow up', :rev => 'vote-for', :rel => 'nofollow', 'data-icon' => 'arrow-u', 'data-role' => 'button', 'data-mini' => true, 'data-theme' => 'b', :remote => true do
+    = post.pos

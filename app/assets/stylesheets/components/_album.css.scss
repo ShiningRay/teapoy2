@@ -1,0 +1,25 @@
+@import "blueprint";
+
+.cover {
+  display: block;
+  width: 120px;
+  height: 120px;
+}
+
+.album {
+  float: left;
+  position: relative;
+  margin: 5px;
+  img {
+    width: 120px;
+    height: 120px;
+    border: 2px solid black;
+    }
+  img:hover {
+    border: 2px solid orange;
+  }
+}
+
+#albums {
+  @include column(16);
+}

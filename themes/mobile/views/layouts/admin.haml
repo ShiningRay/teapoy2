@@ -1,0 +1,42 @@
+!!!
+%html{:lang => "en", "xml:lang" => "en", :xmlns => "http://www.w3.org/1999/xhtml"}
+  %head
+    %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-Type"}
+      %title
+        = yield :title
+        = @title_name
+        |
+        超管平台
+      = stylesheet_link_tag "admin", :media =>"screen"
+      = stylesheet_link_tag "/stylesheets/jquery.autocomplete.css", :media =>"screen"
+      = javascript_include_tag 'modernizr.min.js'
+      = csrf_meta_tag
+      = stylesheet_link_tag '/css/bootstrap.min.css'
+  %body{'data-spy' => "scroll", 'data-target' => ".subnav", 'data-offset' => "50"}
+    = render 'admin/navbar'
+    / end header
+    .container
+      #header
+        .wrap
+          #branding
+            %h1#site-title
+              %span= yield :title
+            %h2#site-description= yield :description
+          / #branding
+        / .wrap
+      / #header
+      .row
+        #content.span9
+          = show_flash
+          = yield
+        / content
+        #right.span3=render 'admin/sidebar'
+
+
+    / container
+    #footer
+      ©2007-2010
+      %a{:href => "http://bling0.com/"}
+    =# javascript_include_tag 'plugins'
+    = javascript_include_tag "admin", '/js/bootstrap.min.js'
+    =yield :javascripts

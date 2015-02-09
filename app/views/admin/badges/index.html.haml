@@ -1,0 +1,16 @@
+%h1 Listing badges
+%table
+  %tr
+    %th Name
+    %th Description
+  - @badges.each do |badge|
+    %tr
+      %td= image_tag badge.icon(:small),:alt=>"#{h badge.name}"
+      %td= link_to badge.name, [:admin, badge]
+      %td
+        = h badge.title
+      %td= h badge.description
+      %td= link_to 'Edit', edit_admin_badge_path(badge), :class => 'btn'
+
+%br/
+= link_to 'New badge', new_admin_badge_path, :class => 'btn'

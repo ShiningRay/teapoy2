@@ -1,0 +1,44 @@
+-# Grab Google CDN's jQuery, with a protocol relative URL
+-# Looks for google_api_key first in ENV['GOOGLE_API_KEY'] then in config/google.yml
+-# remote_jquery and local_jquery helpers use minified jquery unless Rails.env is development
+
+- if !google_api_key.blank?
+  = javascript_include_tag "//www.google.com/jsapi?key=#{google_api_key}"
+  :javascript
+    google.load(#{ remote_jquery("1.5.1") });
+- else
+  =# javascript_include_tag "//ajax.googleapis.com/ajax/libs/jquery/#{ local_jquery("1.5.1") }"
+
+-# fall back to local jQuery if necessary
+:javascript
+  //!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/jquery.min.js"%3E%3C/script%3E'))
+
+-# Fix any <img> or .png_bg bg-images. Also, please read goo.gl/mZiyb
+-  info = {:logged => logged_in?}
+-  if logged_in?
+  -  info[:current_user] = current_user.as_json(:except => [:crypted_password, :salt, :persistence_token])
+  -  info[:current_user][:groups] = current_user.joined_groups.collect{|g|{:id => g.id, :name => g.name}}
+  .my-groups-list-wrapper(style="display:none")
+    %ul.my-groups-list
+      - current_user.publications(Group).each do |g|
+        %li
+          = link_to g.name, articles_path(g)
+
+:javascript
+  var current_user = #{info[:current_user].to_json};
+/[if lt IE 7 ]
+  = javascript_include_tag 'dd_belatedpng.js'
+  :javascript
+    //DD_belatedPNG.fix('img, .png_bg');
+
+= javascript_include_tag 'http://libs.baidu.com/swfobject/2.2/swfobject.js'
+= javascript_include_tag 'application'
+-#  Append your own using content_for :javascripts
+= yield :javascripts
+
+=# production_partial 'google_analytics'
+
+
+
+= production_partial 'baidu_tongji'
+=# production_partial 'bshare'

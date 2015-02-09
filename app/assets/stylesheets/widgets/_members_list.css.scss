@@ -1,0 +1,93 @@
+@import "compass/css3/opacity";
+@import "compass/css3/transition";
+
+.members_list {
+  //@include border-radius(10px);
+  //background: #f0f0fe;
+  //border: 1px solid #eee;
+  padding: 0 !important;
+  h3 {
+    width: 100%;
+    span {
+      font-size: 12px;
+      float: right;
+      margin-top: 5px;
+      margin-right: 10px;
+      a {
+        color: #369;
+        font-weight: normal;
+        &:hover {
+          color: #369;
+          background: none transparent;
+          text-decoration: underline;
+        }
+      }
+    }
+    &:before {
+      content: "✦";
+    }
+  }
+  .owner {
+    //padding: 0 2px 2px 0;
+    a, img {
+      width: 64px;
+      height: 64px;
+    }
+    a {
+      border: 3px solid;
+    }
+  }
+
+  ul {
+    //@include horizontal-list-container();
+    @include clearfix;
+    width: 288px !important;
+    //overflow: hidden;
+    margin: auto !important;
+    li {
+      display: inline;
+      float: left;
+      list-style-image: none;
+      list-style-type: none;
+      margin: 0 2px 2px 0;
+      white-space: nowrap;
+      padding-left: 0px;
+      padding-right: 0px;
+      a{
+        border: 1px solid #ccc;
+        width: 32px;
+        height: 32px;
+        float: left;
+        @include single-transition(all, 0.2s);
+        @include opacity(0.618);
+        &:hover {
+          @include opacity(1);
+          @include single-box-shadow(#000, 0, 0, 3px);
+          border-color: #666;
+        }
+      }
+    }
+  }
+}
+
+.ie6 {
+  .members_list {
+    img {
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+  }
+}
+
+.ie6, .ie7 {
+  .members_list {
+    h3 {
+      position: relative;
+      span {
+        position: absolute;
+        right: 0;
+        top: 0;
+      }
+    }
+  }
+}

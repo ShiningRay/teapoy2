@@ -1,0 +1,35 @@
+%h2= content_for :title, '我围观的帖子'
+
+
+- if current_user.subscriptions.count == 0
+  您没有关注任何帖子呢，快去看看吧
+- else
+  %p
+    = link_to_unless params[:filter].blank?, "有更新的帖子#{@updated_subscriptions_count}", :controller => :my, :action => :watched
+    = link_to_unless params[:filter] == 'all', "所有帖子#{@all_subscriptions_count}", :controller => :my, :action => :watched, :filter => :all
+  - if @subscriptions.size == 0
+    目前没有帖子有更新
+  - else
+    %table.articles-table(width='100%')
+      %thead
+        %th 回复数
+        %th 标题
+        %th 小组
+        %th 作者
+        %th 最后更新时间
+        /%th 最后回复人
+      %tbody
+        - @subscriptions.each do |sub|
+          - article = sub.publication
+          - next unless article
+          %tr[article]
+            %td(nowrap='nowrap')= "#{sub.unread_count} / #{article.posts.size - 1}"
+            - floor = article.posts.size - sub.unread_count - 1
+            %td= link_to article_title(article), article_path(article.group, article, :anchor => (floor > 0 ? "floor-#{floor}" : nil)), :target => '_blank'
+            %td= link_to article.group.name, article.group
+            %td= link_to_unless article.anonymous, article_author(article), article.user
+
+            %td= article.created_at.strftime("%y-%m-%d %H:%M")
+  = paginate @subscriptions
+- content_for :sidebar do
+  = render 'users/sidebar'

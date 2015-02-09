@@ -1,0 +1,30 @@
+- content_for :title, '写新纸条'
+= render 'nav'
+
+%p
+  %fieldset
+    写给
+    - if @message.recipient
+      = link_to @message.recipient.name_or_login, @message.recipient
+    - else
+      - users = current_user.publications("User")
+      - if users.size == 0
+        您尚未关注任何用户，请直接访问目标用户的个人页面，点击“传纸条”
+      - else
+        %select(name='recipient_id')
+          - users.each do |user|
+            %option{:value => user.id}= user.name_or_login
+
+  %fieldset
+    正文
+    %br
+    %input(name="content" type="text" size="16" emptyok="true"  maxlength="65535")
+
+
+%anchor
+  发表
+  %go{:href=> url_for(@message), :method=>"post"}
+    %postfield{:value=>"✓",:name=>"utf8"}
+    %postfield{:value=>"#{form_authenticity_token}",:name=>"authenticity_token"}
+    %postfield{:value=>@message.recipient ? @message.recipient_id : '$recipient_id', :name=>'message[recipient_id]'}
+    %postfield(value="$content" name="message[content]")

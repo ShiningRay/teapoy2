@@ -1,0 +1,31 @@
+- content_for :breadcrumbs do
+  = '/'
+  登录
+
+%div(data-role='header')
+  %h1 登录
+
+%div(data-role='content')
+  =form_tag session_path(format: :js), remote: true do
+    .bling_login
+      %label.ui-hidden-accessible{for:"login"}
+        用户名或邮箱:(
+        =link_to "还没注册？", signup_path
+        )
+      = text_field_tag 'user_session[login]', nil, tabindex: 1, placeholder: '登录名'
+      %label.ui-hidden-accessible{for:"password"}
+        密码：
+        (
+        =link_to "忘记密码？", new_password_reset_path
+        )
+      = password_field_tag 'user_session[password]', nil, tabindex: 2, placeholder: '密码'
+      = hidden_field_tag 'user_session[remember_me]', '1'
+      %input{name:"commit",type:"submit", value:"登录", tabindex:"3"}
+  - if action_name == 'create' and @user_session.errors[:password]
+    用户名/密码错误，如果您还没有账号，
+    = link_to '请注册', new_user_path
+  = link_to '注册', new_user_path, data:{icon: 'plus', transition: 'flip', role: 'button', rel: 'dialog'}
+
+- if logged_in?
+  :javascript
+    $.mobile.navigate('/all')

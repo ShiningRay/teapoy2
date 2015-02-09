@@ -1,0 +1,15 @@
+- content_for :title, @list.name
+.list-info
+  %h2
+    = h @list.name
+  %h2
+    列表创建人:
+  = link_to @list.user.name_or_login, @list.user
+  %h2
+    列表说明：
+  = h @list.notes
+= render @articles
+.list-edit
+  = link_to '编辑/添加', edit_list_path(@list) if logged_in? and current_user == @list.user
+  |
+  =link_to '返回', lists_path

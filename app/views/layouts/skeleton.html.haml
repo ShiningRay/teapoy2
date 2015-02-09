@@ -1,0 +1,13 @@
+!!! 5
+-ie_html :class => 'no-js' do
+  = render 'skeletons/head'
+  - haml_tag :body, body_attributes do
+    = render 'skeletons/navbar'
+    .container
+      = render 'skeletons/header'
+      = yield :before_main
+      = content_for?(:main) ? (yield :main) : yield
+    %footer#footer
+      = render 'skeletons/footer'
+    = show_login
+    = render 'skeletons/javascripts'

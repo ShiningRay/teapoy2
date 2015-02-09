@@ -1,0 +1,7 @@
+- content_for :main do
+  #main{ :role => 'main' }
+    #content.cf= yield
+    #sidebar.cf= render 'sidebar'
+-content_for :stylesheets do
+  = stylesheet_link_tag current_theme_stylesheet_path('aboutus')
+= render :template => 'layouts/onecolumn'

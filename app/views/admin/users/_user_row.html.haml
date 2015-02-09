@@ -1,0 +1,23 @@
+
+%tr[user]{:class => user.state}
+  %td.id= link_to user.id, admin_user_path(user)
+  %td.login=  user.login
+  %td.name=  user.name
+  %td.state= user.state
+  %td.avatar= link_to(image_tag(user.avatar(:thumb)),user)
+  %td.new_msg
+    %a{:href => "/messages/new?id=#{user.id}"} msg
+  %td= link_to 'edit', edit_admin_user_path(user)
+  - if user.pending?
+    %td
+      = link_to t('users.activate'),activate_admin_user_path(user),:method=>:post,:class => 'btn',:remote => true
+    %td
+      = link_to t('users.suspend'), suspend_admin_user_path(user),:method=>:post,:class => 'btn',:remote => true
+    %td
+  - if user.active?
+    %td= link_to t('users.suspend'), suspend_admin_user_path(user),:method=>:post,:class => 'btn',:remote => true
+    %td= link_to t('Delete'),admin_user_path(user),:method => :delete,:class => 'btn',:remote => true
+  - if user.state=='suspended'
+    %td
+      = link_to t('users.unsuspend'), unsuspend_admin_user_path(user),:method=>:post,:class => 'btn',:remote => true
+    %td= link_to 'Delete',admin_user_path(user),:method => :delete,:class => 'btn',:remote => true

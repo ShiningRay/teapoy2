@@ -1,0 +1,12 @@
+body{
+  background-color:#EDEDED;
+  background-image: url(../images/bg4.jpg);
+  background-position: right top;
+  background-repeat: no-repeat;
+}
+#container{
+background-color:#EDEDED;
+}
+.members_list{
+  background-color:#EDEDED;
+}

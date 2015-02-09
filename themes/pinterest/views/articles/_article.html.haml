@@ -1,0 +1,56 @@
+- id=article.id
+- top_post = article.top_post
+- group = @group || article.group
+- group_id = article.group_id
+
+%article.cf.hentry[article]{:class => article.class_names}
+  - if top_post
+    %div[article.top_post]{:class => [article.top_post.class_names, is_mine_class(article.top_post)]}
+      = render :partial => "posts/votecell", :locals => {:post => top_post} if top_post
+      = render_posts article.top_post
+      - unless article.title.blank?
+        %h2.entry-title= link_to article.title, article_path(group, article), :rel => 'bookmark'
+      .entry-content= render :partial => 'posts/post', :object => article.top_post
+      -# unless article.tag_line.blank?
+      -# %p.tags= raw(show_tags(article))
+
+      %ul.meta.cf
+        - if logged_in?
+          %li.subscribe-button
+            - if current_user.has_subscribed?(article)
+              = link_to t('articles.unsubscribe'), unsubscribe_article_path(group, article), :class => 'unsubscribe'
+            - else
+              = link_to t('articles.subscribe'), subscribe_article_path(group, article), :class => 'subscribe'
+
+        %li.comment-status
+          - if article.comment_status == 'closed'
+            %span.comment_head
+              禁止评论
+          - else
+            %a.comments{:href=>group_article_path(article.group, article,
+              :anchor => "comments_#{article.id}"),
+              :id=>"c-#{article.id}"}= article.posts.size > 1 ? "#{article.posts.size-1}条评论" : "暂无评论"
+        - if logged_in?
+          %li.repost-button
+            = link_to t('articles.repost'), repost_form_path(:post_id => top_post.try(:id))
+        - if logged_in? && current_user == article.group.owner || current_user == article.user
+          %li.admin
+            = link_to 'Delete', article_path(group, article), :method => :delete, :remote => true, :confirm => 'Are you sure to delete this article?'
+            - if article.status == 'pending'
+              = link_to '通过', publish_article_path(article.group,article)
+              = link_to '移出', move_out_article_path(article.group,article)
+            = link_to 'Edit', edit_post_path(article.top_post)
+        %li.post-signature.cf{:class => article.anonymous ? article.user.class_names : ''}
+          .user-info.cf
+            - unless article.anonymous
+              - user = article.user
+              - if user
+                .user-avatar= image_tag user.avatar.url("thumb"), :alt => '', :class => 'avatar'
+                .user-details
+                  = link_to user.name_or_login, user, :title => "@#{user.login}",:class => 'user', :data => {:login => user.login} #user_detail_for(user)
+
+            .user-action-time
+              发布于
+              = link_to group.name, group_articles_path(group), :data=>{:description=>"#{group.description}"}, :class=>"group_card"
+              %time.relativetime{:datetime => article.created_at, :title => article.created_at.to_s}= time_ago_in_words(article.created_at)
+      -# article.post.size > 1

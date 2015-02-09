@@ -1,0 +1,6 @@
+= div_for group, 'join' do
+  - if logged_in?
+    - unless current_user.is_member_of?(group)
+      = link_to '加入小组', join_group_path(group), class: "join_group", remote: true, method: :post
+    - else
+      = link_to '退出小组', quit_group_path(group), class: "quit_group", remote: true, method: :post, data: {confirm: '真的要退出小组吗？'}

@@ -1,0 +1,15 @@
+= form_for logged_in? ? current_user.articles.build : Article.new do |f|
+  - unless controller_name == 'articles' and (action_name == 'new' or action_name == 'create')
+    %label
+      %a.add-title +添加标题
+    = f.text_field :title, :class => 'span8', :style => 'display:none'
+  - else
+    = f.text_field :title, :class => 'span8'
+  = f.text_area :content, :placeholder => '对你思念的人说句晚安吧', :class => 'span8'
+  = f.submit '发表', :class => 'btn btn-primary pull-right'
+  - if logged_in?
+    %label.checkbox.pull-right.span1
+      = f.check_box :anonymous
+      匿名
+
+

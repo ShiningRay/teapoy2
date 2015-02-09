@@ -1,0 +1,4 @@
+// destroy.js.erb
+$('#<%= dom_id(@article)%>').slideUp(function(){
+	$(this).remove();
+})
