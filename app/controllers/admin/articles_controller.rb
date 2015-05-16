@@ -28,9 +28,9 @@ class Admin::ArticlesController < Admin::BaseController
     end
     @statuses = Article::STATUSES.collect(&:to_s)
 		if params[:status] == 'pending'
-			@articles = apply_scopes(Article).page(params[:page]).order("id").where(cond)
+			@articles = apply_scopes(Article).page(params[:page]).order_by(id: :asc).where(cond)
 		else
-			@articles = apply_scopes(Article).page(params[:page]).order('id DESC').where(cond)
+			@articles = apply_scopes(Article).page(params[:page]).order_by(id: :desc).where(cond)
 		end
     if params[:id] and @articles.size > 0
       @group = @articles[0].group

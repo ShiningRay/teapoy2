@@ -6,6 +6,11 @@ class PictureSerializer < PostSerializer
     }
   end
   def add_host_prefix(url)
-    ActionController::Base.asset_host.blank? ? url : URI.join(ActionController::Base.asset_host, url)
+    if ActionController::Base.asset_host.present?
+      h = ActionController::Base.asset_host.respond_to?(:call) ? ActionController::Base.asset_host.call : ActionController::Base.asset_host.to_s
+      File.join(h, url)
+    else
+      url
+    end
   end
 end

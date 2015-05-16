@@ -20,12 +20,15 @@ require 'capistrano/rvm'
 require 'capistrano/bundler'
 require 'capistrano/rails'
 require 'capistrano/puma'
+require 'capistrano/puma/monit'
+require 'capistrano/foreman'
 # require 'capistrano/puma/nginx'
 # require 'capistrano3/unicorn'
 # require 'capistrano/rails/assets'
 # require 'capistrano/rails/migrations'
 require "whenever/capistrano"
 require 'capistrano/sidekiq'
+require 'new_relic/recipes'
 
 
 # Loads custom tasks from `lib/capistrano/tasks' if you have any defined.

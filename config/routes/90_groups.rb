@@ -6,6 +6,7 @@ Teapoy::Application.routes.draw do
   # match 'articles' => 'articles#create', :via => :post, :as => :all_articles
   match 'articles/repost' => 'articles#repost', :as => :repost_form, :via => :get
   match 'articles/create(.:format)' => 'articles#create', :via => [:post, :patch]
+  post 'articles(.:format)' => 'articles#create', group_id: 'all'
   # match 'articles/new' => 'articles#new', :as => :new_all_article, :via => :get
   # match 'articles/:id/dismiss' => 'articles#dismiss', :as => :dismiss_article, :via => :get
   match 'all/hottest(/:limit)(/page/:page)(.:format)' => 'articles#index',

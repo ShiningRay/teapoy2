@@ -11,10 +11,11 @@ class Admin::BaseController < ApplicationController
   end
   protected
   def force_https
-    if request.protocol != 'https'
+    if request.protocol != 'https://'
       redirect_to "https://www.bling0.com#{request.path_info}"
     end
   end
+
   def check_role
     unless logged_in? and current_user.has_role?('admin')
       redirect_to login_path

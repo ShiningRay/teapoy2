@@ -3,13 +3,15 @@
 Encoding.default_external= Encoding::UTF_8
 source 'https://ruby.taobao.org'
 # source 'https://rubygems.org'
-source 'https://rails-assets.org'
+
 
 gem 'rails', '~> 4.1.0'
   gem 'turbolinks'
   gem 'remotipart', '~> 1.2'
+source 'https://rails-assets.org' do
   gem 'rails-assets-icanhaz'
   gem 'rails-assets-photoswipe'
+end
   gem 'bootstrap-sass'
   gem "font-awesome-rails"
   # gem 'autoprefixer-rails'
@@ -142,6 +144,7 @@ group :development do
   # gem 'capistrano3-unicorn', require: false
   gem 'capistrano3-puma', require: false, github: "seuros/capistrano-puma"
   gem 'capistrano-sidekiq', require: false
+  gem 'capistrano-foreman', require: false, github: 'ShiningRay/capistrano-foreman'
   gem 'capistrano-rvm'
   gem 'capistrano-bundler'
   gem "better_errors"
@@ -178,3 +181,5 @@ gem 'select2-rails'
 gem 'rack-weixin'#, github: 'ShiningRay/rack-weixin'
 gem 'pundit'
 gem "non-stupid-digest-assets"
+gem 'eye', github: 'kostya/eye', require: false
+gem 'foreman', require: false

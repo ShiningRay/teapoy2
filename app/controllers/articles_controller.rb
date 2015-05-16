@@ -395,7 +395,8 @@ class ArticlesController < ApplicationController
   def update
     return head :access_denied unless current_user.is_admin? or current_user == resource.user or current_user.own_group?(resource.group)
     resource.operator = current_user.id
-    update!
+    resource.save
+    respond_with resource, location: [resource.group, resource]
   end
 
   def search

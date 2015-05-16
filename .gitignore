@@ -16,3 +16,7 @@ config/database.yml
 config/secrets.yml
 log/*.log
 tmp/*
+
+log/mailman.output
+
+*.output

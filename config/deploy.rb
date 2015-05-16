@@ -5,19 +5,20 @@ set :scm, :hg
 set :repo_url, "/home/shiningray/teapoy2"
 set :deploy_to, '/srv/teapoy2'
 set :format, :pretty
-
+set :pty, true
 set :deploy_via, :remote_cache
 set :use_sudo, false
 
 set :branch, 'default'
 
+## PUMA {{{
 # set :unicorn_rack_env, "production"
 # set :unicorn_pid, "#{current_path}/tmp/pids/unicorn.pid"
-
 set :puma_threads, [1, 64]
 set :puma_workers, 4
 set :puma_worker_timeout, 60 * 60
 set :puma_prune_bundler, true
+# }}}
 
 # RVM {{{
 set :rvm_install_with_sudo, true
@@ -31,20 +32,36 @@ set :rvm_install_ruby, :install
 # }}}
 
 
-# # NEWRELIC {{{
-# require 'new_relic/recipes'
-# set :newrelic_appname, "Teapoy"
-# set :newrelic_revision, `hg log -r . --template '{rev}\n'`
-# set :newrelic_changelog, `hg log -r . --template '{desc}\n'`
-# after "deploy:update", "newrelic:notice_deployment"
-# # }}}
+# NEWRELIC {{{
+set :newrelic_appname, "Teapoy"
+set :newrelic_revision, `hg log -r . --template '{rev}\n'`
+set :newrelic_changelog, `hg log -r . --template '{desc}\n'`
+after "deploy:updated", "newrelic:notice_deployment"
+# }}}
 
-
+# Foreman {{{
+set :foreman_use_sudo, 'rvm'
+set :foreman_template, 'upstart'
+set :foreman_export_path, '/etc/init'
+set :foreman_options, {
+  app: fetch(:application),
+  log: File.join(shared_path, 'log')
+}
+# }}}
 
 set :linked_files, %w{config/database.yml config/mongoid.yml}
 
 set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/assets public/uploads}
 
+namespace :eye do
+  task :load do
+    on roles(:app) do
+      within current_path do
+        execute 'bundle', 'exec', 'eye', 'l', 'app.eye'
+      end
+    end
+  end
+end
 
 namespace :deploy do
 
@@ -56,6 +73,7 @@ namespace :deploy do
       invoke 'puma:restart'
       invoke 'mailman:restart'
       invoke 'scheduler:restart'
+      invoke 'eye:load'
     end
   end
 
