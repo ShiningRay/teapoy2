@@ -3,23 +3,23 @@ mysql:
   environment:
     MYSQL_ROOT_PASSWORD: dockerimage
   volumes:
-    - vendor/data/mysql:/var/lib/mysql
+    - /data/mysql:/var/lib/mysql
 mongodb:
   image: mongo:3.0
   volumes:
-    - vendor/data/mongo:/data/db
+    - /data/mongo:/data/db
 redis:
   image: redis:3.0
   volumes:
-    - vendor/data/redis:/data
+    - /data/redis:/data
 memcached:
   image: memcached:1.4
 scheduler:
-  image: rails:4.2
+  image: shiningray/teapoy2
 mailman:
-  image: rails:4.2
+  image: shiningray/teapoy2
 puma:
-  image: yandy0725/railsdev:latest
+  image: shiningray/teapoy2
   environment:
     REDIS_URL: redis://redis
   links:
@@ -28,6 +28,13 @@ puma:
     - redis
     - memcached
   volumes:
-    - .:/data
+    - /data/teapoy2:/data
   expose:
     - 3001:3000
+nginx:
+  image: dockerfile/nginx
+  links:
+    - puma
+  expose:
+    - 80
+    - 443

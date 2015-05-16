@@ -1,0 +1,7 @@
+.git/
+.hg/
+tmp/cache/*
+tmp/pids/*
+tmp/sockets/*
+public/system/*
+vendor/data/*
