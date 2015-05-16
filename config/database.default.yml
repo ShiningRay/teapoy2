@@ -12,11 +12,11 @@
 # And be sure to use new-style password hashing:
 #   http://dev.mysql.com/doc/refman/5.0/en/old-client.html
 development:
-  adapter: mysql
-  database: qqq2
+  adapter: mysql2
+  database: teapoy2
   username: root
-  password: 123456
-  host: localhost
+  password: MYSQL_ROOT_PASSWORD
+  host: mysql
   pool: 5
   #socket: /tmp/mysql.sock
   encoding: utf8
@@ -49,30 +49,14 @@ test:
   #socket: /tmp/mysql.sock
 
 production:
-  adapter: mysql
-  host: localhost
-  database: qqq1
-  username: xxxuser
-  password: zheli4xxxsite
-  socket: /var/run/mysqld/mysqld.sock
-  encoding: utf8
+  adapter: mysql2
+  database: teapoy2
+  username: root
+  password: MYSQL_ROOT_PASSWORD
+  host: mysql
+  port: 3306
   pool: 5
-production_slave:
-  adapter: mysql
-  host: localhost
-  database: qqq1
-  username: xxxuser
-  password: zheli4xxxsite
-  socket: /var/run/mysqld/mysqld.sock
-  encoding: utf8
-  pool: 5
-production_master:
-  adapter: mysql
-  host: database
-  database: qqq1
-  username: xxxuser
-  password: zheli4xxxsite
-  socket: /var/run/mysqld/mysqld.sock
+  #socket: /tmp/mysql.sock
   encoding: utf8
   pool: 5
 local_production:

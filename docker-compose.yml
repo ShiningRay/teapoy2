@@ -1,21 +1,27 @@
 mysql:
   image: mariadb:10.0
   environment:
-    MYSQL_ALLOW_EMPTY_PASSWORD: 1
+    MYSQL_ROOT_PASSWORD: dockerimage
   volumes:
-    - ./vendor/data/mysql:/var/lib/mysql
+    - vendor/data/mysql:/var/lib/mysql
 mongodb:
   image: mongo:3.0
   volumes:
-    - ./vendor/data/mongo:/data/db
+    - vendor/data/mongo:/data/db
 redis:
   image: redis:3.0
   volumes:
-    - ./vendor/data/redis:/data
+    - vendor/data/redis:/data
 memcached:
   image: memcached:1.4
-rails:
+scheduler:
+  image: rails:4.2
+mailman:
+  image: rails:4.2
+puma:
   image: yandy0725/railsdev:latest
+  environment:
+    REDIS_URL: redis://redis
   links:
     - mysql
     - mongodb
