@@ -9,8 +9,6 @@ rails: &rails
     - redis
     - memcached
   working_dir: /app
-  volumes:
-    - .:/app
 
 mysql:
   image: mariadb:10.0
@@ -41,6 +39,11 @@ puma:
   <<: *rails
   expose:
     - 3001:3000
+railsdev:
+  <<: *rails
+  volumes:
+    - .:/app
+
 nginx:
   image: nginx
   links:
