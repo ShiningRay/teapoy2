@@ -15,7 +15,7 @@ development:
   adapter: mysql2
   database: teapoy2
   username: root
-  password: MYSQL_ROOT_PASSWORD
+  password: 
   host: mysql
   pool: 5
   #socket: /tmp/mysql.sock
