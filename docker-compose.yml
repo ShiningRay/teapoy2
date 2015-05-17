@@ -3,6 +3,8 @@ rails: &rails
   environment:
     RAILS_ENV: production
     REDIS_URL: redis://redis
+    APP_ROOT: /app
+    PUMA_PORT: 3000
   links:
     - mysql
     - mongodb
@@ -37,15 +39,17 @@ sidekiq:
   <<: *rails
 puma:
   <<: *rails
-  environment:
-    PUMA_ROOT: /app
   expose:
     - 3000:3000
+  command: bundle exec puma -t 8:32 -w 3 -b tcp://0.0.0.0:3000 --preload --daemon
 
 railsdev:
   <<: *rails
   volumes:
     - .:/app
+  command: bundle exec rails c production
+  stdin_open: true
+  tty: true
 
 nginx:
   image: nginx

@@ -1,6 +1,6 @@
 #!/usr/bin/env puma
 
-ROOT = ENV['PUMA_ROOT'] || '/srv/teapoy2'
+ROOT = ENV['APP_ROOT'] || '/srv/teapoy2/current'
 
 directory "#{ROOT}/current"
 rackup "#{ROOT}/current/config.ru"
@@ -14,8 +14,7 @@ stdout_redirect "#{ROOT}/shared/log/puma_access.log", "#{ROOT}/shared/log/puma_e
 threads 1,64
 
 bind "unix://#{ROOT}/shared/tmp/sockets/puma.sock"
-bind ENV['PUMA_PORT']
-workers ENV['PUMA_WORKERS']
+workers ENV['PUMA_WORKERS'] || 4
 # worker_timeout 3600
 
 preload_app!
