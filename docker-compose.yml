@@ -37,8 +37,11 @@ sidekiq:
   <<: *rails
 puma:
   <<: *rails
+  environment:
+    PUMA_ROOT: /app
   expose:
-    - 3001:3000
+    - 3000:3000
+
 railsdev:
   <<: *rails
   volumes:
