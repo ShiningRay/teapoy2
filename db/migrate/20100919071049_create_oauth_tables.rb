@@ -1,7 +1,7 @@
 # coding: utf-8
 class CreateOauthTables < ActiveRecord::Migration
-  def self.up
-    create_table :client_applications do |t|
+  def change
+    create_table :client_applications, force: true do |t|
       t.string :name
       t.string :url
       t.string :support_url
@@ -12,9 +12,9 @@ class CreateOauthTables < ActiveRecord::Migration
 
       t.timestamps
     end
-    add_index :client_applications, :key, :unique
+    add_index :client_applications, :key, :unique => true
 
-    create_table :oauth_tokens do |t|
+    create_table :oauth_tokens, force: true do |t|
       t.integer :user_id
       t.string :type, :limit => 20
       t.integer :client_application_id
@@ -26,22 +26,15 @@ class CreateOauthTables < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index :oauth_tokens, :token, :unique
+    add_index :oauth_tokens, :token, :unique => true
 
-    create_table :oauth_nonces do |t|
+    create_table :oauth_nonces, force: true do |t|
       t.string :nonce
       t.integer :timestamp
 
       t.timestamps
     end
-    add_index :oauth_nonces,[:nonce, :timestamp], :unique
+    add_index :oauth_nonces,[:nonce, :timestamp], :unique => true
 
   end
-
-  def self.down
-    drop_table :client_applications
-    drop_table :oauth_tokens
-    drop_table :oauth_nonces
-  end
-
 end

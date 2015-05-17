@@ -1,6 +1,23 @@
+rails: &rails
+  image: shiningray/teapoy2
+  environment:
+    RAILS_ENV: production
+    REDIS_URL: redis://redis
+  links:
+    - mysql
+    - mongodb
+    - redis
+    - memcached
+  working_dir: /app
+  volumes:
+    - .:/app
+
 mysql:
   image: mariadb:10.0
   environment:
+    MYSQL_DATABASE: teapoy2
+    MYSQL_USER: teapoy
+    MYSQL_PASSWORD: teapoy
     MYSQL_ROOT_PASSWORD: dockerimage
   volumes:
     - /data/mysql:/var/lib/mysql
@@ -15,25 +32,20 @@ redis:
 memcached:
   image: memcached:1.4
 scheduler:
-  image: shiningray/teapoy2
+  <<: *rails
 mailman:
-  image: shiningray/teapoy2
+  <<: *rails
+sidekiq:
+  <<: *rails
 puma:
-  image: shiningray/teapoy2
-  environment:
-    REDIS_URL: redis://redis
-  links:
-    - mysql
-    - mongodb
-    - redis
-    - memcached
-  volumes:
-    - /data/teapoy2:/data
+  <<: *rails
   expose:
     - 3001:3000
 nginx:
-  image: dockerfile/nginx
+  image: nginx
   links:
+    - scheduler
+    - mailman
     - puma
   expose:
     - 80

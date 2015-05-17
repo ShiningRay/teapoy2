@@ -14,6 +14,7 @@ module AntiSpam
     # :only => <events>
     # events are before_save, before_create
     def harmonize(*fields)
+      return unless Setting.table_exists?
       return unless Setting.replacelist_pattern
       opt = fields.extract_options!
       opt.reverse_merge! :at => :before_save
