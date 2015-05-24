@@ -56,7 +56,7 @@ class Admin::GroupsController < Admin::BaseController
       parent = Group.find_by_id params[:group][:parent_id]
     end
 
-    @group = Group.new(params[:group])
+    @group = Group.new(params[:group].permit!)
 
     respond_to do |format|
       if @group.save
