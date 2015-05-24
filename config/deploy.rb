@@ -2,7 +2,7 @@
 lock '3.3.5'
 set :application, "teapoy2"
 set :scm, :hg
-set :repo_url, "/home/shiningray/teapoy2"
+set :repo_url, "ssh://git@bitbucket.org/shiningray/teapoy2.git"
 set :deploy_to, '/srv/teapoy2'
 set :format, :pretty
 set :pty, true

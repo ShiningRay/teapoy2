@@ -15,10 +15,10 @@ module UsersController::RegistrationAspect
       #logout_keeping_session!
       if Rails.cache.read("R#{request.remote_ip}")
         flash[:error] = 'You are registering too fast'
-        return redirect_to(signup_path)
+        return redirect_to(new_user_path)
       end
 
-      @user = User.new(params[:user])
+      @user = User.new(params[:user].permit(:name, :login, :email, :password, :password_confirmation))
       @user.remember_token = ''
       #@user.state = 'active'
 =begin

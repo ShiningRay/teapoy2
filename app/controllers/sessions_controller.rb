@@ -28,9 +28,7 @@ class SessionsController < ApplicationController
 
     @user_session = UserSession.new
     respond_to do |format|
-      format.html do
-        render :layout => false unless theme_name == 'jquerymobile'
-      end
+      format.html
       format.any(:mobile,:wml)
     end
   end

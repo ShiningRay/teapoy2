@@ -5,7 +5,7 @@ class MyController < ApplicationController
   before_filter :cache_control
 
   def index
-    return redirect_to :action => :inbox
+    return redirect_to '/'
     @list_view = true
     @show_group = true
     params[:order] ||= "time"
@@ -93,6 +93,7 @@ class MyController < ApplicationController
   end
 
   def inbox
+    return redirect_to '/'
     @list_view = true
     @show_group = true
 

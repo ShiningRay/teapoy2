@@ -5,7 +5,7 @@
     %p
       %label{:for=>"password"}
         用户名或邮箱:(
-        =link_to "还没注册？", signup_path
+        =link_to "还没注册？", new_user_path #signup_path
         )
       %br
       =text_field_tag 'user_session[login]', nil, :tabindex => 1, :class => 'input'
@@ -22,6 +22,6 @@
       %label{:for => 'user_session_remember_me'}
         记住我
         &nbsp; &nbsp; &nbsp;
-      =link_to image_tag("/assets/sinalogin.png"), "/syncs/sina/new"
+      =# link_to image_tag("/assets/sinalogin.png"), "/syncs/sina/new"
     %p.submit
       %input.button-primary{:name=>"commit",:type=>"submit", :value=>"登录", :tabindex=>"3"}
