@@ -15,7 +15,7 @@ development:
   adapter: mysql2
   database: teapoy2
   username: root
-  password: 
+  password:
   host: mysql
   pool: 5
   encoding: utf8
@@ -31,11 +31,11 @@ test:
 
 production:
   adapter: mysql2
-  database: teapoy2
-  username: teapoy
-  password: teapoy
-  host: mysql
-  port: 3306
+  database: <%= ENV['DB_NAME'] || 'teapoy2' %>
+  username: <%= ENV['DB_USER'] || 'teapoy' %>
+  password: <%= ENV['DB_PASS'] || 'teapoy' %>
+  host: <%= ENV['DB_HOST'] || 'mysql' %>
+  port: <%= ENV['DB_PORT'] || '3306' %>
   pool: 5
   #socket: /tmp/mysql.sock
   encoding: utf8

@@ -15,7 +15,6 @@ vendor/data
 public/system
 public/uploads
 config/database.yml
-config/secrets.yml
 log/*.log
 tmp/*
 
