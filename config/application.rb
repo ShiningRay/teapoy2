@@ -6,10 +6,13 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.UA-576087-6
 ENV['GOOGLE_ACCOUNT_ID'] = 'UA-576087-6'
 ENV['SITE_NAME'] = '博聆网'
-begin
-  $revision = IO.read(File.expand_path('../../REVISION', __FILE__))
-rescue
+$revision = ''
+if File.exists?('REVISION')
+  $revision = IO.read('REVISION')
+elsif File.exists?('.hg')
   $revision = `hg log -r . --template '{rev}\n'` rescue nil
+elsif File.exists?('.git')
+  $revision = `git rev-parse --short HEAD` rescue nil
 end
 $revision.strip!
 

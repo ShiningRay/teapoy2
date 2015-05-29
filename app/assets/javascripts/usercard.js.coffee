@@ -4,7 +4,8 @@
 #= require 'views/article'
 
 $ ->
-  usercards_container = $('<div id="usercards-container" style="display:none">').appendTo('body')
+  usercards_container = \
+    $('<div id="usercards-container" style="display:none">').appendTo('body')
   $('.user[data-login]').poshytip
     className: 'tip-twitter'
     bgImageFrameSize: 11
@@ -26,7 +27,8 @@ $ ->
         update(output)
       'Loading...'
 $ ->
-  groupcards_container = $('<div id="groupcards-container" style="display:none">').appendTo('body')
+  groupcards_container = \
+    $('<div id="groupcards-container" style="display:none">').appendTo('body')
 
   $('.group[data-alias]').poshytip
     className: 'tip-twitter'

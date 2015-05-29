@@ -1,10 +1,6 @@
 #!/usr/bin/env puma
 
-<<<<<<< Updated upstream
-ROOT = ENV['APP_ROOT'] || '/srv/teapoy2/current'
-=======
-ROOT = ENV['PUMA_ROOT'] || '/srv/teapoy2/current'
->>>>>>> Stashed changes
+ROOT = ENV['PUMA_ROOT'] || '/srv/teapoy2'
 
 directory "#{ROOT}/current"
 rackup "#{ROOT}/current/config.ru"
