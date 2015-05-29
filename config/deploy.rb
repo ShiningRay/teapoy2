@@ -1,15 +1,14 @@
 # coding: utf-8
 lock '3.3.5'
 set :application, "teapoy2"
-set :scm, :hg
-set :repo_url, "ssh://git@bitbucket.org/shiningray/teapoy2.git"
+set :scm, :git
+set :repo_url, "git@github.com:hging/teapoy2.git"
 set :deploy_to, '/srv/teapoy2'
 set :format, :pretty
 set :pty, true
-set :deploy_via, :remote_cache
 set :use_sudo, false
 
-set :branch, 'default'
+set :branch, 'master'
 
 ## PUMA {{{
 # set :unicorn_rack_env, "production"
