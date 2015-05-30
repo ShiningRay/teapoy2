@@ -3,12 +3,25 @@
   margin: 1em 0;
   .title {
     font-size: 1.2em;
-    margin: 5px ;
-    line-height: 1em;
+    margin: 5px;
+    line-height: 1.5em;
     a {
        color: #000;
        text-decoration: none;
     }
+  }
+  .in-group {
+    text-decoration: none;
+    background-color: #e2e2e2;
+    color: #999;
+    border-radius: 2px;
+    line-height: 10px;
+    font-size: 10px;
+    font-weight: normal;
+    padding: 4px;
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 5px;
   }
 
   .content {
@@ -23,13 +36,25 @@
     text-align: left;
     padding: 0 0 0px 7px;
     font-size: x-small;
+    line-height: 16px;
     color: #999;
     a{
       /* color: #; */
       padding: 0px 4px;
     }
+    .user {
+      text-decoration: none;
+      color: #7A7B7C;
+      line-height: 16px;
+      img {
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        vertical-align: top;
+      }
+    }
   }
-  
+
   .meta {
     .ui-btn.voted {
       border-color: #aaa;
