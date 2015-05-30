@@ -1,0 +1,33 @@
+
+.ui-header .ui-title, .ui-footer .ui-title {
+  font-weight: normal;
+}
+
+@mixin mybtn {
+  background-color: transparent;
+  border: none;
+  border-color: transparent;
+  text-shadow: none;
+  box-shadow: none;
+  border-radius: 0;
+  -webkit-border-radius: 0;
+}
+.ui-header {
+  .ui-btn, .ui-btn:visited, .ui-btn:active, .ui-btn:focus, .ui-btn:hover {
+    @include mybtn;
+  }
+
+  .ui-btn-icon-left:after, .ui-btn-icon-right:after, .ui-btn-icon-top:after, .ui-btn-icon-bottom:after, .ui-btn-icon-notext:after {
+    background-color: inherit;
+    border-radius: inherit;
+    -webkit-border-radius: inherit;
+
+  }
+  &.ui-header-fixed {
+    background-color: #6C9A33;
+    color: #fff;
+    font-weight: normal;
+    text-shadow: none;
+  }
+
+}

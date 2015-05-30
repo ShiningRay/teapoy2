@@ -6,6 +6,7 @@ source 'https://ruby.taobao.org'
 
 
 gem 'rails', '~> 4.1.0'
+# FrontEnd {{{
   gem 'turbolinks'
   gem 'remotipart', '~> 1.2'
 source 'https://rails-assets.org' do
@@ -15,7 +16,19 @@ end
   gem 'bootstrap-sass'
   gem "font-awesome-rails"
   # gem 'autoprefixer-rails'
-
+  gem 'jquery-rails'
+  gem "jquery_mobile_rails"
+  gem 'jquery-atwho-rails', :github => 'ShiningRay/jquery-atwho-rails'
+  gem 'lazy_high_charts'
+  gem 'compass'
+  gem 'compass-rails'
+  gem 'bourbon'
+  gem 'sass-rails'
+  gem 'coffee-rails'
+  gem 'uglifier'
+  gem 'select2-rails'
+  gem "non-stupid-digest-assets"
+# }}}
 # compatible with rails 3
 gem 'rails-observers'
 # gem 'protected_attributes'
@@ -23,7 +36,7 @@ gem 'actionpack-page_caching'
 gem 'actionpack-action_caching'
 gem 'rack-cors', :require => 'rack/cors'
 
-# database
+# database & models {{{
 gem 'mysql2', platforms: [:ruby, :mingw]#, github: 'brianmario/mysql2'
 gem 'composite_primary_keys'
 gem 'mongoid', '~> 4.0.0'
@@ -49,19 +62,21 @@ gem "acts_as_list"
 #gem 'httparty'
 gem 'ancestry'
 gem 'acts-as-taggable-on'
-
+# }}}
 # controller
+
+
+# views {{{
 gem 'rdiscount', :platforms => [:ruby]
 gem 'maruku', :platforms => [:jruby, :mingw]
-
-# view
 gem "kaminari"
 gem 'haml'
 gem 'haml-rails'
-gem 'jquery-rails'
-gem 'jquery-atwho-rails', :github => 'ShiningRay/jquery-atwho-rails'
-gem 'lazy_high_charts'
 gem 'themes_for_rails', github: "ShiningRay/themes_for_rails"
+gem 'responders'
+# gem 'inherited_resources', :git => 'git://github.com/josevalim/inherited_resources.git'
+gem 'bootstrap-kaminari-views'
+# }}}
 
 gem 'json'
 gem 'oj'
@@ -69,12 +84,6 @@ gem 'rails-i18n', '~> 4.0.0'
 
 # Gems used only for assets and not required
 # in production environments by default.
-gem 'compass'
-gem 'compass-rails'
-gem 'bourbon'
-gem 'sass-rails'
-gem 'coffee-rails'
-gem 'uglifier'
   #gem 'therubyracer', platforms: :ruby
 #gem 'turbo-sprockets-rails3'
 
@@ -91,9 +100,7 @@ gem 'sidekiq'
 # gem 'private_pub'
 gem 'rack-raw-upload'
 gem 'has_scope'
-gem 'responders'
-# gem 'inherited_resources', :git => 'git://github.com/josevalim/inherited_resources.git'
-gem 'bootstrap-kaminari-views'
+
 gem "active_model_serializers", '~> 0.9.2'
 gem 'draper'
 gem 'redis-objects', require: 'redis/objects'
@@ -177,9 +184,8 @@ end
 # gem 'escape_utils'
 gem "simple_captcha2", require: 'simple_captcha'
 # gem "galetahub-simple_captcha", :require => "simple_captcha"
-gem 'select2-rails'
+
 gem 'rack-weixin'#, github: 'ShiningRay/rack-weixin'
 gem 'pundit'
-gem "non-stupid-digest-assets"
 gem 'eye', github: 'kostya/eye', require: false
 gem 'foreman', require: false

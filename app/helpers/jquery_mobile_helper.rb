@@ -6,7 +6,7 @@ module JqueryMobileHelper
     content_tag(:div, options.reverse_merge('data-role' => 'header', 'data-position' => 'fixed', 'data-fullscreen'=>"false",  'data-tap-toggle'=>"false"), false, &block)
   end
   def jqm_menu_link
-    link_to '菜单', '#leftpanel', data: {icon: 'bars', iconpos: 'notext'}
+    link_to '菜单', '#leftpanel', data: {role: 'button', icon: 'bars', iconpos: 'notext'}
   end
   def jqm_back_link_to(href, content='返回', options={})
     if content.is_a?(Hash)
