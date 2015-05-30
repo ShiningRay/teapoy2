@@ -2,9 +2,7 @@
   - if comment.status == 'deleted'
     已被删除
   - else
-    = image_tag comment.user.avatar.url(:thumb), class: 'ui-li-icon'
-    %span.floor
-      ="#{comment.floor}L: "
+    = image_tag comment.user.avatar.url(:thumb), class: 'ui-li-icon avatar'
     %span.author
       - if comment.anonymous
         匿名人士
@@ -15,5 +13,5 @@
     - if s != 0
       %span.score{:class => s > 0 ? 'pos' : 'neg'}= s > 0 ? "+#{s}" : s
     %span.time= time_ago_in_words comment.created_at if comment.created_at
-    = link_to '回复', new_group_article_comment_path(comment.group||comment.article.group,comment.article, :parent_id=>comment.floor), data: {rel: 'dialog'}
+    = link_to '回复', new_group_article_comment_path(comment.group||comment.article.group,comment.article, :parent_id=>comment.floor), data: {rel: 'dialog'}, class: "reply"
     .body= render_posts comment

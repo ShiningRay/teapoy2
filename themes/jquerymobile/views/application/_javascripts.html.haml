@@ -3,8 +3,6 @@
 -# remote_jquery and local_jquery helpers use minified jquery unless Rails.env is development
 
 = javascript_include_tag "mobile"
-= javascript_include_tag "http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"
-= javascript_include_tag "mobile2"
 - if Rails.env.production?
   = javascript_include_tag 'https://leancloud.cn/scripts/lib/av-0.4.6.min.js'
   :javascript

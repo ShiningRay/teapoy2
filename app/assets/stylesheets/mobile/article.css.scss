@@ -11,29 +11,31 @@
     }
   }
 
-    .content {
-      font-size: 16px;
-      line-height: 1.5em;
-      margin: 5px;
-      a {
-        color: #336699;
-      }
+  .content {
+    font-size: 16px;
+    line-height: 1.5em;
+    margin: 5px;
+    a {
+      color: #336699;
     }
-    .post-signature {
-      text-align: left;
-      padding: 0 0 0px 7px;
-      font-size: x-small;
-      color: #999;
-      a{
-        /* color: #; */
-        padding: 0px 4px;
-      }
+  }
+  .post-signature {
+    text-align: left;
+    padding: 0 0 0px 7px;
+    font-size: x-small;
+    color: #999;
+    a{
+      /* color: #; */
+      padding: 0px 4px;
     }
+  }
+  
   .meta {
     .ui-btn.voted {
       border-color: #aaa;
       color: #666;
       font-weight: bold;
+      background-color: #fff;
     }
     .ui-btn {
       color: #999;

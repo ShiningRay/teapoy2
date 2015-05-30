@@ -1,0 +1,55 @@
+
+.comments-list {
+  padding: 0;
+  .comment {
+    list-style: none;
+    padding: 0.4em;
+    margin: 0;
+
+    img.ui-li-icon {
+      float: left;
+      margin-right: 8px;
+      margin-bottom: 10px;
+      border-radius: 50%;
+    }
+
+    .reply {
+      display: none;
+    }
+    .author {
+      a {
+        color: #333 !important;
+        padding: 0 4px;
+        font-weight: normal;
+        text-decoration: none;
+        font-size: 0.8em;
+       }
+    }
+    .score {
+      text-decoration: italic;
+      &.pos {
+          color: red;
+      }
+      &.neg {
+          color: blue;
+      }
+    }
+    .time {
+        font-size: x-small;
+        color: #777;
+    }
+    .body {
+      text-decoration: none;
+    }
+  }
+}
+
+
+
+.comments-list {
+
+}
+
+#comment_form {
+    padding: 0.4em 7px;
+}

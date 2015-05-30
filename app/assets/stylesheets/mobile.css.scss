@@ -12,44 +12,6 @@ body > input {
 }
 a.ui-slider-handle-snapping { -webkit-transition: none; -moz-transition: none; }
 
-
-.comments-list {
-  padding: 0;
-  .comment {
-    list-style: none;
-    padding: 0.4em;
-    margin: 0;
-    img.ui-li-icon {
-      float: left;
-      margin-right: 8px;
-      margin-bottom: 10px;
-    }
-    .reply {
-      display: none;
-    }
-    .author {
-      color: blue;
-      a {
-        color: #000 !important;
-        padding: 0 4px;
-       }
-    }
-    .score {
-      text-decoration: italic;
-      &.pos {
-          color: red;
-      }
-      &.neg {
-          color: blue;
-      }
-    }
-    .time {
-        font-size: 0.8em;
-        color: #777;
-    }
-  }
-}
-
 .even {
   background-color: #F8F8F8;
   border-top: 1px solid #D9D9D9;
@@ -58,14 +20,6 @@ a.ui-slider-handle-snapping { -webkit-transition: none; -moz-transition: none; }
 
 span.sep {
     color: #ccc;
-}
-
-.comments-list {
-
-}
-
-#comment_form {
-    padding: 0.4em 7px;
 }
 
 
