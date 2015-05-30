@@ -1,3 +1,4 @@
 .ui-block-b
-  = link_to '#', data:{role: 'button', icon: 'arrow-d', shadow: 'false', mini: true}, class: 'ui-disabled' do
+  = link_to '#', data:{role: 'button', shadow: 'false', mini: true}, class: 'ui-disabled' do
+    = fa_icon 'thumbs-o-down'
     = post.neg

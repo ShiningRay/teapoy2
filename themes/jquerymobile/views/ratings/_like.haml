@@ -1,4 +1,4 @@
 .ui-block-a
-  = link_to up_post_path(post, format: 'js'), class: 'arrow up', rev: 'vote-for', rel: 'nofollow', data:{icon: 'arrow-u', role: 'button', mini: true, shadow: 'false'}, remote: true do
-    =# image_tag(asset_path('up.png'), alt: '支持', class:'voteicon')
+  = link_to up_post_path(post, format: 'js'), class: 'arrow up', rev: 'vote-for', rel: 'nofollow', data:{role: 'button', mini: true, shadow: 'false'}, remote: true do
+    = fa_icon 'thumbs-o-up'
     = post.pos

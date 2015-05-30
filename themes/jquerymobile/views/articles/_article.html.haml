@@ -28,8 +28,10 @@
       = rating_link(post, :dn)
     .ui-block-c
       - if article.comment_status == 'closed'
-        = link_to article_path(group, article), data: {role: 'button', icon: 'comments-alt', mini: true} , class: 'ui-disabled' do
+        = link_to article_path(group, article), data: {role: 'button', mini: true} , class: 'ui-disabled' do
+          = fa_icon 'comments'
           禁止评论
       - else
-        = link_to article_path(group, article), data: {role: 'button', icon: 'comment', mini: true, transition: 'slide', shadow: 'false'}, class: current_page?([group, article]) ? 'ui-disabled' : '' do
+        = link_to article_path(group, article), data: {role: 'button', mini: true, transition: 'slide', shadow: 'false'}, class: current_page?([group, article]) ? 'ui-disabled' : '' do
+          = fa_icon 'comments'
           = article.posts.size - 1

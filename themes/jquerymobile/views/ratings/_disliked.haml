@@ -1,3 +1,4 @@
 .ui-block-b
-  = link_to dn_post_path(post), class: 'arrow down', rev: 'vote-against', rel: 'nofollow', data:{role: 'button', icon: 'arrow-d', mini: true, theme: 'b', shadow: 'false'}, remote: true  do
+  = link_to dn_post_path(post), class: 'arrow down', rev: 'vote-against', rel: 'nofollow', data:{role: 'button', mini: true, theme: 'b', shadow: 'false'}, remote: true  do
+    = fa_icon 'thumbs-o-down'
     = post.neg
