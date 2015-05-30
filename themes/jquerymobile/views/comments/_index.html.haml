@@ -1,9 +1,3 @@
-
-%h3
-  %a{:href=>'#comment_form'} ↓
-  =@comments.size
-  条评论
-
 %ul.comments-list
   = render_comments @comments
 - if logged_in?
