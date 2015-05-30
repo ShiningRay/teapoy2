@@ -3,7 +3,6 @@
 %article[article]{:class => article.class_names}
   - if article.title?
     %h2.title= link_to article.title, article_path(group, article)
-  .content= render_posts post
   .post-signature{:class => article.anonymous ? '' : 'topic-owner'}><
     - unless article.anonymous
       - user = article.user
@@ -22,6 +21,7 @@
     - if logged_in? && current_user == article.group.owner && article.status == 'pending'
       = link_to '通过', publish_article_path(group,article)
       = link_to '移出', move_out_article_path(group,article)
+  .content= render_posts post
   .meta.ui-grid-b[post]
     = render 'posts/votecell', post: post if post
     .ui-block-c
