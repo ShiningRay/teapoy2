@@ -23,9 +23,7 @@
       = link_to '通过', publish_article_path(group,article)
       = link_to '移出', move_out_article_path(group,article)
   .meta.ui-grid-b[post]
-    - if post
-      = rating_link(post, :up)
-      = rating_link(post, :dn)
+    = render 'posts/votecell', post: post if post
     .ui-block-c
       - if article.comment_status == 'closed'
         = link_to article_path(group, article), data: {role: 'button', mini: true} , class: 'ui-disabled' do
