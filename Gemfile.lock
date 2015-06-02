@@ -358,6 +358,9 @@ GEM
       activesupport (>= 3.0.0)
       cocaine (~> 0.5.3)
       mime-types
+    paperclip-qiniu (0.1.0)
+      paperclip
+      qiniu-rs (~> 3.0)
     pry (0.10.1)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -371,6 +374,11 @@ GEM
       rack (>= 1.1, < 2.0)
     pundit (0.3.0)
       activesupport (>= 3.0.0)
+    qiniu-rs (3.4.10)
+      json (~> 1.7)
+      mime-types (~> 1.19)
+      rest-client (~> 1.6)
+      ruby-hmac (~> 0.4)
     quiet_assets (1.1.0)
       railties (>= 3.1, < 5.0)
     rack (1.5.3)
@@ -455,6 +463,7 @@ GEM
       rspec-mocks (~> 3.1.0)
       rspec-support (~> 3.1.0)
     rspec-support (3.1.1)
+    ruby-hmac (0.4.0)
     ruby-progressbar (1.6.0)
     ruby_gntp (0.3.4)
     rufus-scheduler (3.0.9)
@@ -610,6 +619,7 @@ DEPENDENCIES
   non-stupid-digest-assets
   oj
   paperclip
+  paperclip-qiniu
   preferences!
   pry-rails
   pry-stack_explorer

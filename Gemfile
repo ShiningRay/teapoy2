@@ -48,6 +48,7 @@ gem 'mongoid_taggable'
 gem 'mongoid-observers'
 gem 'paperclip'
 gem "mongoid-paperclip", :require => "mongoid_paperclip"
+gem 'paperclip-qiniu'
 #gem "friendly_id", "~> 3.2.1"
 gem 'tenacity', github: 'jwg2s/tenacity', branch: 'develop'
 gem 'stringex'
