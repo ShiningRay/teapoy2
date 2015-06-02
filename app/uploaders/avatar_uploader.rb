@@ -17,7 +17,7 @@ class AvatarUploader < CarrierWave::Uploader::Base
   # end
 
   def paperclip_path
-    "system/:attachment/:style/:id/:basename.:extension"
+    "system/:attachment/:id/:style/:basename.:extension"
   end
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
