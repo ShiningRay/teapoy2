@@ -3,7 +3,7 @@
 Encoding.default_external= Encoding::UTF_8
 source 'https://ruby.taobao.org'
 # source 'https://rubygems.org'
-
+gem 'dotenv-rails', :groups => [:development, :test]
 
 gem 'rails', '~> 4.1.0'
 # FrontEnd {{{
