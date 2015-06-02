@@ -6,10 +6,10 @@
     xiuxiu.setUploadURL("<%= user_avatar_url(@user, :_method => :put) %>");//修改为您自己的上传接收图片程序
     xiuxiu.onInit = function ()
     {
-      <% if @user.avatar.file? %>
+      <% if @user.avatar? %>
       xiuxiu.loadPhoto("<%= absolute_attachment_url @user.avatar%>");
       <% end %>
-    } 
+    }
     xiuxiu.onUploadResponse = function (data)
     {
       if(data == 'ok'){

@@ -2,7 +2,7 @@ class UserSerializer < ActiveModel::Serializer
   attributes :id, :login, :name, :created_at, :avatar, :user_url#, :message_url
 
   def avatar
-    if object.avatar.file?
+    if object.avatar?
       {
         small: full_path(object.avatar.small.url),
         medium: full_path(object.avatar.medium.url),

@@ -12,7 +12,7 @@
   = f.label :theme
   = f.text_field :theme
   = f.text_field :domain
-  = image_tag @group.icon.url if @group.icon.file?
+  = image_tag @group.icon.url if @group.icon?
   %label 图标：
   \#{f.file_field :icon}
   %label 特色小组：
