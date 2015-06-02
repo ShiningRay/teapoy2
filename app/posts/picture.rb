@@ -3,6 +3,15 @@
 class Picture < Post
   mount_uploader :picture, PictureUploader, mount_on: :picture_file_name
 
+  before_save :update_picture_attributes
+
+  def update_picture_attributes
+    if picture.present? && picture_changed? && picture.file
+      self.content_type = picture.file.content_type
+      self.file_size = picture.file.size
+    end
+  end
+
   field :image_url, type: String
 
   def image_url=(url)
@@ -35,16 +44,6 @@ class Picture < Post
     d && "width:#{d[0].to_i}px;height:#{d[1].to_i}px;"
   end
 
-  def save_image_dimensions
-    self.dimensions ||= { }
-    picture.queued_for_write.each do |name, file|
-      #puts picture.queued_for_write[:longsmall].path
-      geo = Paperclip::Geometry.from_file(file)
-      self.dimensions[name] = [geo.width, geo.height]
-    end
-  rescue ::Paperclip::NotIdentifiedByImageMagickError
-  end
-
   def gif?
     @gif ||= (picture.content_type =~ /gif/i)
   end
@@ -75,8 +74,6 @@ class Picture < Post
     self.picture_file_name = new_file_name
     save!
   end
-
-  protected :save_image_dimensions
 
   def as_json(opts={})
     super(opts).merge(

@@ -44,6 +44,16 @@ class PictureUploader < CarrierWave::Uploader::Base
     model.id.to_s.sub(/^0+/, '')
   end
 
+  process :store_dimensions
+
+  private
+
+  def store_dimensions
+    if file && model
+      width, height = ::MiniMagick::Image.open(file.file)[:dimensions]
+      model.dimensions[:original] = [width, height]
+    end
+  end
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
   # def default_url
