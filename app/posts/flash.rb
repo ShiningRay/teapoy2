@@ -8,6 +8,6 @@ class Flash < Post
   # validates_attachment_size :swf, :less_than => 15.megabytes
 
   def to_s
-    swf.original.url
+    swf.url
   end
 end

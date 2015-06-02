@@ -3,12 +3,12 @@
   - title = (picture.article.title || alt[0, 10])
   - if @list_view
     - if picture.gif?
-      = link_to image_tag(picture.picture.thumb.url, :alt => alt), picture.picture.original.url, :class => 'picture', :id => "picture-#{picture.id}", :title => title
+      = link_to image_tag(picture.picture.thumb.url, :alt => alt), picture.picture.url, :class => 'picture', :id => "picture-#{picture.id}", :title => title
     - else
       = link_to image_tag(picture.picture.medium.url, :alt => alt), picture.picture.large.url, :class => 'picture', :id => "picture-#{picture.id}", :title => title
   - else
     - if picture.gif?
-      = image_tag(picture.picture.original.url, :alt => alt)
+      = image_tag(picture.picture.url, :alt => alt)
     - else
       = link_to image_tag(picture.picture.medium.url, :alt => alt),  |
                 picture.picture.large.url, |

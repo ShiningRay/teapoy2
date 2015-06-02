@@ -20,7 +20,7 @@ class Picture < Post
   end
 
   def to_s
-    picture.original.url
+    picture.url
   end
 
   # after_post_process :save_image_dimensions
@@ -77,7 +77,7 @@ class Picture < Post
 
   def as_json(opts={})
     super(opts).merge(
-      picture_original_url: picture.original.url,
+      picture_original_url: picture.url,
       picture_large_url: picture.large.url,
       picture_small_url: picture.small.url,
       picture_small_size: dimensions[:small] || [100,100],

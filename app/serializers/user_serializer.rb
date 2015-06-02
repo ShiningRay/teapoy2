@@ -7,7 +7,7 @@ class UserSerializer < ActiveModel::Serializer
         small: full_path(object.avatar.small.url),
         medium: full_path(object.avatar.medium.url),
         thumb: full_path(object.avatar.thumb.url),
-        original: full_path(object.avatar.original.url)
+        original: full_path(object.avatar.url)
       }
     else
       {
