@@ -21,3 +21,5 @@ tmp/*
 log/mailman.output
 
 *.output
+.env
+.env.test

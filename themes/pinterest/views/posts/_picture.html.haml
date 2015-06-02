@@ -1,5 +1,5 @@
 - content = picture.content || ''
-- if picture.picture.file?
+- if picture.picture?
   - if @list_view
     = link_to image_tag(picture.picture(:longsmall), :alt => content.mb_chars[0,50], :style => picture.dim_style_size(:longsmall)),  |
               article_path(@group, picture.article), |

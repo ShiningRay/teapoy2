@@ -3,7 +3,7 @@
 Encoding.default_external= Encoding::UTF_8
 source 'https://ruby.taobao.org'
 # source 'https://rubygems.org'
-
+gem 'dotenv-rails', :groups => [:development, :test]
 
 gem 'rails', '~> 4.1.0'
 # FrontEnd {{{
@@ -46,8 +46,12 @@ gem 'mongoid_colored_logger', group: :development
 gem 'mongoid_magic_counter_cache'
 gem 'mongoid_taggable'
 gem 'mongoid-observers'
-gem 'paperclip'
-gem "mongoid-paperclip", :require => "mongoid_paperclip"
+# gem 'paperclip'
+# gem "mongoid-paperclip", :require => "mongoid_paperclip"
+gem 'carrierwave'
+gem 'carrierwave-mongoid'
+gem 'carrierwave-qiniu'
+
 #gem "friendly_id", "~> 3.2.1"
 gem 'tenacity', github: 'jwg2s/tenacity', branch: 'develop'
 gem 'stringex'
@@ -189,3 +193,4 @@ gem 'rack-weixin'#, github: 'ShiningRay/rack-weixin'
 gem 'pundit'
 gem 'eye', github: 'kostya/eye', require: false
 gem 'foreman', require: false
+gem 'mini_magick'

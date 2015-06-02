@@ -1,5 +1,4 @@
--# coding: utf-8
-- if picture.picture.file?
+- if picture.picture?
   - alt = picture.content && picture.content.mb_chars[0,50] || picture.article.title || ''
   - title = (picture.article.title || alt[0, 10])
   - if @list_view
