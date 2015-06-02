@@ -8,7 +8,7 @@ set :format, :pretty
 set :pty, true
 set :use_sudo, false
 
-set :branch, 'feature/qiniu'
+set :branch, 'master'
 
 ## PUMA {{{
 # set :unicorn_rack_env, "production"
