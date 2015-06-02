@@ -2,7 +2,7 @@
 %div[group]
   %h3=link_to group.name, group
   .detail
-    = link_to image_tag(group.icon(:thumb), :alt => group.name), group, :class => 'icon'
+    = link_to image_tag(group.icon.thumb.url, :alt => group.name), group, :class => 'icon'
     .description
       = h group.description
     .meta

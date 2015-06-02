@@ -2,7 +2,7 @@
 <div id="left">
 
 <div class="userinfo clearfix">
-    <%= link_to image_tag(user.avatar.url(:medium), :class => "userphoto photo_m"), user_path(user) if user.avatar %>
+    <%= link_to image_tag(user.avatar.medium.url, :class => "userphoto photo_m"), user_path(user) if user.avatar %>
     <p class="userxxx" title="发表了<%# user.stat.signed_comments if user.user_stat %>个评论<% if @is_current  %>，<%# user.user_stat.anonymous_comments %>个匿名评论<% end %>">
     <%= user.name %> (<%=user.login%>)</p>
     <ul class="stats">
@@ -73,7 +73,7 @@
 <!--发表了<%# user.stat.signed_articles if user.user_stat%>个文章-->
 <div>
 <% user.badges.each do |b| %>
-<%=image_tag b.icon(:tiny), :title => b.title,:alt=>b.name%>
+<%=image_tag b.icon.tiny.url, :title => b.title,:alt=>b.name%>
 <% end %>
 </div>
 </div>

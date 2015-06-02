@@ -248,7 +248,7 @@ class User < ActiveRecord::Base
     opt ||= {}
     opt.reverse_merge!({only: [:login, :name]})
     json = super(opt)
-    json['avatar_url'] = avatar.url(:small)
+    json['avatar_url'] = avatar.small.url
     json
   end
 

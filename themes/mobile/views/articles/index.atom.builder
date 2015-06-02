@@ -9,7 +9,7 @@ atom_feed(:schema_date => @articles.first.created_at) do |feed|
       p = article.top_post
       c = ''
       unless p.blank?
-        c = p.is_a?(Picture) ? "http://#{request.host_with_port}#{p.picture.url(:large)}" : ''
+        c = p.is_a?(Picture) ? "http://#{request.host_with_port}#{p.picture.large.url}" : ''
 
         unless p.content.blank?
           c << p.content

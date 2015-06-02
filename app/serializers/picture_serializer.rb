@@ -2,7 +2,7 @@ class PictureSerializer < PostSerializer
   attributes :picture
   def picture
     {
-      original: add_host_prefix(object.picture.url(:original))
+      original: add_host_prefix(object.picture.original.url)
     }
   end
   def add_host_prefix(url)

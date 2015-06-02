@@ -3,7 +3,7 @@
   .grouplist
     - @groups.each do |group|
       .groupitem
-        = link_to image_tag(group.icon(:medium), :alt => group.name), group, :class => 'group_link'
+        = link_to image_tag(group.icon.medium.url, :alt => group.name), group, :class => 'group_link'
         %h2.group_title
           =link_to group.name, group
         .group_desc
@@ -16,5 +16,3 @@
               = link_to '退出小组', quit_group_path(group), {:class => "quit_group", :data => {:alternative_path => join_group_path(group), :alternative_text => '加入小组' }}
 - content_for :sidebar do
   = link_to '全部小组', groups_path
-
-

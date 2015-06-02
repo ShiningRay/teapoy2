@@ -3,7 +3,7 @@
   %ul
     %li.widget
       .cf
-        = link_to image_tag(@group.icon.url(:thumb), :size => '64x64'), @group, :class => 'icon'
+        = link_to image_tag(@group.icon.thumb.url, :size => '64x64'), @group, :class => 'icon'
       -unless @list_view
         %div
           = link_to t("groups.back_to", :group => @group.name), group_path(@group)

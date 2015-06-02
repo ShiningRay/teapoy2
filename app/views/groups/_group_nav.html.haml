@@ -1,6 +1,6 @@
 .group_hd
   .group_pic
-    = link_to image_tag( @group.icon(:medium)), @group
+    = link_to image_tag( @group.icon.medium.url), @group
   .group_text
     .group_title.clearfix
       .group_titlel= link_to @group.name, @group

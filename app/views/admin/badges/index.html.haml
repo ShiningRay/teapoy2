@@ -5,7 +5,7 @@
     %th Description
   - @badges.each do |badge|
     %tr
-      %td= image_tag badge.icon(:small),:alt=>"#{h badge.name}"
+      %td= image_tag badge.icon.small.url,:alt=>"#{h badge.name}"
       %td= link_to badge.name, [:admin, badge]
       %td
         = h badge.title

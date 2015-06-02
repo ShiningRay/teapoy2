@@ -3,7 +3,7 @@
   .comment-form
     .avatar
       - if logged_in?
-        =# image_tag current_user.avatar.url(:thumb), :alt => "#{current_user.name_or_login}"
+        =# image_tag current_user.avatar.thumb.url, :alt => "#{current_user.name_or_login}"
         .name= current_user.name
 
     =# link_to 'Not me?', logout_path

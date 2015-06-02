@@ -1,4 +1,4 @@
-= image_tag @user.avatar.url(:medium)
+= image_tag @user.avatar.medium.url
 = link_to 'delete_avatar',:method=>:post
 = h @user.name
 = h @user.login

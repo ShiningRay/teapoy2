@@ -9,7 +9,7 @@
       = image_tag(picture.picture(:original), :alt => (picture.article.title || picture.content.mb_chars[0,10]))
     - else
       = link_to image_tag(picture.picture(:medium), :alt => picture.content.mb_chars[0,50]),  |
-                picture.picture.url(:large), |
+                picture.picture.large.url, |
                 :class => 'picture',  |
                 :id => "picture-#{picture.id}",  |
                 :title => (picture.article.title || picture.content.mb_chars[0,10])

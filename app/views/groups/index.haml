@@ -21,7 +21,7 @@
     - groups.each do |group|
       - content_for :keywords, ",#{group.name}"
       .groupitem
-        = link_to image_tag(group.icon(:medium), :alt => group.name), group, :class => 'group_link'
+        = link_to image_tag(group.icon.medium.url, :alt => group.name), group, :class => 'group_link'
         %h2.group_title
           =link_to group.name, group
         .group_desc

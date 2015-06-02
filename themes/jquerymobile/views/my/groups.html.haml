@@ -7,6 +7,6 @@
     - @groups.each do |g|
       %li
         = link_to g do
-          = image_tag g.icon.url(:small)
+          = image_tag g.icon.small.url
           %h2= g.name
 

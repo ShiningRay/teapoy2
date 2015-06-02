@@ -1,6 +1,6 @@
 - content_for :title, @badge.title
 %div{:style => "float:left;"}
-  = image_tag @badge.icon(:medium),:alt=>"#{h @badge.name}"
+  = image_tag @badge.icon.medium.url,:alt=>"#{h @badge.name}"
 %h2= h @badge.title
 %p
   = h @badge.description

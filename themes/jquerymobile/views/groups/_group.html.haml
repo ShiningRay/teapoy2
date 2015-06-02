@@ -1,7 +1,6 @@
 %li.group
-  .thumb=image_tag(group.icon(:thumb))
+  .thumb=image_tag(group.icon.thumb.url)
   %h3=link_to group.name, group
   .meta
     = t('groups.owner') + ":"
     = link_to group.owner.name, group.owner if group.owner
-

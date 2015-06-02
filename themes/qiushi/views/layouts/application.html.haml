@@ -31,7 +31,7 @@
       #center-container
         #header
           - if @group
-            = link_to image_tag( @group.icon.url(:small), :alt => ''), articles_path(@group), :class => 'logo'
+            = link_to image_tag( @group.icon.small.url, :alt => ''), articles_path(@group), :class => 'logo'
             %h1
               = link_to @group.name, articles_path(@group)
             %h2= h @group.description

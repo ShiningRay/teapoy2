@@ -16,7 +16,7 @@
           - Group.where(id: c).order_by(created_at: 'desc').limit(5).each do |group|
             %li
               = link_to articles_path(group) do
-                = image_tag group.icon.url(:thumb), :alt => group.name, :size => '48x48'
+                = image_tag group.icon.thumb.url, :alt => group.name, :size => '48x48'
               %h4= link_to group.name, articles_path(group)
 
     .paginate

@@ -4,7 +4,7 @@
 
   %div{:class => message.in? ? 'bubble_l' : 'bubble_r'}
     .bubble_user
-      = link_to image_tag(message.sender.avatar.url(:thumb)), message.sender
+      = link_to image_tag(message.sender.avatar.thumb.url), message.sender
     .bubble_cont
       .bubble_arrow
         %i

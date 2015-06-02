@@ -4,10 +4,10 @@ class UserSerializer < ActiveModel::Serializer
   def avatar
     if object.avatar.file?
       {
-        small: full_path(object.avatar.url(:small)),
-        medium: full_path(object.avatar.url(:medium)),
-        thumb: full_path(object.avatar.url(:thumb)),
-        original: full_path(object.avatar.url(:original))
+        small: full_path(object.avatar.small.url),
+        medium: full_path(object.avatar.medium.url),
+        thumb: full_path(object.avatar.thumb.url),
+        original: full_path(object.avatar.original.url)
       }
     else
       {

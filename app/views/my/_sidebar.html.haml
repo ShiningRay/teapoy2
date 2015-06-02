@@ -25,7 +25,7 @@
     %p= link_to "关注我的人(#{current_user.followings.count})", followings_user_path(current_user)
   %ul.badges
     - current_user.badges.each do |badge|
-      %li= link_to image_tag(badge.icon.url(:medium), :alt => badge.title), user_badges_path(current_user)
+      %li= link_to image_tag(badge.icon.medium.url, :alt => badge.title), user_badges_path(current_user)
   %ul
     = widget 'user_search'
     = widget 'my_groups'

@@ -19,7 +19,7 @@
       - if anon
         匿名人士
       - else
-        =  link_to image_tag(user.avatar.url(:thumb)), user, :target => '_blank', :class => 'avatar', :data => {:login => user.login}
+        =  link_to image_tag(user.avatar.thumb.url), user, :target => '_blank', :class => 'avatar', :data => {:login => user.login}
         = link_to h(user.name), user, :target => '_blank',:class=>"user",:data => {:login => user.login}
 
       -if comment.parent_floor != 0

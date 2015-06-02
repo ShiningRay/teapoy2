@@ -8,7 +8,7 @@
     - for conversation in @conversations
       %li.conversation(data-icon='false')
         = link_to conversation do
-          = image_tag conversation.target.avatar.url(:thumb)
+          = image_tag conversation.target.avatar.thumb.url
           %h2= conversation.target.name_or_login
           %p= conversation.last_content
           - if conversation.unread_count > 0

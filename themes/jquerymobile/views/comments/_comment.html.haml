@@ -2,7 +2,7 @@
   - if comment.status == 'deleted'
     已被删除
   - else
-    = image_tag comment.user.avatar.url(:thumb), class: 'ui-li-icon avatar'
+    = image_tag comment.user.avatar.thumb.url, class: 'ui-li-icon avatar'
     %span.author
       - if comment.anonymous
         匿名人士

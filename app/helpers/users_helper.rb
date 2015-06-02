@@ -107,7 +107,7 @@ module UsersHelper
 
   def avatar(user, anonymous=false)
     user ? (
-      user.id != 0 && !anonymous ?  link_to(image_tag(user.avatar.url(:thumb)),user,:class=>'avatar') + link_to( h(user.login), user, :class => user.roles.collect(&:name)) : '<strong>匿名人士</strong>'
+      user.id != 0 && !anonymous ?  link_to(image_tag(user.avatar.thumb.url),user,:class=>'avatar') + link_to( h(user.login), user, :class => user.roles.collect(&:name)) : '<strong>匿名人士</strong>'
     ) :
       ('该用户已被删除')
   end
