@@ -3,7 +3,6 @@
 class Group #< ActiveRecord::Base
   include Mongoid::Document
   include Mongoid::Timestamps
-  # include Mongoid::Paperclip
   include Mongoid::Taggable
   disable_tags_index!
   include Tenacity

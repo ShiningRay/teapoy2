@@ -48,7 +48,7 @@ set :foreman_options, {
 }
 # }}}
 
-set :linked_files, %w{config/database.yml config/mongoid.yml}
+set :linked_files, %w{config/database.yml config/mongoid.yml config/secrets.yml}
 
 set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/assets public/uploads}
 
