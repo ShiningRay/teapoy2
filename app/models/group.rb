@@ -3,7 +3,7 @@
 class Group #< ActiveRecord::Base
   include Mongoid::Document
   include Mongoid::Timestamps
-  include Mongoid::Paperclip
+  # include Mongoid::Paperclip
   include Mongoid::Taggable
   disable_tags_index!
   include Tenacity
@@ -52,24 +52,8 @@ class Group #< ActiveRecord::Base
   validates_uniqueness_of :alias
   index({name: 1}, {unique: true})
   index({alias: 1}, {unique: true})
-  has_mongoid_attached_file :icon,
-    styles: { #medium: "320x320>",
-                small: "64x64#",
-                medium: "200x1000>",
-                thumb: '32x32#'   },
-   path: ":rails_root/public/system/:attachment/:id/:style/:filename",
-   url: "/system/:attachment/:id/:style/:filename"
+  mount_uploader :icon, AvatarUploader, mount_on: :icon_file_name
 
-  validates_attachment_content_type :icon,
-                                    content_type:
-                                      ['image/jpeg',
-                                        'image/gif',
-                                        'image/png',
-                                        'image/pjpeg',
-                                        'image/bmp',
-                                        'image/x-portable-bitmap'
-                                      ], unless: -> (model) { model.icon }
-  validates_attachment_size :icon, less_than: 2.megabytes, unless: -> (model) { model.icon }
   scope :public_groups, -> { where(private: false) }
   scope :private_groups, -> { where(private: true) }
   #scope :open_groups, -> { where(status: "open") }

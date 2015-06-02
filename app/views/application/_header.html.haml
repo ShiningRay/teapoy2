@@ -59,7 +59,7 @@
                   = current_user.salaries.unpaid.size
                   )
 
-          %li.image= link_to image_tag(current_user.avatar(:thumb), :size => '16x16'), edit_user_path(current_user)
+          %li.image= link_to image_tag(current_user.avatar.thumb.url, :size => '16x16'), edit_user_path(current_user)
           %li= link_to current_user.login, user_path(current_user)
 
           %li= link_to typicon('news'), {:controller => '/my', :action => 'index'}, {:title => '未读文章'}

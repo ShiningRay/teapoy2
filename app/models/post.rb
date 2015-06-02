@@ -3,7 +3,7 @@ class Post
   include ::Post::Validators
   include Mongoid::Document
   include Mongoid::Timestamps
-  include Mongoid::Paperclip
+  # include Mongoid::Paperclip
   include Tenacity
 
   belongs_to :group

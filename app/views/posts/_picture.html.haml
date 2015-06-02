@@ -1,19 +1,19 @@
--# coding: utf-8
-- if picture.picture.file?
+
+- if picture.picture?
   - alt = picture.content && picture.content.mb_chars[0,50] || picture.article.title || ''
   - title = (picture.article.title || alt[0, 10])
   - if @list_view
     - if picture.gif?
-      = link_to image_tag(picture.picture(:thumb), :alt => alt), picture.picture.url(:original), :class => 'picture', :id => "picture-#{picture.id}", :title => title
+      = link_to image_tag(picture.picture.thumb.url, :alt => alt), picture.picture.original.url, :class => 'picture', :id => "picture-#{picture.id}", :title => title
     - else
-      = link_to image_tag(picture.picture(:medium), :alt => alt), picture.picture.url(:large), :class => 'picture', :id => "picture-#{picture.id}", :title => title
+      = link_to image_tag(picture.picture.medium.url, :alt => alt), picture.picture.large.url, :class => 'picture', :id => "picture-#{picture.id}", :title => title
     %br
   - else
     - if picture.gif?
-      = image_tag(picture.picture(:original), :alt => alt)
+      = image_tag(picture.picture.original.url, :alt => alt)
     - else
-      = link_to image_tag(picture.picture(:medium), :alt => alt),  |
-                picture.picture.url(:large), |
+      = link_to image_tag(picture.picture.medium.url, :alt => alt),  |
+                picture.picture.large.url, |
                 :class => 'picture',  |
                 :id => "picture-#{picture.id}",  |
                 :title => title

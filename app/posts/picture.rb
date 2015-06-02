@@ -1,83 +1,20 @@
 # coding: utf-8
-require 'net/http'
-require 'uri'
-require 'open-uri'
 #require 'paperclip_processors'
 class Picture < Post
-  has_mongoid_attached_file :picture,
-    styles: {
-      thumb: {
-        geometry: '64x64#',
-        animated: false,
-        position: 'northwest',
-        watermark_path: "#{Rails.root}/public/images/gif_play.png",
-        processors: [:thumbnail, :gif_watermark]
-      },
-      small: {
-        geometry: '256x256>',
-        animated: false,
-      },
-      longsmall: {
-        geometry: '200x1000>',
-        animated: false
-      },
-      medium: {
-          geometry: '320x320>',
-          watermark_path: "#{Rails.root}/public/images/watermark-small.png",
-          position: 'Southwest',
-          animated: false,
-          processors: [:thumbnail, :watermark],
-        },
-      large: {
-          geometry: '1024>',
-          watermark_path: "#{Rails.root}/public/images/watermark.png",
-          position: 'northwest',
-          animated: false,
-          processors: [:thumbnail, :watermark],
-        }
-    },
-   path: ":rails_root/public/system/:attachment/:oid/:style/:filename",
-   url: "/system/:attachment/:oid/:style/:filename"
+  mount_uploader :picture, PictureUploader, mount_on: :picture_file_name
 
-
-  validates_attachment_content_type :picture,
-    content_type: %w(image/jpeg image/gif image/png image/pjpeg image/bmp image/x-portable-bitmap)
-  validates_attachment_size :picture, less_than: 10.megabytes
-  #skip_callback :create, :before, :detect_parent
-  #skip_callback :create, :create_notification, :comment_notify
-  #process_in_background :picture
-  #handle_asynchronously :save_attached_files
   field :image_url, type: String
-  before_save :fetch_image, if: :image_url
-=begin
-  before_create :correct_filename_encoding
 
-  def correct_filename_encoding
-    unless picture.file.name.valid_encoding?
-      extension = File.extname(picture_file_name).downcase
-      picture.instance_write(:file_name, "#{ActiveSupport::SecureRandom.hex(16)}#{extension}")
-    end
-  end
-=end
-  def fetch_image
-    return if picture.file? or image_url.blank?
-    url = URI.parse(image_url)
-    filename = File.basename url.path
-    file = File.new File.join(Rails.root, 'tmp', filename), 'wb+'
-    begin
-    file.write open(image_url).read
-    rescue
-      rescue OpenURI::HTTPError
-    end
-    self.picture = file
-  rescue URI::InvalidURIError
+  def image_url=(url)
+    self.remote_picture_url = url
+    self[:image_url] = url
   end
 
   def to_s
-    picture.url(:original)
+    picture.original.url
   end
 
-  after_post_process :save_image_dimensions
+  # after_post_process :save_image_dimensions
   field :dimensions, type: Hash, default: {}
 
   def dim_size(style=:original)
@@ -119,7 +56,7 @@ class Picture < Post
       ids = []
     end
     Picture.find_each do |p|
-      unless p.picture.file?
+      unless p.picture?
         ids << p.id
         p.meta = {}
         p.save!
@@ -143,12 +80,12 @@ class Picture < Post
 
   def as_json(opts={})
     super(opts).merge(
-      picture_original_url: picture(:original),
-      picture_large_url: picture(:large),
-      picture_small_url: picture(:small),
+      picture_original_url: picture.original.url,
+      picture_large_url: picture.large.url,
+      picture_small_url: picture.small.url,
       picture_small_size: dimensions[:small] || [100,100],
-      picture_medium_url: picture(:medium),
+      picture_medium_url: picture.medium.url,
       picture_medium_size: dimensions[:medium] || [100, 100],
-      picture_thumb_url: picture(:thumb))
+      picture_thumb_url: picture.thumb.url)
   end
 end
