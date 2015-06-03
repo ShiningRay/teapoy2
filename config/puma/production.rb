@@ -1,19 +1,19 @@
 #!/usr/bin/env puma
 
-ROOT = ENV['PUMA_ROOT'] || '/home/deploy'
+DEPLOY_ROOT = ENV['DEPLOY_ROOT'] || '/home/deploy'
 
-directory "#{ROOT}/current"
-rackup "#{ROOT}/current/config.ru"
+directory "#{DEPLOY_ROOT}/current"
+rackup "#{DEPLOY_ROOT}/current/config.ru"
 environment 'production'
 
-pidfile "#{ROOT}/shared/tmp/pids/puma.pid"
-state_path "#{ROOT}/shared/tmp/pids/puma.state"
-stdout_redirect "#{ROOT}/shared/log/puma_access.log", "#{ROOT}/shared/log/puma_error.log", true
+pidfile "#{DEPLOY_ROOT}/shared/tmp/pids/puma.pid"
+state_path "#{DEPLOY_ROOT}/shared/tmp/pids/puma.state"
+stdout_redirect "#{DEPLOY_ROOT}/shared/log/puma_access.log", "#{DEPLOY_ROOT}/shared/log/puma_error.log", true
 
 
 threads 1,64
 
-bind "unix://#{ROOT}/shared/tmp/sockets/puma.sock"
+bind "unix://#{DEPLOY_ROOT}/shared/tmp/sockets/puma.sock"
 workers ENV['PUMA_WORKERS'] || 1
 # worker_timeout 3600
 

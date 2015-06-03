@@ -1,0 +1,4 @@
+ENV['RAILS_ENV'] ||= 'production'
+RAILS_ENV= ENV['RAILS_ENV']
+ROOT = ENV['ROOT'] = File.expand_path('../', __FILE__)
+Eye.load("config/eyes/#{ENV['RAILS_ENV']}.rb")

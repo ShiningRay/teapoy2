@@ -46,7 +46,7 @@ set :foreman_options, {
 
 set :linked_files, %w{config/database.yml config/mongoid.yml config/secrets.yml}
 
-set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/assets public/uploads}
+set :linked_dirs, %w{.eye bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/assets public/uploads}
 
 namespace :eye do
   task :load do
@@ -68,7 +68,7 @@ namespace :deploy do
       invoke 'puma:restart'
       invoke 'mailman:restart'
       invoke 'scheduler:restart'
-      invoke 'eye:load'
+      # invoke 'eye:load'
     end
   end
 
