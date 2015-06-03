@@ -6,7 +6,7 @@ process 'puma' do
   monitor_children do
     # restart_command 'kill -2 {PID}' # for this child process
     stop_command 'kill -9 {PID}'
-    check :memory, below: 2048.megabytes, times: 3
+    check :memory, below: 800.megabytes, times: 3
   end
 end
 end
