@@ -1,8 +1,11 @@
 # encoding: UTF-8
 #source 'http://rubygems.org'
 Encoding.default_external= Encoding::UTF_8
-source 'https://ruby.taobao.org'
-# source 'https://rubygems.org'
+if ENV['USE_TAOBAO_GEM_SOURCE']
+  source 'https://ruby.taobao.org'
+else
+  source 'https://rubygems.org'
+end
 gem 'dotenv-rails', :groups => [:development, :test]
 
 gem 'rails', '~> 4.1.0'
@@ -15,14 +18,14 @@ source 'https://rails-assets.org' do
 end
   gem 'bootstrap-sass'
   gem "font-awesome-rails"
-  # gem 'autoprefixer-rails'
+  gem 'autoprefixer-rails'
   gem 'jquery-rails'
   gem "jquery_mobile_rails"
   gem 'jquery-atwho-rails', :github => 'ShiningRay/jquery-atwho-rails'
   gem 'lazy_high_charts'
+  gem 'bourbon'
   gem 'compass'
   gem 'compass-rails'
-  gem 'bourbon'
   gem 'sass-rails'
   gem 'coffee-rails'
   gem 'uglifier'
@@ -50,7 +53,7 @@ gem 'mongoid-observers'
 # gem "mongoid-paperclip", :require => "mongoid_paperclip"
 gem 'carrierwave'
 gem 'carrierwave-mongoid'
-gem 'carrierwave-qiniu'
+gem 'carrierwave-qiniu', github: 'ShiningRay/carrierwave-qiniu', branch: 'preserve-slash-in-path '
 
 #gem "friendly_id", "~> 3.2.1"
 gem 'tenacity', github: 'jwg2s/tenacity', branch: 'develop'
