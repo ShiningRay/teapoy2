@@ -6,6 +6,8 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.UA-576087-6
 ENV['GOOGLE_ACCOUNT_ID'] = 'UA-576087-6'
 ENV['SITE_NAME'] = '博聆网'
+GC::Profiler.enable
+
 $revision = ''
 if File.exists?('REVISION')
   $revision = IO.read('REVISION')

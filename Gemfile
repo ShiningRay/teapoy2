@@ -60,7 +60,7 @@ gem "newrelic_moped"
 gem "newrelic-redis"
 #gem "thinking-sphinx", '~> 1.3.11', require: 'thinking_sphinx'
 # gem "acts_as_audited"
-gem "default_value_for", github: 'FooBarWidget/default_value_for'
+gem "default_value_for", "~> 3.0.0"
 gem "acts_as_list"
 #gem "acts_as_audited"
 #gem 'httparty'
@@ -162,7 +162,7 @@ group :development do
   gem "binding_of_caller"
   gem 'guard-livereload'
   gem 'rack-livereload'
-  gem 'rack-mini-profiler'
+  gem 'rack-mini-profiler', require: false
   gem 'xray-rails'
 end
 
