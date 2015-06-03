@@ -2,12 +2,18 @@ ENV['RAILS_ENV'] ||= 'production'
 RAILS_ENV= ENV['RAILS_ENV']
 ROOT = ENV['ROOT'] = File.expand_path('../', __FILE__)
 
-if File.exists?('ROLES')
-  ROLES = IO.read('ROLES').split(',')
-end
-
 if ENV['ROLES']
   ROLES = ENV['ROLES'].split(',')
 end
+
+
+if !defined?(ROLES) && File.exists?('ROLES')
+  ROLES = IO.read('ROLES').split(',')
+end
+
+if !defined?(ROLES)
+  ROLES = ['app']
+end
+
 
 Eye.load("config/eyes/#{ENV['RAILS_ENV']}.rb")

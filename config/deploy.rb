@@ -52,7 +52,7 @@ namespace :eye do
   task :load do
     on roles(:app) do
       within current_path do
-        execute 'bundle', 'exec', 'eye', 'l', 'app.eye'
+        execute 'bundle', 'exec', 'leye', 'load'
       end
     end
   end
@@ -66,9 +66,9 @@ namespace :deploy do
       # Your restart mechanism here, for example:
       # execute :touch, release_path.join('tmp/restart.txt')
       invoke 'puma:restart'
-      invoke 'mailman:restart'
-      invoke 'scheduler:restart'
-      # invoke 'eye:load'
+      invoke 'eye:load'
+      execute :bundle, 'exec', 'leye', 'restart', 'scheduler'
+      execute :bundle, 'exec', 'leye', 'restart', 'mailman'
     end
   end
 

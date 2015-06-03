@@ -4,4 +4,4 @@
 staging:
   :concurrency: 5
 production:
-  :concurrency: 15
+  :concurrency: 5
