@@ -56,7 +56,7 @@
       font-weight: bold;
       @include single-text-shadow(rgba(0, 0, 0, 0.3), 0, -1px, 0);
       border: 1px solid;
-      @include border-radius(15px);
+      border-radius: 15px;;
       cursor: pointer;
       font-family: sans-serif;
       font-size: 13px;

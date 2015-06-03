@@ -1,10 +1,7 @@
 //= require 'normalize'
-@import "compass/css3/transition";
-@import "compass/css3/border-radius";
-@import "compass/css3/box-shadow";
-@import "compass/css3/text-shadow";
-@import "compass/css3/images";
-@import "compass/css3/opacity";
+@import "bourbon";
+
+
 #background{
   position:absolute;
   display: none;
@@ -21,8 +18,8 @@ a {
     padding: 7px;
     color: #333 !important;
     @include opacity(0.25);
-  }  
-} 
+  }
+}
 body {
   color: #F0F0F0;
   //color: rgba(240, 240, 255, 0.7);
@@ -37,7 +34,7 @@ label, input, textarea, select, button {
 #links div {
   float: left; }
 #logo {
-  width:527px; 
+  width:527px;
   height:110px;
   margin: 10px auto 0px;
   margin-bottom: 50px;
@@ -69,7 +66,7 @@ label, input, textarea, select, button {
     margin-right: 7px;
 
     //overflow: hidden;
-    @include border-radius(4px);
+    border-radius: 4px;;
 
     input {
       //border: 1px solid black;
@@ -86,7 +83,7 @@ label, input, textarea, select, button {
       padding: 13px 20px 14px;
       height: 23px;
       outline: 0;
-      @include border-radius(3px);//
+      border-radius: 3px;;//
       @include single-box-shadow(#1d1f21, 0, 0, 10px, false, true);
     }
     input:focus {
@@ -109,7 +106,7 @@ label, input, textarea, select, button {
     font-size: 26px;
     letter-spacing: 6px;
     color: white;
-    @include border-radius(3px);
+    border-radius: 3px;;
     @include single-text-shadow(#333,2px, 2px, 2px);
     @include single-box-shadow(rgba(0,0,0,0.25),1px, 1px, 1px);
     @include background(linear-gradient(top, #2c97ba, #357eac));
@@ -120,27 +117,27 @@ label, input, textarea, select, button {
     &:focus {
       @include background(linear-gradient(top, #357eac, #2c97ba));
     }
-  }  
+  }
   .actions {
     float: left;
     height: 19px;
     padding: 17px 0 16px;
-    line-height: 19px;   
+    line-height: 19px;
 
   }
   .links {
     clear: left;
-    width:285px; 
+    width:285px;
     padding-left: 5px;
     float: left;
     text-align: left;
     height: 19px;
     line-height: 19px;
-    padding: 17px 0 16px;    
-  }  
+    padding: 17px 0 16px;
+  }
     .signup{
       color: red;
-    }   
+    }
 }
 .placeholder { color: #aaa; }
 .ie6 #login-form {}

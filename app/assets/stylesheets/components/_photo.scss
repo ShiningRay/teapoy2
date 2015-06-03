@@ -27,7 +27,7 @@ h2 {
 }
 
 .image {
-  @include border-radius(4px, 4px);
+  border-radius: 4px, 4px;;
   @include column(16);
   text-align: center;
   line-height: 0;

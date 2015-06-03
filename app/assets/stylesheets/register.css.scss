@@ -153,7 +153,7 @@ padding-top:20px;
     padding-right: 120px;
     cursor: pointer;
     list-type: none;
-    @include border-radius(5px);
+    border-radius: 5px;;
     color: #175445;
     &:hover {
       background-color: #fafafa; }
@@ -167,7 +167,7 @@ padding-top:20px;
     }
 
     img {
-      @include border-radius(5px);
+      border-radius: 5px;;
       float: left;
       margin-right: 25px;
     }

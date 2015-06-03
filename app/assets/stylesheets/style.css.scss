@@ -2,6 +2,7 @@
  *= require typicons
  */
 
+@import "bourbon";
 @import "components/article";
 @import "components/comment";
 @import "components/group";
@@ -55,7 +56,7 @@
           background-color: white;
           border: 1px solid #ccdcef;
           padding: 3px 8px 4px;
-          @include border-radius(5px);
+          border-radius: 5px;;
         }
         li {
           padding: 5px;
@@ -67,7 +68,7 @@
         input {
           background: #f0fefe;
           border: 1px solid #ddd;
-          @include border-radius(5px);
+          border-radius: 5px;;
           padding: 5px 10px;
           width: 70px;
           font-size:1.1em;
