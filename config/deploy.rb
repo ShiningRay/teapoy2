@@ -46,13 +46,13 @@ set :foreman_options, {
 
 set :linked_files, %w{config/database.yml config/mongoid.yml config/secrets.yml}
 
-set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/assets public/uploads}
+set :linked_dirs, %w{.eye bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/assets public/uploads}
 
 namespace :eye do
   task :load do
     on roles(:app) do
       within current_path do
-        execute 'bundle', 'exec', 'eye', 'l', 'app.eye'
+        execute 'bundle', 'exec', 'leye', 'load'
       end
     end
   end
@@ -66,13 +66,20 @@ namespace :deploy do
       # Your restart mechanism here, for example:
       # execute :touch, release_path.join('tmp/restart.txt')
       invoke 'puma:restart'
-      invoke 'mailman:restart'
-      invoke 'scheduler:restart'
       invoke 'eye:load'
+      execute :bundle, 'exec', 'leye', 'restart', 'scheduler'
+      execute :bundle, 'exec', 'leye', 'restart', 'mailman'
     end
   end
 
   after :publishing, :restart
+  before :restart, :write_roles do
+    on roles(:all) do |host|
+      within release_path do
+        execute :echo, "\"#{host.roles.to_a.join(',')}\" > ROLES"
+      end
+    end
+  end
 
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
