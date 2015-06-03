@@ -1,5 +1,5 @@
 # coding: utf-8
-lock '3.3.5'
+lock '3.4.0'
 set :application, "teapoy2"
 set :scm, :git
 set :repo_url, "git@github.com:hging/teapoy2.git"
@@ -20,12 +20,8 @@ set :puma_prune_bundler, true
 # }}}
 
 # RVM {{{
-set :rvm_install_with_sudo, true
-set :rvm_ruby_string, 'ruby-2.1.5'
 set :rvm_type, :system
-set :rvm_install_type, :stable
-set :rvm_install_ruby_threads, 8
-set :rvm_install_ruby, :install
+set :rvm_ruby_version, 'ruby-2.1.5'
 # before 'deploy:setup', 'rvm:install_rvm'
 # before 'deploy:setup', 'rvm:install_ruby'
 # }}}

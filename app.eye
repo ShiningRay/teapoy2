@@ -1,5 +1,5 @@
 
-ROOT = ENV['APP_ROOT'] || '/srv/teapoy2/current'
+ROOT = ENV['APP_ROOT'] || '/home/deploy/current'
 Bundle = "bundle exec"
 RAILS_ENV = ENV['RAILS_ENV'] || 'production'
 
