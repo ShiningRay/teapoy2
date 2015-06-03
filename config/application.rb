@@ -78,15 +78,15 @@ module Teapoy
             #article/charge
         %w( user/registration
             ).map{|i|"#{i}_observer"}
-    # config.after_initialize do |app|
-      # groups = Rails.groups(:assets => [:development, :test])
-      # if groups.include?('assets') or groups.include?(:assets)
-          # app.config.sass.load_paths << "#{Rails.root}/app/assets/stylesheets"
-          # app.config.sass.load_paths << "#{Gem.loaded_specs['compass'].full_gem_path}/frameworks/compass/stylesheets"
-          # app.config.sass.load_paths << "#{Gem.loaded_specs['compass'].full_gem_path}/frameworks/blueprint/stylesheets"
-          #Sass::Plugin.options[:load_paths] = app.config.sass.load_paths
-      # end
-    # end
+    config.after_initialize do |app|
+      groups = Rails.groups(:assets => [:development, :test])
+      if groups.include?('assets') or groups.include?(:assets)
+          app.config.sass.load_paths << "#{Rails.root}/app/assets/stylesheets"
+          app.config.sass.load_paths << "#{Gem.loaded_specs['compass-blueprint'].full_gem_path}/frameworks/compass/stylesheets"
+          app.config.sass.load_paths << "#{Gem.loaded_specs['compass-blueprint'].full_gem_path}/frameworks/blueprint/stylesheets"
+          Sass::Plugin.options[:load_paths] = app.config.sass.load_paths
+      end
+    end
     Haml::Template.options[:format] = :xhtml
     Haml::Template.options[:encoding] = 'utf-8'
     config.action_view.sanitized_allowed_tags = %w(p div h1 h2 h3 h4 h5 h6 ol ul li strong em u b i span table thead tbody tfoot th tr td caption img embed a  br cite sub sup ins acronym q)

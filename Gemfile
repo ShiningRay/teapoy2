@@ -26,6 +26,7 @@ end
   gem 'bourbon'
   gem 'compass'
   gem 'compass-rails'
+  gem 'compass-blueprint'
   gem 'sass-rails'
   gem 'coffee-rails'
   gem 'uglifier'

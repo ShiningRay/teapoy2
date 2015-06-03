@@ -69,7 +69,7 @@ GIT
       puma (>= 2.6)
 
 GEM
-  remote: https://rubygems.org/
+  remote: https://ruby.taobao.org/
   remote: https://rails-assets.org/
   specs:
     aasm (4.1.1)
@@ -196,6 +196,8 @@ GEM
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
       sass (>= 3.3.13, < 3.5)
+    compass-blueprint (1.0.0)
+      compass
     compass-core (1.0.3)
       multi_json (~> 1.0)
       sass (>= 3.3.0, < 3.5)
@@ -615,6 +617,7 @@ DEPENDENCIES
   carrierwave-qiniu!
   coffee-rails
   compass
+  compass-blueprint
   compass-rails
   composite_primary_keys
   connection_pool
