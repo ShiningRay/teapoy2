@@ -67,8 +67,10 @@ namespace :deploy do
       # execute :touch, release_path.join('tmp/restart.txt')
       invoke 'puma:restart'
       invoke 'eye:load'
-      execute :bundle, 'exec', 'leye', 'restart', 'scheduler'
-      execute :bundle, 'exec', 'leye', 'restart', 'mailman'
+      within release_path do
+        execute :bundle, 'exec', 'leye', 'restart', 'scheduler'
+        execute :bundle, 'exec', 'leye', 'restart', 'mailman'
+      end
     end
   end
 
