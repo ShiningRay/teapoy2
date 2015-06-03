@@ -14,7 +14,7 @@ set :branch, 'master'
 # set :unicorn_rack_env, "production"
 # set :unicorn_pid, "#{current_path}/tmp/pids/unicorn.pid"
 set :puma_threads, [1, 64]
-set :puma_workers, 4
+set :puma_workers, 1
 set :puma_worker_timeout, 60 * 60
 set :puma_prune_bundler, true
 # }}}
