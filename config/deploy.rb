@@ -73,6 +73,13 @@ namespace :deploy do
   end
 
   after :publishing, :restart
+  before :restart, :write_roles do
+    on roles(:all) do |host|
+      within release_path do
+        execute :echo, "\"#{host.roles.to_a.join(',')}\" > ROLES"
+      end
+    end
+  end
 
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
