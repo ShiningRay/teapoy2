@@ -88,15 +88,10 @@ Teapoy::Application.configure do
 #    :enable_starttls_auto => true,
 #    :authentication => :plain
 #  }
-  config.action_mailer.smtp_settings = {
-    :address => 'localhost',
-    :port => 25,
-    :domain => 'bling0.com',
-    :enable_starttls_auto => false,
-  }
+  config.action_mailer.smtp_settings = *Rails.application.secrets.smtp_settings
 
 
-  config.cache_store = :dalli_store, 'jinhai'#, {:compression => true}
+  config.cache_store = :dalli_store, *Rails.application.secrets.mem_cache
   #config.session_store :cache_store, :expire_after => 1.day
   #require 'rack/cache'
 end
