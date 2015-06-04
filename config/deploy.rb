@@ -50,7 +50,7 @@ set :linked_dirs, %w{.eye bin log tmp/pids tmp/cache tmp/sockets vendor/bundle p
 
 namespace :eye do
   task :load do
-    on roles(:app) do
+    on roles(:all) do
       within current_path do
         execute 'bundle', 'exec', 'leye', 'load'
       end
@@ -62,19 +62,26 @@ namespace :deploy do
 
   desc 'Restart application'
   task :restart do
+    invoke 'eye:load'
+
     on roles(:app), in: :sequence, wait: 5 do
       # Your restart mechanism here, for example:
       # execute :touch, release_path.join('tmp/restart.txt')
       invoke 'puma:restart'
-      invoke 'eye:load'
       within release_path do
         execute :bundle, 'exec', 'leye', 'restart', 'scheduler'
+      end
+    end
+
+    on roles(:mail) do
+      within release_path do
         execute :bundle, 'exec', 'leye', 'restart', 'mailman'
       end
     end
   end
 
   after :publishing, :restart
+
   before :restart, :write_roles do
     on roles(:all) do |host|
       within release_path do

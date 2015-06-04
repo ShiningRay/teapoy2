@@ -3,8 +3,8 @@ RAILS_ENV= ENV['RAILS_ENV']
 ROOT = ENV['ROOT'] = File.expand_path('../', __FILE__)
 
 if !ENV['ROLES']
-  ENV['ROLES'] = if File.exists?('ROLES')
-    IO.read('ROLES').chomp
+  ENV['ROLES'] = if File.exists?("#{ROOT}/ROLES")
+    IO.read("#{ROOT}/ROLES").chomp
   else
     'app'
   end
