@@ -14,7 +14,7 @@ stdout_redirect "#{DEPLOY_ROOT}/shared/log/puma_access.log", "#{DEPLOY_ROOT}/sha
 threads 1,64
 
 bind "unix://#{DEPLOY_ROOT}/shared/tmp/sockets/puma.sock"
-workers ENV['PUMA_WORKERS'] || 1
+workers ENV['PUMA_WORKERS'] || 2
 # worker_timeout 3600
 
 preload_app!
