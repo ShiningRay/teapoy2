@@ -88,7 +88,7 @@ Teapoy::Application.configure do
 #    :enable_starttls_auto => true,
 #    :authentication => :plain
 #  }
-  config.action_mailer.smtp_settings = Rails.application.secrets.smtp_settings
+  config.action_mailer.smtp_settings = Rails.application.secrets.smtp_settings.symbolize_keys
 
 
   config.cache_store = :dalli_store, *Rails.application.secrets.mem_cache
