@@ -32,7 +32,9 @@
     - else
       目前尚无帖子
   - else
-    = render(@articles.reject{|a|a.top_post.nil?})
+    .article-list
+      = render(@articles.reject{|a|a.top_post.nil?})
+    .load-more
     = paginate @articles
 
     - if @limit && @next_limit && @articles.num_pages == @articles.current_page && @articles.num_pages > 0

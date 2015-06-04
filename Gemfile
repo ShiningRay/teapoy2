@@ -15,6 +15,7 @@ gem 'rails', '~> 4.1.0'
 source 'https://rails-assets.org' do
   gem 'rails-assets-icanhaz'
   gem 'rails-assets-photoswipe'
+  gem 'rails-assets-waypoints'
 end
   gem 'bootstrap-sass'
   gem "font-awesome-rails"

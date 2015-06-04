@@ -8,11 +8,8 @@
 -%>
 <%= paginator.render do -%>
   <div id="pagination" class="ui-grid-a">
-    <div class="ui-block-a">
-      <%= prev_page_tag unless current_page.first? %>
-    </div>
-    <div class="ui-block-b">
+
       <%= next_page_tag unless current_page.last? %>
-    </div>
+      
   </div>
 <% end -%>

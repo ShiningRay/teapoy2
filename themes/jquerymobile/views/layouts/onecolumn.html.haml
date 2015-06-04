@@ -1,6 +1,11 @@
 !!! Mobile
 %html
   = render 'head'
+  - if Rails.env.development?
+    :css
+      .profiler-results {
+        display: none;
+      }
   %body
     %noscript
       = link_to '旧版手机网站', 'http://m.bling0.com'

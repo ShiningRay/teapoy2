@@ -1,12 +1,12 @@
-#=require jquery
-#=require jquery_ujs
-#=require jquery.remotipart
-#=require jquery/scrollTo
+#= require jquery
+#= require jquery_ujs
+#= require jquery.remotipart
+#= require jquery/scrollTo
 #= require jquery.mobile
-#=require photoswipe
-#=require 'photoswipe/photoswipe-ui-default'
+#= require photoswipe
+#= require 'photoswipe/photoswipe-ui-default'
 
-#=require_tree ./mobile
+#= require_tree ./mobile
 
 pictures = []
 

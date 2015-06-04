@@ -13,7 +13,7 @@
       - if user
 
         = link_to user, :class => 'user' do
-          = image_tag user.avatar(:thumb)
+          = image_tag user.avatar.thumb
           = user.name_or_login
     %span.user-action-time><
       %span.relativetime><= time_ago_in_words(article.created_at)
