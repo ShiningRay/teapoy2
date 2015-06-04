@@ -8,7 +8,7 @@
   = f.text_field :user_id
   = link_to @article.user.login, [:admin, @article.user] if @article.user
   %br
-  = image_tag @article.top_post.picture(:medium) if @article.top_post.is_a?(Picture)
+  = image_tag @article.top_post.picture.medium.url if @article.top_post.is_a?(Picture)
   %fieldset
     = f.fields_for(:top_post) do |top_post|
       %label Post Type:

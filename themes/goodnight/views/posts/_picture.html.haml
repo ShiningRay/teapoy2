@@ -1,14 +1,14 @@
 - if picture.picture?
   - if @list_view
-    = link_to image_tag(picture.picture(:longsmall), :alt => picture.content.mb_chars[0,50], :style => picture.dim_style_size(:longsmall)),  |
+    = link_to image_tag(picture.picture.longsmall.url, :alt => picture.content.mb_chars[0,50], :style => picture.dim_style_size(:longsmall)),  |
               article_path(@group, picture.article), |
               :id => "picture-#{picture.id}",  |
               :title => (picture.article.title || picture.content.mb_chars[0,10])
   - else
     - if picture.picture.content_type =~ /gif/i
-      = image_tag(picture.picture(:original), :alt => (picture.article.title || picture.content.mb_chars[0,10]))
+      = image_tag(picture.picture.original.url, :alt => (picture.article.title || picture.content.mb_chars[0,10]))
     - else
-      = link_to image_tag(picture.picture(:medium), :alt => picture.content.mb_chars[0,50]),  |
+      = link_to image_tag(picture.picture.medium.url, :alt => picture.content.mb_chars[0,50]),  |
                 picture.picture.large.url, |
                 :class => 'picture',  |
                 :id => "picture-#{picture.id}",  |

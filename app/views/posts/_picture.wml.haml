@@ -1,5 +1,5 @@
 %p><= join_oneline( |
-  link_to("查看大图#{picture.dim_size(:large)}",picture.picture(:large)), |
-  link_to("中图#{picture.dim_size(:medium)}",picture.picture(:medium)), |
-  link_to("小图#{picture.dim_size(:small)}",picture.picture(:small)), :sep => '<br/>') |
+  link_to("查看大图#{picture.dim_size(:large)}",picture.picture.large.url), |
+  link_to("中图#{picture.dim_size(:medium)}",picture.picture.medium.url), |
+  link_to("小图#{picture.dim_size(:small)}",picture.picture.small.url), :sep => '<br/>') |
 = render_post_content picture
