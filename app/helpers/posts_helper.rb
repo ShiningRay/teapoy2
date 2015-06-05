@@ -4,7 +4,9 @@ module PostsHelper
     return nil unless posts
     posts = Array.wrap(posts)
     raw(posts.map do |post|
-      render(partial: "posts/#{post.class.name.underscore}", object: post).chomp.force_encoding(Encoding::UTF_8)
+      Rails.cache.fetch([post, request.format.to_sym, theme_name]) do
+        render(partial: "posts/#{post.class.name.underscore}", object: post)
+      end.chomp.force_encoding(Encoding::UTF_8)
     end.join).force_encoding(Encoding::UTF_8)
   end
 
