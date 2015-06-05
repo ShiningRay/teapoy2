@@ -79,15 +79,19 @@ Teapoy::Application.configure do
   config.action_mailer.raise_delivery_errors = false
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.default_url_options = { :host => "www.bling0.com" }
-#  config.action_mailer.smtp_settings = {
-#    :address => 'smtp.exmail.qq.com',
-#    :port => 25,
-#    :domain => 'bling0.com',
-#    :user_name => 'admin@bling0.com',
-#    :password => '1234qwer',
-#    :enable_starttls_auto => true,
-#    :authentication => :plain
-#  }
+  #
+  # example:
+  #
+  #  config.action_mailer.smtp_settings = {
+  #    :address => 'smtp.exmail.qq.com',
+  #    :port => 25,
+  #    :domain => 'bling0.com',
+  #    :user_name => 'admin@bling0.com',
+  #    :password => '1234qwer',
+  #    :enable_starttls_auto => true,
+  #    :authentication => :plain
+  #  }
+  #
   config.action_mailer.smtp_settings = Rails.application.secrets.smtp_settings.symbolize_keys
 
 
