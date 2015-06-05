@@ -51,7 +51,7 @@ set :linked_dirs, %w{.eye bin log tmp/pids tmp/cache tmp/sockets vendor/bundle p
 namespace :eye do
   task :load do
     on roles(:all) do
-      within current_path do
+      within release_path do
         execute 'bundle', 'exec', 'leye', 'load'
       end
     end
