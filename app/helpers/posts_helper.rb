@@ -49,8 +49,6 @@ module PostsHelper
   def rated? post
     if logged_in?
       current_user.has_rated? post
-    #else
-      #cookies['rating_histories'] =~ Regexp.new("\\b" + (article.is_a?(Article)? article.id : article).to_s + "\\b")
     end
   end
 

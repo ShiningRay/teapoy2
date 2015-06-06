@@ -45,7 +45,7 @@ class Picture < Post
   end
 
   def gif?
-    @gif ||= (picture.content_type =~ /gif/i)
+    @gif ||= (picture_content_type =~ /gif/i)
   end
 
   def self.downgrade_empty
