@@ -15,8 +15,6 @@
 */
 
 
-$grid-float-breakpoint:     480px;
-
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "font-awesome";
@@ -27,51 +25,22 @@ $grid-float-breakpoint:     480px;
 @import "compass/typography/lists/horizontal-list";
 @import "calendar_styles/blue";
 
-a {
-    color: #336699;
-    text-decoration: none;
-    outline: 0;
-}
 
-#main {
-  background-color: #fff;
-}
-
-a:hover, a:active, a:focus {
-    //background: none repeat scroll 0 0 #003399;
-    //color: #FFFFFF;
-    color: #6699cc;
-    text-decoration: none;
-    outline: 0;
-}
-
-.cover {
-  display: block;
-  width: 150px;
-  height: 150px;
-}
-img{
-  vertical-align:middle;
-}
-h1 {
-  font-size: 32pt;
-  }
 body {
-  font-family: "Helvetica Neue", Helvetica, Arial, Geneva, "WenQuanYi Micro Hei", 'Microsoft Yahei', STHeiti, sans-serif;
-  font-size: 14px;
-  word-wrap:break-word; word-break:break-all;
+  background-color: #efefef;
 }
-
-#main {
+#content {
+  background-color: #fff;
 }
 #login-info {
   float: right;
 }
+
 .img_link {
   width: 120px;
   height: 90px;
   line-height: 0;
-    a.picture {
+  a.picture {
     img {
       float:left;
       width: 65px;
@@ -83,6 +52,7 @@ body {
     }
   }
 }
+
 .flash_link {
   //position: relative;
   width: 120px;
@@ -143,6 +113,7 @@ body {
 }
 
 @import 'components/new_user_form';
+
 .manage_readed {
     background: none repeat scroll 0 0 #F0F5F8;
     border-bottom: 1px solid #DDDDDD;
@@ -157,33 +128,8 @@ body {
 br.clr {
   clear: both;
 }
+
 @import "compass/css3/text-shadow";
-a.button {
-  background-image:url(button.png)!important;
-  background-position:left top;
-  color:#fff;
-  height:20px;
-  width:146px;
-  font-weight:700;
-  display:block;
-  float:left;
-  text-align:center;
-  font-size:16px;
-  @include single-text-shadow( #595, 1px, 1px, 0);
-  margin:0 5px 0 0;
-  padding:15px 0 5px;
-  line-height: 12px;
-  &:hover {
-    color:#fff;
-    background-color: transparent;
-    background-position:left 80px;
-  }
-  &:active {
-    background-color: transparent;
-    color:#fff;
-    background-position:left 40px;
-  }
-}
 .salary{
 color: goldenrod;
 vertical-align:middle;
@@ -432,7 +378,7 @@ li.read{
   margin-top:10px;
 }
 #select_date_for_user{
- margin-bottom:10px;
+  margin-bottom:10px;
   width: 113px;
 }
 #select_date_for_group{
