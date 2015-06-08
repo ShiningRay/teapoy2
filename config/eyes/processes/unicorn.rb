@@ -1,7 +1,7 @@
 if ROLES.include?('app')
 process 'unicorn' do
-  pid_file "#{ROOT}/tmp/pids/unicorn.pid"
-  start_command "bundle exec unicorn -c #{ROOT}/config/unicorn/#{RAILS_ENV}.rb -E #{RAILS_ENV} -D"
+  pid_file "#{CURRENT_PATH}/tmp/pids/unicorn.pid"
+  start_command "bundle exec unicorn -c #{CURRENT_PATH}/config/unicorn/#{RAILS_ENV}.rb -E #{RAILS_ENV} -D"
   # stop_command "kill -QUIT `cat #{ROOT}/tmp/pids/unicorn.pid`"
   stop_signals [:QUIT, 2.seconds, :TERM, 1.seconds, :KILL]
   restart_command "kill -USR2 {PID}"
