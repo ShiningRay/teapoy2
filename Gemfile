@@ -120,10 +120,10 @@ gem 'browser'
 group :production do
   #gem 'exception_notification'
   gem 'hiredis', platforms: [:ruby, :jruby]
-  gem 'unicorn', platforms: :ruby
-  gem 'unicorn-worker-killer', platforms: :ruby
-  # gem 'puma'
 end
+gem 'unicorn', platforms: :ruby
+gem 'unicorn-worker-killer', platforms: :ruby
+# gem 'puma'
 # gem "sentry-raven", :git => "https://github.com/getsentry/raven-ruby.git"
 
 gem 'mailman', require: false
