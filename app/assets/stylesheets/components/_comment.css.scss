@@ -210,17 +210,6 @@ li.comment {
   }
   li.action {
     float: right;
-    input {
-      background: #f0fefe;
-      border: 1px solid #AAAAAA;
-      @include border-radius(5px);
-      padding: 5px 10px;
-      width: 70px;
-      &:hover {
-        background: #fff;
-        border-color: black;
-      }
-    }
   }
 }
 .ie6, .ie7 {

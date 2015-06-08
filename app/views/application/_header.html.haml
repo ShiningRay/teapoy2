@@ -61,11 +61,6 @@
 
           %li.image= link_to image_tag(current_user.avatar.thumb.url, :size => '16x16'), edit_user_path(current_user)
           %li= link_to current_user.login, user_path(current_user)
-
-          %li= link_to typicon('news'), {:controller => '/my', :action => 'index'}, {:title => '未读文章'}
-          %li= link_to typicon('group'), {:controller => '/my', :action => 'groups'}, :class => 'my-groups', :title => t( 'nav.my_groups')
-          -# if current_user.has_role?('publisher')
-            %li= link_to typicon('bookmark'), collections_path, title: '收藏夹'
           %li.messages
             = link_to inbox_messages_path do
               = typicon('mail')

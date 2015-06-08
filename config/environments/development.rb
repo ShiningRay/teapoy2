@@ -62,6 +62,7 @@ Teapoy::Application.configure do
   # config.quiet_assets_paths += some_paths
   # config.middleware.insert_after 'ActionDispatch::Static', 'QuietRoutingError'
   config.middleware.use 'QuietRoutingError'
+  require 'rack-mini-profiler'
   if defined?(Rack::MiniProfiler)
     Rack::MiniProfiler.config.skip_paths = some_paths
     Rack::MiniProfiler.config.start_hidden = true

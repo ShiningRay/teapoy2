@@ -17,7 +17,7 @@
         = f.input :parent_id, as: :hidden
         #faceTitle
         = f.input :content, as: :text, input_html: {rows: 2,placeholder:"按 Ctrl+Enter 快速发表"}
-        = f.action :submit, label: '回复', button_html: {data:{disable_with: '...'}}
+        = f.action :submit, label: '回复', button_html: {class: 'btn btn-primary', data:{disable_with: '...'}}
         - if logged_in?
           - if current_user.own_article?(@article) and @article.anonymous?
             = f.input :anonymous, as: :boolean, input_html: {checked: "checked" }

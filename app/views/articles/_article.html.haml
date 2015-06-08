@@ -30,7 +30,6 @@
             %span.comment_head
               禁止评论
           - else
-
             %a{:class=>"comments #{@list_view? "list_view" :  ""}",
               :href=> group_article_path(article.group, article, :anchor => "comments_#{article.id}"),
               :id=>"c-#{article.id}"}

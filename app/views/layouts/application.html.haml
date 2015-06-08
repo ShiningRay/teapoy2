@@ -2,11 +2,12 @@
 
 -ie_html :class => 'no-js' do
   = render 'head'
-  %body{ :lang => 'en', :class => [body_class_names, 'two-col'] }
+  %body
     = render 'header'
     #container.container.cf
       #main.row{ :role => 'main' }
-        #content.cf.col-xs-12.col-md-8= yield
+        #content.cf.col-xs-12.col-md-8.col-md-offset-2= yield
+
     %a#gototop.fixed{:href=>"#top"}
       回顶部
     %footer#footer
