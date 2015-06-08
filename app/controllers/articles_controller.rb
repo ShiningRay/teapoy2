@@ -443,7 +443,7 @@ class ArticlesController < ApplicationController
         }
       end
     end
-    MarkingReadWorker.perform_async(current_user.id, @article.id, @article.comments.size-1) if logged_in? and not request.xhr?
+    # MarkingReadWorker.perform_async(current_user.id, @article.id, @article.comments.size-1) if logged_in? and not request.xhr?
   end
 
   def mark
