@@ -41,8 +41,10 @@
     padding: 0;
   }
 }
+
 ul.comments {
   margin-left: 0;
+  padding-left: 0;
 }
 
 li.comment {
@@ -164,8 +166,7 @@ li.comment {
 .reply-form {
   clear: both;
   margin-top: 2em;
-  background-color: #e5ecfc;
-  @include border-radius(10px);
+
   padding: 15px;
   .avatar {
     display: none;
@@ -176,10 +177,8 @@ li.comment {
     //@include stack-form();
     //position: relative;
     textarea {
-      background-color: white;
       border: 1px solid #ccdcef;
       padding: 3px 8px 4px;
-      @include border-radius(5px);
     }
     li {
       float: left;
@@ -250,4 +249,3 @@ li.comment {
     padding-bottom:5px;
   }
 }
-

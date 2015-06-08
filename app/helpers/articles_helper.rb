@@ -5,7 +5,6 @@ module ArticlesHelper
   end
 
   def embed_article(group_id, article_slug)
-    $stderr << article_slug.inspect
     cache [group_id, article_slug, :content] do
       group = Group.wrap group_id
       article = group.articles.wrap article_slug

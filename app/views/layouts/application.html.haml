@@ -1,12 +1,17 @@
-- content_for :main do
-  #main.row{ :role => 'main' }
-    #content.cf.col-xs-12.col-md-8= yield
-    #sidebar.cf.col-xs-4.hidden-xs.hidden-sm= render 'sidebar'
-- if @group
-  -content_for :stylesheets do
-    = stylesheet_link_tag "/stylesheets/#{@group.options[:css]}" if @group.options[:css]
-    - if @group.options[:background]
-      :css
-        body{background: url(#{@group.options[:background]}) #{(@group.options[:background_style] || 'repeat') == 'repeat' ? 'repeat top left' : 'no-repeat 50% 0% fixed'};}
+!!! 5
 
-= render :template => 'layouts/onecolumn'
+-ie_html :class => 'no-js' do
+  = render 'head'
+  %body{ :lang => 'en', :class => [body_class_names, 'two-col'] }
+    = render 'header'
+    #container.container.cf
+      #main.row{ :role => 'main' }
+        #content.cf.col-xs-12.col-md-8= yield
+    %a#gototop.fixed{:href=>"#top"}
+      回顶部
+    %footer#footer
+      = render 'footer'
+    = show_login
+    = render 'facecontent'
+    -# Javascript at the bottom for fast page loading
+    = render 'javascripts'

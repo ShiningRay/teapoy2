@@ -19,7 +19,7 @@ Teapoy::Application.routes.draw do
   themes_for_rails
   get 'new_index' => "home#test_new_index"
   get 'home/:action' => 'home'
-  get 'all(/page/:page)' => 'articles#recent_hot', :group_id => 'all'
+  get 'all(/page/:page)' => 'articles#index', :group_id => 'all'
   get 'register/:action' => 'register'
   get 'scores' => 'articles#scores'
   resources :subscriptions

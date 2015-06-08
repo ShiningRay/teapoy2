@@ -1,24 +1,11 @@
 -if @article
-  %div[@article, :comments]
-    .show-hide
-      只看
-      -unless @article.anonymous?
-        =select("user", "login", ([["楼主",@article.user.login]] + (@comments.collect{|p|[p.user.name_or_login, p.user.login]})).uniq, { :include_blank => true })
-      -else
-        =select("user", "login", (@comments.collect {|p| [ p.user.name_or_login, p.user.login]}).uniq, { :include_blank => true })
-
-      %a{:href => "javascript:show_all(#{@article.id})"} 展开全部
-
-    %ul.comments
-      -if logged_in? && current_user.has_read_article?(@article).to_i > 0 && params[:read].nil?
-        %br
-        =link_to "已经折叠了#{current_user.has_read_article?(@article)}个已读评论",group_article_path(@article.group,@article,:read=>"full"),:class=>"show_readed manage_readed"
-      = render_comments @comments
-    - unless @article.closed?
-      %div#comment-form.reply-form
-        = render 'comments/form'
-    - else
-      禁止评论
+  %ul.comments
+    = render_comments @comments
+  - unless @article.closed?
+    %div#comment-form.reply-form
+      = render 'comments/form'
+  - else
+    禁止评论
 -else
   = render_comments @comments
   = paginate @comments

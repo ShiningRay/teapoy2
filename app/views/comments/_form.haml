@@ -12,8 +12,7 @@
     - unless logged_in?
       您目前是游客身份，请
       = link_to '登录', login_path
-    = semantic_form_for((@post || @article.comments.new), url: [@group, @article, :comments], html:{multipart: true}) do |f|
-      = hidden_field_tag "from_xhr"
+    = semantic_form_for((@post || @article.comments.new), url: group_article_comments_path(@group, @article, format: :js), html:{multipart: true, remote: true}) do |f|
       = f.inputs do
         = f.input :parent_id, as: :hidden
         #faceTitle

@@ -137,7 +137,7 @@ class CommentsController < ApplicationController
           return render :json => {:error => text}, :status => :unprocessable_entity
         }
         format.js {
-          return render :text => "alert(\"#{text}\""
+          return render :text => "alert(\"#{text}\")"
         }
       end
     end

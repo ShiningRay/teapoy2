@@ -44,14 +44,6 @@ if (soundManager) {
 })(jQuery);
 
 $(function () {
-  if (isIE6()) {
-    autoHoverClass('article', '.articles-list');
-    autoHoverClass('.comment', '.comments_articles');
-    $('#gototop').data('originalOffset', {
-      top: $(window).height() - $('#gototop').height() - 15,
-      left: $(window).width() - $('#gototop').width() - 15
-    });
-  }
   $('#gototop').click(function () {
     $.scrollTo(0, 500);
     return false;
@@ -194,9 +186,7 @@ function showAnimation(containerId, actionValue) {
     obj.text(parseInt(obj.text()) + actionValue);
   });
 }
-//$(function(){
-//$('.avatar').qrcode({width: 200,height: 200,text: "this plugin is great"});
-//});
+
 
 
 $(function () {
@@ -235,24 +225,6 @@ $(function () {
       layout: '<div id="t7_timer">' + '<div id="t7_vals">' + '<div id="t7_d" class="t7_numbs">{dnnn}</div>' + '<div id="t7_h" class="t7_numbs">{hnn}</div>' + '<div id="t7_m" class="t7_numbs">{mnn}</div>' + '<div id="t7_s" class="t7_numbs">{snn}</div>' + '</div>' + '<div id="t7_labels">' + '<div id="t7_dl" class="t7_labs">days</div>' + '<div id="t7_hl" class="t7_labs">hours</div>' + '<div id="t7_ml" class="t7_labs">mins</div>' + '<div id="t7_sl" class="t7_labs">secs</div>' + '</div>' + '</div>'
     });
   }
-});
-
-$(function () {
-  $('.subheader').hover(function () {
-    $(this).toggleClass('hover');
-  });
-});
-
-$(function () {
-  $(".article").hover(function () {
-    $(this).find(".midcol:first").toggleClass('hover');
-  });
-  $(".comments").on("mouseenter mouseleave", "li.comment", function () {
-    $(this).toggleClass('hover');
-  });
-  $(".groups-list").on('mouseenter mouseleave', '.grouplist .groupitem', function () {
-    $(this).toggleClass('hover');
-  });
 });
 
 $(function () {
@@ -296,21 +268,3 @@ $(function () {
     }
   });
 });
-/*
-$(function () {
-  if (typeof current_user != 'undefined') {
-    $.getJSON('/users/' + current_user.login + '/followings.json').done(function (data) {
-      $('textarea').atwho("@", {
-        data: data,
-        tpl: "<li data-value='${login}'>${name} @${login} </li>"
-      });
-      $(document).bind('comments_loaded', function (event) {
-        $(event.target).find('textarea').atwho("@", {
-          data: data,
-          tpl: "<li data-value='${login}'>${name} @${login} </li>"
-        });
-      });
-    });
-  }
-});
-*/

@@ -26,12 +26,15 @@ $grid-float-breakpoint:     480px;
 @import "compass/utilities/general/clearfix";
 @import "compass/typography/lists/horizontal-list";
 @import "calendar_styles/blue";
-@import "layout";
 
 a {
     color: #336699;
     text-decoration: none;
     outline: 0;
+}
+
+#main {
+  background-color: #fff;
 }
 
 a:hover, a:active, a:focus {
@@ -54,13 +57,6 @@ h1 {
   font-size: 32pt;
   }
 body {
-  background: {
-    attachment: fixed;
-    color: #C2E1F3;
-    image: url("18.png");
-    position: center top;
-    repeat: no-repeat;
-  }
   font-family: "Helvetica Neue", Helvetica, Arial, Geneva, "WenQuanYi Micro Hei", 'Microsoft Yahei', STHeiti, sans-serif;
   font-size: 14px;
   word-wrap:break-word; word-break:break-all;

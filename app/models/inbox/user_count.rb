@@ -1,3 +1,5 @@
+# 用户的 Inbox 中的条目数量的计数
+# 目的是为了快速找出数量大于1000的 Inbox，然后进行清理，只保留1000条
 class Inbox::UserCount
   include Mongoid::Document
   field :user_id, type: Integer
@@ -28,4 +30,3 @@ class Inbox::UserCount
     end
   end
 end
-

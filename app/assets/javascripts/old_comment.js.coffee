@@ -53,60 +53,6 @@ $ ->
     animateDuration: 600
     extraSpace: 0
 
-  $("body").on "submit", "form#new_post", ->
-    return false  if $.trim($("textarea", this).val()) is "" and $("input[type=file]").val() is ""
-    submit_botton = $("form#new_post input[type=submit]")
-    f = $(this)
-    submit_botton.attr "disabled", "disabled"
-    submit_botton.val "..."
-    responseHandler = (data, status, xhr) ->
-      if xhr.status is 200
-        f.parents(".comments_article:first").find("ul.comments").append data
-      else
-        alert xhr.responseText
-      submit_botton.removeAttr "disabled"
-      submit_botton.val "回复"
-      f.clearForm()
-      $("#post_parent_id", f).val ""
-
-    if f.find("input[type=file]").val() is ""
-      $.post f.attr("action"), f.serialize() + "&use_theme=" + use_theme, responseHandler, "html"
-    else
-      $("input[name=from_xhr]", f).val 1
-      f.ajaxSubmit
-        data: f.serialize() + "&use_theme=" + use_theme
-        success: responseHandler
-
-    false
-
-  $(".articles-list").on "click", "li.comment-status a", ->
-    A = $(this)
-    article = A.parents(".article:first")
-    comments = $(".comments_article", A.parents(".article:first"))
-    if comments.length > 0
-      comments.toggle()
-      return false
-    else
-      A.text "..."
-      $.ajax
-        type: "get"
-        data:
-          use_theme: use_theme
-
-        url: A.attr("href").split("#")[0] + "/comments"
-        success: (data, status, xhr) ->
-          if xhr.status is 200
-            $(data).appendTo article
-            if article.find("ul.comments li.comment").length > 0
-              A.text article.find("ul.comments li.comment").length + "条评论"
-            else
-              A.text "暂无评论"
-          else
-            alert xhr.responseText
-          article.trigger "comments_loaded"
-
-      return false
-
   $(".in-reply-to").click(->
     target = $(this).attr("href").replace("#", "")
     fl = $("." + target)

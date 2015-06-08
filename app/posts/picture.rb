@@ -45,24 +45,7 @@ class Picture < Post
   end
 
   def gif?
-    @gif ||= (picture_content_type =~ /gif/i)
-  end
-
-  def self.downgrade_empty
-    ids = []
-    down = Proc.new do
-      Picture.connection.execute "update posts set `type`=NULL where `type` like 'Picture' and `id` IN(#{ids.join(',')})"
-      ids = []
-    end
-    Picture.find_each do |p|
-      unless p.picture?
-        ids << p.id
-        p.meta = {}
-        p.save!
-      end
-      down.call if ids.size > 1000
-    end
-    down.call
+    @gif ||= (self[:picture] =~ /\.gif\z/i)
   end
 
   def rename(new_file_name)
