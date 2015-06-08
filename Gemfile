@@ -120,8 +120,9 @@ gem 'browser'
 group :production do
   #gem 'exception_notification'
   gem 'hiredis', platforms: [:ruby, :jruby]
-  # gem 'unicorn', platforms: :ruby
-  gem 'puma'
+  gem 'unicorn', platforms: :ruby
+  gem 'unicorn-worker-killer', platforms: :ruby
+  # gem 'puma'
 end
 # gem "sentry-raven", :git => "https://github.com/getsentry/raven-ruby.git"
 
@@ -157,8 +158,8 @@ end
 group :development do
   gem 'capistrano'
   gem 'capistrano-rails'
-  # gem 'capistrano3-unicorn', require: false
-  gem 'capistrano3-puma', require: false, github: "seuros/capistrano-puma"
+  gem 'capistrano3-unicorn', require: false
+  # gem 'capistrano3-puma', require: false, github: "seuros/capistrano-puma"
   gem 'capistrano-sidekiq', require: false
   gem 'capistrano-foreman', require: false, github: 'ShiningRay/capistrano-foreman'
   gem 'capistrano-rvm'
