@@ -2,7 +2,7 @@ ENV['RAILS_ENV'] ||= 'production'
 RAILS_ENV= ENV['RAILS_ENV']
 ROOT = ENV['ROOT'] = File.expand_path('../', __FILE__)
 DEPLOY_TO = File.dirname(File.dirname(ROOT))
-CURRENT_PATH = File.join(DELOY_TO, 'current')
+CURRENT_PATH = File.join(DEPLOY_TO, 'current')
 
 ENV['ROLES'] = if File.exists?("#{ROOT}/ROLES")
   IO.read("#{ROOT}/ROLES").chomp
