@@ -25,19 +25,7 @@ class NotificationsController < ApplicationController
       format.json {
         notifications_json = @notifications.as_json
         notifications_json.each do |c|
-           case c["subject_type"]
-           when "Article"
-            then
-            article = Article.find(c["subject_id"])
-            if article
-               c["article_name"]=article.article_title
-               c["group_alias"]= article.group.alias
-            end
-           when "Group"
-            then
-              c["group_name"] = Group.find(c["subject_id"]).name
-              c["group_alias"] = Group.find(c["subject_id"]).alias
-          end
+
       end
         render :json => notifications_json
       }

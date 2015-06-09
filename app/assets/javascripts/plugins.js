@@ -3,18 +3,13 @@
 //= require "jquery/colorbox"
 //= require 'jquery/poshytip'
 //= require "jquery/ba-throttle-debounce"
-//= require "jquery/form"
 //= require "jquery/scrollTo"
-//= require 'plugins/blink'
-//= require 'plugins/fixedposition'
 //= require 'jquery/slides.min.jquery'
 //= require 'ajaxlogin'
 //= require "jquery/jquery.cookie"
 //= require "jquery/countdown"
 //= require "jquery/face"
 //= require "jquery/insertAtCaret"
-//= require "jquery/jquery.placeholder"
-//= require 'plugins/hover'
 // require "jquery/lazyload"
 // usage: log('inside coolFunc', this, arguments);
 // paulirish.com/2009/log-a-lightweight-wrapper-for-consolelog/
@@ -24,28 +19,24 @@ window.log = function(){
   log.history.push(arguments);
   if(this.console) console.log( Array.prototype.slice.call(arguments) );
 };
-function isIE6() {
-  return $('html').hasClass('ie6');
-}
+
 ///{{{ setCursorPosition
-new function($) {
+(function($) {
   $.fn.setCursorPosition = function(pos) {
-    if ($(this).get(0).setSelectionRange) {
-      $(this).get(0).setSelectionRange(pos, pos);
-    } else if ($(this).get(0).createTextRange) {
-      var range = $(this).get(0).createTextRange();
+    var e = this;
+    if (this.setSelectionRange) {
+      this.setSelectionRange(pos, pos);
+    } else if (this.createTextRange) {
+      var range = this.createTextRange();
       range.collapse(true);
       range.moveEnd('character', pos);
       range.moveStart('character', pos);
       range.select();
     }
-  }
-}(jQuery);
+  };
+})(jQuery);
 ///}}}
-// support in IE
-$(function(){
-  $('input, textarea').placeholder();
-});
+
 
 // Ctrl-Enter to submit form
 $(function(){
@@ -56,12 +47,6 @@ $(function(){
 	});
 });
 
-
-$(function(){
-  if(isIE6()){
-    $('.fixed').fixedPosition();
-  }
-});
 
 /*
 // place any jQuery/helper plugins in here, instead of separate, slower script files.
@@ -138,12 +123,12 @@ $(function(){
   $('.extra_fields input, .extra_fields textarea').attr('disabled', 'disabled');
   $('#article_top_post_attributes_type_input input[type=radio]').change(function(){
     var e = $(this);
-    if(e.val() == ''){
+    if(e.val() === ''){
       return;
     }
     $('.current_extra_fields').removeClass('current_extra_fields');
     var i = $('#'+e.val().toLowerCase()+'_fields').addClass('current_extra_fields');
-    $('input,textarea', i).removeAttr('disabled')
+    $('input,textarea', i).removeAttr('disabled');
     //console.debug(this);
     //console.debug(e)
   });

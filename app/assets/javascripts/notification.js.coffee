@@ -1,8 +1,7 @@
 #= require 'jquery/poshytip'
 #= require 'vendor/soundmanager2-nodebug-jsmin'
-#= require "jquery/waypoints"
+#= require waypoints/jquery.waypoints.js
 #= require 'jquery/ba-throttle-debounce'
-#= require 'plugins/hover'
 #= require 'views/new_article'
 #= require 'views/article'
 #= require 'views/notifications'
@@ -90,11 +89,12 @@ $ ->
 
   # setInterval(fetchNotificationsCount, 30000)
 
-  $.waypoints.settings.scrollThrottle = 30
+  # $.waypoints.settings.scrollThrottle = 30
 
   load_notifications = ->
     $.get "/notifications", (data) ->
-      $(".notification-box").html data #$.templates.render('notifications', data)
+      $(".notification-box").html data
+      #$.templates.render('notifications', data)
       #clear_notifications_area()
 
       $(".notification-box .notification").each ->

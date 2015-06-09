@@ -4,7 +4,7 @@ class Notifier
     @checkOrRequirePermission()
 
   hasSupport: ->
-    window.webkitNotifications?  
+    window.webkitNotifications?
 
   requestPermission: (cb) ->
     window.webkitNotifications.requestPermission (cb)
@@ -45,7 +45,9 @@ class Notifier
   notify: (avatar, title, content, url = null) ->
     if @enableNotification
       if not window.Notification
-        popup = window.webkitNotifications.createNotification(avatar, title, content)
+        popup = window.webkitNotifications.createNotification(
+          avatar, title, content
+        )
         if url
           popup.onclick = ->
             window.parent.focus()
@@ -58,7 +60,7 @@ class Notifier
             $.notifier.visitUrl(url)
         popup = new window.Notification(title,opts)
       popup.show()
-        
+
       # setTimeout ( => popup.cancel() ), 12000
 
 jQuery.notifier = new Notifier

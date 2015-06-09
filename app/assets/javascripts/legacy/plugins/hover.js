@@ -1,3 +1,6 @@
+// Add hover class when mouse hover
+// for old browsers
+
 (function($){
   $.fn.extend({
     autoHoverClass: function(){
@@ -15,7 +18,7 @@ function autoHoverClass(selector, context) {
       //debug('enter')
       //debug(self.attr('class'))
       setTimeout(function(){
-        self.addClass('hover')
+        self.addClass('hover');
       }, 0);
     },
     mouseleave: function(){

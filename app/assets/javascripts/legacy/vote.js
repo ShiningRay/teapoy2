@@ -1,6 +1,7 @@
 //= require 'sr'
 //= require 'ajaxlogin'
 //= require 'plugins/particle'
+
 $(function(){
   var colors =  ['red', 'green', 'blue', 'cyan', 'purple', 'yellow', 'orange'];
 

@@ -16,13 +16,11 @@
 //= require 'version'
 // require "repost"
 //= require "old_comment"
-//= require "vote"
+//= require "legacy/vote"
 //= require "video"
 //= require "usercard"
 //= require "subscribe"
-//= require "more"
 //= require "ajaxlogin"
-//= require "form"
 //= require 'group'
 //= require 'salary'
 //= require 'notification'
@@ -187,22 +185,13 @@ function showAnimation(containerId, actionValue) {
   });
 }
 
-
-
-$(function () {
-  if (!isIE6()) {
-    $('.unvoted .arrow').blink().click(function () {
-      $(this).blink('stop');
-    });
-  }
-});
-
 $(function () {
   $('body').on('click', '.need-login', function () {
     sr.showLogin();
     return false;
   });
 });
+
 $(function () {
   $('.auto-select').focus(function () {
     $(this).select();
@@ -211,6 +200,7 @@ $(function () {
     e.preventDefault();
   });
 });
+
 $(function () {
 
   var Date1 = new Date();

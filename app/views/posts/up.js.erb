@@ -1,4 +1,5 @@
 <% id = dom_id @post %>
-$('#<%= id %> .up').buttonMarkup({theme: 'b'}).find('.ui-btn-text').text('<%= @post.pos %>');
-$('#<%= id %> .down').buttonMarkup({theme: ''}).find('.ui-btn-text').text('<%= @post.neg %>');
-$.toast('+1');
+
+$('#<%= id %> .midcol').addClass('likes').removeClass('dislikes unvoted');
+$('#<%= id %> .up').text("<%= post.pos %>");
+$('#<%= id %> .down').text('<%= @post.neg %>');

@@ -34,7 +34,7 @@
 
   function blinkFadeIn(obj){
     if(!obj){
-      obj = $(this)
+      obj = $(this);
     }
     obj.animate({opacity: 1}, 500, 'linear', obj.data('blinking') && blinkFadeOut);
   }

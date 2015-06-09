@@ -1,5 +1,4 @@
 # @charset "utf-8";
-#= require 'jquery/form'
 #= require 'jquery/scrollTo'
 #= require 'jquery/autoresize'
 #= require "jquery/ba-throttle-debounce"
@@ -11,7 +10,7 @@
 window.replyComment = (comment_id, article_id, flr) ->
   article = $("#comments_article_" + article_id)
   editorTextPosition = -1
-  commentArea = $("#post_content", article)
+  commentArea = $("#post_content")
   editorPositionFunc = ->
     editorTextPosition = $(this).textPosition()
 
@@ -19,12 +18,14 @@ window.replyComment = (comment_id, article_id, flr) ->
   editorTextPosition = commentArea.textPosition()  if editorTextPosition is -1
   floor = $("#post_parent_id", article).val()
   if parseInt(floor) > 0
-    $("#post_content", article).textPosition $("#post_content", article).val().length, "  @" + $.trim($("#post_" + comment_id + " .nickname").text() + " ")
-    $("#post_content", article).focus()
+    $("#post_content", article).textPosition $("#post_content", article).val().length, "  @" + $.trim($("#post_#{comment_id} .nickname").text() + " ")
+    commentArea.focus()
   else
     $("#post_parent_id", article).val flr
-    nv = "回复" + flr + "L " + $.trim($("#post_" + comment_id + " .nickname").text()) + ": "
-    $("#post_content", article).val(nv + $("#post_content", article).val()).focus().setCursorPosition nv.length
+    nickname = $.trim($("#post_#{comment_id} .nickname").text())
+    nv = "回复#{flr}L #{nickname}: "
+    orig_text = commentArea.val()
+    commentArea.val(nv + orig_text).focus().setCursorPosition nv.length
 
 #查看某人对帖子的评论
 window.show_comment_of = (me, user_login) ->
