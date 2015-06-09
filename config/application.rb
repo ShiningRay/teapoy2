@@ -100,16 +100,6 @@ module Teapoy
     #config.threadsafe!
     config.assets.paths << "#{Rails.root}/app/assets/fonts"
     config.assets.precompile << /\.(?:svg|eot|woff|ttf)$/
-    config.assets.precompile +=  %w(tip-twitter.css screen.css
-        style.css ie.css handheld.css print.css mobile.css mobile.js mobile2.js
-        plugins.js
-        admin.css admin.js
-        vendor/dd_belatedpng.js
-        my.css
-        mobile_old.css
-        dist/*.js
-        dist/*.css
-    )
     I18n.enforce_available_locales = false
 
     config.middleware.insert_before 0, "Rack::Cors" do

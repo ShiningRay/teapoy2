@@ -1,5 +1,6 @@
 # coding: utf-8
 module User::FriendshipAspect
+  # extend ActiveSupport::Concern
   def self.included(base)
 #    base.has_many :friendships
 #    base.has_many :followships, :class_name => 'Friendship', :foreign_key => 'friend_id'

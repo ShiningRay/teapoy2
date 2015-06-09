@@ -20,14 +20,6 @@ Teapoy::Application.configure do
   # Don't fallback to assets pipeline if a precompiled asset is missed
   config.assets.compile = true
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
-  config.assets.precompile +=  %w(screen.css sort.js style.css ie.css handheld.css print.css mobile.css modernizr.min.js plugins.js admin.css
-    home.css home.js
-    register.css register.js
-    tailake.css inbox.js
-    vendor/dd_belatedpng.js
-    my.css
-    )
-
   # Generate digests for assets URLs
   config.assets.digest = true
 

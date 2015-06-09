@@ -14,12 +14,9 @@
     :javascript
       var current_user = #{info[:current_user].to_json};
       window.current_user = current_user;
-:javascript
-  var use_theme = "no"
-  window.use_theme = use_theme
+
 = javascript_include_tag 'http://libs.baidu.com/swfobject/2.2/swfobject.js'
 = javascript_include_tag 'application'
-= javascript_include_tag 'sort'
 
 -#  Append your own using content_for :javascripts
 = yield :javascripts
