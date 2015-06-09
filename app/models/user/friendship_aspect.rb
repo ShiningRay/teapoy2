@@ -22,7 +22,7 @@ module User::FriendshipAspect
   end
 
   def followings
-    Subscription.by_publication(self).collect{|s| s.subscriber }
+    Subscription.by_publication(self).includes(:subscriber).collect{|s| s.subscriber }
   end
 
   def follow(another_user)
