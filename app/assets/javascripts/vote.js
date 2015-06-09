@@ -38,7 +38,7 @@ $(function(){
     easing: 'swing'
   });
 
-  $('.article').on('click', '.arrow', function(event){
+  $('.post').on('click', '.arrow', function(event){
     var el = $(this);
     if (!sr.isLoggedIn()) {
       return sr.showLogin();
@@ -53,10 +53,10 @@ $(function(){
         score_el = votecell.children(".score"), score = parseInt(score_el.text());
         //console.debug(post);
     if(post.hasClass('mine')){
-      return
+      return;
     }
     $.get('/posts/'+sr.id(post)+'/'+(dir > 0 ? 'up' : 'dn'));
-    if(voted == 0){
+    if(voted === 0){
       if(dir > 0){
         score++;
         votecell.addClass('likes').removeClass('dislikes unvoted');
@@ -90,9 +90,9 @@ $(function(){
     pos.left += score_el.width() / 2;
     pos.top +=  score_el.height() / 2;
     if(dir > 0){
-      pos_emitter.startOnce(500, pos.left, pos.top)
+      pos_emitter.startOnce(500, pos.left, pos.top);
     }else{
-      minus_emitter.startOnce(500, pos.left, pos.top)
+      minus_emitter.startOnce(500, pos.left, pos.top);
     }
     //}
     event.stopPropagation();
