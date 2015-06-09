@@ -61,7 +61,7 @@ GIT
       thor
 
 GEM
-  remote: https://rubygems.org/
+  remote: https://ruby.taobao.org/
   remote: https://rails-assets.org/
   specs:
     aasm (4.1.1)
@@ -716,4 +716,4 @@ DEPENDENCIES
   xray-rails
 
 BUNDLED WITH
-   1.10.2
+   1.10.3
