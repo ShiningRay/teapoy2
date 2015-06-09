@@ -99,6 +99,7 @@ li.comment {
     //margin-right: 20px;
     margin-left: 20px;
     color: #ccc;
+    line-height: 30px;
   }
   .avatar {
     float: left;
@@ -115,6 +116,11 @@ li.comment {
     float: left;
     a {
       text-decoration: none;
+      color: #222;
+    }
+    a:hover{
+      color: #666;
+      text-decoration:underline;
     }
   }
   .nickname {
