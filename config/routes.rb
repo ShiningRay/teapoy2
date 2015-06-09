@@ -98,16 +98,17 @@ Teapoy::Application.routes.draw do
   end
 
   match 'invite_to_group'=> "users#invite_to_group", :via => :post, :as => :invite_to_group
- # match 'register/check'=> "register#check"
-  get 'my/index' => 'my#inbox'
+  # match 'register/check'=> "register#check"
+  # get 'my/index' => 'my#inbox'
+  # get 'my/:action(.:format)' => 'my'
   get 'my/tools/:action(.:format)' => 'tools'
-  get 'my/:action(.:format)' => 'my'
+
 
   get '/users/:id/lists' => 'users#lists', :as => :user_lists
   get 'sitemap_index.xml' => 'groups#sitemap_index', :as => :sitemap_index, :format => :xml
-  #match 'favicon.ico' => 'groups#favicon'
-  #match ':controller/:action/:id/page/:page' => '#index', :constraints => { :page => /\d+/ }
-  #match ':controller/:action/page/:page' => '#index', :constraints => { :page => /\d+/ }
+  # match 'favicon.ico' => 'groups#favicon'
+  # match ':controller/:action/:id/page/:page' => '#index', :constraints => { :page => /\d+/ }
+  # match ':controller/:action/page/:page' => '#index', :constraints => { :page => /\d+/ }
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -3,22 +3,9 @@
   = link_to '首页', root_path
   &raquo;
   = link_to @group.name, @group if @group
-.notice(style="margin-left:20px;")
-  = '发帖需要审核' if @group and @group.options.articles_need_approval
-  %p
-    发帖需要花费10积分，其中5积分将成为所发表小组的奖励，积分可以通过每日登陆等任务获得奖励
-    - if logged_in? and current_user.credit < 10
-      您的积分不足发表新内容
-- if @group.blank? and logged_in?
-  - @groups = current_user.joined_groups
 
-  - if @groups.size == 0
-    您还没加入任何小组，无法发表文章
-    = link_to '赶紧去找一个找自己喜欢的吧', groups_path
-  - else
-    = render 'articles/omni_form'
-- else
-  = render 'articles/omni_form'
+= render 'articles/omni_form'
+  
 - content_for :javascripts do
   :javascript
   $(function(){

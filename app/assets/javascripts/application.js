@@ -5,11 +5,12 @@
 // the compiled file.
 //
 //= require jquery
+//# require jquery.turbolinks
 //= require jquery_ujs
 //# require turbolinks
 //# require turbolinks.redirect
 //= require jquery.remotipart
-//# require jquery.turbolinks
+
 //= require "plugins"
 //= require "sr"
 //= require 'version'

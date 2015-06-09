@@ -175,6 +175,7 @@ class ArticlesController < ApplicationController
     #find_group
     return login_required unless logged_in? or (@group && @group.preferred_guest_can_post?)
     return render template:"/groups/pending" if @group && @group.status == "pending"
+    @group ||=  Group.find 1
     @article = Article.new
     @article.top_post = Post.new
     # @article.attachments = [Post.new]
