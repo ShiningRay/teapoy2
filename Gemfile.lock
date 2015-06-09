@@ -61,7 +61,7 @@ GIT
       thor
 
 GEM
-  remote: https://rubygems.org/
+  remote: https://ruby.taobao.org/
   remote: https://rails-assets.org/
   specs:
     aasm (4.1.1)

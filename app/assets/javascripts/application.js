@@ -11,22 +11,17 @@
 //= require jquery.remotipart
 //# require jquery.turbolinks
 //= require "plugins"
-//= require 'templates'
 //= require "sr"
 //= require 'version'
-// require "repost"
 //= require "old_comment"
 //= require "legacy/vote"
 //= require "video"
 //= require "usercard"
-//= require "subscribe"
 //= require "ajaxlogin"
 //= require 'group'
 //= require 'salary'
 //= require 'notification'
 //= require 'poll'
-// require "sort"
-// require  "xmas"
 //= require 'jquery/jquery.url'
 //= require bootstrap-sprockets
 

@@ -7,7 +7,7 @@
 #.hide().slideDown(500);
 #console.debug(xhr)
 #      alignTo: 'target',
-window.replyComment = (comment_id, article_id, flr) ->
+window.replyComment = (comment_id, article_id, reply_to_floor) ->
   article = $("#comments_article_" + article_id)
   editorTextPosition = -1
   commentArea = $("#post_content")
@@ -18,12 +18,14 @@ window.replyComment = (comment_id, article_id, flr) ->
   editorTextPosition = commentArea.textPosition()  if editorTextPosition is -1
   floor = $("#post_parent_id", article).val()
   if parseInt(floor) > 0
-    $("#post_content", article).textPosition $("#post_content", article).val().length, "  @" + $.trim($("#post_#{comment_id} .nickname").text() + " ")
+    content = "  @#{$.trim($("#post_#{comment_id} .nickname").text())} "
+    pos = commentArea.val().length
+    commentArea.textPosition pos, content
     commentArea.focus()
   else
-    $("#post_parent_id", article).val flr
+    $("#post_parent_id", article).val reply_to_floor
     nickname = $.trim($("#post_#{comment_id} .nickname").text())
-    nv = "回复#{flr}L #{nickname}: "
+    nv = "回复#{reply_to_floor}L #{nickname}: "
     orig_text = commentArea.val()
     commentArea.val(nv + orig_text).focus().setCursorPosition nv.length
 
@@ -41,6 +43,8 @@ window.show_comment_of = (me, user_login) ->
 
   $(to_show).slideDown 500
   $(to_hide).slideUp 500
+
+
 window.show_all = (article_id) ->
   a = $("#comments_article_" + article_id).find("ul.comments li")
   if a.size() < 50
@@ -81,7 +85,8 @@ $ ->
     offsetY: 16
     content: ->
       result = ""
-      commented = $(".comment[data-parent_id=" + $(this).data("floor") + "]", $(this).parents("ul.comments:first"))
+      commented = $(this).parents("ul.comments:first")
+      .find(".comment[data-parent_id=#{$(this).data('floor')}]")
       if commented.length
         commented.each ->
           result += $(this).html()
@@ -108,15 +113,3 @@ $ ->
       read.css "display", "none"
     $(this).removeClass("hide_readed").addClass "show_readed"
     false
-
-
-
-#鼠标移到评论区域，才显示回复，删除等等链接
-#$(function(){
-#   $("ul.comments li").hover(function(){
-#     $(this).find(".operator").show();
-#   },function(){
-# $(this).find(".operator").hide();
-#   });
-#})
-#

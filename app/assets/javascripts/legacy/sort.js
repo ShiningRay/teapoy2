@@ -2,7 +2,6 @@
 //# require "jquery.ui.datepicker-zh-CN"
 // TODO: what's this
 $(function(){
-  return;
   $(document).ready(function(){
     $('#items').sortable({
       axis: 'y',
@@ -20,9 +19,9 @@ $(function(){
           complete: function(request){
             $('#items').effect('highlight');
           },
-          url: '/lists/'+list_id+'/sort'})
+          url: '/lists/'+list_id+'/sort'});
       }
     });
     $(".datepicker").datepicker();
   });
-})
+});

@@ -4,7 +4,8 @@
 $ ->
 
   $('.need-login').click ->
-    sr.showLogin();return false;
+    sr.showLogin()
+    return false
   $("#recommend_groups_form .group").click ->
     if $("input[type=checkbox]", this).attr("checked") is "checked"
       $("input[type=checkbox]", this).removeAttr "checked"
@@ -56,5 +57,3 @@ $ ->
     submit.css
       top: offset.top + height - 20
       bottom: 'auto'
-
-
