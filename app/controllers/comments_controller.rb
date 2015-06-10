@@ -12,7 +12,7 @@ class CommentsController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound do
      show_404
   end
-  caches_page_for_anonymous :index
+  # caches_page_for_anonymous :index
   # GET /comments
   # GET /comments.xml
   def index

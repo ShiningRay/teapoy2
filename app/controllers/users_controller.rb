@@ -9,7 +9,7 @@ class UsersController < ApplicationController
   #layout 'application', :only => [:new, :fetchpass, :activate]
   #super_caches_page :show
   include RegistrationAspect
-  caches_page_for_anonymous :index
+  # caches_page_for_anonymous :index
   def index
     @user = current_user
     if params[:group_id]
@@ -140,6 +140,7 @@ class UsersController < ApplicationController
     redirect_to users_path
   end
 =end
+
   def followings
     @title_name = "关注#{@user.login}的朋友"
     @users = Kaminari.paginate_array(@user.followings).page(params[:page])

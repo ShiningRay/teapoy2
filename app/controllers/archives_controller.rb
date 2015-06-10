@@ -1,6 +1,6 @@
 # coding: utf-8
 class ArchivesController < ApplicationController
-  caches_page_for_anonymous :index, :show
+  # caches_page_for_anonymous :index, :show
   def index
     @start_year = @first.year
     @end_year = @last.year
@@ -56,7 +56,7 @@ class ArchivesController < ApplicationController
 
   before_filter :find_scope
   protected
-  
+
   def find_scope
     @group = Group.wrap(params[:group_id]) unless params[:group_id].blank?
     @user = User.wrap(params[:user_id]) unless params[:user_id].blank?

@@ -5,7 +5,7 @@ class GroupsController < ApplicationController
   #theme :select_theme
   #load_and_authorize_resource
   caches_page :sitemap_index
-  caches_page_for_anonymous :index, :show
+  # caches_page_for_anonymous :index, :show
   before_action :find_group, only: %i(update destroy join quit edit)
   def index
     respond_to do |format|
