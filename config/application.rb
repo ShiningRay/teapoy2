@@ -65,8 +65,8 @@ module Teapoy
       g.orm :active_record
     end
     #observers_root = Rails.root.join('app/observers').to_s
+    # inbox/deliver
     config.mongoid.observers = %w(
-            inbox/deliver
             notification/mention
             notification/reply
             reputation/rating

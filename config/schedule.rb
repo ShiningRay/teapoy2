@@ -6,7 +6,7 @@ job_type :runner,  "cd :path && bundle exec rails runner -e :environment ':task'
 
 
 every :day, :at => '0:00am' do
-  runner 'Inbox.evict!'
+  # runner 'Inbox.evict!'
   runner 'Notification.remove_read!'
 end
 
@@ -25,8 +25,8 @@ end
 
 every :day, :at => '2:30am' do
   runner "Salary.make_yesterday_salary"
-  runner 'Inbox::UserCount.truncate_inbox'
-  runner 'Inbox.remove_outdated'
+  # runner 'Inbox::UserCount.truncate_inbox'
+  # runner 'Inbox.remove_outdated'
 end
 
 every :sunday, :at => '3:00am' do

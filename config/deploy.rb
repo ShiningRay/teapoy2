@@ -40,9 +40,9 @@ set :foreman_options, {
 }
 # }}}
 
-set :linked_files, %w{config/database.yml config/mongoid.yml config/secrets.yml}
+set :linked_files, %w{.env config/database.yml config/mongoid.yml config/secrets.yml}
 
-set :linked_dirs, %w{.eye .env bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/assets public/uploads}
+set :linked_dirs, %w{.eye bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/assets public/uploads}
 
 namespace :eye do
   task :load do

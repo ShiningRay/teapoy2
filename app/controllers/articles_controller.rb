@@ -101,72 +101,17 @@ class ArticlesController < ApplicationController
       scope = scope.where(:id.lt => params[:id]).sort(id: 1)
     end
 
-    @articles = scope.includes(:top_post, :posts, :group).page(params[:page])
+    @articles = scope.includes(:group).page(params[:page])
     @show_group = !@group
     @list_view = true
-    if logged_in?
-      @top_posts = @articles.collect{|a|a.top_post}
-#### below is some code for performance considerations, preloading some
-#### related records. But for current low traffic, we don't need them
-=begin
-      @rated = current_user.has_rated?(@top_posts)
-      @rated = current_user.ratings_for(@top_posts)
-      ### preload subscriptions for articles and users
-      current_user.preload_subscribed(@articles)
-      ### reject blocked articles
-      @articles.reject! do |art|
-        current_user.disliked?(art.user) or current_user.disliked?(art.group)
-      end
-      current_user.preload_subscribed(@articles.collect{|a|a.user})
-=end
-    end
-    # @articles.reject!{|a| a.top_post.nil? or a.top_post.status == 'deleted' }
+
     if stale?(@articles)
       respond_to do |format|
         format.html
         format.json do
           render json: @articles, callback: params[:callback]
         end
-### we don't need rss output now.
-        # format.xml {
-        #   prepend_view_path File.join(Rails.root, 'app', 'views', 'feeds')
-        #   render text: '<?xml version="1.0" encoding="UTF-8"?><rss></rss>', status: :not_found if @articles.empty?
-        # }
         format.wml
-      end
-    end
-  end
-
-  def recent_hot
-    return redirect_to group_path(@group) if @group
-    @list_view = true
-    @show_group = true
-    @items = Inbox.guest.hottest.page(params[:page]).all
-    @articles = @items.collect{|i|i.article}
-    @articles.reject! do |art|
-      art.nil? or art.top_post.nil? or (logged_in? and (current_user.disliked?(art.user) or current_user.disliked?(art.group)))
-    end
-    @items.replace(@articles)
-
-    respond_to do |format|
-      format.any(:html, :mobile, :wml)
-      format.json do
-        render json: {
-          articles: @articles,
-          num_pages: @items.num_pages
-        }
-      end
-    end
-  end
-
-  def sitemap
-    expires_in 1.hour, public: true
-    @group = Group.wrap! params[:group_id]
-    @max_score = [@group.public_articles.maximum('score').to_i, 1].max
-    @articles = @group.public_articles.before
-    if stale?(etag: @articles, last_modified: @articles.first.try(:created_at), public: true)
-      respond_to do |format|
-        format.xml
       end
     end
   end
@@ -190,17 +135,6 @@ class ArticlesController < ApplicationController
         return redirect_to(article_path(@group, art))
       end
       @article.status = 'feature'
-    end
-  end
-
-  def unpublish
-    resource.status = 'private'
-    resource.save!
-    respond_to do |format|
-      format.any(:html, :mobile, :wml) {
-        flash[:notice] = 'unpublished'
-        redirect_to edit_article_path(resource.group, resource)
-      }
     end
   end
 
@@ -628,10 +562,9 @@ class ArticlesController < ApplicationController
     current_user.unsubscribe(@article) if current_user.has_subscribed?(@article)
     render text:""
   end
+
   protected
-  #def collection
-  #  @articles ||= end_of_association_chain.public.latest.includes(:top_post).page(params[:page])
-  #end
+
   def group_is_secret
     flash[:notice] =  "这个是私秘小组"
     render action: "forbidden", controller: "groups", status: :forbidden
