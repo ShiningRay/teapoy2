@@ -6,7 +6,7 @@ if ENV['USE_TAOBAO_GEM_SOURCE']
 else
   source 'https://rubygems.org'
 end
-gem 'dotenv-rails', :groups => [:development, :test]
+gem 'dotenv-rails'
 
 gem 'rails', '~> 4.1.0'
 # FrontEnd {{{

@@ -8,7 +8,7 @@ Eye.application 'teapoy_production' do
   working_dir ROOT
   trigger :flapping, times: 10, within: 1.minute, retry_in: 10.minutes
   # check :cpu, every: 10.seconds, below: 100, times: 3 # global check for all processes
-  check :memory, below: 1024.megabytes, times: 3
+  check :memory, below: 500.megabytes, times: 3
 
   Dir["#{ROOT}/config/eyes/processes/*.rb"].each do |f|
     puts "loading #{f}"
