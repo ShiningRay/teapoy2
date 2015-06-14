@@ -11,10 +11,10 @@ GC::Profiler.enable
 $revision = ''
 if File.exists?('REVISION')
   $revision = IO.read('REVISION')
-elsif File.exists?('.hg')
-  $revision = `hg log -r . --template '{rev}\n'` rescue nil
 elsif File.exists?('.git')
   $revision = `git rev-parse --short HEAD` rescue nil
+elsif File.exists?('.hg')
+  $revision = `hg log -r . --template '{rev}\n'` rescue nil
 end
 $revision.strip!
 

@@ -7,8 +7,6 @@ class ApplicationController < ActionController::Base
   #self.responder = ApplicationResponder
   include Pundit
 
-  before_filter :login_required, unless: -> { request.format == :json }
-
   respond_to :html, :js, :json, :mobile, :wml
   protect_from_forgery
   include AuthenticatedSystem
