@@ -65,6 +65,6 @@ Teapoy::Application.configure do
   require 'rack-mini-profiler'
   if defined?(Rack::MiniProfiler)
     Rack::MiniProfiler.config.skip_paths = some_paths
-    Rack::MiniProfiler.config.start_hidden = true
+    Rack::MiniProfiler.config.start_hidden = !ENV['show_profiler']
   end
 end
