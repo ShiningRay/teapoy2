@@ -12,17 +12,18 @@
         =link_to group.name,group_path(group),:target => "_blank"
 #flash_messages
   =flash[:error]
-= semantic_form_for @user do |f|
-  = hidden_field_tag :group ,params[:group]
-  = hidden_field_tag :invite ,params[:invite]
-  = f.input :login, :label => '用户名', :hint =>'用户名是您在网站上<strong>公开的</strong>唯一ID，用来将您和其他用户区分。只能使用英文字母、数字、下划线和减号，3到16个字符之间，请勿使用QQ号或手机号'.html_safe, :required => true,:input_html => { :class => 'need_verify',:check_area=>"login"}
-  = f.input :name, :label => '昵称', :hint => '昵称是您想展示给网友的名字。名字中不可加入@、&amp;、‘、&lt;、或&gt;符号，不可在开头和结尾使用空格或缩格，最多10个字符', :required => false
-  = f.input :email, :label => '电子邮箱', :hint => '仅用来与您联系, 绝不公开', :required => true,:input_html => { :class => 'need_verify',:check_area=>"email"}
-  = f.input :password, :label => '密码', :required => true
-  = f.input :password_confirmation, :label => '重复密码', :required => true
-  =# show_simple_captcha
-  = f.actions do
-    = f.action :submit, :label => '注册', :disable_with => "正在注册..."
+.row
+  .col-lg-8.col-md-8.col-md-offset-2.col-lg-offset-2
+    = simple_form_for @user do |f|
+      = hidden_field_tag :group ,params[:group]
+      = hidden_field_tag :invite ,params[:invite]
+      = f.input :login, :required => true, :input_html => { :class => 'need_verify',:check_area=>"login"}
+      = f.input :name, :required => false
+      = f.input :email, :required => true, :input_html => { :class => 'need_verify',:check_area=>"email"}
+      = f.input :password, :required => true
+      = f.input :password_confirmation, :required => true
+      =# show_simple_captcha
+      = f.button :submit, value: '注册', :disable_with => "正在注册..."
 
 - content_for :javascripts do
   :javascript

@@ -14,6 +14,9 @@ zh:
       user:
         login: 登录名
         name: 昵称
+        email: '邮箱'
+        password: 密码
+        password_confirmation: 确认密码
     errors:
       messages:
         record_invalid: "验证失败: %{errors}"

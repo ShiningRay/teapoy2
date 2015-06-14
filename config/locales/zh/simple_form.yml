@@ -1,0 +1,51 @@
+zh:
+  simple_form:
+    "yes": '是'
+    "no": '否'
+    required:
+      text: '必填'
+      mark: '*'
+      # You can uncomment the line below if you need to overwrite the whole required html.
+      # When using html, text and mark won't be used.
+      # html: '<abbr title="required">*</abbr>'
+    error_notification:
+      default_message: "请检查以下问题:"
+    # Examples
+    # labels:
+    #   defaults:
+    #     password: 'Password'
+    #   user:
+    #     new:
+    #       email: 'E-mail to sign in.'
+    #     edit:
+    #       email: 'E-mail.'
+    # hints:
+    #   defaults:
+    #     username: 'User name to sign in.'
+    #     password: 'No special characters, please.'
+    labels:
+      user:
+
+    hints:
+      user:
+        new:
+          login: >
+            用户名是您在网站上<strong>公开的</strong>唯一ID，用来将您和其他用户区分。
+            只能使用英文字母、数字、下划线和减号，3到16个字符之间，为了您的安全，请勿使用QQ号或手机号
+          email: 仅用来与您联系, 绝不公开
+          name: >
+            昵称是您想展示给网友的名字。名字中不可加入@、&amp;、‘、&lt;、或&gt;符号，
+            不可在开头和结尾使用空格或缩格，最多10个字符
+    # include_blanks:
+    #   defaults:
+    #     age: 'Rather not say'
+    # prompts:
+    #   defaults:
+    #     age: 'Select your age'
+    # = f.input :login, :label => '用户名', :hint =>'用户名是您在网站上<strong>公开的</strong>唯一ID，用来将您和其他用户区分。只能使用英文字母、数字、下划线和减号，3到16个字符之间，请勿使用QQ号或手机号'.html_safe, :required => true,:input_html => { :class => 'need_verify',:check_area=>"login"}
+    # = f.input :name, :label => '昵称', :hint => '昵称是您想展示给网友的名字。名字中不可加入@、&amp;、‘、&lt;、或&gt;符号，不可在开头和结尾使用空格或缩格，最多10个字符', :required => false
+    # = f.input :email, :label => '电子邮箱', :hint => '仅用来与您联系, 绝不公开', :required => true,:input_html => { :class => 'need_verify',:check_area=>"email"}
+    # = f.input :password, :label => '密码', :required => true
+    # = f.input :password_confirmation, :label => '重复密码', :required => true
+    # =# show_simple_captcha
+    # = f.button :submit, value: '注册', :disable_with => "正在注册..."

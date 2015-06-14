@@ -101,7 +101,7 @@ gem 'rails-i18n', '~> 4.0.0'
 # gem "oauth_china", github: 'iamzhangdabei/oauth_china'
 gem 'weibo_2'
 gem 'formtastic', '~> 3.0.0'
-# gem 'simple_form', git: "https://github.com/plataformatec/simple_form"
+gem 'simple_form'#, git: "https://github.com/plataformatec/simple_form"
 gem 'authlogic'
 gem 'aasm'
 gem 'sidekiq'
@@ -144,7 +144,6 @@ group :development, :test do
   # gem 'sprinkle'
   # gem "railroady"
   gem 'guard'
-  gem 'guard-zeus'
   gem 'guard-bundler'
   gem 'guard-rspec'
   gem 'rb-inotify', platforms: :ruby, require: false
@@ -167,6 +166,7 @@ group :development do
   gem "better_errors"
   gem "binding_of_caller"
   gem 'guard-livereload'
+  gem 'guard-rubocop'
   gem 'rack-livereload'
   gem 'rack-mini-profiler', require: false
   gem 'xray-rails'

@@ -3,10 +3,8 @@ class UsersController < ApplicationController
   # Protect these actions behind an admin login
   before_filter :login_required, :only => [:index,:update, :follow, :unfollow, :binding]
   #skip_before_filter :login_required, :except =>
-  layout :select_layout
   before_filter :find_user, :only => [:suspend,:comments, :unsuspend, :destroy, :purge, :show, :edit, :update, :followings, :followers, :follow, :unfollow,:binding, :dislike,:cancel_dislike]
-  #layout 'users', :except => [:new, :fetchpass, :activate]
-  #layout 'application', :only => [:new, :fetchpass, :activate]
+
   #super_caches_page :show
   include RegistrationAspect
   # caches_page_for_anonymous :index
@@ -233,14 +231,6 @@ class UsersController < ApplicationController
     show_404 params[:id]
     return false
   end
-
-  def select_layout
-    unless theme_name == 'jquerymobile'
-      return 'onecolumn' if [:new, :fetchpass, :activate].include?(params[:action].to_sym)
-    end
-    'application'
-  end
-
 
   def user_params
     params.require(:user).permit(:avatar, :password, :password_confirmation)
