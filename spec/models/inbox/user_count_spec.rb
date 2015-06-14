@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe Inbox::UserCount do
   describe '.create_or_inc' do

@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe "ReadStatuses" do
   describe "GET /read_statuses" do

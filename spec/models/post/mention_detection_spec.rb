@@ -1,5 +1,5 @@
 # coding: utf-8
-require 'spec_helper'
+require 'rails_helper'
 
 describe "Mention Detection" do
   it "should find out the ids of mentioned user according to login specified after @ symbol" do

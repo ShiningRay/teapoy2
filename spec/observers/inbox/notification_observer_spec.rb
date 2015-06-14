@@ -1,5 +1,5 @@
 # coding: utf-8
-require 'spec_helper'
+require 'rails_helper'
 
 describe Inbox::NotificationObserver do
   pending "add some examples to (or delete) #{__FILE__}"

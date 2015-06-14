@@ -1,5 +1,5 @@
 # coding: utf-8
-require 'spec_helper'
+require 'rails_helper'
 
 describe ArticlesController, :type => :controller do
   let(:author){create :user}

@@ -1,5 +1,5 @@
 # coding: utf-8
-require 'spec_helper'
+require 'rails_helper'
 
 describe Article::ChargeObserver do
   let(:group){create :group, hide: false, private: false}

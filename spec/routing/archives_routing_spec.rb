@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 describe ArchivesController do
   it "should route to show" do
     expect(get '/pool/archives/2012-1-1').to route_to(

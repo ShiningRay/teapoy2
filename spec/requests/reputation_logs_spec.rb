@@ -1,5 +1,5 @@
 # coding: utf-8
-require 'spec_helper'
+require 'rails_helper'
 
 describe "ReputationLogs" do
   describe "GET /reputation_logs" do

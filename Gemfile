@@ -180,6 +180,7 @@ group :test do
   gem 'mongoid-rspec'
   gem 'forgery'
   gem 'webmock', require: false
+  gem 'rspec-activemodel-mocks'
 end
 
 gem 'sinatra', '>= 1.3.0', require: nil

@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 require 'sidekiq/testing/inline'
 
 describe Inbox::DeliverObserver do
