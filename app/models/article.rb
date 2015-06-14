@@ -67,6 +67,10 @@ class Article
     status == 'draft'
   end
 
+  def private?
+    status == 'private'
+  end
+
   validates_uniqueness_of :title,
             scope: :group_id,
             allow_nil: false,

@@ -33,132 +33,132 @@ describe ReadStatusesController do
   def valid_session
     {}
   end
-
-  describe "GET index" do
-    it "assigns all read_statuses as @read_statuses" do
-      read_status = ReadStatus.create! valid_attributes
-      get :index, {}, valid_session
-      assigns(:read_statuses).should eq([read_status])
-    end
-  end
-
-  describe "GET show" do
-    it "assigns the requested read_status as @read_status" do
-      read_status = ReadStatus.create! valid_attributes
-      get :show, {:id => read_status.to_param}, valid_session
-      assigns(:read_status).should eq(read_status)
-    end
-  end
-
-  describe "GET new" do
-    it "assigns a new read_status as @read_status" do
-      get :new, {}, valid_session
-      assigns(:read_status).should be_a_new(ReadStatus)
-    end
-  end
-
-  describe "GET edit" do
-    it "assigns the requested read_status as @read_status" do
-      read_status = ReadStatus.create! valid_attributes
-      get :edit, {:id => read_status.to_param}, valid_session
-      assigns(:read_status).should eq(read_status)
-    end
-  end
-
-  describe "POST create" do
-    describe "with valid params" do
-      it "creates a new ReadStatus" do
-        expect {
-          post :create, {:read_status => valid_attributes}, valid_session
-        }.to change(ReadStatus, :count).by(1)
-      end
-
-      it "assigns a newly created read_status as @read_status" do
-        post :create, {:read_status => valid_attributes}, valid_session
-        assigns(:read_status).should be_a(ReadStatus)
-        assigns(:read_status).should be_persisted
-      end
-
-      it "redirects to the created read_status" do
-        post :create, {:read_status => valid_attributes}, valid_session
-        response.should redirect_to(ReadStatus.last)
-      end
-    end
-
-    describe "with invalid params" do
-      it "assigns a newly created but unsaved read_status as @read_status" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        ReadStatus.any_instance.stub(:save).and_return(false)
-        post :create, {:read_status => {}}, valid_session
-        assigns(:read_status).should be_a_new(ReadStatus)
-      end
-
-      it "re-renders the 'new' template" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        ReadStatus.any_instance.stub(:save).and_return(false)
-        post :create, {:read_status => {}}, valid_session
-        response.should render_template("new")
-      end
-    end
-  end
-
-  describe "PUT update" do
-    describe "with valid params" do
-      it "updates the requested read_status" do
-        read_status = ReadStatus.create! valid_attributes
-        # Assuming there are no other read_statuses in the database, this
-        # specifies that the ReadStatus created on the previous line
-        # receives the :update_attributes message with whatever params are
-        # submitted in the request.
-        ReadStatus.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
-        put :update, {:id => read_status.to_param, :read_status => {'these' => 'params'}}, valid_session
-      end
-
-      it "assigns the requested read_status as @read_status" do
-        read_status = ReadStatus.create! valid_attributes
-        put :update, {:id => read_status.to_param, :read_status => valid_attributes}, valid_session
-        assigns(:read_status).should eq(read_status)
-      end
-
-      it "redirects to the read_status" do
-        read_status = ReadStatus.create! valid_attributes
-        put :update, {:id => read_status.to_param, :read_status => valid_attributes}, valid_session
-        response.should redirect_to(read_status)
-      end
-    end
-
-    describe "with invalid params" do
-      it "assigns the read_status as @read_status" do
-        read_status = ReadStatus.create! valid_attributes
-        # Trigger the behavior that occurs when invalid params are submitted
-        ReadStatus.any_instance.stub(:save).and_return(false)
-        put :update, {:id => read_status.to_param, :read_status => {}}, valid_session
-        assigns(:read_status).should eq(read_status)
-      end
-
-      it "re-renders the 'edit' template" do
-        read_status = ReadStatus.create! valid_attributes
-        # Trigger the behavior that occurs when invalid params are submitted
-        ReadStatus.any_instance.stub(:save).and_return(false)
-        put :update, {:id => read_status.to_param, :read_status => {}}, valid_session
-        response.should render_template("edit")
-      end
-    end
-  end
-
-  describe "DELETE destroy" do
-    it "destroys the requested read_status" do
-      read_status = ReadStatus.create! valid_attributes
-      expect {
-        delete :destroy, {:id => read_status.to_param}, valid_session
-      }.to change(ReadStatus, :count).by(-1)
-    end
-
-    it "redirects to the read_statuses list" do
-      read_status = ReadStatus.create! valid_attributes
-      delete :destroy, {:id => read_status.to_param}, valid_session
-      response.should redirect_to(read_statuses_url)
-    end
-  end
+  #
+  # describe "GET index" do
+  #   it "assigns all read_statuses as @read_statuses" do
+  #     read_status = ReadStatus.create! valid_attributes
+  #     get :index, {}, valid_session
+  #     assigns(:read_statuses).should eq([read_status])
+  #   end
+  # end
+  #
+  # describe "GET show" do
+  #   it "assigns the requested read_status as @read_status" do
+  #     read_status = ReadStatus.create! valid_attributes
+  #     get :show, {:id => read_status.to_param}, valid_session
+  #     assigns(:read_status).should eq(read_status)
+  #   end
+  # end
+  #
+  # describe "GET new" do
+  #   it "assigns a new read_status as @read_status" do
+  #     get :new, {}, valid_session
+  #     assigns(:read_status).should be_a_new(ReadStatus)
+  #   end
+  # end
+  #
+  # describe "GET edit" do
+  #   it "assigns the requested read_status as @read_status" do
+  #     read_status = ReadStatus.create! valid_attributes
+  #     get :edit, {:id => read_status.to_param}, valid_session
+  #     assigns(:read_status).should eq(read_status)
+  #   end
+  # end
+  #
+  # describe "POST create" do
+  #   describe "with valid params" do
+  #     it "creates a new ReadStatus" do
+  #       expect {
+  #         post :create, {:read_status => valid_attributes}, valid_session
+  #       }.to change(ReadStatus, :count).by(1)
+  #     end
+  #
+  #     it "assigns a newly created read_status as @read_status" do
+  #       post :create, {:read_status => valid_attributes}, valid_session
+  #       assigns(:read_status).should be_a(ReadStatus)
+  #       assigns(:read_status).should be_persisted
+  #     end
+  #
+  #     it "redirects to the created read_status" do
+  #       post :create, {:read_status => valid_attributes}, valid_session
+  #       response.should redirect_to(ReadStatus.last)
+  #     end
+  #   end
+  #
+  #   describe "with invalid params" do
+  #     it "assigns a newly created but unsaved read_status as @read_status" do
+  #       # Trigger the behavior that occurs when invalid params are submitted
+  #       ReadStatus.any_instance.stub(:save).and_return(false)
+  #       post :create, {:read_status => {}}, valid_session
+  #       assigns(:read_status).should be_a_new(ReadStatus)
+  #     end
+  #
+  #     it "re-renders the 'new' template" do
+  #       # Trigger the behavior that occurs when invalid params are submitted
+  #       ReadStatus.any_instance.stub(:save).and_return(false)
+  #       post :create, {:read_status => {}}, valid_session
+  #       response.should render_template("new")
+  #     end
+  #   end
+  # end
+  #
+  # describe "PUT update" do
+  #   describe "with valid params" do
+  #     it "updates the requested read_status" do
+  #       read_status = ReadStatus.create! valid_attributes
+  #       # Assuming there are no other read_statuses in the database, this
+  #       # specifies that the ReadStatus created on the previous line
+  #       # receives the :update_attributes message with whatever params are
+  #       # submitted in the request.
+  #       ReadStatus.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
+  #       put :update, {:id => read_status.to_param, :read_status => {'these' => 'params'}}, valid_session
+  #     end
+  #
+  #     it "assigns the requested read_status as @read_status" do
+  #       read_status = ReadStatus.create! valid_attributes
+  #       put :update, {:id => read_status.to_param, :read_status => valid_attributes}, valid_session
+  #       assigns(:read_status).should eq(read_status)
+  #     end
+  #
+  #     it "redirects to the read_status" do
+  #       read_status = ReadStatus.create! valid_attributes
+  #       put :update, {:id => read_status.to_param, :read_status => valid_attributes}, valid_session
+  #       response.should redirect_to(read_status)
+  #     end
+  #   end
+  #
+  #   describe "with invalid params" do
+  #     it "assigns the read_status as @read_status" do
+  #       read_status = ReadStatus.create! valid_attributes
+  #       # Trigger the behavior that occurs when invalid params are submitted
+  #       ReadStatus.any_instance.stub(:save).and_return(false)
+  #       put :update, {:id => read_status.to_param, :read_status => {}}, valid_session
+  #       assigns(:read_status).should eq(read_status)
+  #     end
+  #
+  #     it "re-renders the 'edit' template" do
+  #       read_status = ReadStatus.create! valid_attributes
+  #       # Trigger the behavior that occurs when invalid params are submitted
+  #       ReadStatus.any_instance.stub(:save).and_return(false)
+  #       put :update, {:id => read_status.to_param, :read_status => {}}, valid_session
+  #       response.should render_template("edit")
+  #     end
+  #   end
+  # end
+  #
+  # describe "DELETE destroy" do
+  #   it "destroys the requested read_status" do
+  #     read_status = ReadStatus.create! valid_attributes
+  #     expect {
+  #       delete :destroy, {:id => read_status.to_param}, valid_session
+  #     }.to change(ReadStatus, :count).by(-1)
+  #   end
+  #
+  #   it "redirects to the read_statuses list" do
+  #     read_status = ReadStatus.create! valid_attributes
+  #     delete :destroy, {:id => read_status.to_param}, valid_session
+  #     response.should redirect_to(read_statuses_url)
+  #   end
+  # end
 
 end

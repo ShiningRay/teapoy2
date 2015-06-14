@@ -134,11 +134,12 @@ gem 'nokogiri'
 gem 'daemons', '~> 1.1.8', require: false
 
 group :development, :test do
-  gem 'byebug'
+  gem 'byebug', '~> 4.0.0'
   gem 'rspec'
   gem 'rspec-rails'
   gem 'fuubar'
   gem 'pry-rails'
+  gem 'pry-byebug'
   gem 'pry-stack_explorer'
   gem 'quiet_assets'
   # gem 'sprinkle'
@@ -201,3 +202,4 @@ gem 'pundit'
 gem 'eye', github: 'kostya/eye', require: false
 gem 'foreman', require: false
 gem 'mini_magick'
+gem 'annotate', '~> 2.6.6'

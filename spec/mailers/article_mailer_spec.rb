@@ -7,7 +7,7 @@ describe ArticleMailer do
   context "There's no any article in group" do
     subject(:mail) { described_class.digest_for_group_owner(group) }
     it "should have empty mail" do
-      mail.to.should include(group_owner.email)
+      expect(mail.to).to include(group_owner.email)
     end
   end
 end

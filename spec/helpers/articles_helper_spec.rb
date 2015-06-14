@@ -2,7 +2,7 @@
 require 'rails_helper'
 
 describe ArticlesHelper do
-  describe '#embed_article' do 
+  describe '#embed_article', broken: true do
     let(:group) { create :group }
     let(:user){ create :user }
     it 'should show article' do
@@ -12,10 +12,10 @@ describe ArticlesHelper do
                            :content => '@test'})
       article.status = 'publish'
       article.save(:validate => false)
-      $stderr << article.inspect
-      $stderr << group.inspect
+      # $stderr << article.inspect
+      # $stderr << group.inspect
       content = helper.embed_article(article.group.alias, article.cached_slug)
-      content.should == article.content
+      expect(content).to eq(article.content)
     end
   end
 end

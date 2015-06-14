@@ -9,9 +9,14 @@ class Inbox::UserCount
   scope :by_user, lambda{|u| where(user_id: u.id)}
 
   def self.create_or_inc(user_id, amount=1)
-    unless where(user_id: user_id).inc(:count, amount)
-      create!(user_id: user_id, count: 1)
+    res = where(user_id: user_id).inc(count: amount)
+    unless res['updatedExisting']
+      create!(user_id: user_id, count: amount)
     end
+  end
+
+  def self.count_for(user_id)
+    where(user_id: user_id).first.try(:count).to_i
   end
 
   def self.reset_count

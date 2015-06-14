@@ -15,7 +15,7 @@ describe Notification::MentionObserver do
   }
 
   it "should send notification to mentioned user after article save" do
-    Notification.should_receive(:send_to).with(mentioned_user.id, 'mention', article, article.user, article.top_post).and_return(nil)
+    expect(Notification).to receive(:send_to).with(mentioned_user.id, 'mention', article, article.user, article.top_post).and_return(nil)
     article.save
     article.top_post.mentioned.should include(mentioned_user.id)
   end
@@ -28,10 +28,10 @@ describe Notification::MentionObserver do
     post.content = "@#{mentioned_user.login}"
     post.parent_id = 0
     post.article_id= article.id
-    Notification.should_receive(:send_to).with(mentioned_user.id, 'mention', article, post.user, post).and_return(nil)
+    expect(Notification).to receive(:send_to).with(mentioned_user.id, 'mention', article, post.user, post).and_return(nil)
     post.save
 
-    post.mentioned.should include(mentioned_user.id)
+    expect(post.mentioned).to include(mentioned_user.id)
   end
 
   it "should not send information to mentioned user if article is not published" do

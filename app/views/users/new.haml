@@ -17,9 +17,9 @@
     = simple_form_for @user do |f|
       = hidden_field_tag :group ,params[:group]
       = hidden_field_tag :invite ,params[:invite]
-      = f.input :login, :required => true, :input_html => { :class => 'need_verify',:check_area=>"login"}
+      = f.input :login, :required => true
       = f.input :name, :required => false
-      = f.input :email, :required => true, :input_html => { :class => 'need_verify',:check_area=>"email"}
+      = f.input :email, :required => true
       = f.input :password, :required => true
       = f.input :password_confirmation, :required => true
       =# show_simple_captcha

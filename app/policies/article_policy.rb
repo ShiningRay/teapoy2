@@ -13,7 +13,7 @@ class ArticlePolicy < GroupPolicy
     admin? || super && case
     when article.published?
       article_author? || super
-    when article.pending?
+    when article.pending?, article.private?
       article_author? || group_owner?
     when article.draft?
       article_author?

@@ -1,4 +1,18 @@
 # coding: utf-8
+# == Schema Information
+#
+# Table name: tickets
+#
+#  id             :integer          not null, primary key
+#  user_id        :integer          not null
+#  article_id     :integer          not null
+#  ticket_type_id :integer
+#  correct        :boolean
+#  created_at     :datetime
+#  updated_at     :datetime
+#  viewed_at      :datetime
+#
+
 class Ticket < ActiveRecord::Base
   belongs_to :user
   belongs_to :ticket_type

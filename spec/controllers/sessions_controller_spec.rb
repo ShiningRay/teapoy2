@@ -4,7 +4,7 @@ require 'rails_helper'
 
 describe SessionsController do
 	it "should use SessionsController" do
-	  controller.should be_an_instance_of(described_class)
+	  expect(controller).to be_an_instance_of(described_class)
 	end
 
 	describe '#show' do
@@ -15,7 +15,7 @@ describe SessionsController do
 		context 'when user logged in' do
 			let!(:user){create :user}
 			before { controller.stub(:current_user).and_return(user) }
-			it { should redirect_to(:controller => :my, :action => :index)}
+			it { should redirect_to('/')}
 		end
 	end
 
@@ -24,7 +24,7 @@ describe SessionsController do
 		context 'user' do
 			before { post :create, user_session: {login: user.login, password: '1234qwer'}}
 			it '' do
-				expect(response).to redirect_to(controller: 'my', action: 'index')
+				expect(response).to redirect_to('/all')
 				expect(assigns(:current_user)).to eq(user)
 			end
 		end

@@ -16,14 +16,13 @@ describe ArticlesController, :type => :controller do
     end
 
     context "there is a private article:" do
-      let(:article) { create :article, group: group, user: author, cached_slug: 'test', status: 'private' }
+      let(:article) { create :article, group: group, user: author, status: 'private' }
       context "the viewing user is author" do
         before :each do
-          @current_user = article.user
-          session[:user_id] = @current_user.id
+          login_user author
         end
         it "should show this article" do
-          get :show, {group_id: group.alias, id: article.cached_slug}
+          get :show, {group_id: group.alias, id: article.id}
           expect(response).to be_success
         end
       end

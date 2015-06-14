@@ -1,4 +1,13 @@
 # coding: utf-8
+# == Schema Information
+#
+# Table name: daily_statistics
+#
+#  id          :integer          not null, primary key
+#  record_data :datetime
+#  login_count :integer
+#
+
 class DailyStatistic < ActiveRecord::Base
 
   def self.make_today_record

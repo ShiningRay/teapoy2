@@ -1,4 +1,13 @@
 # encoding: utf-8
+# == Schema Information
+#
+# Table name: settings
+#
+#  id    :integer          not null, primary key
+#  key   :string(255)      not null
+#  value :text             not null
+#
+
 # This model stores the global configuration of the website
 class Setting < ActiveRecord::Base
   serialize :value
@@ -12,7 +21,7 @@ class Setting < ActiveRecord::Base
     end
 
     def []= index, value
-      find_or_create_by_key(:key => index).update_attribute(:value, value)
+      find_or_initialize_by(:key => index).update_attribute(:value, value)
       Rails.cache.write("Setting.#{index}", value)
     end
 

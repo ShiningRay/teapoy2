@@ -6,9 +6,10 @@ Teapoy::Application.routes.draw do
   # get '/register' => 'register#create_account', :as => :register
   # get '/signup' => 'register#create_account', :as => :signup
   get '/signup' => 'users#new', as: :signup
-  
+
   resources :password_resets, :only => [:new, :create, :edit, :update]
   get '/activate/:activation_code' => 'users#activate', :as => :activate
+  resource :password, module: 'users', only: [:edit, :update]
 
   resources :users do
     #resources :read_statuses, :only => [:create]
@@ -27,7 +28,6 @@ Teapoy::Application.routes.draw do
     resources :dislikes, :module => 'users', :only => [:index, :create, :destroy]
     resource :avatar, :module => 'users', :only => [:edit, :update, :destroy]
     #resources :friendships
-    resource :password, module: 'users', only: [:edit, :update]
 
     member do
       get 'follow'

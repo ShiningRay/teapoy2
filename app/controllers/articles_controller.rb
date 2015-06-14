@@ -360,25 +360,21 @@ class ArticlesController < ApplicationController
       @group = @article.group unless @group
       return redirect_to article_path(@group, @article, format: params[:format]) unless request.format == :json
     end
-    @show_article = true
-    @list_view = false
-    @show_group = true
 
     authorize @article
-    @group = @article.group unless @group
+
     # seo_for_article
     # expires_now if browser.opera?
+
     if stale?(@article)
       respond_to do |format|
-        format.html {
-          render @article if request.xhr? and theme_name != 'jquerymobile'
-        }
+        format.html
         format.json {
           render json: @article
         }
       end
+      MarkingReadWorker.perform_async(current_user.id, @article.id, @article.comments.size-1) if logged_in?
     end
-    # MarkingReadWorker.perform_async(current_user.id, @article.id, @article.comments.size-1) if logged_in? and not request.xhr?
   end
 
   def mark
@@ -586,7 +582,7 @@ class ArticlesController < ApplicationController
   def find_group
     if params[:group_id] and params[:group_id] != 'all'
       @group = Group.find_by_alias(params[:group_id])
-      @scope = @group.public_articles if @group
+      @scope = @group.articles if @group
     end
   end
 

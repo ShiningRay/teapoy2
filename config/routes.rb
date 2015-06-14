@@ -15,7 +15,7 @@ Teapoy::Application.routes.draw do
   resources :change_logs
   resources :rewards
   resource :weixin
-  #match '/assets/*path' => Sprockets
+
   themes_for_rails
   get 'new_index' => "home#test_new_index"
   get 'home/:action' => 'home'

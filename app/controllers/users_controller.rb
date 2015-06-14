@@ -8,6 +8,7 @@ class UsersController < ApplicationController
   #super_caches_page :show
   include RegistrationAspect
   # caches_page_for_anonymous :index
+  
   def index
     @user = current_user
     if params[:group_id]

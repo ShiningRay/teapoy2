@@ -79,15 +79,15 @@ class Inbox
     add_to_set :repost_ids => post.id
   end
 
-  #after_create :increment_count
-  #def increment_count
-  #  UserCount.create_or_inc(user_id)
-  #end
+  after_create :increment_count
+  def increment_count
+    UserCount.create_or_inc(user_id)
+  end
 
-  #after_destroy :decrement_count
-  #def decrement_count
-  #  UserCount.create_or_inc(user_id, -1)
-  #end
+  after_destroy :decrement_count
+  def decrement_count
+    UserCount.create_or_inc(user_id, -1)
+  end
 
   class << self
 =begin

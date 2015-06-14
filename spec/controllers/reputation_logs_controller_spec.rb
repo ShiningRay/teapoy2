@@ -34,132 +34,132 @@ describe ReputationLogsController do
   def valid_session
     {}
   end
-
-  describe "GET index" do
-    it "assigns all reputation_logs as @reputation_logs" do
-      reputation_log = ReputationLog.create! valid_attributes
-      get :index, {}, valid_session
-      assigns(:reputation_logs).should eq([reputation_log])
-    end
-  end
-
-  describe "GET show" do
-    it "assigns the requested reputation_log as @reputation_log" do
-      reputation_log = ReputationLog.create! valid_attributes
-      get :show, {:id => reputation_log.to_param}, valid_session
-      assigns(:reputation_log).should eq(reputation_log)
-    end
-  end
-
-  describe "GET new" do
-    it "assigns a new reputation_log as @reputation_log" do
-      get :new, {}, valid_session
-      assigns(:reputation_log).should be_a_new(ReputationLog)
-    end
-  end
-
-  describe "GET edit" do
-    it "assigns the requested reputation_log as @reputation_log" do
-      reputation_log = ReputationLog.create! valid_attributes
-      get :edit, {:id => reputation_log.to_param}, valid_session
-      assigns(:reputation_log).should eq(reputation_log)
-    end
-  end
-
-  describe "POST create" do
-    describe "with valid params" do
-      it "creates a new ReputationLog" do
-        expect {
-          post :create, {:reputation_log => valid_attributes}, valid_session
-        }.to change(ReputationLog, :count).by(1)
-      end
-
-      it "assigns a newly created reputation_log as @reputation_log" do
-        post :create, {:reputation_log => valid_attributes}, valid_session
-        assigns(:reputation_log).should be_a(ReputationLog)
-        assigns(:reputation_log).should be_persisted
-      end
-
-      it "redirects to the created reputation_log" do
-        post :create, {:reputation_log => valid_attributes}, valid_session
-        response.should redirect_to(ReputationLog.last)
-      end
-    end
-
-    describe "with invalid params" do
-      it "assigns a newly created but unsaved reputation_log as @reputation_log" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        ReputationLog.any_instance.stub(:save).and_return(false)
-        post :create, {:reputation_log => {}}, valid_session
-        assigns(:reputation_log).should be_a_new(ReputationLog)
-      end
-
-      it "re-renders the 'new' template" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        ReputationLog.any_instance.stub(:save).and_return(false)
-        post :create, {:reputation_log => {}}, valid_session
-        response.should render_template("new")
-      end
-    end
-  end
-
-  describe "PUT update" do
-    describe "with valid params" do
-      it "updates the requested reputation_log" do
-        reputation_log = ReputationLog.create! valid_attributes
-        # Assuming there are no other reputation_logs in the database, this
-        # specifies that the ReputationLog created on the previous line
-        # receives the :update_attributes message with whatever params are
-        # submitted in the request.
-        ReputationLog.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
-        put :update, {:id => reputation_log.to_param, :reputation_log => {'these' => 'params'}}, valid_session
-      end
-
-      it "assigns the requested reputation_log as @reputation_log" do
-        reputation_log = ReputationLog.create! valid_attributes
-        put :update, {:id => reputation_log.to_param, :reputation_log => valid_attributes}, valid_session
-        assigns(:reputation_log).should eq(reputation_log)
-      end
-
-      it "redirects to the reputation_log" do
-        reputation_log = ReputationLog.create! valid_attributes
-        put :update, {:id => reputation_log.to_param, :reputation_log => valid_attributes}, valid_session
-        response.should redirect_to(reputation_log)
-      end
-    end
-
-    describe "with invalid params" do
-      it "assigns the reputation_log as @reputation_log" do
-        reputation_log = ReputationLog.create! valid_attributes
-        # Trigger the behavior that occurs when invalid params are submitted
-        ReputationLog.any_instance.stub(:save).and_return(false)
-        put :update, {:id => reputation_log.to_param, :reputation_log => {}}, valid_session
-        assigns(:reputation_log).should eq(reputation_log)
-      end
-
-      it "re-renders the 'edit' template" do
-        reputation_log = ReputationLog.create! valid_attributes
-        # Trigger the behavior that occurs when invalid params are submitted
-        ReputationLog.any_instance.stub(:save).and_return(false)
-        put :update, {:id => reputation_log.to_param, :reputation_log => {}}, valid_session
-        response.should render_template("edit")
-      end
-    end
-  end
-
-  describe "DELETE destroy" do
-    it "destroys the requested reputation_log" do
-      reputation_log = ReputationLog.create! valid_attributes
-      expect {
-        delete :destroy, {:id => reputation_log.to_param}, valid_session
-      }.to change(ReputationLog, :count).by(-1)
-    end
-
-    it "redirects to the reputation_logs list" do
-      reputation_log = ReputationLog.create! valid_attributes
-      delete :destroy, {:id => reputation_log.to_param}, valid_session
-      response.should redirect_to(reputation_logs_url)
-    end
-  end
+  #
+  # describe "GET index" do
+  #   it "assigns all reputation_logs as @reputation_logs" do
+  #     reputation_log = ReputationLog.create! valid_attributes
+  #     get :index, {}, valid_session
+  #     assigns(:reputation_logs).should eq([reputation_log])
+  #   end
+  # end
+  #
+  # describe "GET show" do
+  #   it "assigns the requested reputation_log as @reputation_log" do
+  #     reputation_log = ReputationLog.create! valid_attributes
+  #     get :show, {:id => reputation_log.to_param}, valid_session
+  #     assigns(:reputation_log).should eq(reputation_log)
+  #   end
+  # end
+  #
+  # describe "GET new" do
+  #   it "assigns a new reputation_log as @reputation_log" do
+  #     get :new, {}, valid_session
+  #     assigns(:reputation_log).should be_a_new(ReputationLog)
+  #   end
+  # end
+  #
+  # describe "GET edit" do
+  #   it "assigns the requested reputation_log as @reputation_log" do
+  #     reputation_log = ReputationLog.create! valid_attributes
+  #     get :edit, {:id => reputation_log.to_param}, valid_session
+  #     assigns(:reputation_log).should eq(reputation_log)
+  #   end
+  # end
+  #
+  # describe "POST create" do
+  #   describe "with valid params" do
+  #     it "creates a new ReputationLog" do
+  #       expect {
+  #         post :create, {:reputation_log => valid_attributes}, valid_session
+  #       }.to change(ReputationLog, :count).by(1)
+  #     end
+  #
+  #     it "assigns a newly created reputation_log as @reputation_log" do
+  #       post :create, {:reputation_log => valid_attributes}, valid_session
+  #       assigns(:reputation_log).should be_a(ReputationLog)
+  #       assigns(:reputation_log).should be_persisted
+  #     end
+  #
+  #     it "redirects to the created reputation_log" do
+  #       post :create, {:reputation_log => valid_attributes}, valid_session
+  #       response.should redirect_to(ReputationLog.last)
+  #     end
+  #   end
+  #
+  #   describe "with invalid params" do
+  #     it "assigns a newly created but unsaved reputation_log as @reputation_log" do
+  #       # Trigger the behavior that occurs when invalid params are submitted
+  #       ReputationLog.any_instance.stub(:save).and_return(false)
+  #       post :create, {:reputation_log => {}}, valid_session
+  #       assigns(:reputation_log).should be_a_new(ReputationLog)
+  #     end
+  #
+  #     it "re-renders the 'new' template" do
+  #       # Trigger the behavior that occurs when invalid params are submitted
+  #       ReputationLog.any_instance.stub(:save).and_return(false)
+  #       post :create, {:reputation_log => {}}, valid_session
+  #       response.should render_template("new")
+  #     end
+  #   end
+  # end
+  #
+  # describe "PUT update" do
+  #   describe "with valid params" do
+  #     it "updates the requested reputation_log" do
+  #       reputation_log = ReputationLog.create! valid_attributes
+  #       # Assuming there are no other reputation_logs in the database, this
+  #       # specifies that the ReputationLog created on the previous line
+  #       # receives the :update_attributes message with whatever params are
+  #       # submitted in the request.
+  #       ReputationLog.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
+  #       put :update, {:id => reputation_log.to_param, :reputation_log => {'these' => 'params'}}, valid_session
+  #     end
+  #
+  #     it "assigns the requested reputation_log as @reputation_log" do
+  #       reputation_log = ReputationLog.create! valid_attributes
+  #       put :update, {:id => reputation_log.to_param, :reputation_log => valid_attributes}, valid_session
+  #       assigns(:reputation_log).should eq(reputation_log)
+  #     end
+  #
+  #     it "redirects to the reputation_log" do
+  #       reputation_log = ReputationLog.create! valid_attributes
+  #       put :update, {:id => reputation_log.to_param, :reputation_log => valid_attributes}, valid_session
+  #       response.should redirect_to(reputation_log)
+  #     end
+  #   end
+  #
+  #   describe "with invalid params" do
+  #     it "assigns the reputation_log as @reputation_log" do
+  #       reputation_log = ReputationLog.create! valid_attributes
+  #       # Trigger the behavior that occurs when invalid params are submitted
+  #       ReputationLog.any_instance.stub(:save).and_return(false)
+  #       put :update, {:id => reputation_log.to_param, :reputation_log => {}}, valid_session
+  #       assigns(:reputation_log).should eq(reputation_log)
+  #     end
+  #
+  #     it "re-renders the 'edit' template" do
+  #       reputation_log = ReputationLog.create! valid_attributes
+  #       # Trigger the behavior that occurs when invalid params are submitted
+  #       ReputationLog.any_instance.stub(:save).and_return(false)
+  #       put :update, {:id => reputation_log.to_param, :reputation_log => {}}, valid_session
+  #       response.should render_template("edit")
+  #     end
+  #   end
+  # end
+  #
+  # describe "DELETE destroy" do
+  #   it "destroys the requested reputation_log" do
+  #     reputation_log = ReputationLog.create! valid_attributes
+  #     expect {
+  #       delete :destroy, {:id => reputation_log.to_param}, valid_session
+  #     }.to change(ReputationLog, :count).by(-1)
+  #   end
+  #
+  #   it "redirects to the reputation_logs list" do
+  #     reputation_log = ReputationLog.create! valid_attributes
+  #     delete :destroy, {:id => reputation_log.to_param}, valid_session
+  #     response.should redirect_to(reputation_logs_url)
+  #   end
+  # end
 
 end

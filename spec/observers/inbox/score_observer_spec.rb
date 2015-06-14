@@ -8,6 +8,7 @@ describe Inbox::ScoreObserver do
   let(:top_post) { create(:post, user: author, floor: 0, group: group) }
   let(:article){Article.observers.disable :all; create :article, group: group, user: author, status: 'publish', top_post: top_post}
   let(:subscriber){create :user}
+  
   before do
     Post.observers.disable :all
     Post.observers.enable described_class
@@ -20,6 +21,6 @@ describe Inbox::ScoreObserver do
     article.top_post.score=100
     article.top_post.save
     subscriber.rate 1, article.top_post
-    Inbox.guest.where(:article_id => article.id).count.should == 1
+    expect(Inbox.guest.where(:article_id => article.id).count).to eq(1)
   end
 end

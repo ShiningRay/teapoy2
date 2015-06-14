@@ -20,21 +20,21 @@ describe Notification::ReplyObserver do
     article.save!
     original_post = article.top_post
 
-    reply = build(:post).tap{|reply|
+    r = build(:post).tap { |reply|
       reply.article = article
       reply.parent_id = original_post.floor
       reply.group_id = article.group_id
       reply.content = Forgery::LoremIpsum.paragraph
       reply.user = replier
     }
-    reply.save!
+    r.save!
     $stderr << Article.find(1).inspect << "\n"
-    original_poster.notifications.count.should == 1
+    expect(original_poster.notifications.count).to eq(1)
 
     n = original_poster.notifications.first
     $stderr << article.inspect << "\n"
     $stderr << n.inspect << "\n"
-    n.subject.should == article
+    expect(n.subject).to eq(article)
   end
   context "when there is already a notification of that article in box" do
     it "should not generate another notification "  do

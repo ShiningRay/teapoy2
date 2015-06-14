@@ -12,9 +12,9 @@ describe Inbox::DeliverObserver do
 
   it 'should deliver article to subscribers after published' do
     article.save!
-    Inbox.by_user(subscriber).count.should == 1
+    expect(Inbox.by_user(subscriber).count).to eq(1)
     Inbox.by_user(subscriber).first.tap do |i|
-      i.article_id.should == article.id
+      expect(i.article_id).to eq(article.id)
     end
   end
 end

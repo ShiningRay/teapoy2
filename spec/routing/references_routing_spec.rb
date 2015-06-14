@@ -5,31 +5,31 @@ describe ReferencesController do
   describe "routing" do
 
     it "routes to #index" do
-      get("/references").should route_to("references#index")
+      expect(get("/references")).to route_to("references#index")
     end
 
     it "routes to #new" do
-      get("/references/new").should route_to("references#new")
+      expect(get("/references/new")).to route_to("references#new")
     end
 
     it "routes to #show" do
-      get("/references/1").should route_to("references#show", :id => "1")
+      expect(get("/references/1")).to route_to("references#show", :id => "1")
     end
 
     it "routes to #edit" do
-      get("/references/1/edit").should route_to("references#edit", :id => "1")
+      expect(get("/references/1/edit")).to route_to("references#edit", :id => "1")
     end
 
     it "routes to #create" do
-      post("/references").should route_to("references#create")
+      expect(post("/references")).to route_to("references#create")
     end
 
     it "routes to #update" do
-      put("/references/1").should route_to("references#update", :id => "1")
+      expect(put("/references/1")).to route_to("references#update", :id => "1")
     end
 
     it "routes to #destroy" do
-      delete("/references/1").should route_to("references#destroy", :id => "1")
+      expect(delete("/references/1")).to route_to("references#destroy", :id => "1")
     end
 
   end

@@ -1,4 +1,17 @@
 # coding: utf-8
+# == Schema Information
+#
+# Table name: invitation_codes
+#
+#  id           :integer          not null, primary key
+#  code         :string(255)      not null
+#  applicant_id :integer          not null
+#  consumer_id  :integer
+#  created_at   :datetime
+#  consumed_at  :datetime
+#  updated_at   :datetime
+#
+
 require 'digest/md5'
 class InvitationCode < ActiveRecord::Base
   belongs_to :applicant, :class_name => 'User'

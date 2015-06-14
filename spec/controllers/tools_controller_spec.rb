@@ -4,9 +4,10 @@ require 'rails_helper'
 describe ToolsController do
 
   describe "GET 'query_name_logs'" do
+    before { login_user }
     it "returns http success" do
       get 'query_name_logs'
-      response.should be_success
+      expect(response).to be_success
     end
   end
 

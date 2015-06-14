@@ -1,36 +1,34 @@
 # coding: utf-8
-require "spec_helper"
+require 'spec_helper'
 
 describe AttachmentsController do
-  describe "routing" do
-
-    it "routes to #index" do
-      get("/attachments").should route_to("attachments#index")
+  describe 'routing' do
+    it 'routes to #index' do
+      expect(get('/attachments')).to route_to('attachments#index')
     end
 
-    it "routes to #new" do
-      get("/attachments/new").should route_to("attachments#new")
+    it 'routes to #new' do
+      expect(get('/attachments/new')).to route_to('attachments#new')
     end
 
-    it "routes to #show" do
-      get("/attachments/1").should route_to("attachments#show", :id => "1")
+    it 'routes to #show' do
+      expect(get('/attachments/1')).to route_to('attachments#show', id: '1')
     end
 
-    it "routes to #edit" do
-      get("/attachments/1/edit").should route_to("attachments#edit", :id => "1")
+    it 'routes to #edit' do
+      expect(get('/attachments/1/edit')).to route_to('attachments#edit', id: '1')
     end
 
-    it "routes to #create" do
-      post("/attachments").should route_to("attachments#create")
+    it 'routes to #create' do
+      expect(post('/attachments')).to route_to('attachments#create')
     end
 
-    it "routes to #update" do
-      put("/attachments/1").should route_to("attachments#update", :id => "1")
+    it 'routes to #update' do
+      expect(put('/attachments/1')).to route_to('attachments#update', id: '1')
     end
 
-    it "routes to #destroy" do
-      delete("/attachments/1").should route_to("attachments#destroy", :id => "1")
+    it 'routes to #destroy' do
+      expect(delete('/attachments/1')).to route_to('attachments#destroy', id: '1')
     end
-
   end
 end

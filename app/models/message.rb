@@ -1,4 +1,19 @@
 # coding: utf-8
+# == Schema Information
+#
+# Table name: messages
+#
+#  id           :integer          not null, primary key
+#  owner_id     :integer          not null
+#  sender_id    :integer          not null
+#  recipient_id :integer          not null
+#  content      :text             not null
+#  read         :boolean          default(FALSE), not null
+#  created_at   :datetime
+#  updated_at   :datetime
+#  target_id    :integer
+#
+
 class Message < ActiveRecord::Base
   belongs_to :owner, :class_name => "User", :foreign_key => 'owner_id'
   belongs_to :sender, :class_name => "User", :foreign_key => 'sender_id'
