@@ -7,4 +7,3 @@
     .group_meta_content
       - cache ['grouppage', @group], :expires_in => 1.hour do
         = sanitize @group.to_post.content
-      = link_to '编辑', [:editinfo, @group] if logged_in? && (current_user.own_group?(@group) || current_user.is_admin?)

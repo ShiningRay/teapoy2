@@ -2,14 +2,13 @@
 Teapoy::Application.routes.draw do
   get '/groups/:group_id/reject_join/:user_id' => "groups#reject_join", :as => :reject_join_group
   get '/groups/:group_id/allow_join/:user_id' => "groups#allow_join", :as => :allow_join_group
-  
+
   resources :groups do
     member do
       post :join
       post :quit
       post :invite
       get :judge_articles
-      post :editinfo
     end
 
     collection do

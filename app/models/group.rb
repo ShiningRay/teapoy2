@@ -145,10 +145,6 @@ class Group #< ActiveRecord::Base
     options.only_member_can_reply
   end
 
-  def self.meta_group
-    find(0)
-  end
-
   def self.wrap(obj)
     case obj
     when Group
@@ -171,33 +167,6 @@ class Group #< ActiveRecord::Base
     end
   end
 
-  def to_post
-    a = to_article
-    a.top_post || a.build_top_post
-  end
-
-  def to_article
-    a= self.class.meta_group.articles.featured.find_or_initialize_by(slug: self.alias)
-    if a.new_record?
-      a.group_id = 0
-      a.build_top_post
-      a.status='feature'
-      a.title = a.slug
-      a.save!
-    end
-    a
-  end
-
-  def norm_hints
-    return @norm_hints if @norm_hints
-    @norm_hints = Article.unscoped.where(group_id: id).find_or_initialize_by slug: 'new'
-    @norm_hints.build_top_post if @norm_hints.top_post.blank?
-    @norm_hints.status = 'private' if @norm_hints.new_record?
-    @norm_hints.save! if @norm_hints.changed?
-    @norm_hints.top_post.save! if @norm_hints.top_post.changed?
-    @norm_hints
-  end
-
   def self.find_by_domain(domain)
     where(domain: domain).first
   end
@@ -216,39 +185,5 @@ class Group #< ActiveRecord::Base
 
   def self.find_by_alias(a)
     where(alias: a).first
-  end
-
-  def self.migrate_from_mysql_to_mongo(start=0)
-    conn = ActiveRecord::Base.connection
-    loop do
-      groups = conn.select "select * from groups where id > #{start} limit 1000"
-      break if groups.size == 0
-      groups.each do |group|
-        start = group['_id'] = group.delete('id')
-        pref = {}
-        conn.select( "select * from preferences where owner_id=#{start} and owner_type='Group'").each do |row|
-          pref[row['name']] = (pref['value'] == '0' ? nil : pref['value'])
-        end
-        group['private'] = group['private'] == 1
-        group['feature'] = group['feature'] == 1
-        group['hide'] = group['hide'] == 1
-        group['options'] = YAML.load(group['options']).merge(pref) rescue nil
-        Group.collection.insert(group)
-      end
-    end
-    session = Mongoid.default_session
-    session[:sequences].find(seq_name: 'group__id').upsert(seq_name: 'group__id', number: start+1)
-    Group.collection.insert :_id => -1, :alias => 'users', :name => 'users'
-    Group.collection.insert :_id => 0, :alias => 'groups', :name => 'groups'
-  end
-
-
-  def self.migrate_taggings
-    conn = ActiveRecord::Base.connection
-    taggings = conn.select "select * from taggings inner join tags on taggings.tag_id = tags.id where taggable_type like 'Group'"
-    taggings.each do |tagging|
-      group = Group.find tagging['taggable_id']
-      group.add_to_set(:tags_array => tagging['name'])
-    end
   end
 end

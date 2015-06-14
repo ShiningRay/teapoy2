@@ -50,19 +50,6 @@ class GroupsController < ApplicationController
     return render :text=>"只有小组组长才能编辑" unless current_user.own_group?(@group)
   end
 
-  def editinfo
-    @group = Group.find_by_alias!(params[:id])
-    raise User::NotAuthorized unless logged_in? && ( current_user.own_group?(@group) || current_user.is_admin?)
-    @page = @group.to_post
-
-    if request.post?
-      @page.content = params[:content]
-      @page.format = :html
-      @page.save!
-      expire_fragment ['grouppage', @group]
-    end
-  end
-
   def show
     @list_view = true
     return redirect_to( '/groups/all/articles' )if params[:id] == 'all'

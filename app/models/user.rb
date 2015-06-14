@@ -1,4 +1,36 @@
 # coding: utf-8
+# == Schema Information
+#
+# Table name: users
+#
+#  id                        :integer          not null, primary key
+#  login                     :string(255)      not null
+#  email                     :string(255)      not null
+#  crypted_password          :string(255)      not null
+#  salt                      :string(255)      not null
+#  created_at                :datetime         not null
+#  updated_at                :datetime         not null
+#  remember_token            :string(255)      default(""), not null
+#  remember_token_expires_at :datetime
+#  activated_at              :datetime
+#  avatar_file_name          :string(255)
+#  avatar_content_type       :string(255)
+#  avatar_file_size          :integer
+#  avatar_updated_at         :datetime
+#  state                     :string(255)      default("passive")
+#  deleted_at                :datetime
+#  name                      :string(100)
+#  persistence_token         :string(255)      not null
+#  login_count               :integer          default(0)
+#  current_login_at          :datetime
+#  last_login_at             :datetime
+#  last_request_at           :datetime
+#  current_login_ip          :string(255)
+#  last_login_ip             :string(255)
+#  perishable_token          :string(255)      default(""), not null
+#  avatar_fingerprint        :string(255)
+#
+
 # User defined here
 
 class User < ActiveRecord::Base
@@ -260,21 +292,6 @@ class User < ActiveRecord::Base
    result
   end
 
-  def self.meta_group
-    # Group.find_or_create_by_id(-1)
-    # Group.find_or_create_by(_id: -1)
-    Group.find_by alias: 'users'
-  end
-
-  def to_article
-    self.class.meta_group.articles.find_or_create_by(status: 'feature', slug: login)
-  end
-
-  def to_post
-    article = to_article
-    article.top_post || article.make_top_post(true)
-  end
-
   def own_article?(article)
     article.read_attribute(:user_id) == self.id
   end
@@ -284,39 +301,6 @@ class User < ActiveRecord::Base
     Weixin::User.where(user_login: login).first
   end
 
-  def self.migrate_name
-    connection.execute <<sql
-      update users set name = login where name is null or name like ''
-sql
-    res = find_by_sql(<<sql)
-      SELECT users.*
-        FROM users
-          INNER JOIN (
-          SELECT name
-          FROM users
-          GROUP BY name
-          HAVING COUNT( name ) >1
-          ) dup ON users.name = dup.name
-        ORDER BY users.name ASC, users.id ASC
-sql
-
-    current_name = ''
-    current_count = 0
-    res.each do |user|
-      puts [user.id, current_name.inspect, user.name.inspect, current_count].join(' ')
-      if current_name != user.name.downcase.strip
-        current_name = user.name.downcase.strip
-        current_count = 0
-      else
-        current_count += 1
-        user.name.gsub!(/[\s\\<>\/:]/, '_')
-        user.name << current_count.to_s
-        User.update_all({name: user.name}, {id: user.id})
-      end
-    end
-    connection.execute 'ALTER TABLE  `users` ADD UNIQUE (`name`)'
-    nil
-  end
   protected
 
   #before_save :change_to_pending_when_email_change
