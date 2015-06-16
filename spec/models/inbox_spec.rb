@@ -10,9 +10,9 @@ describe Inbox do
 
 
 		it "should deliver any new article in user's subscribed group" do
-			group.stub(:preferred_articles_need_approval?).and_return(false)
-			subscriber.stub(:has_subscribed?).with(group).and_return(true)
-			subscriber.stub(:disliked?).with(kind_of(User)).and_return(false)
+			allow(group).to receive(:preferred_articles_need_approval?).and_return(false)
+			allow(subscriber).to receive(:has_subscribed?).with(group).and_return(true)
+			allow(subscriber).to receive(:disliked?).with(kind_of(User)).and_return(false)
 			article.save
 
 			Inbox.deliver(subscriber, article)
@@ -31,7 +31,7 @@ describe Inbox do
 	end
 
 	before :each do
-		Group.any_instance.stub(:preferred_articles_need_approval?).and_return(false)
+		allow_any_instance_of(Group).to receive(:preferred_articles_need_approval?).and_return(false)
 	end
 
 	describe "\#deliver_repost" do
@@ -51,20 +51,20 @@ describe Inbox do
 	  		expect(Inbox.by_user(subscriber).size).to eq(1)
 	  		item = Inbox.by_user(subscriber).last
 	  		expect(item.post_ids).to include(reposted_article.top_post.id)
-	  		item.repost_ids.should include(article.top_post.id)
+	  		expect(item.repost_ids).to include(article.top_post.id)
 	  		expect(item.article_id).to eq(reposted_article.id)
 	  	end
 	  end
 
 	  context "when subscriber already have the original article in inbox" do
 	  	before do
-	  		subscriber.stub(:has_subscribed?).with(kind_of(Group)).and_return(true)
+	  		allow(subscriber).to receive(:has_subscribed?).with(kind_of(Group)).and_return(true)
 	  		Inbox.deliver subscriber, article
 	  		Inbox.deliver_repost subscriber, reposted_article.top_post
 	  	end
 
 	  	it "should not have the repost in it" do
-	  		Inbox.by_user(subscriber).where(:article_id => reposted_article.id).should be_empty
+	  		expect(Inbox.by_user(subscriber).where(:article_id => reposted_article.id)).to be_empty
 	  	end
 
 	  	it "should have the repost id in entry for original article" do

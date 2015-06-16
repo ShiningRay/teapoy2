@@ -7,7 +7,7 @@ describe "Mention Detection" do
     post = build(:post)
     post.content = '@test'
     post.find_mention
-    post.mentioned.should include(user.id)
+    expect(post.mentioned).to include(user.id)
   end
 
   it "should find out the ids of mentioned user according to name specified after @ symbol and replace name with login" do
@@ -15,9 +15,9 @@ describe "Mention Detection" do
     post = build(:post)
     post.content = '@JUST_TEST'
     post.find_mention
-    post.mentioned.should include(user.id)
-    post.content.should  =~ /@test/
-    post.content.should_not =~ /JUST_TEST/
+    expect(post.mentioned).to include(user.id)
+    expect(post.content).to match( /@test/)
+    expect(post.content).not_to match( /JUST_TEST/)
   end
 
   context "when the user's name is in unicode encoding" do
@@ -27,7 +27,7 @@ describe "Mention Detection" do
       post.content = "@#{user.name}"
       post.find_mention
 
-      post.mentioned.should include(user.id)
+      expect(post.mentioned).to include(user.id)
     end
   end
 
@@ -38,14 +38,14 @@ describe "Mention Detection" do
     post = build(:post, user: author)
     post.content = "@#{user1.login}@#{user2.login}"
     post.find_mention
-    post.mentioned.should include(user1.id, user2.id)
+    expect(post.mentioned).to include(user1.id, user2.id)
   end
 
   it "should not include mention to self" do
     user = create(:user, login: 'test')
     post = build(:post, user: user, content: '@test')
     post.find_mention
-    post.mentioned.should_not include(user.id)
+    expect(post.mentioned).to_not include(user.id)
   end
 
   it "should save found mentions after create" do
@@ -58,6 +58,6 @@ describe "Mention Detection" do
                                :content => '@test'})
     article.user_id = author.id
     article.save!
-    article.top_post.mentioned.should include(user.id)
+    expect(article.top_post.mentioned).to include(user.id)
   end
 end
