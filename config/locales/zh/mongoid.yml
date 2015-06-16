@@ -16,6 +16,12 @@ zh:
     errors:
       messages:
         record_invalid: "验证失败: %{errors}"
+        validations:
+          message: "Validation of %{document} failed."
+          summary: "The following errors were found: %{errors}"
+          resolution: "Try persisting the document with valid data or remove
+            the validations."
+
       models:
         article:
           attributes:
@@ -63,4 +69,12 @@ zh:
               too_short: 太短
             password_confirmation:
               too_long: 太长
+              too_short: 太短
+        post:
+          attributes:
+            parent_id:
+              blank: "不能为空"
+        message:
+          attributes:
+            content:
               too_short: 太短

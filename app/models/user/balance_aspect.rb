@@ -35,8 +35,8 @@ module User::BalanceAspect
         credit = balance.credit + amount
         raise Balance::InsufficientFunds if credit < 0
         balance.credit = credit
-        balance.transactions.create :amount => amount, :reason => reason
-        yield if block_given?
+        tx = balance.transactions.create :amount => amount, :reason => reason
+        yield tx if block_given?
         balance.save!
       end
     end

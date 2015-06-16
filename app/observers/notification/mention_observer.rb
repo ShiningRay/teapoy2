@@ -6,11 +6,12 @@ class Notification::MentionObserver < Mongoid::Observer
     return unless article.is_a?(Article)
     send_mention(article.top_post)
   end
-
   #handle_asynchronously :after_publish if Rails.env.production?
 
+  # Post trigger after post is numbered
   def after_numbered(post)
     return unless post.is_a?(Post)
+    return unless post.article
     return unless post.article.status == 'publish'
     return unless post.floor and post.floor > 0
     send_mention(post)

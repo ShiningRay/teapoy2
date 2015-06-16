@@ -25,11 +25,11 @@ class ArticlePolicy < GroupPolicy
   end
 
   def update?
-
+    article_author? || group_owner? || admin?
   end
 
   def destroy?
-
+    update?
   end
 
   def article_author?

@@ -22,7 +22,7 @@ describe SessionsController do
 	describe '#create' do
 		let!(:user){create :user}
 		context 'user' do
-			before { post :create, user_session: {login: user.login, password: '1234qwer'}}
+			before { post :create, user_session: {login: user.login, password: user.password}}
 			it '' do
 				expect(response).to redirect_to('/all')
 				expect(assigns(:current_user)).to eq(user)

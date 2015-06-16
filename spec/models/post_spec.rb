@@ -1,24 +1,41 @@
 # coding: utf-8
-require File.dirname(__FILE__) + '/../spec_helper'
+require 'rails_helper'
 
 describe Post do
-  before(:each) do
-    #@article = Article.new
+  let(:author) { create :user }
+  let(:article) { create :article, user: author }
+  subject(:post) { article.top_post }
+
+  describe '::MentionsDetection' do
+    it "detects @ login" do
+      u1 = create(:user)
+      p = Post.new
+      p.content = "@#{u1.login}"
+      p.find_mention
+      expect(p.mentioned).to include(u1.id)
+    end
+
+    it "doesn't mention author itself" do
+      p = Post.new
+      p.user = author
+      p.content = "@#{author.login}"
+      p.find_mention
+      expect(p.mentioned).not_to include(author.id)
+    end
   end
 
-  it "should be able to detect @ login" do
-    pending
-    user = mock_model(User)
-    User.should_receive(:wrap).and_return(user)
-    User.should_receive(:find_by_name).and_return(user)
-    #Post.
-  end
-  it "should number floor sequence correctly" do
-    article = create(:article)
-    post = build(:post, article: article, parent_id: 0)
-    post.save!
-    post.floor.should == 1
-    post2 = create(:post, article: article, parent_id: 1)
-    post2.floor.should == 2
+  describe '::FloorSequence' do
+    it "numbers floor correctly" do
+      article = create(:article)
+      post = Post.new
+      post.content = Forgery::LoremIpsum.paragraph
+      post.user = create(:user)
+      post.article = article
+      post.parent = article.top_post
+      post.save!
+      expect(post.floor).to eq(1)
+      post2 = create(:post, article: article, parent_id: post.id)
+      expect(post2.floor).to eq(2)
+    end
   end
 end

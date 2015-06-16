@@ -23,8 +23,7 @@ module Post::FloorSequence
       article[:posts_count] = article.posts.where(:floor.ne => nil).count
       article.save
     end
-
-    f = self[:floor] = article[:posts_count] - 1
+    f = self[:floor] = article[:posts_count]
     logger.debug "use floor #{f}"
     self.floor = f
     # article.inc(:posts_count => 1)

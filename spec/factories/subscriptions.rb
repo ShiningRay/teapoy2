@@ -17,8 +17,10 @@
 
 FactoryGirl.define do
   factory :subscription do
-    subscriber { create :user }
+    association :subscriber, factory: :user
+    publication_type { 'Article' }
+    publication_id { create(:article).id.to_s }
     unread_count 0
-    updated_at Time.at(0)
+    updated_at { Time.now }
   end
 end

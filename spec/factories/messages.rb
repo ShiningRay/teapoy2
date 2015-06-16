@@ -18,6 +18,9 @@
 
 FactoryGirl.define do
   factory :message do
-
+    association :owner, factory: :user
+    sender { owner }
+    association :recipient, factory: :user
+    content { Forgery::LoremIpsum.paragraph }
   end
 end

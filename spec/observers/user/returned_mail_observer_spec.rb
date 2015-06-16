@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe User::ReturnedMailObserver do
+describe User::ReturnedMailObserver, broken: true do
   let(:user) { create :user }
   before do
     User.add_observer described_class.instance

@@ -54,12 +54,11 @@ FactoryGirl.define do
     trait :admin do
       roles { [create(:role, :admin)] }
     end
+
+    trait :rich do
+      association :balance, factory: :rich_balance
+    end
+    factory :rich_user, traits: [:rich]
+    factory :admin, traits: [:admin]
   end
-
-
-
-  factory :admin, :parent => :user do
-    roles { [create(:role, :admin)] }
-  end
-
 end

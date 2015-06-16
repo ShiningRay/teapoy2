@@ -19,7 +19,7 @@ class Reward < ActiveRecord::Base
   attr_accessor :no_charge
   belongs_to :rewarder, class_name: 'User'
   belongs_to :winner, class_name: 'User'
-  belongs_to :post
+  t_belongs_to :post
 
   validates :amount, :numericality => {:only_integer => true, :greater_than => 0}
   validates_uniqueness_of :rewarder_id, :scope => :post_id

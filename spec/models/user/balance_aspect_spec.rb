@@ -9,41 +9,52 @@ describe User::BalanceAspect do
   #fixtures :users
   let(:user){create(:user)}
   describe '#gain_credit' do
-    it "should gain credits and create a transaction" do
-      user.gain_credit(4,"hello")
-      user.credit.should == 4
-      user.transactions.size.should == 1
+    it "gains credits" do
+      amount = rand(1..100)
+      expect{
+        user.gain_credit(amount,"hello")
+      }.to change{user.credit}.by(amount)
+    end
+
+    it "creates a transaction" do
+      amount = rand(1..100)
+      expect{
+        user.gain_credit(amount,"hello")
+      }.to change{ user.transactions.count }.by(1)
       tx = user.transactions.first
-      tx.amount.should == 4
-      tx.reason.should == 'hello'
+      expect(tx.amount).to eq(amount)
+      expect(tx.reason).to eq('hello')
     end
 
     context "user's balance is empty" do
       it "should not have minus balance" do
         expect{user.gain_credit(-4, 'abc')}.to raise_error Balance::InsufficientFunds
-        user.credit.should == 0
-        user.transactions.should be_empty
+        expect(user.credit).to eq(0)
+        expect(user.transactions).to be_empty
       end
     end
   end
 
   context "A user who have some credit and want to spend credit" do
-    let(:user) do
-      u = create(:user)
-      u.balance = create(:balance, :rich, user: u)
-      u
+    let(:user) { create(:rich_user) }
+
+    it "should spend credit" do
+      expect{
+        user.spend_credit(10, 'buy goods')
+      }.to change{
+        user.credit
+      }.by(-10)
     end
 
-    it "should spend credit and create a transaction" do
+    it "creates a transaction" do
       expect{
-          user.spend_credit(10, 'buy goods')
-        }.to change{
-          user.transactions.size
-        }.by(1)
-      user.credit.should == 90
+        user.spend_credit(10, 'buy goods')
+      }.to change{
+        user.transactions.count
+      }.by(1)
       tx = user.transactions.last
-      tx.amount.should == -10
-      tx.reason.should == 'buy goods'
+      expect(tx.amount).to eq(-10)
+      expect(tx.reason).to eq('buy goods')
     end
   end
 end

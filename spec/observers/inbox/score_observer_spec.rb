@@ -1,14 +1,15 @@
 require 'rails_helper'
 require 'sidekiq/testing/inline'
 
-describe Inbox::ScoreObserver do
+# TODO: we have disabled hot top
+describe Inbox::ScoreObserver, broken: true do
   let(:guest){create :user, id: 0}
   let(:group){create :group, hide: false, private: false}
   let(:author){create :user}
   let(:top_post) { create(:post, user: author, floor: 0, group: group) }
   let(:article){Article.observers.disable :all; create :article, group: group, user: author, status: 'publish', top_post: top_post}
   let(:subscriber){create :user}
-  
+
   before do
     Post.observers.disable :all
     Post.observers.enable described_class

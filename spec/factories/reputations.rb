@@ -15,9 +15,9 @@
 
 FactoryGirl.define do
   factory :reputation do
-    user_id 1
-    group_id 1
+    association :user
+    association :group
     value 1
-    state ""
+    state "neutral"
   end
 end

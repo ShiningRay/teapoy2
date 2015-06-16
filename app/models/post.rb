@@ -105,29 +105,6 @@ class Post
     self
   end
 
-  def class_names
-    c = ['post']
-    c << (top? ? 'top_post' : (comment? && 'comment'))
-    c << "floor-#{floor}"
-    c << self.class.name.to_s.underscore unless self.class == Post
-    if anonymous or user.blank?
-      c += %w(anonymous user-Guest)
-    else
-      c += Array.wrap(user.class_names)
-    end
-    c << "topic-owner" if !anonymous and article and !article.anonymous and user_id == article.read_attribute(:user_id)
-    if score == 0
-      c << 'zero'
-    else
-      c << (score > 0 ? 'pos' : 'neg')
-    end
-    #c << "comment-to-floor-#{parent_id}" if parent_id.to_i != 0
-    #c.join(' ')
-  end
-
-  def plain_text
-    @plain_text ||= (format == 'html' ? Nokogiri::HTML(content).text : content) || ''
-  end
 
   class << self
     def new_with_cast(*a, &b)
@@ -162,10 +139,6 @@ class Post
 
   protected
 
-  #before_save :strip_meta
-  #def strip_meta
-  #  self.meta = nil if meta.empty?
-  #end
   def as_json(opts={})
     opts ||= {}
     opts[:except] = [:device, :meta, :source, :ip, :ancestry, :ancestry_depth] + Array.wrap(opts.delete(:except))
@@ -189,68 +162,6 @@ class Post
     res
   end
   public :as_json
-  def self.migrate_from_mysql_to_mongo(start=0)
-    conn = ActiveRecord::Base.connection
-    int2id = ->(i){ BSON::ObjectId.from_string(sprintf("%024d", i)) }
-    post_exists = ->(i){
-      conn.select_value("SELECT EXISTS(SELECT 1 FROM posts WHERE id = '#{i}')")==1
-    }
-    loop do
-      posts = conn.select "select * from posts where id > #{start} limit 1000"
-      break if posts.size == 0
-      puts start
-      posts.each do |post|
-        print '.'
-        meta = MessagePack.unpack(post.delete('meta')) rescue nil
-        start = post['id']
-
-        post['_id'] = int2id[post.delete('id')]
-        ancestry = post.delete 'ancestry'
-        post.delete 'ancestry_depth'
-        post['parent_ids'] = ancestry.split( '/').map(&:to_i).map(&int2id) unless ancestry.blank?
-        post['_type'] = post.delete('type')
-
-        case post['_type']
-        when 'Picture'
-          if meta
-            post['picture_file_name'] = meta.delete(0) || meta.delete('0')
-            post['picture_content_type'] = meta.delete(1) || meta.delete('1')
-            post['picture_file_size'] = meta.delete(2) || meta.delete('2')
-            post['picture_updated_at'] = meta.delete(3) || meta.delete('3')
-            post['image_url'] = meta.delete(4) || meta.delete('4')
-            if post['picture_updated_at'].is_a?(Fixnum)
-              post['picture_updated_at'] = Time.at(post['picture_updated_at'])
-            end
-          end
-        end
-        post.merge!(meta) unless meta.blank?
-        post['parent_floor'] = post['parent_id']
-
-        # if is changelog, don't save it
-        if post["described_type"] == 'ChangeLog'
-          next
-        end
-
-        unless post['parent_ids'].blank?
-          post['parent_id'] = post['parent_ids'].last
-        else
-          post['parent_id'] = int2id[post['parent_id']] if post['parent_id']
-        end
-        # if parent doesn't exists then make this one the root
-        unless post_exists[post['parent_id'].to_s]
-          post['parent_id'] = nil
-          post['parent_ids'] = nil
-        end
-
-        post['anonymous'] = (post['anonymous'] == 1)
-
-        Post.collection.insert(post)
-        if post['floor'] == 0 and post['article_id'].present?
-          Article.collection.find(_id: post['article_id']).update('$set' => {:top_post_id => post['_id']})
-        end
-      end
-    end
-  end
 
   def self.fix_missing_article
     Article.observers.disable(Article::ChargeObserver)

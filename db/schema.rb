@@ -284,9 +284,11 @@ ActiveRecord::Schema.define(version: 20150126122125) do
     t.boolean  "read",         default: false, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "target_id"
   end
 
   add_index "messages", ["owner_id", "sender_id", "read"], name: "owner_id", using: :btree
+  add_index "messages", ["owner_id", "target_id"], name: "index_messages_on_owner_id_and_target_id", using: :btree
 
   create_table "name_logs", force: true do |t|
     t.string   "name"

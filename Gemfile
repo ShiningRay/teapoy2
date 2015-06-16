@@ -134,15 +134,14 @@ gem 'nokogiri'
 gem 'daemons', '~> 1.1.8', require: false
 
 group :development, :test do
-  gem 'byebug', '~> 4.0.0'
   gem 'rspec'
   gem 'rspec-rails'
   gem 'fuubar'
   gem 'pry-rails'
   gem 'pry-byebug'
+  gem 'byebug', '~> 4.0.0'
   gem 'pry-stack_explorer'
   gem 'quiet_assets'
-  # gem 'sprinkle'
   # gem "railroady"
   gem 'guard'
   gem 'guard-bundler'
@@ -150,7 +149,7 @@ group :development, :test do
   gem 'rb-inotify', platforms: :ruby, require: false
   gem 'rb-fsevent', platforms: :ruby, require: false
   #gem 'rb-fchange', platforms: [:mswin, :mingw], require: false
-  gem 'ruby_gntp'
+  # gem 'ruby_gntp'
 end
 
 # gem 'thin', platforms: [:ruby, :mingw], require: false
@@ -203,3 +202,4 @@ gem 'eye', github: 'kostya/eye', require: false
 gem 'foreman', require: false
 gem 'mini_magick'
 gem 'annotate', '~> 2.6.6'
+gem 'spring-commands-rspec', group: :development

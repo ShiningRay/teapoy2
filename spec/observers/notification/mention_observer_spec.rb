@@ -3,39 +3,44 @@ require 'rails_helper'
 
 describe Notification::MentionObserver do
   let(:mentioned_user){create(:user)}
+  let(:author) { create :user }
   let(:article){
-    a = Article.new group_id: create(:group).id,
-                top_post_attributes: {
-                  content: "@#{mentioned_user.login}"
-                }
-    a.user_id = create(:user).id
-    a.top_post.user_id = a.user_id
-    a.status = 'publish'
-    a
+    Article.new group_id: create(:group).id,
+            user_id: author.id,
+            status: 'publish',
+            top_post_attributes: {
+              user_id: author.id,
+              content: "@#{mentioned_user.login}",
+              floor: 0
+            }
   }
 
-  it "should send notification to mentioned user after article save" do
-    expect(Notification).to receive(:send_to).with(mentioned_user.id, 'mention', article, article.user, article.top_post).and_return(nil)
-    article.save
-    article.top_post.mentioned.should include(mentioned_user.id)
+  before {Mongoid.observers.enable Notification::MentionObserver}
+
+  it "sends notification to mentioned user after article save" do
+    expect{
+      article.save
+    }.to change{ Notification.count }
   end
 
-  it "should send notification to mentioned user after reply save" do
-    article.top_post.content = 'No mention'
-    article.save!
-    post = Post.new
-    post.user_id = create(:user).id
-    post.content = "@#{mentioned_user.login}"
-    post.parent_id = 0
-    post.article_id= article.id
-    expect(Notification).to receive(:send_to).with(mentioned_user.id, 'mention', article, post.user, post).and_return(nil)
-    post.save
+  it "sends notification to mentioned user after reply save" do
+    expect do
+      article.top_post.content = 'No mention'
+      article.save!
+      post = Post.new
+      post.user_id = create(:user).id
+      post.content = "@#{mentioned_user.login}"
+      post.parent = article.top_post
+      post.article_id= article.id
+      post.save
+    end.to change{Notification.count}
 
-    expect(post.mentioned).to include(mentioned_user.id)
   end
 
   it "should not send information to mentioned user if article is not published" do
-    #a.status = 'pending'
-    pending
+    expect{
+      article.status = 'pending'
+      article.save
+    }.not_to change{Notification.count}
   end
 end

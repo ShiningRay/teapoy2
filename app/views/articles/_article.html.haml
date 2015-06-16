@@ -4,9 +4,9 @@
 - group = @group || article.group
 - group_id = article.group_id
 
-%article.cf.hentry[article]{:class => article.class_names}
+%article.cf.hentry[article]
   - if top_post
-    %div[article.top_post]{:class => [article.top_post.class_names, is_mine_class(article.top_post)]}
+    %div[article.top_post]
       %h2.entry-title= link_to article_title(article), [group, article], :rel => 'bookmark'
       .entry-content
         - if article.top_post && article.top_post.is_a?(Picture)

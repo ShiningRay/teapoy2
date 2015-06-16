@@ -19,9 +19,9 @@
 
 FactoryGirl.define do
   factory :reputation_log do
-    reputation_id 1
-    post_id 1
+    association :reputation
+    post_id { create(:post).id.to_s }
     amount 1
-    reason "MyString"
+    reason "test"
   end
 end

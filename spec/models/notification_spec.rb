@@ -10,6 +10,7 @@ describe Notification do
   let(:source_article) { create(:article) }
 
   it "should successfully send a notification" do
-    n = Notification.send_to(target_user, "Noop", source_article)
+
+    expect { Notification.send_to(target_user, "Noop", source_article) }.to change { target_user.notifications.count }.by(1)
   end
 end

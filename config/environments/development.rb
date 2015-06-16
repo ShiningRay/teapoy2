@@ -67,4 +67,5 @@ Teapoy::Application.configure do
     Rack::MiniProfiler.config.skip_paths = some_paths
     Rack::MiniProfiler.config.start_hidden = !ENV['show_profiler']
   end
+  config.i18n.fallbacks = true
 end

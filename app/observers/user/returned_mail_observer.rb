@@ -1,4 +1,5 @@
 # coding: utf-8
+# TODO: maybe useless feature
 class User::ReturnedMailObserver < ActiveRecord::Observer
   observe :user
   def address_not_exists(user)

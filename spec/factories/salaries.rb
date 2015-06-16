@@ -14,6 +14,7 @@
 
 FactoryGirl.define do
   factory :salary do
-    title 'test'
+    association :user
+    amount { rand(1..10) }
   end
 end

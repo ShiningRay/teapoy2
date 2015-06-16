@@ -13,12 +13,10 @@
 #
 
 FactoryGirl.define do
-  factory :rewards do
-    association :winner
-    association :rewarder
-    association :post
+  factory :reward do
+    association :winner, factory: :user
+    association :rewarder, factory: :rich_user
+    association :post, factory: :post
     amount { rand(1..100) }
-    created_at
-
   end
 end

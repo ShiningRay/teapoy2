@@ -35,25 +35,25 @@ describe Reward do
         r.should be_valid
         user.balance.reload
         author.balance.reload
-        user.balance.credit.should == 80
-        author.balance.credit.should == 120
+        expect(user.balance.credit).to eq(80)
+        expect(author.balance.credit).to eq(120)
       end
       it "should not be able to reward zero" do
         r = Reward.make(user, post, 0)
         r.should_not be_valid
         user.balance.reload
         author.balance.reload
-        user.balance.credit.should == 100
-        author.balance.credit.should == 100        
+        expect(user.balance.credit).to eq(100)
+        expect(author.balance.credit).to eq(100        )
       end
       it "should not be able to reward more than his credit" do
-        expect{ 
+        expect{
           Reward.make(user, post, 120)
         }.to raise_error(Balance::InsufficientFunds)
         user.balance.reload
         author.balance.reload
-        user.balance.credit.should == 100
-        author.balance.credit.should == 100
+        expect(user.balance.credit).to eq(100)
+        expect(author.balance.credit).to eq(100)
       end
       it "should not be able to reward the post twice" do
         r = Reward.make(user, post, 10)

@@ -13,15 +13,20 @@
 
 FactoryGirl.define do
   factory :balance do
-    user
+    association :user
+
     trait :rich do
-      credit 100
+      credit { rand(1000..10000) }
     end
+
     trait :empty do
       credit 0
     end
+
     trait :poor do
       credit 10
     end
+
+    factory :rich_balance,    traits: [:rich]
   end
 end
