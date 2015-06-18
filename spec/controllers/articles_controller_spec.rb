@@ -5,7 +5,7 @@ describe ArticlesController, :type => :controller do
   let(:author){create :user}
   let(:group){create :group, :alias => 'pool'}
 
-  describe '#index' do
+  describe 'GET index' do
     context "there is a published article: " do
       let(:article){create :article, group: group, user: author, slug: 'test', status: 'publish'}
       it "should show speicific article" do
@@ -32,7 +32,19 @@ describe ArticlesController, :type => :controller do
     end
   end
 
-  describe '#create' do
+  describe 'POST create' do
+    context 'when user logged in and is active' do
+      before { login_user }
+      it 'creates article' do
+        title = Forgery::LoremIpsum.title
+        content = Forgery::LoremIpsum.paragraph
 
+        expect{
+          post :create, article: {title: title, content: content}, group_id: group.alias
+        }.to change(Article, :count)
+
+        expect(assigns(:article)).to be_valid
+      end
+    end
   end
 end

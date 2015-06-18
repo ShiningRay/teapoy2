@@ -42,6 +42,7 @@ guard 'livereload' do
   watch(%r{config/locales/.+\.yml})
   # Rails Assets Pipeline
   watch(%r{(app|vendor)(/assets/\w+/(.+\.(css|js|html))).*}) { |m| "/assets/#{m[3]}" }
+  watch(%r{(app|vendor)(/assets/\w+/_.*.scss)})
 end
 
 # guard :rubocop, all_on_start: false, cli: ['--format', 'clang', '--rails'] do

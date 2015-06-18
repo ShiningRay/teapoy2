@@ -12,7 +12,7 @@ module AuthenticationHelper
     return user
   end
 
-  def login_user(user=create(:user))
+  def login_user(user=create(:active_user))
     @current_user = user
     session[:user_credentials] = user.persistence_token
     session[:user_credentials_id] = user.id

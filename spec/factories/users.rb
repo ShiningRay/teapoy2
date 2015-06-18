@@ -45,6 +45,7 @@ FactoryGirl.define do
 
     trait :active do
       state 'active'
+      activated_at { Time.now }
     end
 
     trait :pending do
@@ -59,6 +60,7 @@ FactoryGirl.define do
       association :balance, factory: :rich_balance
     end
     factory :rich_user, traits: [:rich]
+    factory :active_user, traits: [:active]
     factory :admin, traits: [:admin]
   end
 end

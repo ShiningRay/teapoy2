@@ -43,7 +43,7 @@ Teapoy::Application.configure do
   Mongoid.logger.level = Logger::DEBUG
   Moped.logger.level = Logger::DEBUG
   config.log_level = :debug
-  # config.middleware.insert_after(ActionDispatch::Static, Rack::LiveReload)
+  config.middleware.insert_after(ActionDispatch::Static, Rack::LiveReload)
 
   # BetterErrors.editor = :sublime
   if defined? BetterErrors

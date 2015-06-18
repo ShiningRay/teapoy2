@@ -129,7 +129,11 @@ li.comment {
     font-size: 14px;
   }
   .identity {
-    color: #666;
+    a {
+      color:  #ccc;
+      font-weight: lighter;
+    }
+
     font-size: 12px;
   }
   .vote {
