@@ -22,7 +22,7 @@ describe Reward do
   end
   it "not be able to reward his own post" do
     r = Reward.make author, post, rand(10..100)
-    r.should_not be_valid
+    expect(r).not_to be_valid
   end
   context "given a user is not the author" do
     let(:user) { create :user }
@@ -32,7 +32,7 @@ describe Reward do
       end
       it "should be able to reward to the post" do
         r = Reward.make(user, post, 20)
-        r.should be_valid
+        expect(r).to be_valid
         user.balance.reload
         author.balance.reload
         expect(user.balance.credit).to eq(80)
@@ -40,11 +40,11 @@ describe Reward do
       end
       it "should not be able to reward zero" do
         r = Reward.make(user, post, 0)
-        r.should_not be_valid
+        expect(r).not_to be_valid
         user.balance.reload
         author.balance.reload
         expect(user.balance.credit).to eq(100)
-        expect(author.balance.credit).to eq(100        )
+        expect(author.balance.credit).to eq(100)
       end
       it "should not be able to reward more than his credit" do
         expect{
@@ -57,9 +57,9 @@ describe Reward do
       end
       it "should not be able to reward the post twice" do
         r = Reward.make(user, post, 10)
-        r.should be_valid
+        expect(r).to be_valid
         r = Reward.make(user, post, 10)
-        r.should_not be_valid
+        expect(r).not_to be_valid
       end
     end
   end

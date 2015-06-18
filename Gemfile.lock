@@ -61,7 +61,7 @@ GIT
       thor
 
 GEM
-  remote: https://ruby.taobao.org/
+  remote: https://rubygems.org/
   remote: https://rails-assets.org/
   specs:
     aasm (4.1.1)
@@ -163,6 +163,9 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    capybara-webkit (1.5.2)
+      capybara (>= 2.3.0, < 2.5.0)
+      json
     carrierwave (0.10.0)
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
@@ -274,6 +277,9 @@ GEM
       em-websocket (~> 0.5)
       guard (~> 2.8)
       multi_json (~> 1.8)
+    guard-rails (0.7.1)
+      guard (~> 2.11)
+      guard-compat (~> 1.0)
     guard-rspec (4.5.2)
       guard (~> 2.1)
       guard-compat (~> 1.1)
@@ -501,6 +507,9 @@ GEM
     rspec-expectations (3.3.0)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.3.0)
+    rspec-its (1.2.0)
+      rspec-core (>= 3.0.0)
+      rspec-expectations (>= 3.0.0)
     rspec-mocks (3.3.0)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.3.0)
@@ -641,6 +650,7 @@ DEPENDENCIES
   capistrano-sidekiq
   capistrano3-unicorn
   capybara
+  capybara-webkit
   carrierwave
   carrierwave-mongoid
   carrierwave-qiniu!
@@ -667,6 +677,7 @@ DEPENDENCIES
   guard
   guard-bundler
   guard-livereload
+  guard-rails
   guard-rspec
   guard-rubocop
   haml
@@ -722,6 +733,7 @@ DEPENDENCIES
   responders
   rspec
   rspec-activemodel-mocks
+  rspec-its
   rspec-rails
   rufus-scheduler
   sass-rails

@@ -10,7 +10,10 @@ describe Notification do
   let(:source_article) { create(:article) }
 
   it "should successfully send a notification" do
-
+    mail = double("Mail", deliver: '')
+    allow(UserNotifier).to receive(:notify).and_return(mail)
+    # allow_any_instance_of(UserNotifier).to receive(:deliver).and_return(nil)
     expect { Notification.send_to(target_user, "Noop", source_article) }.to change { target_user.notifications.count }.by(1)
+    # expect(UserNotifier).to have_received(:notify)
   end
 end

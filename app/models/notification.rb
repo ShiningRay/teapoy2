@@ -117,7 +117,7 @@ class Notification
     sources.each do |type, ids|
       t = type.safe_constantize
       next unless t.method_defined?(:user)
-      o = t.find_all_by_id(ids)
+      # t.find_all_by_id(ids)
       add_actors t.collect{|i|i.user}
     end
   end

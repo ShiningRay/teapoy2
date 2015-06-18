@@ -17,13 +17,14 @@ require 'rails_helper'
 
 describe Subscription do
   describe '.notify' do
-    let(:subscriber){ create :user }
+    let(:subscriber) { create :user }
     let(:publication) { create :group }
-    subject() { create :subscription, user: subscriber, publication: publication }
+    subject(:subscription) { create :subscription, user: subscriber, publication: publication }
 
     it "update timestamp and unread count" do
-
-      
+      expect{
+        Subscription.notify(publication.class, publication)
+      }
     end
   end
 end

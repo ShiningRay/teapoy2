@@ -146,6 +146,7 @@ group :development, :test do
   gem 'guard'
   gem 'guard-bundler'
   gem 'guard-rspec'
+  gem 'guard-rails'
   gem 'rb-inotify', platforms: :ruby, require: false
   gem 'rb-fsevent', platforms: :ruby, require: false
   #gem 'rb-fchange', platforms: [:mswin, :mingw], require: false
@@ -174,6 +175,7 @@ end
 
 group :test do
   gem 'capybara'
+  gem 'capybara-webkit'
   gem 'database_cleaner'
   gem 'factory_girl'
   gem 'factory_girl_rails'
@@ -181,6 +183,7 @@ group :test do
   gem 'forgery'
   gem 'webmock', require: false
   gem 'rspec-activemodel-mocks'
+  gem 'rspec-its'
 end
 
 gem 'sinatra', '>= 1.3.0', require: nil

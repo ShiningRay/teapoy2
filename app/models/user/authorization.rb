@@ -12,7 +12,7 @@ module User::Authorization
       state :deleted, enter: :do_delete
 
       event :register do
-        transitions from: :passive, to: :pending, guard: -> (u) { !(u.crypted_password.blank? && u.password.blank?) }
+        transitions from: :passive, to: :pending, guard: -> { !(crypted_password.blank? && password.blank?) }
       end
 
       event :activate do

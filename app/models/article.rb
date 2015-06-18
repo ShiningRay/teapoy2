@@ -20,7 +20,6 @@ class Article
 
   auto_increment :_id
   field :tag_line, type: String
-  field :status, type: String, default: 'pending'
   field :comment_status, type: String
   field :anonymous, type: Boolean
   field :title, type: String
@@ -43,8 +42,8 @@ class Article
   include AttachmentAspect
   harmonize :title
   check_spam :title
-  STATUSES = %w(publish private pending spam deleted future feature)
-  #include States
+  STATUSES = %w(draft publish private pending spam deleted future)
+  include Article::StatusAspect
   has_many :posts
   belongs_to :group
   index({group_id: 1, status: 1, slug: 1}, {background: true})
@@ -55,25 +54,8 @@ class Article
     self[:posts_count] = 1 if top_post
   }
 
-
   def comments
     posts.where(:floor.gt => 0).order_by(floor: :asc)
-  end
-
-  def published?
-    status == 'publish'
-  end
-
-  def pending?
-    status == 'pending'
-  end
-
-  def draft?
-    status == 'draft'
-  end
-
-  def private?
-    status == 'private'
   end
 
   validates_uniqueness_of :title,
@@ -147,20 +129,16 @@ class Article
     top_post.rewards
   end
 
-  scope :by_status, ->(status) { where(status: status)}
   scope :by_period, ->(s,e) { where(:created_at.gte => s, :created_at.lt => e)}
   scope :by_date, ->(d) { where(:created_at.gte => d.beginning_of_day, :created_at.lte => d.end_of_day) }
-  scope :public_articles, -> { where(:status.in => %w(publish public feature)) }
   scope :anonymous, -> {where(anonymous: true)}
   scope :signed, -> {where(anonymous: false)}
-  scope :pending, -> {where(status: 'pending')}
   scope :latest, -> {order_by(created_at: 'desc')}
   scope :latest_created, -> {order_by(created_at: 'desc')}
   scope :latest_updated, -> {order_by(updated_at: 'desc')}
   scope :hottest, -> {order_by(score: 'desc')}
   scope :before, -> {where(:created_at.lt => Time.now)}
-  scope :feature, -> {where(status: 'feature')}
-  scope :featured, -> {where(status: 'feature')}
+
 
   def normalize_friendly_id(text)
     text.to_url.gsub(/[.\?~!\[\]\/()\*<>:#]/, '_')
@@ -194,22 +172,6 @@ class Article
     anonymous
   end
 
-  unless method_defined?(:publish!)
-    def publish!
-      self.status = 'publish'
-    end
-  end
-
-  define_model_callbacks :publish, only: [:after]
-
-  after_save do
-    if status_was != 'publish' and status == 'publish'
-      run_callbacks :publish do
-        notify_observers(:after_publish)
-        top_post.run_callbacks :publish if top_post
-      end
-    end
-  end
 
   def closed?
     comment_status == 'closed'
@@ -333,6 +295,10 @@ class Article
   end
 
   def self.find_by_cached_slug(slug)
+    where(slug: slug).first
+  end
+
+  def self.find_by_slug(slug)
     where(slug: slug).first
   end
 

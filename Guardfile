@@ -1,16 +1,24 @@
 # More info at https://github.com/guard/guard#readme
 guard :bundler do
-  watch('Gemfile')
+  require 'guard/bundler'
+  require 'guard/bundler/verify'
+  helper = Guard::Bundler::Verify.new
+
+  files = ['Gemfile']
+  files += Dir['*.gemspec'] if files.any? { |f| helper.uses_gemspec?(f) }
+
+  # Assume files are symlinked from somewhere
+  files.each { |file| watch(helper.real_path(file)) }
 end
 
 # -f html -o ./tmp/spec_results.html
 guard 'rspec', cmd: 'spring rspec -f doc --color',
     #launchy: './tmp/spec_results.html',
-    :all_after_pass => true  ,
+    :all_after_pass => false  ,
     :all_on_start => true    do
   watch(%r{^spec/.+?_spec\.rb$})
   watch(%r{^lib/(.+?)\.rb})                           { |m| "spec/lib/#{m[1]}_spec.rb" }
-  watch('spec/spec_helper.rb')                       { "spec" }
+  watch('spec/spec_helper.rb')                        { "spec" }
   watch('spec/rails_helper.rb')                       { "spec" }
 
   # Rails example
@@ -40,3 +48,8 @@ end
 #   watch(%r{.+\.rb$})
 #   watch(%r{(?:.+/)?\.rubocop\.yml$}) { |m| File.dirname(m[0]) }
 # end
+
+guard 'rails' do
+  watch('Gemfile.lock')
+  watch(%r{^(config|lib)/.*})
+end
