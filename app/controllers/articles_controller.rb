@@ -128,14 +128,6 @@ class ArticlesController < ApplicationController
     @article.status = 'publish'
     @article.group_id ||= 1
     @article.top_post.group_id ||= 1
-
-    unless params[:featured].blank?
-      art =  @group.articles.featured.find_by_title params[:title]
-      if art
-        return redirect_to(article_path(@group, art))
-      end
-      @article.status = 'feature'
-    end
   end
 
   def create
@@ -253,7 +245,7 @@ class ArticlesController < ApplicationController
         current_user.subscribe @article if logged_in?
         respond_to do |format|
           format.any(:html, :wml) {
-            if @article.status == 'publish' or @article.status == 'feature'
+            if @article.status == 'publish'
               redirect_to article_path(@group, @article)
             else
               flash[:notice]= '您的文章正在等待审核'

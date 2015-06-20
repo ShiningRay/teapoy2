@@ -15,7 +15,7 @@ class Admin::GroupsController < Admin::BaseController
       format.html # index.html.erb
       format.xml  { render :xml => @groups }
       format.json  {
-        json_group =  Group.collect{|c| {"name"=>c.name,"url"=>c.name.to_url,"id"=>c.id}}
+        # json_group =  Group.collect{|c| {"name"=>c.name,"url"=>c.name.to_url,"id"=>c.id}}
         render :json => @groups.to_json
       }
     end

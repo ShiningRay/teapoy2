@@ -58,11 +58,6 @@ class Article
     posts.where(:floor.gt => 0).order_by(floor: :asc)
   end
 
-  validates_uniqueness_of :title,
-            scope: :group_id,
-            allow_nil: false,
-            allow_blank: false,
-            if: -> (article) { article.status=='feature'}
   #attr_protected :score, :user_id, :status, :slug, :posts_count
   #validates_length_of    :content, minimum: 5, message: "对不起，您的内容太短了点……"
   #default_scope -> { where(status: %w(publish feature)) }

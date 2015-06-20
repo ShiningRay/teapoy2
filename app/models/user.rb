@@ -137,11 +137,6 @@ class User < ActiveRecord::Base
   def self.find_by_login_or_email(login)
     find_by_login(login) || find_by_email(login) || find_by_name(login)
   end
-  #TODO:send notifications
-  #
-  def self.guest
-    find(0)
-  end
 
   def deliver_password_reset_instructions!
     reset_perishable_token!
