@@ -17,16 +17,18 @@ describe ArticlesController, :type => :controller do
 
     context "there is a private article:" do
       let(:article) { create :article, group: group, user: author, status: 'private' }
+
       context "the viewing user is author" do
         before :each do
           login_user author
         end
-        it "should show this article" do
+        it "shows this article" do
           get :show, {group_id: group.alias, id: article.id}
           expect(response).to be_success
         end
       end
-      it "should not show this article" do
+
+      it "does not show this article" do
 
       end
     end
@@ -44,6 +46,7 @@ describe ArticlesController, :type => :controller do
         }.to change(Article, :count)
 
         expect(assigns(:article)).to be_valid
+        expect(assigns(:article).top_post).to be_valid
       end
     end
   end

@@ -206,3 +206,4 @@ gem 'foreman', require: false
 gem 'mini_magick'
 gem 'annotate', '~> 2.6.6'
 gem 'spring-commands-rspec', group: :development
+gem 'simplecov', :require => false, :group => :test

@@ -75,18 +75,6 @@ class Admin::GroupsController < Admin::BaseController
   # PUT /keywords/1.xml
   def update
     @group = Group.find_by_alias params[:id]
-    parent_id = params[:group][:parent_id]
-#    if parent_id.blank?
-#      params[:group].delete :parent_id
-#      @group.move_to_root
-#    else
-#      begin
-#        @group.move_to_child_of Group.find(parent_id.to_i)
-#      rescue
-#        flash[:error] = 'Cannot move into that group'
-#        return render(:template => 'admin/categories/edit')
-#      end
-#    end
     user = User.wrap(params[:group][:owner_id])
     user.join_group(@group)
 
@@ -113,17 +101,6 @@ class Admin::GroupsController < Admin::BaseController
     end
   end
 
-  def moveup
-    @group = Group.find params[:id]
-    @group.move_left if @group.left_sibling
-    redirect_to admin_groups_path
-  end
-
-  def movedown
-    @group = Group.find params[:id]
-    @group.move_right if @group.right_sibling
-    redirect_to admin_groups_path
-  end
   def merge_with
     @from = Group.find params[:from_id]
     @to = Group.find params[:to_id]
