@@ -128,6 +128,7 @@ class ArticlesController < ApplicationController
     @article.status = 'publish'
     @article.group_id ||= 1
     @article.top_post.group_id ||= 1
+    @article.attachments.build
   end
 
   def create
@@ -190,13 +191,6 @@ class ArticlesController < ApplicationController
         end
       end
 
-      if fl = article.delete(:swf)
-        if !fl.blank? and (top_post[:type].blank? or top_post[:type] == 'Post')
-          top_post[:type] = 'Flash'
-          top_post[:swf] = fl
-        end
-      end
-      top_post.delete(:question_content)  if top_post[:question_content].blank?
       if c = article.delete(:content)
         top_post[:content] = c if top_post[:content].blank?
       end
@@ -207,7 +201,9 @@ class ArticlesController < ApplicationController
         k = top_post.keys.collect{|i|i.to_s} - ['content']
         k.each {|k1| top_post.delete(k1)}
       end
+
       article[:top_post_attributes].permit!
+
       begin
         @article = Article.new( article )
       rescue ActiveRecord::UnknownAttributeError

@@ -5,12 +5,12 @@
   = link_to @group.name, @group if @group
 
 = render 'articles/omni_form'
-  
+
 - content_for :javascripts do
   :javascript
   $(function(){
-      $('<div id="faceTitle"></div>').insertBefore($("#article_top_post_attributes_content"));
-      $('<label for="article_top_post_attributes_external_image_url">或者您可以填写图片地址</label>').insertBefore("#article_top_post_attributes_external_image_url");
+      $('<div id="faceTitle"></div>').insertBefore($("#article_content"));
+      $('<label for="article_top_post_attributes_external_image_url">或者您可以填写图片地址</label>').insertBefore("#article_image_url");
       var fields_count=0;
       var picture_attachment_fields = $('#picture_attachment_fields').html();
       $('#picture_attachment_fields').remove();

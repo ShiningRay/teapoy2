@@ -5,5 +5,6 @@ FactoryGirl.define do
   factory :group do
     sequence(:alias) {|n| "test#{n}"}
     sequence(:name) {|n| "testgroup#{n}"}
+    association :owner, factory: :active_user
   end
 end

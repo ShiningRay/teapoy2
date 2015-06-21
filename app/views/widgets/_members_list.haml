@@ -4,7 +4,7 @@
     %span= link_to raw("查看全部成员 &raquo;"), group_users_path(@group)
   - owner = @group.owner
   %ul
-    %li.owner{:class => owner.class_names}
+    %li.owner
       - name = owner.name_or_login
       - alt = "组长 #{name} (@#{owner.login})"
       = link_to image_tag(owner.avatar.small.url, :size => '64x64', :alt => alt, :class => 'avatar'), owner, :title => alt,:data => {:login => owner.login},:class=>"user"

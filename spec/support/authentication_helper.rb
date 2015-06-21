@@ -1,13 +1,11 @@
 # spec/support/authentication_helper.rb
 module AuthenticationHelper
-  def sign_in
-    visit root_path
+  def sign_in(user = FactoryGirl.create(:user))
+    visit new_session_path
 
-    user = FactoryGirl.create(:user)
-
-    fill_in 'user_session_email',    with: user.email
+    fill_in 'user_session_login',    with: user.email
     fill_in 'user_session_password', with: user.password
-    click_button "Sign in"
+    click_button "登录"
 
     return user
   end

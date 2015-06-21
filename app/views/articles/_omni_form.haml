@@ -18,13 +18,8 @@
           = link_to '赶紧去找一个找自己喜欢的吧', groups_path
 
       = f.input :title, label: '标题', required: false, hint: '标题可以省略',input_html:{value:params[:title] || @article.title}
-    - if logged_in?
-      = f.fields_for :top_post do |top_post_form|
-        = render partial: 'posts/omni_form', object: top_post_form
-    - else
       = f.input :content, as: :text, label: '正文'
-    = f.inputs do
-      =# f.input :created_at, label: '时间', as: :datetime, default: Time.now if logged_in? and (current_user.is_admin? or  current_user.is_publisher?)
+    = f.input :picture, :as => :file, :label => '图片附件'
     = f.input :uncommentable, label: '禁止评论', as: :boolean, default: false
     = f.input :anonymous, as: :boolean, label: '匿名发表（花费20积分）' if logged_in?
     = f.inputs id: :picture_attachment_fields, for: :attachments do |attachment_form|
