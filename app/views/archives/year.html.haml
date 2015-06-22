@@ -1,5 +1,5 @@
 - content_for :title, "#{@group.name}-#{@year}"
-- content_for :breadcrumbs do
+-# content_for :breadcrumbs do
   %li
     = link_to(@year, archive_path(:year => @year))
     %span=  '/'

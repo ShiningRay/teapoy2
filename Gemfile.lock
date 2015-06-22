@@ -595,6 +595,7 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (1.4.1)
+    timecop (0.7.3)
     timers (4.0.1)
       hitimes
     turbolinks (2.5.3)
@@ -754,6 +755,7 @@ DEPENDENCIES
   stringex
   tenacity!
   themes_for_rails!
+  timecop
   turbolinks
   uglifier
   unicorn

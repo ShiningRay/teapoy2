@@ -54,8 +54,8 @@ class GroupsController < ApplicationController
     @list_view = true
     return redirect_to( '/groups/all/articles' )if params[:id] == 'all'
     @group = Group.wrap!(params[:id])
-    @page = Group.meta_group.articles.find_by_cached_slug(@group.alias)
-    @show_group = true
+    # @page = Group.meta_group.articles.find_by_cached_slug(@group.alias)
+    # @show_group = true
 
     authorize @group
 

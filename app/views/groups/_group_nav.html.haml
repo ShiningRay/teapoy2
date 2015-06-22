@@ -4,6 +4,3 @@
   .group_text
     .group_title.clearfix
       .group_titlel= link_to @group.name, @group
-    .group_meta_content
-      - cache ['grouppage', @group], :expires_in => 1.hour do
-        = sanitize @group.to_post.content

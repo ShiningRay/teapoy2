@@ -3,10 +3,13 @@
 require 'rails_helper'
 
 describe GroupsController do
+  let(:group) { create :group }
 
-  #Delete this example and add some real ones
-  it "should use GroupsController" do
-    expect(controller).to be_an_instance_of(GroupsController)
+  it 'GET index' do
+    get :index
   end
 
+  it 'GET show' do
+    get :show, id: group.alias
+  end
 end

@@ -19,7 +19,7 @@ module ArchivesHelper
     group_archive_path(*args)
   end
 
-  def group_archives_path(*args)
-    archives_path(*args)
+  def archives_path(*args)
+    group_archives_path(*args)
   end
 end

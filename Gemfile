@@ -184,6 +184,7 @@ group :test do
   gem 'webmock', require: false
   gem 'rspec-activemodel-mocks'
   gem 'rspec-its'
+  gem 'timecop'
 end
 
 gem 'sinatra', '>= 1.3.0', require: nil

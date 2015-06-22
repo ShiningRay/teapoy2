@@ -50,8 +50,4 @@
     = widget 'recent_hot'
     %li(align='right')
       = render 'common/ad'
--else
-  - page = Group.meta_group.articles.find_by_cached_slug(Group.meta_group.alias)
-  - if page && page.top_post
-    = sanitize page.top_post.content
 = yield :sidebar

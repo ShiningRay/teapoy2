@@ -170,6 +170,7 @@ Teapoy::Application.routes.draw do
   #match ':group_id/:id(.:format)', :to => 'articles#show', :as => :article
   #match ':id', :to => 'groups#show', :as => :group
   #root :to => 'tags#show', :id => '搞笑'
+  get ':group_id/archives/:id' => 'archives#show'
   root :to => 'articles#index', :group_id => 'all'
   #root :to => 'home#index'
   # get ':controller(/:action(/:id(.:format)))'
