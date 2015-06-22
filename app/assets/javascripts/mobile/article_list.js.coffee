@@ -9,8 +9,8 @@ $(document).bind 'pageinit', ->
     $(this).addClass('loading')
     $.mobile.loading( "show" )
     $.get this.href, (data) =>
-      $(data).find(".article-list").appendTo(".article-list")
-      $(".article-list").enhanceWithin()
+      $(data).find(".article-list").enhanceWithin().appendTo(".article-list")
+
       this.href = $(data).find('a[rel=next]').attr('href')
       $(this).removeClass('loading')
       $.mobile.loading( "hide" )
