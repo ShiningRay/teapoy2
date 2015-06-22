@@ -69,17 +69,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  # after_filter :remove_session_for_http_auth
-  # def remove_session_for_http_auth
-  #   if !request.authorization.blank?
-  #     current_user_session.destroy if current_user_session
-  #     request.reset_session
-  #     cookies.each do |key|
-  #       cookies.delete key
-  #     end
-  #   end
-  # end
-
   def cache_key_for_current_user(name)
     if logged_in?
       case name
@@ -95,21 +84,7 @@ class ApplicationController < ActionController::Base
     name
   end
 
-  def body_attributes(opt=nil)
-    @body_attributes ||= {:class => body_class_names}
-    return @body_attributes unless opt
-    @body_attributes.reverse_merge!(opt)
-  end
-
-  def body_class_names
-    today = Date.today
-    [controller_name, "#{controller_name}-#{action_name}",
-     logged_in? ? 'logged_in' : 'not_logged_in',
-    "y#{today.year}", "m#{today.month}", "d#{today.day}"
-    ]
-  end
-
-  helper_method :cache_key_for_current_user, :body_attributes, :body_class_names
+  helper_method :cache_key_for_current_user
 
   def check_domain
     if g = Group.find_by_domain(request.domain)

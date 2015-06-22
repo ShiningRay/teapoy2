@@ -3,7 +3,7 @@
 -ie_html :class => 'no-js' do
   = render 'head'
 
-  %body{ :lang => 'en', :class => [body_class_names, 'two-col'] }
+  %body
     = render 'header'
     #container.container.cf
       = content_for?(:main) ? (yield :main) : yield

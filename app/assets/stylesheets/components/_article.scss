@@ -342,19 +342,6 @@ nav.sibling {
   }
 
   li.action {
-    input {
-      background: #f0fefe;
-      border: 1px solid #ddd;
-      @include border-radius(5px);
-      padding: 5px 10px;
-      width: 70px;
-      font-size:1.1em;
-      color:#000000;
-      &:hover {
-        background: #fff;
-        border-color: black;
-      }
-    }
   }
 }
 #edit_post{

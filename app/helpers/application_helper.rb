@@ -159,6 +159,20 @@ module ApplicationHelper
   else
     def production_partial p; end
   end
+
+  def body_attributes(opt=nil)
+    @body_attributes ||= {:class => body_class_names}
+    return @body_attributes unless opt
+    @body_attributes.reverse_merge!(opt)
+  end
+
+  def body_class_names
+    today = Date.today
+    [controller_name, "#{controller_name}-#{action_name}",
+     logged_in? ? 'logged_in' : 'not_logged_in',
+    "y#{today.year}", "m#{today.month}", "d#{today.day}"
+    ]
+  end
   # Turns all URLs and e-mail addresses into clickable links. The <tt>:link</tt> option
   # will limit what should be linked. You can add HTML attributes to the links using
   # <tt>:html</tt>. Possible values for <tt>:link</tt> are <tt>:all</tt> (default),

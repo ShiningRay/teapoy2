@@ -31,4 +31,4 @@
       = attachment_form.input :type, :as => :hidden, :value => 'Picture'
       = attachment_form.input :picture, :as => :file
     = f.actions do
-      = f.action :submit, :label => @article.new_record? ? '发布' : '修改', :button_html => {:disable_with => '...'}
+      = f.action :submit, :label => @article.new_record? ? '发布' : '修改', :button_html => {:disable_with => '...', :class => 'btn btn-primary'}

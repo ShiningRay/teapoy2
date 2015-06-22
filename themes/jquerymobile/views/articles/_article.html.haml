@@ -1,6 +1,6 @@
 - group = @group || article.group
 - post = article.top_post
-%article[article]{:class => article.class_names}
+%article[article]
   - if article.title?
     %h2.title
       - if !@group or @group != article.group and @show_group

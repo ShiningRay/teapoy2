@@ -1,6 +1,6 @@
 ﻿-# coding: utf-8
-- plain_text = post.content
-- plain_text_size = post.content.mb_chars.size
+- plain_text = post.content.to_s
+- plain_text_size = plain_text.mb_chars.size
 - if (@list_view && plain_text_size > 300)
   = plain_text.mb_chars[0, 150]
   = link_to "(剩余#{plain_text_size-150}字)", [post.group || post.article.group, post.article], :class => 'more'
