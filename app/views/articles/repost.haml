@@ -11,15 +11,14 @@
           = link_to article_title(article), [group, article]
 
 #new_article_form
-  =semantic_form_for @article, :url => repost_form_path(:post_id => @post.id) do |f|
-    = f.inputs do
-      = f.input :title,:label => '标题'
-      - groups = current_user.publications(Group)
-      = f.input :group, :label => '小组', :as => :select, :collection => groups, :include_blank => false, :prompt => '请选择一个小组'
-      - if groups.size == 0
-        您还没加入任何小组，
-        = link_to '赶紧去找一个找自己喜欢的吧', groups_path
+  =simple_form_for @article, :url => repost_form_path(:post_id => @post.id) do |f|
+
+    = f.input :title,:label => '标题'
+    - groups = current_user.publications(Group)
+    = f.input :group, :label => '小组', :as => :select, :collection => groups, :include_blank => false, :prompt => '请选择一个小组'
+    - if groups.size == 0
+      您还没加入任何小组，
+      = link_to '赶紧去找一个找自己喜欢的吧', groups_path
     %div.original_post
       =render_post_with_parents @post
-    = f.actions do
-      = f.action :submit, :label => "发表",:button_html => {:disable_with => '...'}
+    = f.button :submit, :label => "发表",:button_html => {:disable_with => '...'}

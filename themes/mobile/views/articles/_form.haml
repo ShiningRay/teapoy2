@@ -6,7 +6,7 @@
 
 - @article.created_at ||= Time.now if @article
 #new_article_form
-  = semantic_form_for(@article||:article, :url => @group ? articles_path(@group) : {:controller => 'articles', :action => 'create'},:html=>{:multipart => true} ) do |f|
+  = simple_form_for(@article||:article, :url => @group ? articles_path(@group) : {:controller => 'articles', :action => 'create'},:html=>{:multipart => true} ) do |f|
     = f.inputs do
       - if @groups
         = f.input :group, :label => '小组', :as => :select, :collection => @groups, :include_blank => false, :prompt => '请选择一个小组'

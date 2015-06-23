@@ -12,7 +12,7 @@
 
 - @article.created_at ||= Time.now if @article
 = '发帖需审核'
-= semantic_form_for(@article, :url => @group ? articles_path(@group) : {:controller => 'articles', :action => 'create'},:html=>{:multipart => true} ) do |f|
+= simple_form_for(@article, :url => @group ? articles_path(@group) : {:controller => 'articles', :action => 'create'},:html=>{:multipart => true} ) do |f|
   = f.inputs do
     - unless @group
       - groups = current_user.publications(Group)

@@ -1,6 +1,6 @@
 %h3 编辑
 #edit_post
-  = semantic_form_for(@post, :as => :post, :url => post_path(@post)) do |f|
+  = simple_form_for(@post, :as => :post, :url => post_path(@post)) do |f|
     = f.inputs do
       = f.input :content, :as => :text
     = f.actions do

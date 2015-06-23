@@ -241,32 +241,6 @@ h3 {
 .comments-list {
 
 }
-.formtastic {
-    label {
-        display: block;
-        }
-    fieldset {
-        border: none;
-    }
-    .required { color: red; }
-    .inline label {
-        display: inline;
-    }
-    .file input {
-        width: 100%;
-    }
-    textarea {
-        height: 5em;
-    }
-    input[type=submit] {
-      height: 2em;
-      font-size: 1.3em;
-      width: 5em;
-    }
-    .action {
-      text-align: left;
-    }
-}
 
 #comment_form {
     background: none repeat scroll 0 0 #E9F4E9;

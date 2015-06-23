@@ -254,8 +254,6 @@ GEM
       thor (~> 0.19.1)
     forgery (0.6.0)
     formatador (0.2.5)
-    formtastic (3.0.0)
-      actionpack (>= 3.2.13)
     fuubar (2.0.0)
       rspec (~> 3.0)
       ruby-progressbar (~> 1.4)
@@ -679,7 +677,6 @@ DEPENDENCIES
   font-awesome-rails
   foreman
   forgery
-  formtastic (~> 3.0.0)
   fuubar
   guard
   guard-bundler

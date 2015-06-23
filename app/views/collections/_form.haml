@@ -1,8 +1,7 @@
 #new_collection_form
-  = semantic_form_for(@collection, :url => !@collection.new_record? && "/collections/#{@collection.id}") do |f|
-    = f.inputs do
-      = f.input :title,:label => '列表名字'
-      = f.input :content, :as => :text, :label => '列表说明'
-      =# f.input :status, :as => :check_boxes, :label => '私有'
-    = f.actions do
-      = f.action :submit, :label => @collection.new_record? ? '创建' : '更新',:button_html => {:disable_with => '...'}
+  = simple_form_for(@collection, :url => !@collection.new_record? && "/collections/#{@collection.id}") do |f|
+
+    = f.input :title,:label => '列表名字'
+    = f.input :content, :as => :text, :label => '列表说明'
+    =# f.input :status, :as => :check_boxes, :label => '私有'
+    = f.button :submit, :label => @collection.new_record? ? '创建' : '更新',:button_html => {:disable_with => '...'}

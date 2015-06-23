@@ -7,7 +7,7 @@
   - if @group.options.only_member_can_reply and logged_in? and !current_user.is_member_of?(@article.group)
     = submit_to '加入小组发表评论', join_group_path(@article.group)
   - else
-    = semantic_form_for(@post || [@article, @article.comments.new], :url => group_article_comments_path(@group, @article), :html => {:multipart => true}) do |f|
+    = simple_form_for(@post || [@article, @article.comments.new], :url => group_article_comments_path(@group, @article), :html => {:multipart => true}) do |f|
       - if logged_in? or @group.options.guest_can_reply
         = current_user.login if logged_in?
       - else

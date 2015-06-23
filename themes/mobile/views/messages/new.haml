@@ -1,6 +1,6 @@
 - content_for :title, '写新纸条'
 = render 'nav'
-= semantic_form_for(@message) do |f|
+= simple_form_for(@message) do |f|
   = f.inputs do
     - if @message.recipient
       %p(style="background:url(#{ @message.recipient.avatar.url("thumb")}) no-repeat top 320px;height:40px;")

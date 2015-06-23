@@ -7,24 +7,23 @@
 =# @article.top_post.errors
 - @article.created_at ||= Time.now if @article
 #new_article_form
-  = semantic_form_for(@article, url: @article.new_record? ? (@group ? articles_path(@group) : {controller: 'articles', action: 'create'}) : [@group, @article],html:{multipart: true} ) do |f|
+  = simple_form_for(@article, url: @article.new_record? ? (@group ? articles_path(@group) : {controller: 'articles', action: 'create'}) : [@group, @article],html:{multipart: true} ) do |f|
     = f.input :status, as: :hidden if @article.new_record? and logged_in? and (current_user.is_admin? or (@group && current_user.own_group?( @group)))
-    = f.inputs do
-      - unless @group
-        - groups = current_user.joined_groups
-        = f.input :group, label: '小组', as: :select, collection: groups, include_blank: false, prompt: '请选择一个小组'
-        - if groups.size == 0
-          您还没加入任何小组，
-          = link_to '赶紧去找一个找自己喜欢的吧', groups_path
+    - unless @group
+      - groups = current_user.joined_groups
+      = f.input :group, label: '小组', as: :select, collection: groups, include_blank: false, prompt: '请选择一个小组'
+      - if groups.size == 0
+        您还没加入任何小组，
+        = link_to '赶紧去找一个找自己喜欢的吧', groups_path
 
-      = f.input :title, label: '标题', required: false, hint: '标题可以省略',input_html:{value:params[:title] || @article.title}
-      = f.input :content, as: :text, label: '正文'
+    = f.input :title, label: '标题', required: false, hint: '标题可以省略',input_html:{value:params[:title] || @article.title}
+    = f.input :content, as: :text, label: '正文'
     = f.input :picture, :as => :file, :label => '图片附件'
     = f.input :uncommentable, label: '禁止评论', as: :boolean, default: false
     = f.input :anonymous, as: :boolean, label: '匿名发表（花费20积分）' if logged_in?
-    = f.inputs id: :picture_attachment_fields, for: :attachments do |attachment_form|
-      = attachment_form.input :type, as: :hidden, value: 'Picture'
-      = attachment_form.input :picture, as: :file
+    -# = f.simple_fields_for :attachments, id: :picture_attachment_fields do |attachment_form|
+    -#   = attachment_form.input :type, as: :hidden, value: 'Picture'
+    -#   = attachment_form.input :picture, as: :file
     - if logged_in?
       - sina = current_user.user_tokens.sina
       - if sina.present?
@@ -34,8 +33,7 @@
           = f.input :sync_to_sina, as: :boolean, label: '同步到新浪微博', input_html: {checked: true}
       - else
         = link_to '绑定新浪微博后同步发送', '/syncs/sina/new'
-    = f.actions do
-      = f.action :submit, label: @article.new_record? ? '发布' : '修改', button_html: {data:{disable_with: '...'}, class: 'btn btn-primary'}
+    = f.button :submit, @article.new_record? ? '发布' : '修改', button_html: {data:{disable_with: '...'}, class: 'btn btn-primary'}
 - content_for :javascripts do
   :javascript
     $(function(){

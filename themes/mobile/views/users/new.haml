@@ -12,7 +12,7 @@
         =link_to group.name,group_path(group),:target => "_blank"
 #flash_messages
   =flash[:error]
-= semantic_form_for @user do |f|
+= simple_form_for @user do |f|
   = hidden_field_tag :group ,params[:group]
   = hidden_field_tag :invite ,params[:invite]
   = f.input :login, :label => '用户名', :hint =>'用户名是您在网站上<strong>公开的</strong>唯一ID，用来将您和其他用户区分。只能使用英文字母、数字、下划线和减号，3到16个字符之间，请勿使用QQ号或手机号'.html_safe, :required => true,:input_html => { :class => 'need_verify',:check_area=>"login"}

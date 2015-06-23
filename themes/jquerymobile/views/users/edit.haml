@@ -1,6 +1,6 @@
 = stylesheet_link_tag "/stylesheets/jquery-ui-1.8.16.custom.css", :media =>"screen"
 #edit_user_form
-  = semantic_form_for @user, :html => {:multipart => true } do |f|
+  = simple_form_for @user, :html => {:multipart => true } do |f|
     %span{:style=>"color:red;"}
       = @rename_result if   @rename_result
     -if @user.balance.credit > 199
