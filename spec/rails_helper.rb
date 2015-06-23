@@ -96,6 +96,6 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
   config.filter_run_excluding :broken => true
 
-
+  config.include ActiveSupport::Testing::TimeHelpers
   config.include AuthenticationHelper
 end

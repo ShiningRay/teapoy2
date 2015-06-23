@@ -1,8 +1,5 @@
-#= require waypoints/jquery.waypoints.js
-#= require waypoints/shortcuts/inview.js
-
-
-$(document).bind 'pageinit', ->
+# loading more
+$(document).bind 'pageshow', ->
   $('a[rel=next]').click ->
     if $(this).hasClass('loading')
       return false
@@ -14,11 +11,9 @@ $(document).bind 'pageinit', ->
       this.href = $(data).find('a[rel=next]').attr('href')
       $(this).removeClass('loading')
       $.mobile.loading( "hide" )
-      Waypoint.refreshAll()
     return false
 
-  # inview = new Waypoint.Inview
-  #   element: $('a[rel=next]')[0]
-  #   enter: (direction) ->
-  #     console.log('enter')
-  #     $('a[rel=next]').click() if direction is 'down'
+# infinitive scrolling
+$(document).bind 'scrollstop', ->
+  if $(window).scrollTop() + $(window).height() >= $(document).height() - 100
+    $('a[rel=next]').click()
