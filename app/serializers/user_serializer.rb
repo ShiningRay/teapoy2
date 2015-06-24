@@ -31,7 +31,7 @@
 #
 
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :login, :name, :created_at, :avatar, :user_url#, :message_url
+  attributes :id, :login, :name, :created_at, :avatar, :user_url, :avatar_url#, :message_url
 
   def avatar
     if object.avatar?
@@ -46,6 +46,10 @@ class UserSerializer < ActiveModel::Serializer
 
       }
     end
+  end
+
+  def avatar_url
+    object.avatar.medium.url if object.avatar?
   end
 
   def user_url
