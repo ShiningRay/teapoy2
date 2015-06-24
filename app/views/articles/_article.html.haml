@@ -35,7 +35,7 @@
               :id=>"c-#{article.id}"}
               = typicon 'messages'
               = article.comments.size > 0 ? "#{article.comments.size}条评论" : "暂无评论"
-        %li.post-signature{:class => article.anonymous ? article.user.class_names : ''}
+        %li.post-signature
           .user-info
             - unless article.anonymous
               - user = article.user
