@@ -6,7 +6,7 @@
       -top_post = article.top_post
       -group = article.group
       -next if top_post.blank?
-      %article.cf{:class => [article.class_names, (top_post and  top_post.score > 0 ? 'pos' : (top_post.score < 0 ? 'neg' : 'zero')) ] }
+      %article.cf{:class => [(top_post and  top_post.score > 0 ? 'pos' : (top_post.score < 0 ? 'neg' : 'zero')) ] }
         - unless article.title.blank?
           %h4.title= link_to article.title, article_path(group, article), :rel => 'permalink bookmark'
         - else

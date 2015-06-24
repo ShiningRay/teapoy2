@@ -1,6 +1,6 @@
 - group = @group || article.group
 - post = article.top_post
-%div[article]{:class => article.class_names}><
+%div[article]><
   - unless article.title.blank?
     %h2.title><= link_to article.title, article_path(group, article)
   .content><= render_posts post

@@ -56,7 +56,6 @@ class CommentsController < ApplicationController
         comments_json = @comments.as_json(:except => [:group_id, :status], :expand_user => true)
         comments_json.each_with_index do |item,index|
           item[:html] = render_to_string(:partial => "posts/#{@comments[index].class.name.underscore}", :object => @comments[index])
-          item[:class_names]= [@comments[index].class_names,read_status_class(@comments[index]), @comments[index].user.class_names].flatten
           item[:rate_status]= logged_in? ? current_user.rate_status(@comments[index]) : 'unvoted'
         end
         render :json => comments_json, :callback => params[:callback]
@@ -229,7 +228,6 @@ class CommentsController < ApplicationController
           if comment.persisted?
             comment_json = @comment.as_json
             comment_json["html"] = render_to_string(:partial => "posts/#{@comment.class.name.underscore}", :object => @comment)
-            comment_json["class_names"] = @comment.class_names
             comment_json["rate_status"] = logged_in? ? current_user.rate_status(@comment) : 'unvoted'
             render :json => comment_json, :status => :created#, :location => [:group]
           else

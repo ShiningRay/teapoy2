@@ -5,7 +5,7 @@
 - read=nil
 - if logged_in?
   - read = current_user.has_truly_read_article?(article) ? 'read' : 'unread'
-%article.cf.hentry[article]{:class => [article.class_names, read]}
+%article.cf.hentry[article]{:class => read}
   .user-info
     - user = article.user
     - if user

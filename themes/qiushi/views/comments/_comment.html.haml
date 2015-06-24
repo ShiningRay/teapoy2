@@ -2,7 +2,7 @@
 - user = comment.user
 - anon = comment.anonymous? or user.deleted?
 / = comment.floor
-%li[comment]{:class => comment.class_names, :data => {:comment_id => comment.id, :date => comment.created_at.strftime('%Y-%m-%d %H:%M:%S'), :floor => f}}
+%li[comment]{:data => {:comment_id => comment.id, :date => comment.created_at.strftime('%Y-%m-%d %H:%M:%S'), :floor => f}}
   - if comment.status == 'deleted'
     该评论已被删除
   - else

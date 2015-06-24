@@ -6,7 +6,7 @@
   %h2.entry-title
     = link_to article.title, article_path(group, article), :rel => 'bookmark'
 - voted = logged_in? ? current_user.has_rated?(top_post).to_i  : 0
-.cf.hentry[article]{:class => article.class_names}
+.cf.hentry[article]
   %table
     %tr
       %td.votecell
@@ -48,7 +48,7 @@
                 = link_to '通过', publish_article_path(group,article),:class=>"publish-article"
                 = link_to '移出', move_out_article_path(group,article),:class=>"move-out-article"
               = link_to '修改', edit_article_path(group, article) if current_user.own_article?(article)
-          %li.post-signature{:class => article.anonymous ? article.user.class_names : ''}
+          %li.post-signature
             .user-info
               - unless article.anonymous
                 - user = article.user

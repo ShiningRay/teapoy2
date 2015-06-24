@@ -1,7 +1,7 @@
 =# f = comment.floor || (comment_counter + 1)  %>
 - f = comment.floor #comment_counter + 1
 - t = comment.total_score
-- user = comment.user
+- user = comment.user.decorate
 - anon = comment.anonymous or comment.user_id == 0 or (not user) or user.deleted?
 =#comment.floor
 %li.comment.cf.post{:id => "post_#{comment.id}",

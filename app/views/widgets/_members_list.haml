@@ -10,4 +10,4 @@
       = link_to image_tag(owner.avatar.small.url, :size => '64x64', :alt => alt, :class => 'avatar'), owner, :title => alt,:data => {:login => owner.login},:class=>"user"
     - for u in  User.joins(:memberships).joins("LEFT  JOIN reputations ON users.id = reputations.user_id and (reputations.group_id = memberships.group_id )").select("users.* , memberships.role as membership_role,memberships.group_id as membership_group_id, reputations.value ").where("memberships.group_id = ? ",@group.id).order("reputations.value desc,id asc ").limit(28).uniq
       - alt = "#{u.name_or_login} (@#{u.login})"
-      %li{:class => u.class_names}= link_to image_tag(u.avatar.thumb.url, :alt => alt, :class => 'avatar'), u, :title => alt,:class=>"user",:data => {:login => u.login}
+      %li= link_to image_tag(u.avatar.thumb.url, :alt => alt, :class => 'avatar'), u, :title => alt,:class=>"user",:data => {:login => u.login}

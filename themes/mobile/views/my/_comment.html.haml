@@ -1,4 +1,4 @@
-%div[comment]{:class => [comment.class_names, cycle('even', 'odd'), is_mine_class(comment),read_status_class(comment)]}
+%div[comment]{:class => [cycle('even', 'odd'), is_mine_class(comment),read_status_class(comment)]}
   - if comment.status == 'deleted'
     已被删除
   - else

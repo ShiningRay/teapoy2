@@ -1,5 +1,5 @@
 - user = comment.original_user
-%li[comment]{:class => comment.class_names}
+%li[comment]
   %span.left.comment-manage{:id => "entity#{comment.id}"}
   = check_box_tag('id[]', comment.id.to_s, comment.status == 'publish', :id => 'id' + comment.id.to_s, :class => 'entry-id')
   [

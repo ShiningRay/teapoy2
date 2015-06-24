@@ -5,8 +5,8 @@
 - anon = comment.anonymous or comment.user_id == 0 or (not user) or user.deleted?
 =#comment.floor
 %li.comment.post.cf{:id => "post_#{comment.id}",
-              :class => [comment.class_names, is_mine_class(comment),
-                          cycle('odd', 'even'), read_status_class(comment), user.class_names],
+              :class => [is_mine_class(comment),
+                          cycle('odd', 'even'), read_status_class(comment)],
               :data  => {:user_id => comment.anonymous ? '' : comment.user_id,
                           :parent_id => comment.parent_id,
                           :floor  => f,

@@ -69,9 +69,9 @@ class Article
     @sync_to_sina = false if val == "0"
   end
 
-  def to_param
-    "#{id}-#{slug}"
-  end
+  # def to_param
+  #   slug.present? ? "#{id}-#{slug}" : id
+  # end
 
   def change_group_status
     group.update_attributes!(status: "open")

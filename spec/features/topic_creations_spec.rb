@@ -13,6 +13,7 @@ RSpec.feature "TopicCreations", type: :feature do
 
     click_button '发布'
 
+
     expect(page).to have_content('test')
     expect(page).to have_content('ShiningRay')
     # 10s 后跳转首页
