@@ -106,7 +106,7 @@ module AuthenticatedSystem
     end
 
     def anonymous
-      self.current_user= User.find(0)
+      self.current_user= User.guest
     end
 
     # This is ususally what you want; resetting the session willy-nilly wreaks

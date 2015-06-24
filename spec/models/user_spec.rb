@@ -34,5 +34,40 @@
 require 'rails_helper'
 
 describe User do
+  describe '.guest' do
+    subject { User.guest }
+    its(:login) { should == 'guest' }
+    its(:email) { should == 'guest@bling0.com'}
+    context 'already has a guest record' do
+      before {
+        create(:user, login: 'guest', name: 'Guest', email: 'guest@bling0.com')
+      }
+      its(:login) { should == 'guest' }
+      its(:email) { should == 'guest@bling0.com'}
+      its(:id) { should_not be_nil }
+    end
+  end
 
+  describe '#rename'  do
+    let(:new_name) { 'NewName' }
+    context 'a user has credits' do
+      let(:user) { create :rich_user }
+      it 'renames to new_name' do
+
+        expect{
+          user.rename new_name
+        }.to change{ user.name_logs.count }
+        user.reload
+        expect(user.name).to eq(new_name)
+      end
+    end
+    context 'a user has no credits' do
+      let(:user) { create :active_user }
+      it 'raise error when renaming' do
+        expect{
+          user.rename new_name
+        }.to raise_error(Balance::InsufficientFunds)
+      end
+    end
+  end
 end

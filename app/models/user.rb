@@ -190,7 +190,7 @@ class User < ActiveRecord::Base
   #end
 
   def self.guest
-    find_by_login('guest')
+    find_by_login('guest') || User.new(login: 'guest', name: 'Guest', email: 'guest@bling0.com').freeze
   end
 
   def rename new_name
@@ -234,7 +234,7 @@ class User < ActiveRecord::Base
   def self.wrap!(obj)
     case obj
     when nil
-      find(0)
+      guest
     when String
       u = find_by_id!(obj) if obj =~ /\A\d+\z/
       u || find_by_login!(obj)
@@ -248,7 +248,7 @@ class User < ActiveRecord::Base
   def self.wrap(obj)
     case obj
     when nil
-      find_by_id(0)
+      guest
     when String
       u = find_by_id(obj) if obj =~ /\A\d+\z/
       u || find_by_login(obj)
@@ -282,7 +282,7 @@ class User < ActiveRecord::Base
   ##
   # Public - Test if user is the original author of the article
   # @param article [Article]
-  
+
   def own_article?(article)
     article.read_attribute(:user_id) == self.id
   end

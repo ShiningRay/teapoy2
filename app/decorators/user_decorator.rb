@@ -10,5 +10,4 @@ class UserDecorator < Draper::Decorator
       names
     end
   end
-
 end
