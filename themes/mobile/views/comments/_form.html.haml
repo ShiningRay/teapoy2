@@ -19,15 +19,14 @@
           %label
             密　码
             %input(name="user[password]" type="password")
-      = f.inputs do
-        = f.input :parent_id, :as => :hidden
-        = f.input :content, :as => :text, :input_html => {:rows => 4}, :hint => link_to('回帖格式', '/faq/comment-format')
-        = f.input :anonymous, as: :boolean  if logged_in?
-        = f.input :picture, :as => :file, :label => '上传文件'
-        -if logged_in? && !(current_user.has_rewarded(@article) || current_user.own_article?(@article))
-          %label.reward
-            打赏积分(每个帖子只能打赏一次)：
-          %input(type='text' name='reward')
+      = f.input :parent_id, :as => :hidden
+      = f.input :content, :as => :text, :input_html => {:rows => 4}, :hint => link_to('回帖格式', '/faq/comment-format')
+      = f.input :anonymous, as: :boolean  if logged_in?
+      = f.input :picture, :as => :file, :label => '上传文件'
+      -if logged_in? && !(current_user.has_rewarded(@article) || current_user.own_article?(@article))
+        %label.reward
+          打赏积分(每个帖子只能打赏一次)：
+        %input(type='text' name='reward')
       - if !logged_in? or (logged_in? and current_user != @parent.user)
         %div.inline><
           投票
@@ -44,5 +43,4 @@
           - if r
             您已投了
             = r > 0 ? '顶' : '拍'
-      = f.actions do
-        = f.action :submit, :label => '回复', :button_html => {:disable_with => '...'}
+      = f.button :submit, '回复', :button_html => {:disable_with => '...'}

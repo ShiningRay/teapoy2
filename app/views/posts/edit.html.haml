@@ -1,9 +1,8 @@
 %h3 编辑
 #edit_post
   = simple_form_for(@post, :as => :post, :url => post_path(@post)) do |f|
-    = f.inputs do
-      = f.input :content, :as => :text
-    = f.actions do
-      = f.action :submit, :label => '更新', :button_html => {:disable_with => '...'}
+
+    = f.input :content
+    = f.button :submit, '更新', :button_html => {:disable_with => '...'}
 
 = link_to '取消', [@post.group, @post.article]

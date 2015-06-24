@@ -10,7 +10,7 @@ class ArticleSerializer < ActiveModel::Serializer
   #     res['user'] = user.as_json unless anonymous?
   #     res['top_post'] = top_post.as_json
   #     res['title'] ||= ''
-  #     res['cached_slug'] ||= ''
+  #     res['slug'] ||= ''
   #     res['group'] = group.alias
   #     res['group_name'] = group.name
   #     res['status'] ||= ''
