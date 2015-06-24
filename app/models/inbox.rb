@@ -1,4 +1,6 @@
 # coding: utf-8
+##
+# Public
 # Inbox
 class Inbox
   include Mongoid::Document
@@ -48,14 +50,19 @@ class Inbox
   scope :lt1,      -> {where(:score.lt => 1)}
   scope :hottest,  -> {desc(:score)}
   scope :by_user,    -> (user) { where(user_id: User.wrap(user).id)}
-  scope :by_article, -> (article) { where(article_id: Article.wrap(article).id) }
+  scope :by_article, -> (article) { where(article_id: article) }
 
 
-
+  ##
+  # Public
+  # @return [Boolean] if the entry is read by its owner
   def read?
     read === true
   end
 
+  ##
+  # Public
+  #
   def read!
     self.score = 0
     self.post_ids = []
@@ -63,14 +70,20 @@ class Inbox
     save!
   end
 
+
   def self.read!
     update_all(score: 0, post_ids: [], read: true)
   end
 
+  ##
+  # Protected
+  # @param post [Post] Post object or post id
   def add_post(post)
     add_to_set :post_ids => post.id
   end
 
+  ##
+  # @param post [Post] Post object to remove
   def remove_post(post)
     pull :post_ids => post.id
   end
@@ -123,7 +136,9 @@ class Inbox
 
     # Public:
     # if the item not exists in user's inbox, then create it
-    #
+    # @param user [User]
+    # @param post [Post]
+
     def deliver(user, post)
       user = User.wrap(user)
       post = Post.wrap(post)
@@ -171,6 +186,8 @@ class Inbox
     # then just update score of the inbox entry
     # when the repost is permitted to into the inbox
     # create an entry for it
+    # @param user [User]
+    # @param post [Post]
     def deliver_repost(user, post)
       user = User.wrap(user)
       post = Post.wrap(post)
@@ -293,7 +310,7 @@ class Inbox
       puts offset
       puts item_count
       results = s.limit(limit).skip(offset)
-      results.each &block
+      results.each(&block)
       offset += limit
       item_count -= limit
     end

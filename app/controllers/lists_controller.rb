@@ -108,7 +108,7 @@ class ListsController < ApplicationController
     if @list.user != current_user
       return
     end
-    @article = Article.wrap(params[:article_url].split("/").last.split("#").first)
+    @article = Article.find(params[:article_url].split("/").last.split("#").first)
     if @article.status != 'publish'
       flash[:error] = '该文章无法公开'
     elsif @article.group.preferred_encryption?

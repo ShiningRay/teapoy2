@@ -12,11 +12,13 @@ module User::ReadStatusAspect
 
   # Public check if user has read some article
   #
-  # article - Article to check
+  # @params article []- Article to check
   #
   # Return a Integer stands for the max post floor id which user has already read
   def has_read_article?(article)
-    article= Article.wrap(article)
+    if article.is_a?(Fixnum)
+      article= Article.find(article)
+    end
     aid = article.id
     read_status_cache[aid] ||= read_statuses.where(:article_id => aid).select(:read_to).first.try(:read_to)
   end
@@ -72,7 +74,7 @@ module User::ReadStatusAspect
 
   def mark_article_as_read(article, floor=0)
     aid = article
-    article = Article.wrap(article)
+    article = Article.find(article)
     return Rails.logger.info{"Cannot find article #{aid}"} unless article
     mark_read(article, floor)
     notifications.by_scope(:reply).by_subject(article).read!
