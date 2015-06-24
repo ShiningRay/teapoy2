@@ -1,5 +1,5 @@
 #new_list_form
-  =  semantic_form_for(@list) do |f|
+  =  simple_form_for(@list) do |f|
     = f.inputs do
       = f.input :name,:label => '列表名字'
       = f.input :notes,:as => :text, :label => '列表说明'

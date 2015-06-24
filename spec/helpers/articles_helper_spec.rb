@@ -14,7 +14,7 @@ describe ArticlesHelper do
       article.save(:validate => false)
       # $stderr << article.inspect
       # $stderr << group.inspect
-      content = helper.embed_article(article.group.alias, article.cached_slug)
+      content = helper.embed_article(article.group.alias, article.slug)
       expect(content).to eq(article.content)
     end
   end

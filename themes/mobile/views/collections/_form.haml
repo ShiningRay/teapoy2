@@ -1,5 +1,5 @@
 #new_collection_form
-  = semantic_form_for(@collection, :url => !@collection.new_record? && "/collections/#{@collection.id}") do |f|
+  = simple_form_for(@collection, :url => !@collection.new_record? && "/collections/#{@collection.id}") do |f|
     = f.inputs do
       = f.input :title,:label => '列表名字'
       = f.input :content, :as => :text, :label => '列表说明'

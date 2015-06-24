@@ -32,7 +32,7 @@
   #signup-area{:style=>"#{from_sina ? 'padding-top:0px;' : ''}"}
     #flash_messages
       =flash[:error]
-    = semantic_form_for @user, :url => {:controller => 'register', :action => 'create_account'} do |f|
+    = simple_form_for @user, :url => {:controller => 'register', :action => 'create_account'} do |f|
       - if from_sina
         %li
           %label{:style=>"width:310px;"}

@@ -2,6 +2,9 @@
   = @badge.new_record? ? 'New' : 'Edit'
   badge
 
-= semantic_form_for([:admin,@badge], :html => {:multipart => true }) do |f|
-  = f.inputs :name, :title, :description, :icon
-  = f.actions :submit
+= simple_form_for([:admin, @badge], :html => {:multipart => true }) do |f|
+  = f.input :name
+  = f.input :title
+  = f.input :description
+  = f.input :icon
+  = f.button :submit

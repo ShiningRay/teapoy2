@@ -1,26 +1,22 @@
-= stylesheet_link_tag "/stylesheets/jquery-ui-1.8.16.custom.css", :media =>"screen"
+
 #edit_user_form
-  = semantic_form_for @user, :html => {:multipart => true } do |f|
+  = simple_form_for @user, :html => {:multipart => true } do |f|
     %span{:style=>"color:red;"}
       = @rename_result if   @rename_result
     -if @user.balance.credit > 199
-      = f.inputs '修改昵称,修改昵称需要消耗您200积分' do
-        = f.input :name, :label => '昵称请保持和谐～昵称是您想展示给网友的名字。名字中不可加入@、&、‘、<、或>符号，不可在开头和结尾使用空格或缩格，最多10个字符'
+      = f.input :name, :label => '昵称请保持和谐～昵称是您想展示给网友的名字。名字中不可加入@、&、‘、<、或>符号，不可在开头和结尾使用空格或缩格，最多10个字符', :hint => '修改昵称,修改昵称需要消耗您200积分'
     -else
       修改昵称需要200积分哦～～～～～
-    = f.input :preferred_want_receive_notification_email, :as => :radio,:label => '是否愿意接收伟大的尽职的一刻都不休息的博聆服务器发出的新通知邮件～'
-    = f.input :preferred_sex,:label => '性别～',:as => :radio, :collection => {"男"=>"male", "女"=>"female"}
-    = f.input :preferred_birthday,:label => '生日～',  :input_html => {:class=>"datepicker"}
+    = f.input :preferred_want_receive_notification_email, :as => :radio_buttons,:label => '是否愿意接收伟大的尽职的一刻都不休息的博聆服务器发出的新通知邮件～'
+    = f.input :preferred_sex,:label => '性别～',:as => :radio_buttons, :collection => {"男"=>"male", "女"=>"female"}
+    = f.input :preferred_birthday, :label => '生日～', :as => "date",  :input_html => {:class=>"datepicker"}
     = f.input :preferred_hometown, :label => '现居住地(便于我们组织线下活动)～'
 
-    = f.inputs '修改头像' do
-      = f.input :avatar, :label => '选取头像（200x200，文件大小不得超过2M）'
-      = link_to '高级修改功能', [:edit, @user, :avatar]
+    -# fieldset '修改头像'
+    = f.input :avatar, :label => '选取头像（200x200，文件大小不得超过2M）'
+    = link_to '高级修改功能', [:edit, @user, :avatar]
 
-    = f.inputs '修改邮箱' do
-      = f.input :email
-      = @user.pending? ? '未激活' : raw('<span style="color:green">已激活</span>')
-    = f.actions do
-      = f.action :submit, :label => '修改', :button_html => {:disable_with => '...'}
-
-
+    -# fieldset '修改邮箱' do
+    = f.input :email
+    = @user.pending? ? '未激活' : raw('<span style="color:green">已激活</span>')
+    = f.button :submit, '修改', :button_html => {:disable_with => '...'}

@@ -1,5 +1,5 @@
 #edit_group
-  = semantic_form_for @group, :html => {:multipart => true} do |f|
+  = simple_form_for @group, :html => {:multipart => true} do |f|
     = f.inputs do
       - if @group.new_record?
         -if  current_user.credit > 10000

@@ -108,14 +108,6 @@ class Article
     group.update_attributes!(status: "open")
   end
 
-  def cached_slug
-    self[:slug]
-  end
-
-  def cached_slug=(new_slug)
-    self[:slug]=new_slug
-  end
-
   def comments_count
     posts.count - 1
   end
@@ -207,7 +199,7 @@ class Article
         art = dup
         #transaction requires_new: true do
         art.group_id = gid
-        art.cached_slug = nil
+        art.slug = nil
         art.top_post = op
         art[:posts_count] = 1
         art.save!
@@ -289,35 +281,12 @@ class Article
     end
   end
 
-  def self.find_by_cached_slug(slug)
-    where(slug: slug).first
-  end
-
   def self.find_by_slug(slug)
     where(slug: slug).first
   end
 
   def self.find_by_id(id)
     where(id: id).first
-  end
-
-  def self.migrate_from_mysql_to_mongo
-    conn = ActiveRecord::Base.connection
-    start = 0
-    loop do
-      articles = conn.select "select * from articles where id > #{start} limit 1000"
-      break if articles.size == 0
-      articles.each do |article|
-        start = article['id']
-        article['_id'] = article.delete('id')
-        article['slug'] = article.delete('cached_slug')
-        article['anonymous'] = (article['anonymous'] == 1)
-        Article.collection.insert article
-      end
-    end
-    session = Mongoid.default_session
-    session[:sequences].find(seq_name: 'article__id').upsert(seq_name: 'article__id', number: start+1)
-
   end
 
   def self.remove_deleted

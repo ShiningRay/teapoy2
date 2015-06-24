@@ -1,44 +1,42 @@
 #edit_group
-  = semantic_form_for @group, :html => {:multipart => true} do |f|
-    = f.inputs do
-      - if @group.new_record?
-        -if  current_user.credit > 10000
-          %li{:id=>"group_user_balance_input",:class=>"optional"}
-            我要用马上创建小组（这会消耗您10000积分）
-            =check_box_tag 'user_balance',"yes"
-        %li{:id=>"group_alias_input",:class=>"string optional"}
-          %label{:for=>"group_alias"}
-            代号,用作小组的URL中的唯一标示，限英文，三个字符以上
-          www.bling0.com/groups/
-          %input{:type=>"text",:name=>"group[alias]" ,:maxlength=>"255" ,:id=>"group_alias",:style=>"width:420px;"}
-        -#= f.input :alias, :hint => '用作小组的URL中的唯一标示，限英文，三个字符以上'
-        = f.input :name
-      = f.input :description, :as => :text,:input_html=>{:rows=>10}
-      %li{:id=>"group_tag_input",:class=>"string optional"}
-        %label{:for=>"group_tag"}
-          小组标签,只能从下面的标签中选取，最多<strong>五</strong>个,以逗号隔开
-        = text_field_tag 'tag', (params[:tag].join(",") if params[:tag])
-      .tags_area
-        %dl.tags
-          -ActsAsTaggableOn::Tag.where("id > 0 ").each do |tag|
-            %dd
-              =tag.name
-      = f.input :icon
+  = simple_form_for @group, :html => {:multipart => true} do |f|
+
+    - if @group.new_record?
+      -if  current_user.credit > 10000
+        %li{:id=>"group_user_balance_input",:class=>"optional"}
+          我要用马上创建小组（这会消耗您10000积分）
+          =check_box_tag 'user_balance',"yes"
+      %li{:id=>"group_alias_input",:class=>"string optional"}
+        %label{:for=>"group_alias"}
+          代号,用作小组的URL中的唯一标示，限英文，三个字符以上
+        www.bling0.com/groups/
+        %input{:type=>"text",:name => "group[alias]" ,:maxlength=>"255" ,:id=>"group_alias",:style=>"width:420px;"}
+      -#= f.input :alias, :hint => '用作小组的URL中的唯一标示，限英文，三个字符以上'
+      = f.input :name
+    = f.input :description, :as => :text,:input_html=>{:rows=>10}
+    %li{:id=>"group_tag_input",:class=>"string optional"}
+      %label{:for=>"group_tag"}
+        小组标签,只能从下面的标签中选取，最多<strong>五</strong>个,以逗号隔开
+      = text_field_tag 'tag', (params[:tag].join(",") if params[:tag])
+    .tags_area
+      %dl.tags
+        -ActsAsTaggableOn::Tag.where("id > 0 ").each do |tag|
+          %dd
+            =tag.name
+    = f.input :icon
     - if current_user.is_admin?
       %div
         %label
           组长用户名
           %input(name='user_id' type='text')
     - unless @group.new_record?
-      = f.inputs 'Settings' do
-        = f.input :preferred_only_member_can_reply, :label => '仅成员可回复', :as => :boolean
-        = f.input :preferred_only_member_can_post, :label => '仅成员可发贴', :as => :boolean
-        = f.input :preferred_only_member_can_view, :label => '仅成员可浏览', :as => :boolean
-        = f.input :preferred_articles_need_approval, :label => '文章必须经过审核', :as => :boolean
-        = f.input :preferred_comments_need_approval, :label => '评论必须经过审核', :as => :boolean
-        = f.input :preferred_receive_group_email_frequency, :label => '接受小组报表频率',  :as => :radio,:collection => {'每天' => "day", '每周' => "week" , '不接受' => 'no' }
-        = f.input :preferred_background, :label => '背景图片地址'
-        = f.input :preferred_background_style, :label => '', :as => :radio, :collection => {'平铺' => 'repeat', '居中' => 'center' }
-    = f.actions do
-      = f.action :submit, :label => @group.new_record? ? '创建小组' : "修改", :button_html => {:disable_with => '...'}
-
+      -# = f.inputs 'Settings' do
+      = f.input :preferred_only_member_can_reply, :label => '仅成员可回复', :as => :boolean
+      = f.input :preferred_only_member_can_post, :label => '仅成员可发贴', :as => :boolean
+      = f.input :preferred_only_member_can_view, :label => '仅成员可浏览', :as => :boolean
+      = f.input :preferred_articles_need_approval, :label => '文章必须经过审核', :as => :boolean
+      = f.input :preferred_comments_need_approval, :label => '评论必须经过审核', :as => :boolean
+      = f.input :preferred_receive_group_email_frequency, :label => '接受小组报表频率',  :as => :radio,:collection => {'每天' => "day", '每周' => "week" , '不接受' => 'no' }
+      = f.input :preferred_background, :label => '背景图片地址'
+      = f.input :preferred_background_style, :label => '', :as => :radio, :collection => {'平铺' => 'repeat', '居中' => 'center' }
+    = f.button :submit, @group.new_record? ? '创建小组' : "修改", :button_html => {:disable_with => '...'}

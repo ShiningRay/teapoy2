@@ -100,7 +100,6 @@ gem 'rails-i18n', '~> 4.0.0'
 # gem "oauth-plugin"
 # gem "oauth_china", github: 'iamzhangdabei/oauth_china'
 gem 'weibo_2'
-gem 'formtastic', '~> 3.0.0'
 gem 'simple_form'#, git: "https://github.com/plataformatec/simple_form"
 gem 'authlogic'
 gem 'aasm'
