@@ -39,7 +39,7 @@ class AttachmentsController < ApplicationController
   end
 
   def find_article
-    @article ||= @group.articles.wrap! params[:article_id]
+    @article ||= @group.articles.find params[:article_id]
   end
 
   def resource

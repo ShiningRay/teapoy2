@@ -9,7 +9,7 @@ describe ArticlesController, :type => :controller do
     context "there is a published article: " do
       let(:article){create :article, group: group, user: author, slug: 'test', status: 'publish'}
       it "should show speicific article" do
-        get :show, :group_id => group.alias, :id => article.slug
+        get :show, :group_id => group.alias, :id => article.id
         expect(response).to be_success
         expect(assigns(:article)).to eq(article)
       end

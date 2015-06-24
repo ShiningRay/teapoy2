@@ -344,7 +344,7 @@ class ArticlesController < ApplicationController
 
   def show
     if params[:group_id] == 'articles'
-      @article = Article.wrap! params[:id]
+      @article = Article.find params[:id]
       @group = @article.group unless @group
       return redirect_to article_path(@group, @article, format: params[:format]) unless request.format == :json
     end
@@ -406,7 +406,7 @@ class ArticlesController < ApplicationController
     return render text:"没有权限移动帖子" unless (current_user.is_admin? || current_user.own_group?(@group))
 
     Article.unscoped do
-      @article = @group.articles.wrap! params[:id]
+      @article = @group.articles.find params[:id]
     end
 
     @article.move_out
@@ -451,7 +451,7 @@ class ArticlesController < ApplicationController
   def subscribe
     raise User::NotAuthorized unless logged_in?
     @group = Group.find_by_alias! params[:group_id]
-    @article = @group.articles.wrap params[:id]
+    @article = @group.articles.find params[:id]
     current_user.subscribe @article
     respond_to do |format|
       format.html do
@@ -522,7 +522,7 @@ class ArticlesController < ApplicationController
   def publish
     @group = Group.wrap(params[:group_id])
     return render text: "对不起，你没有权限修改" if @group.owner_id != current_user.id
-    @article = @group.pending_articles.wrap!(params[:id])
+    @article = @group.pending_articles.find(params[:id])
     @article.status = "publish"
     @article.operator = current_user.id
     @article.created_at = Time.now
@@ -540,7 +540,7 @@ class ArticlesController < ApplicationController
   end
 
   def dismiss
-    @article = Article.wrap! params[:id]
+    @article = Article.find params[:id]
     item = Inbox.by_user(current_user).by_article(@article)
     item.destroy
     current_user.unsubscribe(@article) if current_user.has_subscribed?(@article)
@@ -585,10 +585,10 @@ class ArticlesController < ApplicationController
 
 
   def find_article
-    @article = scope.wrap! params[:id]
+    @article = scope.find params[:id]
   end
 
   def resource
-    @article ||= scope.wrap! params[:id]
+    @article ||= scope.find params[:id]
   end
 end

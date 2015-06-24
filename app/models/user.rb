@@ -185,20 +185,13 @@ class User < ActiveRecord::Base
   # attr_protected :login
   #attr_accessor :receive_notification_email
 
-  #只有在profile.value[:receive_notification_email]为false的时候才不接收邮件
-  def class_names
-    @names ||= Rails.cache.fetch([self.login, 'class_names'], expires_in: 1.hour) do
-      names = []
-      names << "user-#{login}"
-      names << "sex-#{profile.sex}" if profile.present? and profile.sex.present?
-      names += roles.collect{|r| "role-#{r.name}"}
-      names
-    end
-  end
-
   #def ensure_profile
   #  profile ? profile : create_profile
   #end
+
+  def self.guest
+    find_by_login('guest')
+  end
 
   def rename new_name
     result = false
@@ -223,7 +216,6 @@ class User < ActiveRecord::Base
   end
 
   # user rate specific article
-
   def has_badge?(badge)
     case badge
     when Badge
@@ -287,6 +279,10 @@ class User < ActiveRecord::Base
    result
   end
 
+  ##
+  # Public - Test if user is the original author of the article
+  # @param article [Article]
+  
   def own_article?(article)
     article.read_attribute(:user_id) == self.id
   end

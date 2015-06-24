@@ -2,6 +2,7 @@
 
 # Public
 # The article model
+
 class Article
   include Mongoid::Document
   include Mongoid::Timestamps
@@ -68,52 +69,12 @@ class Article
     @sync_to_sina = false if val == "0"
   end
 
-  def self.wrap(id)
-    case id
-    when Article
-      id
-    when String
-      id.strip!
-      if id =~ /\A\d+\z/
-        where(id: id).first
-      else
-        where(slug: id).first
-      end
-    else
-      where(id: id).first
-    end
-  end
-
-  def self.wrap!(id)
-    case id
-    when Article
-      id
-    when String
-      id.strip!
-      if id =~ /\A\d+\z/
-        find(id)
-      else
-        find_by(slug: id)
-      end
-    else
-      find(id)
-    end
-  end
-
   def to_param
-    slug.blank? ? id.to_s : slug
+    "#{id}-#{slug}"
   end
 
   def change_group_status
     group.update_attributes!(status: "open")
-  end
-
-  def cached_slug
-    self[:slug]
-  end
-
-  def cached_slug=(new_slug)
-    self[:slug]=new_slug
   end
 
   def comments_count
@@ -134,7 +95,6 @@ class Article
   scope :hottest, -> {order_by(score: 'desc')}
   scope :before, -> {where(:created_at.lt => Time.now)}
 
-
   def normalize_friendly_id(text)
     text.to_url.gsub(/[.\?~!\[\]\/()\*<>:#]/, '_')
   end
@@ -148,25 +108,16 @@ class Article
   alias_method :original_user, :user
 
   def user
-    anonymous ? User.find(0) : original_user
+    anonymous ? User.guest : original_user
   end
 
   def user_id
     anonymous ? 0 : read_attribute(:user_id)
   end
 
-  #  define_index do
-  #    indexes content
-  #    indexes tag_line
-  ##    indexes user(:login), as: :author, sortable: true, facet: true
-  #    indexes [group_id, status], as: :group_status
-  #    has user_id, created_at
-  #  end
-
   def anonymous?
     anonymous
   end
-
 
   def closed?
     comment_status == 'closed'
@@ -174,17 +125,6 @@ class Article
 
   def has_comments? status='publish'
     comments.by_status(status).count > 0
-  end
-
-  def class_names
-    c = ['article', 'hentry']
-    c << "anonymous" if anonymous
-    c << closed? ? "closed" : "open"
-    c << status
-    c << 'no-title' if title.blank?
-    # c << 'empty' if posts.size == 0
-    # c << 'no-comment' if posts.size == 1
-    c
   end
 
   def has_comments?

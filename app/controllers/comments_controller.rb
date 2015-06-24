@@ -21,7 +21,7 @@ class CommentsController < ApplicationController
        @comments = @user.comments.latest.page(params[:page])
     else
       if params[:group_id] == 'articles'
-         @article = Article.wrap! params[:article_id] unless @article
+         @article = Article.find params[:article_id] unless @article
          @group = @article.group unless @group
         return  redirect_to _article_comments_path(@group,@article)
       end
@@ -142,7 +142,7 @@ class CommentsController < ApplicationController
       end
     end
 
-    @article = Article.wrap! params[:article_id]
+    @article = Article.find params[:article_id]
 
     if @article #when creating article's comments
       #    @article = Article.find params[:comment] unless @article
@@ -266,7 +266,7 @@ class CommentsController < ApplicationController
   end
 
   def find_article
-    @article = Article.wrap!(params[:article_id])
+    @article = Article.find(params[:article_id])
   end
 
 end

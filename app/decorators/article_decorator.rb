@@ -26,4 +26,16 @@ class ArticleDecorator < Draper::Decorator
   def content
     top_post.content
   end
+
+  
+  def class_names
+    c = ['article', 'hentry']
+    c << "anonymous" if anonymous
+    c << closed? ? "closed" : "open"
+    c << status
+    c << 'no-title' if title.blank?
+    # c << 'empty' if posts.size == 0
+    # c << 'no-comment' if posts.size == 1
+    c
+  end
 end

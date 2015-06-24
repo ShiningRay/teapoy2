@@ -15,21 +15,6 @@ describe Article do
     end
   end
 
-  describe "#wrap" do
-    subject(:article){create :article}
-    context 'give an article object' do
-      it "returns article itself directly" do
-        expect(Article.wrap(subject)).to eq(subject)
-      end
-    end
-
-    context 'give an article id' do
-      it "return article according to id" do
-        expect(Article.wrap(subject.id)).to eq(subject)
-      end
-    end
-  end
-
   describe 'StatusAspect' do
     subject(:article) { create :article, group: group, status: 'pending' }
     before {
