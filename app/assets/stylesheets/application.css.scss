@@ -123,13 +123,11 @@ body {
 br.clr {
   clear: both;
 }
-
-@import "compass/css3/text-shadow";
 .salary{
 color: goldenrod;
 vertical-align:middle;
 }
-@import "compass/typography/text/replacement";
+
 #gototop{
   bottom: 15px;
   position: fixed;
@@ -137,10 +135,11 @@ vertical-align:middle;
   width: 50px;
   padding-right:15px;
   height: 50px;
-  @include replace-text('back_to_top.png');
+  @include hide-text;
+  background-image: url('back_to_top.png');
   cursor: pointer;
   &:hover {
-    @include opacity(0.5);
+    opacity: 0.5;
   }
   opacity: 0;
 }
@@ -298,10 +297,10 @@ td.new_message { width:80px;}
   }
 }
 */
-@import "compass/css3/box-shadow";
+
 .role-admin {
   .avatar {
-    @include single-box-shadow(#DAA520,0,0,3px,2px);
+    box-shadow: #DAA520 0 0 3px 2px;
   }
   .name a, .user-details a{
     //color: goldenrod;
@@ -310,7 +309,7 @@ td.new_message { width:80px;}
 }
 .role-admin.repost{
   .avatar {
-    @include single-box-shadow(#DAA520,0,0,0px,0px);
+    box-shadow: #DAA520 0 0 0px 0px;
   }
   .name a, .user-details a{
     //color: goldenrod;

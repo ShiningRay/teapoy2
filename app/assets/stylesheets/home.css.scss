@@ -10,7 +10,7 @@
 a {
   color: #F0F0F0;
   text-decoration: none;
-  @include single-text-shadow(#333, 1px, 1px, 0px);
+  text-shadow:#333  1px  1px  0px ;
 }
 .no-textshadow {
   a, label {
@@ -54,7 +54,7 @@ label, input, textarea, select, button {
     cursor: pointer;
     color: #F0F0F0;
     text-decoration: none;
-    @include single-text-shadow(#333, 1px, 1px, 0px);
+    text-shadow: #333  1px  1px  0px;
   }
   .input {
     //border: 1px solid #eee;
@@ -83,8 +83,8 @@ label, input, textarea, select, button {
       padding: 13px 20px 14px;
       height: 23px;
       outline: 0;
-      border-radius: 3px;;//
-      @include single-box-shadow(#1d1f21, 0, 0, 10px, false, true);
+      border-radius: 3px;
+      box-shadow: #1d1f21  0  0  10px  false, true ;
     }
     input:focus {
       @include opacity(1);
@@ -107,8 +107,8 @@ label, input, textarea, select, button {
     letter-spacing: 6px;
     color: white;
     border-radius: 3px;;
-    @include single-text-shadow(#333,2px, 2px, 2px);
-    @include single-box-shadow(rgba(0,0,0,0.25),1px, 1px, 1px);
+    text-shadow: #333 2px  2px  2px ;
+    box-shadow: rgba(0,0,0,0.25) 1px  1px  1px;
     @include background(linear-gradient(top, #2c97ba, #357eac));
     &:hover {
       background: none;

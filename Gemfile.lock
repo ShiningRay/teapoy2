@@ -206,10 +206,6 @@ GEM
       sass (>= 3.3.0, < 3.5)
     compass-import-once (1.0.5)
       sass (>= 3.2, < 3.5)
-    compass-rails (2.0.4)
-      compass (~> 1.0.0)
-      sass-rails (<= 5.0.1)
-      sprockets (< 2.13)
     composite_primary_keys (7.0.13)
       activerecord (~> 4.1.7)
     connection_pool (2.2.0)
@@ -660,9 +656,7 @@ DEPENDENCIES
   carrierwave-mongoid
   carrierwave-qiniu!
   coffee-rails
-  compass
   compass-blueprint
-  compass-rails
   composite_primary_keys
   connection_pool
   daemons (~> 1.1.8)
