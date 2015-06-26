@@ -3,6 +3,7 @@
  */
 
 @import "bourbon";
+@import "components/clearfix";
 @import "components/article";
 @import "components/comment";
 @import "components/group";
@@ -17,65 +18,10 @@
 @import "components/poll";
 @import "components/avatar_color";
 @import "components/reputation";
-.cf:before,
-.cf:after {
-    content:"";
-    display:table;
-}
-
-.cf:after {
-    clear:both;
-}
-
-/* For IE 6/7 (trigger hasLayout) */
-.cf {
-    zoom:1;
-}
+@import 'components/login_form';
 
 .space {
   margin-left:5px;
   margin-right:5px;
   color:#ccc;
-}
-
-#edit_user_form{
-    background-color: #E5ECFC;
-    border-radius: 10px 10px 10px 10px;
-    clear: both;
-    margin-top: 2em;
-    padding: 10px;
-
-    form {
-        border-bottom: none;
-        padding-top:0px;
-        padding-bottom:0px;
-        //@include stack-form();
-        //position: relative;
-        textarea {
-          background-color: white;
-          border: 1px solid #ccdcef;
-          padding: 3px 8px 4px;
-          border-radius: 5px;;
-        }
-        li {
-          padding: 5px;
-          clear: none;
-          width: auto;
-        }
-      }
-     li.action {
-        input {
-          background: #f0fefe;
-          border: 1px solid #ddd;
-          border-radius: 5px;;
-          padding: 5px 10px;
-          width: 70px;
-          font-size:1.1em;
-          color:#000000;
-          &:hover {
-            background: #fff;
-            border-color: black;
-          }
-        }
-      }
 }

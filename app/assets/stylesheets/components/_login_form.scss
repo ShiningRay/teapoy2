@@ -1,0 +1,52 @@
+#login-form {
+  width: 400px;
+  margin: auto;
+  form {
+    background: none repeat scroll 0 0 #FFFFFF;
+    //border: 1px solid #E5E5E5;
+    //border-radius: 3px 3px 3px 3px;
+    //box-shadow: 0 4px 10px -1px rgba(200, 200, 200, 0.7);
+    font-weight: normal;
+    //margin-left: 8px;
+    padding: 26px 24px 46px;
+    .input {
+      background: none repeat scroll 0 0 #FBFBFB;
+      border: 1px solid #E5E5E5;
+      box-shadow:rgba(200, 200, 200, 0.2) 1px 1px 2px inset;
+      font-family: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",sans-serif;
+      font-size: 24px;
+      font-weight: 200;
+      margin: 2px 6px 16px auto;
+      outline: medium none;
+      padding: 3px;
+      width: 97%;
+    }
+  }
+  label {
+    color: #777;
+    font-size: 14px;
+  }
+  textarea, input[type="text"], input[type="password"], input[type="file"], input[type="reset"], select {
+      background-color: #FFFFFF;
+      border-color: #DFDFDF;
+  }
+
+  textarea, input[type="text"], input[type="password"]{
+    &:focus {
+      border-color: #777;
+    }
+  }
+  .remember {
+      float: left;
+      font-weight: normal;
+      margin-bottom: 0;
+  }
+}
+
+.ie6 {
+  .input {
+    &.focus {
+      border-color: #777 !important;
+    }
+  }
+}
