@@ -1,7 +1,7 @@
 class Story < ActiveRecord::Base
   belongs_to :guestbook
   belongs_to :author, class_name: 'User'
-  has_many :comments
+  has_many :comments, class_name: 'StoryComment'
   validates :guestbook, :author, :body, presence: true
 
 
@@ -16,6 +16,9 @@ class Story < ActiveRecord::Base
         s.content << "\n"
       end
       s.content << article.content
+      s.save
+      article.comments.each do |p|
+      end
     end
   end
 end

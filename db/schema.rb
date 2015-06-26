@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150626161853) do
+ActiveRecord::Schema.define(version: 20150626170420) do
 
   create_table "admin_users", force: true do |t|
     t.string   "first_name",       default: "",    null: false
@@ -594,6 +594,16 @@ ActiveRecord::Schema.define(version: 20150626161853) do
   end
 
   add_index "stories", ["guestbook_id", "author_id"], name: "index_stories_on_guestbook_id_and_author_id", using: :btree
+
+  create_table "story_comments", force: true do |t|
+    t.integer  "story_id",   null: false
+    t.integer  "author_id",  null: false
+    t.text     "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "story_comments", ["story_id", "author_id"], name: "index_story_comments_on_story_id_and_author_id", using: :btree
 
   create_table "subscriptions", force: true do |t|
     t.integer  "subscriber_id"

@@ -5,6 +5,7 @@
 # end
 
 Teapoy::Application.routes.draw do
+  resources :story_comments
   resources :guestbooks do
     resources :stories
   end

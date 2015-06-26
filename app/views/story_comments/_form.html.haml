@@ -1,0 +1,10 @@
+= simple_form_for(@story_comment) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.association :story
+    = f.association :author
+    = f.input :content
+
+  .form-actions
+    = f.button :submit

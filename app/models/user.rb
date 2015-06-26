@@ -68,6 +68,7 @@ class User < ActiveRecord::Base
   t_has_many :groups, foreign_key: 'owner_id'
   has_many :guestbooks, foreign_key: 'owner_id'
   has_many :stories, foreign_key: 'author_id'
+  has_many :story_comments, foreign_key: 'author_id'
   t_has_one :profile, class_name: 'UserProfile'
   alias orig_profile profile
 

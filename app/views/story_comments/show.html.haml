@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Story:
+  = @story_comment.story
+%p
+  %b Author:
+  = @story_comment.author
+%p
+  %b Content:
+  = @story_comment.content
+
+= link_to 'Edit', edit_story_comment_path(@story_comment)
+\|
+= link_to 'Back', story_comments_path
