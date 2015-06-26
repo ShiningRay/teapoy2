@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @guestbook.name
+%p
+  %b Owner:
+  = @guestbook.owner
+%p
+  %b Description:
+  = @guestbook.description
+
+= link_to 'Edit', edit_guestbook_path(@guestbook)
+\|
+= link_to 'Back', guestbooks_path

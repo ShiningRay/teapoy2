@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150126122125) do
+ActiveRecord::Schema.define(version: 20150626161853) do
 
   create_table "admin_users", force: true do |t|
     t.string   "first_name",       default: "",    null: false
@@ -223,6 +223,17 @@ ActiveRecord::Schema.define(version: 20150126122125) do
   add_index "groups", ["alias"], name: "index_groups_on_alias", unique: true, using: :btree
   add_index "groups", ["domain"], name: "index_groups_on_domain", unique: true, using: :btree
   add_index "groups", ["hide"], name: "index_groups_on_hide", using: :btree
+
+  create_table "guestbooks", force: true do |t|
+    t.string   "name",        null: false
+    t.integer  "owner_id",    null: false
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "guestbooks", ["name"], name: "index_guestbooks_on_name", unique: true, using: :btree
+  add_index "guestbooks", ["owner_id"], name: "index_guestbooks_on_owner_id", using: :btree
 
   create_table "inboxes", force: true do |t|
     t.integer  "group_id"
@@ -541,6 +552,18 @@ ActiveRecord::Schema.define(version: 20150126122125) do
 
   add_index "simple_captcha_data", ["key"], name: "idx_key", using: :btree
 
+  create_table "sites", force: true do |t|
+    t.string   "name",                    null: false
+    t.string   "domain",     default: "", null: false
+    t.string   "alias",      default: "", null: false
+    t.integer  "owner_id",                null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sites", ["domain"], name: "index_sites_on_domain", unique: true, using: :btree
+  add_index "sites", ["owner_id"], name: "index_sites_on_owner_id", using: :btree
+
   create_table "slugs", force: true do |t|
     t.string   "name"
     t.integer  "sluggable_id"
@@ -561,6 +584,16 @@ ActiveRecord::Schema.define(version: 20150126122125) do
   end
 
   add_index "statuses", ["user_id"], name: "index_statuses_on_user_id", using: :btree
+
+  create_table "stories", force: true do |t|
+    t.integer  "guestbook_id"
+    t.integer  "author_id"
+    t.text     "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "stories", ["guestbook_id", "author_id"], name: "index_stories_on_guestbook_id_and_author_id", using: :btree
 
   create_table "subscriptions", force: true do |t|
     t.integer  "subscriber_id"

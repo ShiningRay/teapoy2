@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Guestbook:
+  = @story.guestbook
+%p
+  %b Author:
+  = @story.author
+%p
+  %b Body:
+  = @story.body
+
+= link_to 'Edit', edit_story_path(@story)
+\|
+= link_to 'Back', stories_path

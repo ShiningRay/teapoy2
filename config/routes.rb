@@ -5,6 +5,10 @@
 # end
 
 Teapoy::Application.routes.draw do
+  resources :guestbooks do
+    resources :stories
+  end
+
   resources :conversations, only: %w(index show new create destroy) do
     resources :messages
   end
