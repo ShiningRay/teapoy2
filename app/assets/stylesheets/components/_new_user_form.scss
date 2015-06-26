@@ -77,7 +77,7 @@
     }
   }
   input[type=submit] {
-    @include border-radius(10px);
+    border-radius: 10px;;
     height: auto;
     width:100px;
     clear: both;

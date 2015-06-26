@@ -25,8 +25,9 @@ describe Post do
   end
 
   describe '::FloorSequence' do
+    let(:article) { create :article }
+
     it "numbers floor correctly" do
-      article = create(:article)
       post = Post.new
       post.content = Forgery::LoremIpsum.paragraph
       post.user = create(:user)

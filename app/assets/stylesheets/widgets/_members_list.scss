@@ -1,8 +1,7 @@
-@import "compass/css3/opacity";
-@import "compass/css3/transition";
+@import 'bourbon';
 
 .members_list {
-  //@include border-radius(10px);
+  //border-radius: 10px;;
   //background: #f0f0fe;
   //border: 1px solid #eee;
   padding: 0 !important;
@@ -58,11 +57,11 @@
         width: 32px;
         height: 32px;
         float: left;
-        @include single-transition(all, 0.2s);
-        @include opacity(0.618);
+        @include transition(all 0.2s);
+        opacity: 0.618;
         &:hover {
-          @include opacity(1);
-          @include single-box-shadow(#000, 0, 0, 3px);
+          opacity: 1;
+          box-shadow: #000 0 0 3px;
           border-color: #666;
         }
       }

@@ -43,7 +43,7 @@
   }
   .score {
     background-color: #FFF7CA;
-    @include border-radius(3px);
+    border-radius: 3px;;
     color: #A19D84;
     display: inline-block;
     font-size: 0.916667em;

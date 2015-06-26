@@ -1,8 +1,0 @@
-- content_for :title, "#{article_title} - #{@group.name}"
-- if @article
-  = render(:partial => @article )
-
-  %center
-    %br/
-    = @article.prev_in_group.nil? ? "上一糗事" : link_to("上一糗事", article_path(@group, @article.prev_in_group), :rel => 'prev')
-    = @article.next_in_group.nil? ? "下一糗事" : link_to("下一糗事", article_path(@group, @article.next_in_group), :rel => 'next')

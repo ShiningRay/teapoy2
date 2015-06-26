@@ -49,7 +49,7 @@ body.lists-edit{
           margin-top:10px;
           background: #f0fefe;
           border: 1px solid #ddd;
-          @include border-radius(5px);
+          border-radius: 5px;;
           padding: 5px 10px;
           width: 70px;
           font-size:1.1em;
@@ -79,7 +79,7 @@ body.lists-edit{
           background-color: white;
           border: 1px solid #ccdcef;
           padding: 3px 0px 4px;
-          @include border-radius(5px);
+          border-radius: 5px;;
           width:500px;
           height:400px;
         }
@@ -93,7 +93,7 @@ body.lists-edit{
         input {
           background: #f0fefe;
           border: 1px solid #ddd;
-          @include border-radius(5px);
+          border-radius: 5px;;
           padding: 5px 10px;
           width: 70px;
           font-size:1.1em;

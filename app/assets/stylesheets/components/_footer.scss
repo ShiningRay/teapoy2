@@ -1,5 +1,5 @@
-@import "compass/css3/text-shadow";
-@import "compass/typography/lists/horizontal-list";
+@import "bourbon";
+
 #footer {
   clear: both;
   margin-top: 44px;
@@ -7,9 +7,15 @@
   padding: 10px 0 10px;
   text-align: left;
   ul {
-    @include horizontal-list();
+    margin:0;
+    padding: 0;
+
     float: right;
     li {
+      list-style: none;
+      margin-left: 0;
+      white-space: nowrap;
+      float: left;
       margin-right: 5px;
       padding: 0 23px 0 13px;
       background: url('diamond-black.gif') 100% 50% no-repeat;
@@ -20,7 +26,7 @@
   }
 
   h1, a {
-    @include single-text-shadow(white, 1px, 1px);
+    text-shadow: white 1px 1px;
   }
 
   a {

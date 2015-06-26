@@ -1,3 +1,0 @@
-- @articles = @group.public_articles.latest.where('articles.created_at <= ?', Time.now).includes(:top_post, :user).page(params[:page])
-= render(@articles)
-= paginate @articles
