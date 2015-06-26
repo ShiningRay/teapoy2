@@ -62,7 +62,7 @@ class Message < ActiveRecord::Base
   def self.send_message(from, to, content)
     from = User.wrap(from)
     to = User.wrap(to)
-    return false if to.disliked?(from)
+    # return false if to.disliked?(from)
     message = {
       :sender_id => from.id,
       :recipient_id => to.id,
@@ -78,6 +78,7 @@ class Message < ActiveRecord::Base
     in_message.save!
     [out_message, in_message]
   end
+
   def self.send_system_message(to, content)
     to = User.wrap(to)
     message = {

@@ -15,4 +15,17 @@ RSpec.feature "Registrations", type: :feature do
     # sleep 11
     # expect(current_path).to eq('/')
   end
+
+  scenario 'sign up via a invitation url' do
+    inviter = create :user
+    visit new_user_path(invite: inviter.id)
+    fill_in "user_name", with: 'ShiningRay'
+    fill_in "user_login", with: 'ShiningRay'
+    fill_in "user_email", with: 'shiningray@bling0.com'
+    fill_in "user_password", with: '1234qwer'
+    fill_in "user_password_confirmation", with: '1234qwer'
+    click_button '注册'
+
+    expect(page).to have_selector(:xpath, "//a[@href='/']")
+  end
 end

@@ -1,5 +1,5 @@
 class Users::PasswordsController < ApplicationController
-	before_filter :login_required
+  before_filter :login_required
 
   def edit
   end
@@ -12,13 +12,13 @@ class Users::PasswordsController < ApplicationController
       current_user.password_confirmation = params[:password_confirmation]
 
       if current_user.changed? && current_user.save!
-        flash[:error]='设置新密码成功'
+        flash[:error] = '设置新密码成功'
         return redirect_to current_user
       else
-        flash[:error]='密码太短或不匹配'
+        flash[:error] = '密码太短或不匹配'
       end
     else
-      flash[:error]='原始密码错误'
+      flash[:error] = '原始密码错误'
     end
 
     render :edit

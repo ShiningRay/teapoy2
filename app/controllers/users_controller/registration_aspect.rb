@@ -7,6 +7,7 @@ module UsersController::RegistrationAspect
   #module InstanceMethods
     def new
       #session[:return_to] = request.referer
+      @inviter = User.wrap(params[:invite]) if params[:invite]
       @user = User.new
       render :layout => 'onecolumn'
     end
@@ -36,21 +37,23 @@ module UsersController::RegistrationAspect
         return
     end
 =end
+      inviter = User.wrap(params[:invite]) if params[:invite]
+
       if @user.valid?
         @user.register!
         Rails.cache.write("R#{request.remote_ip}", '1', :expires_in => 10.minutes)
+
         unless params[:group].blank?
           @user.join_group(Group.wrap(params[:group]))
         end
-        unless params[:invite].blank?
-          inviter = User.wrap(params[:invite])
+
+        if inviter
           inviter.make_salary('invite',Date.today)
-          if inviter
-            inviter.gain_credit(50,"Invite-#{@user.id}")
-            @user.follow(inviter)
-            Message.send_message("1",inviter.id,"您成功邀请了一个用户（#{user_articles_url(@user)}），所以给您奖励50积分")
-          end
+          inviter.gain_credit(50, "Invite-#{@user.id}")
+          @user.follow(inviter)
+          Message.send_system_message(inviter.id, "您成功邀请了一个用户（#{user_articles_url(@user)}），所以给您奖励50积分")
         end
+
         unless params[:device_id].blank?
           g= Group.wrap('iphone')
           @user.join_group(g) if g
@@ -58,6 +61,7 @@ module UsersController::RegistrationAspect
           d.user_id = @user.id
           d.save!
         end
+
         respond_to do |format|
           format.any(:html, :mobile, :wml) do
             #redirect_to :controller => 'my', :action => 'index'

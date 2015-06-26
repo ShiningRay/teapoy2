@@ -6,5 +6,6 @@ FactoryGirl.define do
     sequence(:alias) {|n| "test#{n}"}
     sequence(:name) {|n| "testgroup#{n}"}
     association :owner, factory: :active_user
+    theme { ENV['THEME'] }
   end
 end
