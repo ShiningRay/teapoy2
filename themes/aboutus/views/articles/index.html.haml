@@ -1,5 +1,0 @@
-.hfeed
-  = render(:partial => "article",:collection=>@articles.reject{|a|a.top_post.nil?})
-  = paginate @articles
-- content_for :sidebar do
-  = render :partial => 'groups/sidebar'
