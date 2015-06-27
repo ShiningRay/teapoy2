@@ -1,4 +1,4 @@
 %div[story]
   .author= link_to story.author.name_or_login, story.author
-  .content= story.content
+  .content= simple_format story.content
   .comments= render story.comments
