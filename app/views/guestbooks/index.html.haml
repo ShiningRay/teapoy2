@@ -13,13 +13,8 @@
   %tbody
     - @guestbooks.each do |guestbook|
       %tr
-        %td= guestbook.name
-        %td= guestbook.owner
-        %td= guestbook.description
-        %td= link_to 'Show', guestbook
-        %td= link_to 'Edit', edit_guestbook_path(guestbook)
-        %td= link_to 'Destroy', guestbook, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
+        %td= link_to guestbook.name, [guestbook, :stories]
+        %td= link_to guestbook.owner.name_or_login, guestbook.owner
 %br
 
 = link_to 'New Guestbook', new_guestbook_path

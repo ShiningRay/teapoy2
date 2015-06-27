@@ -1,12 +1,12 @@
 class GuestbooksController < ApplicationController
-  # before_action :set_guestbook, only: [:show, :edit, :update, :destroy]
-  #
+  before_action :set_guestbook, only: [:show, :edit, :update, :destroy]
+
   # respond_to :html
   #
-  # def index
-  #   @guestbooks = Guestbook.all
-  #   respond_with(@guestbooks)
-  # end
+  def index
+    @guestbooks = Guestbook.all
+    respond_with(@guestbooks)
+  end
   #
   # def show
   #   respond_with(@guestbook)
@@ -36,12 +36,12 @@ class GuestbooksController < ApplicationController
   #   respond_with(@guestbook)
   # end
   #
-  # private
-  #   def set_guestbook
-  #     @guestbook = Guestbook.find(params[:id])
-  #   end
-  #
-  #   def guestbook_params
-  #     params.require(:guestbook).permit(:name, :owner, :description)
-  #   end
+  private
+    def set_guestbook
+      @guestbook = Guestbook.find(params[:id])
+    end
+
+    def guestbook_params
+      params.require(:guestbook).permit(:name, :owner, :description)
+    end
 end

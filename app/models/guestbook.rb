@@ -19,9 +19,11 @@ class Guestbook < ActiveRecord::Base
         s.content << "\n"
       end
       s.content << article.top_post.content
+      s.created_at = article.created_at
+      s.updated_at = article.updated_at
       s.save
       article.comments.each do |p|
-        s.comments.create content: p.content, author: p.user
+        s.comments.create content: p.content, author: p.user, created_at: p.created_at, updated_at: p.updated_at
       end
     end
   end
