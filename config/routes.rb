@@ -5,9 +5,17 @@
 # end
 
 Teapoy::Application.routes.draw do
-  resources :story_comments
+
+
   resources :guestbooks do
-    resources :stories
+    resources :stories do
+      resources :story_comments, path: 'comments', only: %i(index create destroy)
+      resources :likers, only: [:index, :create, :destroy]
+      member do
+        post :like
+        post :unlike
+      end
+    end
   end
 
   resources :conversations, only: %w(index show new create destroy) do

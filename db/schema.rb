@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150626170420) do
+ActiveRecord::Schema.define(version: 20150627135443) do
 
   create_table "admin_users", force: true do |t|
     t.string   "first_name",       default: "",    null: false
@@ -260,6 +260,15 @@ ActiveRecord::Schema.define(version: 20150626170420) do
 
   add_index "invitation_codes", ["applicant_id"], name: "index_invitation_codes_on_applicant_id", using: :btree
   add_index "invitation_codes", ["code"], name: "index_invitation_codes_on_code", unique: true, using: :btree
+
+  create_table "likes", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "story_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "likes", ["story_id", "user_id"], name: "index_likes_on_story_id_and_user_id", unique: true, using: :btree
 
   create_table "list_items", force: true do |t|
     t.integer  "article_id",             null: false
@@ -591,6 +600,7 @@ ActiveRecord::Schema.define(version: 20150626170420) do
     t.text     "content"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "likes_count",  default: 0, null: false
   end
 
   add_index "stories", ["guestbook_id", "author_id"], name: "index_stories_on_guestbook_id_and_author_id", using: :btree

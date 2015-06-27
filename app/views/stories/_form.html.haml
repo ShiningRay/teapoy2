@@ -1,10 +1,8 @@
-= simple_form_for(@story) do |f|
+= simple_form_for([@guestbook, @story]) do |f|
   = f.error_notification
 
   .form-inputs
-    = f.association :guestbook
-    = f.association :author
-    = f.input :body
+    = f.input :content
 
   .form-actions
     = f.button :submit

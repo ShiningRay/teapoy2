@@ -1,11 +1,11 @@
 class StoriesController < ApplicationController
   before_action :set_guestbook
   before_action :set_story, only: [:show, :edit, :update, :destroy]
-
+  before_action :login_required, only: [:new, :create, :edit, :update, :destroy]
   respond_to :html
 
   def index
-    @stories = @guestbook.stories.page(params[:page])
+    @stories = @guestbook.stories.latest.page(params[:page])
     respond_with(@stories)
   end
 
@@ -14,7 +14,7 @@ class StoriesController < ApplicationController
   end
 
   def new
-    @story = Story.new
+    @story = @guestbook.stories.new
     respond_with(@story)
   end
 
@@ -22,9 +22,10 @@ class StoriesController < ApplicationController
   end
 
   def create
-    @story = Story.new(story_params)
+    @story = @guestbook.stories.new(story_params)
+    @story.author = current_user
     @story.save
-    respond_with(@story)
+    respond_with(@story, location: [guestbook, :stories])
   end
 
   def update
@@ -33,8 +34,18 @@ class StoriesController < ApplicationController
   end
 
   def destroy
-    @story.destroy
-    respond_with(@story)
+    story.destroy
+    respond_with(story, location: [guestbook, :stories])
+  end
+
+  def like
+    @like = Like.create user: current_user, story: story
+    respond_with @like
+  end
+
+  def unlike
+    Like.where(user: current_user, story: story).delete_all
+    respond_with @story
   end
 
   private
@@ -42,11 +53,23 @@ class StoriesController < ApplicationController
       @story = @guestbook.stories.find(params[:id])
     end
 
+    def story
+      @story ||= scope.find(params[:id])
+    end
+
+    def scope
+      guestbook.stories
+    end
+
     def set_guestbook
       @guestbook = Guestbook.find params[:guestbook_id]
     end
 
+    def guestbook
+      @guestbook ||= Guestbook.find params[:guestbook_id]
+    end
+
     def story_params
-      params.require(:story).permit(:guestbook_id, :author_id, :body)
+      params.require(:story).permit(:guestbook_id, :content)
     end
 end

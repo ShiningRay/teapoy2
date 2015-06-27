@@ -1,10 +1,4 @@
-= simple_form_for(@story_comment) do |f|
-  = f.error_notification
-
+= simple_form_for([guestbook, story, story_comment], remote: true) do |f|
   .form-inputs
-    = f.association :story
-    = f.association :author
     = f.input :content
-
-  .form-actions
     = f.button :submit
