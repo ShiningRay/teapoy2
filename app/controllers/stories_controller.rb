@@ -5,7 +5,7 @@ class StoriesController < ApplicationController
   respond_to :html
 
   def index
-    @stories = Story.all
+    @stories = @guestbook.stories.page(params[:page])
     respond_with(@stories)
   end
 

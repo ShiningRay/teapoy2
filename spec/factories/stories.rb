@@ -1,6 +1,6 @@
 
 FactoryGirl.define do
-  factory :stories do
+  factory :story do
     association :guestbook
     association :author, factory: :active_user
     content { Forgery::LoremIpsum.text }

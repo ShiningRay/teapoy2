@@ -1,25 +1,18 @@
-%h1 Listing stories
+%h1= @guestbook.name
+= render @stories
+= paginate @stories, :theme => 'twitter-bootstrap-3'
+= link_to 'New Story', [:new, @guestbook, :story]
 
-%table
-  %thead
-    %tr
-      %th Guestbook
-      %th Author
-      %th Body
-      %th
-      %th
-      %th
-
-  %tbody
-    - @stories.each do |story|
-      %tr
-        %td= story.guestbook
-        %td= story.author
-        %td= story.body
-        %td= link_to 'Show', story
-        %td= link_to 'Edit', edit_story_path(story)
-        %td= link_to 'Destroy', story, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
-%br
-
-= link_to 'New Story', new_story_path
+:css
+  .story {
+    padding: 10px;
+    margin: 10px;
+    border: 1px #aaa solid;
+  }
+  .story > .content {
+    margin: 5px;
+    font-size: 14px;
+  }
+  .story .comments {
+    margin-left: 20px;
+  }
