@@ -1,0 +1,4 @@
+<%- id = dom_id @story -%>
+$('#<%= id %> .likers .user-<%= current_user.login%>').remove();
+$('#<%= id %> .action').html('<%= j link_to("喜欢", [:like, @guestbook, @story], method: :post, remote: true) %>');
+$('#<%= id %> .count').text(<%= @story.likes.count %>);

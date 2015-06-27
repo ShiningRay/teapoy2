@@ -1,7 +1,7 @@
 class StoriesController < ApplicationController
   before_action :set_guestbook
   before_action :set_story, only: [:show, :edit, :update, :destroy]
-  before_action :login_required, only: [:new, :create, :edit, :update, :destroy]
+  before_action :login_required, only: [:new, :create, :edit, :update, :destroy, :like, :unlike]
   respond_to :html
 
   def index
@@ -34,18 +34,18 @@ class StoriesController < ApplicationController
   end
 
   def destroy
-    story.destroy
+    story.destroy if current_user == story.author
     respond_with(story, location: [guestbook, :stories])
   end
 
   def like
     @like = Like.create user: current_user, story: story
-    respond_with @like
+    respond_with @like, location: [guestbook, story]
   end
 
   def unlike
     Like.where(user: current_user, story: story).delete_all
-    respond_with @story
+    respond_with @story, location: [guestbook, story]
   end
 
   private

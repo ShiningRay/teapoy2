@@ -26,7 +26,7 @@ class StoryCommentsController < ApplicationController
   # end
 
   def destroy
-    story_comment.destroy
+    story_comment.destroy if current_user == story_comment.author
     respond_with(story_comment, location: [guestbook, story, :story_comments])
   end
 

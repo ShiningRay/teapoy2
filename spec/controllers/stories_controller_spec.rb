@@ -65,4 +65,37 @@ RSpec.describe StoriesController, type: :controller do
       end
     end
   end
+
+  describe 'POST #like' do
+    context 'user logged in' do
+      before {
+        login_user
+        @story = create :story
+        @guestbook = @story.guestbook
+      }
+
+      it 'add like for the story' do
+        expect {
+          post :like, id: @story.id, guestbook_id: @guestbook.id
+        }.to change { @story.likes.count }
+      end
+    end
+  end
+
+  describe 'POST #unlike' do
+    context 'user logged in' do
+      before {
+        login_user
+        @story = create :story
+        @guestbook = @story.guestbook
+        create :like, user: current_user, story: @story
+      }
+
+      it 'removes like for the story' do
+        expect {
+          post :unlike, id: @story.id, guestbook_id: @guestbook.id
+        }.to change { @story.likes.count }.by(-1)
+      end
+    end
+  end
 end
