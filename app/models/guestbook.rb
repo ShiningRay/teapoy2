@@ -7,6 +7,7 @@ class Guestbook < ActiveRecord::Base
   def self.migrate_from_group(group_id)
     group = Group.wrap(group_id)
     book = Guestbook.create name: group.name, owner: (group.owner || User.wrap('shiningray'))
+
     group.public_articles.each do |article|
       next unless article.top_post
       puts article.id
@@ -22,6 +23,7 @@ class Guestbook < ActiveRecord::Base
       s.created_at = article.created_at
       s.updated_at = article.updated_at
       s.save
+      s.liker_ids = article.top_post.ratings.map(&:user_id)
       article.comments.each do |p|
         s.comments.create content: p.content, author: p.user, created_at: p.created_at, updated_at: p.updated_at
       end
