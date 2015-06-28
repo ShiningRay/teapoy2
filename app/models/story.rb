@@ -7,4 +7,6 @@ class Story < ActiveRecord::Base
   validates :guestbook, :author, :content, presence: true
 
   scope :latest, -> { order(:id => :desc )}
+
+  mount_uploader :picture, PictureUploader
 end

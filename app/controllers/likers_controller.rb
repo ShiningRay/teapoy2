@@ -1,6 +1,4 @@
 class LikersController < ApplicationController
-  respond_to :html
-
   def index
     @likers = scope.all
     respond_with(@likers)

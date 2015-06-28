@@ -27,7 +27,7 @@ RSpec.describe LikersController, type: :controller do
     before do
       @likes = create_list :like, 10, story: story
       # story.likers
-      get :index, guestbook_id: guestbook.id, story_id: story.id
+      get :index, guestbook_id: guestbook.id, story_id: story.id, format: :json
     end
     subject { assigns(:likers) }
     its(:size){ should == 10 }

@@ -5,8 +5,6 @@
 # end
 
 Teapoy::Application.routes.draw do
-
-
   resources :guestbooks do
     resources :stories do
       resources :story_comments, path: 'comments', only: %i(index create destroy)

@@ -46,12 +46,25 @@ RSpec.describe StoryCommentsController, type: :controller do
   end
 
   describe 'DELETE #destroy' do
-    let!(:comment) { create :story_comment, story: story }
+    context 'user logged in' do
+      before { login_user }
+      let!(:comment) { create :story_comment, story: story, author: current_user }
 
-    it 'deletes comment' do
-      expect {
-        delete :destroy, id: comment.id, story_id: story.id, guestbook_id: guestbook.id
-      }.to change{ story.comments.count }.by(-1)
+      it 'deletes comment' do
+        expect {
+          delete :destroy, id: comment.id, story_id: story.id, guestbook_id: guestbook.id
+        }.to change{ story.comments.count }.by(-1)
+      end
+    end
+
+    context 'user not logged in' do
+      let!(:comment) { create :story_comment, story: story }
+
+      it 'do not delete comment' do
+        expect {
+          delete :destroy, id: comment.id, story_id: story.id, guestbook_id: guestbook.id
+        }.not_to change{ story.comments.count }
+      end
     end
   end
 

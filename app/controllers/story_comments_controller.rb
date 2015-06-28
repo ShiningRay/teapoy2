@@ -1,8 +1,6 @@
 class StoryCommentsController < ApplicationController
   before_action :set_story_comment, only: [:show, :edit, :update, :destroy]
 
-  respond_to :html, :js
-
   def index
     @story_comments = scope.all
     respond_with(@story_comments)
