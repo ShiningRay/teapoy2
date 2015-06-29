@@ -1,8 +1,8 @@
-if false #ROLES.include?('app')
-process 'unicorn' do
-  pid_file "#{CURRENT_PATH}/tmp/pids/unicorn.pid"
-  start_command "bundle exec unicorn -c #{CURRENT_PATH}/config/unicorn/#{RAILS_ENV}.rb -E #{RAILS_ENV} -D"
-  # stop_command "kill -QUIT `cat #{ROOT}/tmp/pids/unicorn.pid`"
+if ROLES.include?('app')
+process 'puma' do
+  pid_file "#{CURRENT_PATH}/tmp/pids/puma.pid"
+  start_command "bundle exec puma -C #{CURRENT_PATH}/config/puma/#{RAILS_ENV}.rb -e #{RAILS_ENV} -d"
+  # stop_command "bundle exec pumactl stop"
   stop_signals [:QUIT, 2.seconds, :TERM, 1.seconds, :KILL]
   restart_command "kill -USR2 {PID}"
   start_timeout 100.seconds

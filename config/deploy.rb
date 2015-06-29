@@ -64,7 +64,7 @@ namespace :deploy do
       # Your restart mechanism here, for example:
       # execute :touch, release_path.join('tmp/restart.txt')
       within release_path do
-        execute :bundle, 'exec', 'leye', 'restart', 'unicorn'
+        execute :bundle, 'exec', 'leye', 'restart', 'puma'
       end
     end
 

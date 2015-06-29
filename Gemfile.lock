@@ -253,7 +253,6 @@ GEM
     fuubar (2.0.0)
       rspec (~> 3.0)
       ruby-progressbar (~> 1.4)
-    get_process_mem (0.2.0)
     guard (2.12.6)
       formatador (>= 0.2.4)
       listen (~> 2.7)
@@ -315,7 +314,6 @@ GEM
     kaminari (0.16.3)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
-    kgio (2.9.3)
     lazy_high_charts (1.5.4)
       bundler (>= 1.0)
       hash-deep-merge
@@ -415,6 +413,8 @@ GEM
     pry-stack_explorer (0.4.9.2)
       binding_of_caller (>= 0.7)
       pry (>= 0.9.11)
+    puma (2.11.3)
+      rack (>= 1.1, < 2.0)
     pundit (1.0.1)
       activesupport (>= 3.0.0)
     qiniu (6.4.2)
@@ -466,7 +466,6 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     rainbow (2.0.0)
-    raindrops (0.13.0)
     rake (10.4.2)
     rb-fsevent (0.9.5)
     rb-inotify (0.9.5)
@@ -599,13 +598,6 @@ GEM
     uglifier (2.7.1)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
-    unicorn (4.9.0)
-      kgio (~> 2.6)
-      rack
-      raindrops (~> 0.7)
-    unicorn-worker-killer (0.4.3)
-      get_process_mem (~> 0)
-      unicorn (~> 4)
     webmock (1.21.0)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
@@ -710,6 +702,7 @@ DEPENDENCIES
   pry-byebug
   pry-rails
   pry-stack_explorer
+  puma
   pundit
   quiet_assets
   rack-cors
@@ -749,8 +742,6 @@ DEPENDENCIES
   timecop
   turbolinks
   uglifier
-  unicorn
-  unicorn-worker-killer
   webmock
   weibo_2
   whenever
