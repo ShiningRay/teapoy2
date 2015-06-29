@@ -25,7 +25,7 @@ RSpec.describe StoryCommentsController, type: :controller do
   describe 'GET #index' do
     before {
       @comments = create_list :story_comment, 10, story: story
-      get :index, story_id: story.id, guestbook_id: guestbook.id
+      get :index, story_id: story.id, guestbook_id: guestbook.id, format: :json
     }
     subject { assigns(:story_comments) }
     it { should match(@comments) }
