@@ -4,9 +4,9 @@ module Post::FloorSequence
   included do
     # include Mongoid::MagicCounterCache
     field :floor, type: Integer, default: nil
-    # validates :floor, uniqueness: {
-    #   scope: :article_id,
-    # }
+    validates :floor, presence: true, uniqueness: {
+      scope: :article_id,
+    }, if: 'article'
     index({article_id: 1, floor: 1}, {unique: true, background: true})
 
     before_validation :number_floor, :if => 'article && !floor'     # if floor is already calced, then return
@@ -18,15 +18,17 @@ module Post::FloorSequence
 
   # get next floor number and save to floor field
   def number_floor
-    logger.debug "Find next floor number-#{article[:posts_count]}"
-    if article[:posts_count].blank?
-      article[:posts_count] = article.posts.where(:floor.ne => nil).count
-      logger.debug "update article posts_count #{article[:posts_count]}"
+    # binding.pry
+    posts_count = article.posts_count
+    logger.debug "Find next floor number-#{posts_count}"
+    if posts_count.blank?
+      posts_count = article.posts_count = article.posts.where(:floor.ne => nil).count
+      logger.debug "update article posts_count #{posts_count}"
       article.save
     end
-    f = self[:floor] = article[:posts_count]
-    logger.debug "use floor #{f}"
-    self.floor = f
+
+    self.floor = posts_count
+    logger.debug "use floor #{floor}"
     # article.inc(:posts_count => 1)
     # notify_observers(:after_numbered)
   end

@@ -6,9 +6,16 @@ module Post::Tree
     validates_with FloorParentValidator
     before_destroy :nullify_children
     # skip_callback :destroy, :before, :apply_orphan_strategy
-    before_save do
+
+    before_validation do
+      # 如果文章存在并且没有指定 parent_id，则使用 top_post 作为 parent
+      if article and parent_id.blank? and floor != 0
+        self.parent_id ||= article.top_post_id
+      end
+      # 更新父级的 floor
       self.parent_floor = parent.floor if parent_floor.blank? and parent
     end
+    validates :parent_id, presence: true, unless: ->(rec) { !article || rec.floor == 0 }
   end
 
   def parent=(p)

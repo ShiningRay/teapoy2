@@ -74,6 +74,8 @@ zh:
           attributes:
             parent_id:
               blank: "不能为空"
+            floor:
+              taken: 楼层的编号已被占用
         message:
           attributes:
             content:

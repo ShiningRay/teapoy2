@@ -34,6 +34,7 @@ describe Post do
       post.article = article
       post.parent = article.top_post
       post.save!
+
       expect(post.floor).to eq(1)
       post2 = create(:post, article: article, parent_id: post.id)
       expect(post2.floor).to eq(2)

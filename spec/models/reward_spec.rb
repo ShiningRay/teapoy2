@@ -16,7 +16,8 @@ require 'rails_helper'
 
 describe Reward do
   let(:author) { create :user }
-  let(:post) { create(:post, user: author, article: create(:article), floor: 1, parent_id: 0) }
+  let(:article) { create :article, user: author}
+  let(:post) { article.top_post }
   before do
     author.gain_credit(100)
   end

@@ -55,6 +55,9 @@ module Article::TopPostAspect
 
       top_post.group_id = group_id
       top_post.floor = 0
+      top_post.parent_id = nil
+      top_post.parent_floor = nil
+      top_post.parent_ids = []
       top_post.anonymous ||= anonymous
       top_post.user_id ||= self[:user_id]
       top_post.created_at ||= created_at

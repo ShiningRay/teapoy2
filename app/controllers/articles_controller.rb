@@ -236,7 +236,6 @@ class ArticlesController < ApplicationController
         end
       end
       error_return.call('未激活用户暂时不能发帖') unless current_user.active? or @group.preferred_guest_can_post?
-
       if @article.save
         current_user.subscribe @article if logged_in?
         respond_to do |format|
