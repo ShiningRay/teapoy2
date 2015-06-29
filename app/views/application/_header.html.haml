@@ -6,7 +6,7 @@
     智能机3G版（适合Mobile Safari、QQ浏览器）Beta：
     %a(href='http://j.bling0.com') http://j.bling0.com
   %p
-    WML极速版（适合Old手机）
+    WML极速版（适合非智能手机）
     %a(href='http://wap.bling0.com') http://wap.bling0.com
 .navbar.navbar-default.navbar-inverse.navbar-fixed-top{'role' => 'navigation'}
   .container-fluid
@@ -20,10 +20,6 @@
       = link_to "博聆", root_path, :class => 'navbar-brand brand', :id => 'logo'
     .nav-collapse.collapse#bs-navbar
       %ul.nav.navbar-nav
-        %li
-          = link_to "晚安", '/goodnight', :class => 'navbar-brand brand', :id => 'logo'
-        %li
-          = link_to '全部', '/all'
         - if @group and not @group.new_record?
           %li
             = link_to(@group.name, articles_path(@group))
