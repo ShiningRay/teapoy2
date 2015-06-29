@@ -46,7 +46,7 @@ RSpec.describe StoriesController, type: :controller do
         }.to change{ guestbook.stories.count }
       end
       it 'uploads picture' do
-        file =  fixture_file_upload('2345.jpg', "image/png")
+        file =  fixture_file_upload('2345.jpg', "image/jpeg")
         post :create, story: {
           content: 'testtest',
           picture: file

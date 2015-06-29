@@ -47,6 +47,8 @@ describe ArticlesController, :type => :controller do
 
         expect(assigns(:article)).to be_valid
         expect(assigns(:article).top_post).to be_valid
+        expect(assigns(:article).top_post.article_id).to eq(assigns(:article).id)
+        expect(assigns(:article).posts_count).to eq(1)
       end
     end
   end

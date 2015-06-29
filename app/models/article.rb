@@ -27,7 +27,7 @@ class Article
   field :top_post_id, type: Integer
   field :slug, type: String # cached slug
   field :score, type: Integer
-
+  field :posts_count, type: Integer, default: 0
 
   default_scope -> { includes(:top_post) }
 
@@ -51,9 +51,9 @@ class Article
   index({created_at: -1, group_id: 1, status: 1}, {background: true})
   t_belongs_to :user, class_name: 'User'
 
-  before_create {
-    self[:posts_count] = 1 if top_post
-  }
+  # before_create {
+  #   self[:posts_count] = 1 if top_post
+  # }
 
   def comments
     posts.where(:floor.gt => 0).order_by(floor: :asc)

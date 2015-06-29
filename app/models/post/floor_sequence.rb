@@ -18,9 +18,10 @@ module Post::FloorSequence
 
   # get next floor number and save to floor field
   def number_floor
-    logger.debug 'Find next floor number'
+    logger.debug "Find next floor number-#{article[:posts_count]}"
     if article[:posts_count].blank?
       article[:posts_count] = article.posts.where(:floor.ne => nil).count
+      logger.debug "update article posts_count #{article[:posts_count]}"
       article.save
     end
     f = self[:floor] = article[:posts_count]
