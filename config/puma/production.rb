@@ -35,7 +35,7 @@ quiet
 #
 # The default is "0, 16".
 #
-threads 0, 32
+threads 4, 32
 
 # Bind the server to "url". "tcp://", "unix://" and "ssl://" are the only
 # accepted protocols.
@@ -44,8 +44,6 @@ threads 0, 32
 #
 # bind 'tcp://0.0.0.0:9292'
 bind "unix://#{app_path}/current/tmp/sockets/puma.sock"
-
-workers 1
 
 prune_bundler
 
