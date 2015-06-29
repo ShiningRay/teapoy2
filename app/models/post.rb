@@ -24,9 +24,7 @@ class Post
   def total_score
     pos-neg
   end
-  before_save do
-    self.parent_floor = parent.floor if parent_floor.blank? and parent
-  end
+
   include Tree
   include CallbacksAspect
   include FloorSequence
@@ -45,12 +43,6 @@ class Post
   check_spam :content do |post|
     post.article.status = 'spam'
   end
-
-  # def article
-  #   #a = association(:article)
-
-  #   Article.unscoped{ super }
-  # end
 
   validates :parent_id, presence: true, unless: ->(rec) { rec.floor == 0 }
 

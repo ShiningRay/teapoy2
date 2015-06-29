@@ -1,0 +1,20 @@
+%h1 Listing guestbooks
+
+%table
+  %thead
+    %tr
+      %th Name
+      %th Owner
+      %th Description
+      %th
+      %th
+      %th
+
+  %tbody
+    - @guestbooks.each do |guestbook|
+      %tr
+        %td= link_to guestbook.name, [guestbook, :stories]
+        %td= link_to guestbook.owner.name_or_login, guestbook.owner
+%br
+
+= link_to 'New Guestbook', new_guestbook_path

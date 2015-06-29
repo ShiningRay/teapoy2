@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150126122125) do
+ActiveRecord::Schema.define(version: 20150628154456) do
 
   create_table "admin_users", force: true do |t|
     t.string   "first_name",       default: "",    null: false
@@ -224,6 +224,17 @@ ActiveRecord::Schema.define(version: 20150126122125) do
   add_index "groups", ["domain"], name: "index_groups_on_domain", unique: true, using: :btree
   add_index "groups", ["hide"], name: "index_groups_on_hide", using: :btree
 
+  create_table "guestbooks", force: true do |t|
+    t.string   "name",        null: false
+    t.integer  "owner_id",    null: false
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "guestbooks", ["name"], name: "index_guestbooks_on_name", unique: true, using: :btree
+  add_index "guestbooks", ["owner_id"], name: "index_guestbooks_on_owner_id", using: :btree
+
   create_table "inboxes", force: true do |t|
     t.integer  "group_id"
     t.integer  "user_id",    default: 0
@@ -249,6 +260,15 @@ ActiveRecord::Schema.define(version: 20150126122125) do
 
   add_index "invitation_codes", ["applicant_id"], name: "index_invitation_codes_on_applicant_id", using: :btree
   add_index "invitation_codes", ["code"], name: "index_invitation_codes_on_code", unique: true, using: :btree
+
+  create_table "likes", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "story_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "likes", ["story_id", "user_id"], name: "index_likes_on_story_id_and_user_id", unique: true, using: :btree
 
   create_table "list_items", force: true do |t|
     t.integer  "article_id",             null: false
@@ -541,6 +561,18 @@ ActiveRecord::Schema.define(version: 20150126122125) do
 
   add_index "simple_captcha_data", ["key"], name: "idx_key", using: :btree
 
+  create_table "sites", force: true do |t|
+    t.string   "name",                    null: false
+    t.string   "domain",     default: "", null: false
+    t.string   "alias",      default: "", null: false
+    t.integer  "owner_id",                null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sites", ["domain"], name: "index_sites_on_domain", unique: true, using: :btree
+  add_index "sites", ["owner_id"], name: "index_sites_on_owner_id", using: :btree
+
   create_table "slugs", force: true do |t|
     t.string   "name"
     t.integer  "sluggable_id"
@@ -561,6 +593,28 @@ ActiveRecord::Schema.define(version: 20150126122125) do
   end
 
   add_index "statuses", ["user_id"], name: "index_statuses_on_user_id", using: :btree
+
+  create_table "stories", force: true do |t|
+    t.integer  "guestbook_id"
+    t.integer  "author_id"
+    t.text     "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "likes_count",  default: 0, null: false
+    t.string   "picture"
+  end
+
+  add_index "stories", ["guestbook_id", "author_id"], name: "index_stories_on_guestbook_id_and_author_id", using: :btree
+
+  create_table "story_comments", force: true do |t|
+    t.integer  "story_id",   null: false
+    t.integer  "author_id",  null: false
+    t.text     "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "story_comments", ["story_id", "author_id"], name: "index_story_comments_on_story_id_and_author_id", using: :btree
 
   create_table "subscriptions", force: true do |t|
     t.integer  "subscriber_id"

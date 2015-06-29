@@ -1,0 +1,20 @@
+%div[story]
+  .author= link_to story.author.name_or_login, story.author
+  .published_at= link_to story.created_at, [story.guestbook, story]
+  .content= simple_format story.content
+  .like
+    .likers
+      - story.likers.each do |u|
+        = link_to u.name_or_login, u, class: "user-#{u.login}"
+    .total
+      %span.count= story.likes.count
+      人喜欢
+    - if logged_in?
+      .action
+        - if story.likers.include?(current_user)
+          = link_to '取消喜欢', [:unlike, story.guestbook, story], method: :post, remote: true
+        - else
+          = link_to '喜欢', [:like, story.guestbook, story], method: :post, remote: true
+
+  .comments= render story.comments
+  .comment_form= render 'story_comments/form', story_comment: story.comments.new, guestbook: story.guestbook, story: story

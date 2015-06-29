@@ -81,6 +81,7 @@ RSpec.configure do |config|
     DatabaseCleaner[:active_record].strategy = :deletion
     DatabaseCleaner[:mongoid].strategy = :truncation
     DatabaseCleaner.clean_with(:truncation)
+    DatabaseCleaner[:active_record].clean_with(:truncation)
     FactoryGirl.lint
   end
 

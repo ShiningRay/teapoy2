@@ -1,0 +1,8 @@
+= simple_form_for([@guestbook, @story]) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :content
+
+  .form-actions
+    = f.button :submit
