@@ -22,6 +22,9 @@ class Guestbook < ActiveRecord::Base
       s.content << article.top_post.content
       s.created_at = article.created_at
       s.updated_at = article.updated_at
+      if article.top_post.is_a?(Picture) and article.top_post.picture?
+        s.remote_picture_url = article.top_post.picture.original.url
+      end
       s.save
       s.liker_ids = article.top_post.ratings.map(&:user_id)
       article.comments.each do |p|
