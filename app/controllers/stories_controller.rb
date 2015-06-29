@@ -70,6 +70,6 @@ class StoriesController < ApplicationController
     end
 
     def story_params
-      params.require(:story).permit(:guestbook_id, :content)
+      params.require(:story).permit(:guestbook_id, :content, :picture, :remote_picture_url)
     end
 end

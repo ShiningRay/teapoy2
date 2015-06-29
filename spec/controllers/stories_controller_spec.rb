@@ -40,13 +40,29 @@ RSpec.describe StoriesController, type: :controller do
       }
       it 'creates story' do
         expect {
-          post :create, story: { content: 'testtest' }, guestbook_id: guestbook.id
+          post :create, story: {
+            content: 'testtest'
+          }, guestbook_id: guestbook.id
         }.to change{ guestbook.stories.count }
+      end
+      it 'uploads picture' do
+        file =  fixture_file_upload('2345.jpg', "image/png")
+        post :create, story: {
+          content: 'testtest',
+          picture: file
+        }, guestbook_id: guestbook.id
+        expect(assigns(:story)).to be_picture
       end
     end
 
     context 'when not logged in' do
-
+      it 'does not create story' do
+        expect {
+          post :create, story: {
+            content: 'testtest'
+          }, guestbook_id: guestbook.id
+        }.not_to change{ guestbook.stories.count }
+      end
     end
   end
 

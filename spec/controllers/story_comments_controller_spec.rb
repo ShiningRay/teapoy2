@@ -43,6 +43,14 @@ RSpec.describe StoryCommentsController, type: :controller do
         }.to change{ story.comments.count }
       end
     end
+
+    context 'when user not logged in' do
+      it 'not create new comment' do
+        expect {
+          post :create, story_comment: { content: 'testtset' }, story_id: story.id, guestbook_id: guestbook.id
+        }.not_to change{ story.comments.count }
+      end
+    end
   end
 
   describe 'DELETE #destroy' do
