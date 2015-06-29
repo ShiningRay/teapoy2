@@ -6,6 +6,9 @@ module Post::Tree
     validates_with FloorParentValidator
     before_destroy :nullify_children
     # skip_callback :destroy, :before, :apply_orphan_strategy
+    before_save do
+      self.parent_floor = parent.floor if parent_floor.blank? and parent
+    end
   end
 
   def parent=(p)
