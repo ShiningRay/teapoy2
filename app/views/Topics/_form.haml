@@ -5,7 +5,7 @@
     %p.error=error
 
 - topic.created_at ||= Time.now if topic
-#new_article_form
+#new_topic_form
   = simple_form_for(topic||:topic, url: @group ? topics_path(@group) : {controller: 'topics', action: 'create'},html:{multipart: true} ) do |f|
 
     - if @groups

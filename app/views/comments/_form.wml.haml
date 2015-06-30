@@ -35,7 +35,7 @@
 
   %anchor><
     评论
-    %go{:href=>_article_comments_path(@group, topic), :method=>"post"}><
+    %go{:href=>_topic_comments_path(@group, topic), :method=>"post"}><
       %postfield{:value=>"✓",:name=>"utf8"}>
       %postfield{:value=>"#{form_authenticity_token}",:name=>"authenticity_token"}>
       %postfield{:value=>"#{@post.try(:parent_id)} ",:name=>"post[parent_id]"}>

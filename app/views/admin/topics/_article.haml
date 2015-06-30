@@ -1,13 +1,13 @@
 - id = topic.id
 - user = topic.original_user
 
-.entry.article{"data-article_id" => id, :id => "entity#{id}"}
+.entry.topic{"data-topic_id" => id, :id => "entity#{id}"}
   .entry_bar
     .entry_bar_left{:style => "float:left;height:28px;line-height:28px"}
       = check_box_tag('id[]', topic.id.to_s, false, :id => 'id' + topic.id.to_s, :class => 'entry-id') if defined?(checkbox)
       = topic.group.name
       \##{link_to topic.id, topic_path(topic.group, topic)}
-      = link_to edit_admin_article_path(topic) do
+      = link_to edit_admin_topic_path(topic) do
         %i.icon-edit>
         编辑
       - if topic.status == 'publish'
@@ -20,14 +20,14 @@
         - if topic.status == 'publish'
           %a.btn.disabled{:href => "#"} 通过
         - else
-          = link_to "通过", set_status_admin_article_path(topic, :status => 'publish'), :class => 'btn btn-primary'
+          = link_to "通过", set_status_admin_topic_path(topic, :status => 'publish'), :class => 'btn btn-primary'
         - if topic.status == 'private'
           %a.btn.disabled{:href => "#"} 删除
         - else
-          = link_to "删除", set_status_admin_article_path(topic,  :status => 'private'), :class => 'btn btn-danger'
+          = link_to "删除", set_status_admin_topic_path(topic,  :status => 'private'), :class => 'btn btn-danger'
     %div{:style => "clear:both"}
   .entity_text{:style => "clear:both;margin-top:10px"}
-    %h2= link_to topic.title, edit_admin_article_path(topic) if topic.title
+    %h2= link_to topic.title, edit_admin_topic_path(topic) if topic.title
     = render_posts topic.top_post
     .other
       %div{:style => "float: right; color:#666; font-size:12px"}= topic.created_at.strftime("%Y-%m-%d %H:%M:%S")

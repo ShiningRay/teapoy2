@@ -34,8 +34,8 @@
     %postfield{:value=>"✓",:name=>"utf8"}
     %postfield{:value=>"#{form_authenticity_token}",:name=>"authenticity_token"}
     - unless @group
-      %postfield(value='$group_id' name='article[group_id]')
-    %postfield(value="$title" name="article[title]")
-    %postfield(value="$content" name="article[content]")
-    %postfield(value='$anonymous' name='article[anonymous]')
-    %postfield(value='$uncommentable' name='article[uncommentable]')
+      %postfield(value='$group_id' name='topic[group_id]')
+    %postfield(value="$title" name="topic[title]")
+    %postfield(value="$content" name="topic[content]")
+    %postfield(value='$anonymous' name='topic[anonymous]')
+    %postfield(value='$uncommentable' name='topic[uncommentable]')

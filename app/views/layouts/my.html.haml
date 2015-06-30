@@ -12,7 +12,7 @@
           = link_to '随便看看', '/all'
         %li{:class => (action_name == 'liked' && 'current')}
           = link_to '小组导航', '/groups'
-        %li= link_to '我的文章', user_articles_path(current_user)
+        %li= link_to '我的文章', user_topics_path(current_user)
         -if current_user
           %li.user-name
             %a.user-name{:href=>"users/#{current_user.login}"}
@@ -39,7 +39,7 @@
   .user-avatar
     =image_tag current_user.avatar.url("small"), :alt => "#{current_user.name_or_login}", :class => 'avatar'
   .arraw-a.arraw
-  .new-article
+  .new-topic
     %ul
       %li.first
         %a.post{:href=>"/Topics/new?type=post",:title=>"文章"}

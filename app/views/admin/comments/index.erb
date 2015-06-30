@@ -11,16 +11,16 @@
     <p> 无评论 </p>
 <% else %>
 <% form_tag({:action => :batch_set_status }, {:onsubmit => "return deleteelse(this);"}) do  %>
-  <%= render :partial => 'admin/articles/selection' %>
+  <%= render :partial => 'admin/topics/selection' %>
   <div id="entities">
-    <% for article in topics %>
-      <div id="article-<%=article.id%>" class="entry">
+    <% for topic in topics %>
+      <div id="topic-<%=topic.id%>" class="entry">
        <div class='secret_entity'>
-          <%= render :partial => 'admin/articles/topic', :object => article %>
+          <%= render :partial => 'admin/topics/topic', :object => topic %>
         </div> <!-- end entity -->
         <hr />
         <ul class="list">
-          <%= render :partial => 'comment', :collection => @comments[article.id]%>
+          <%= render :partial => 'comment', :collection => @comments[topic.id]%>
         </ul>
       </div>
     <% end %>

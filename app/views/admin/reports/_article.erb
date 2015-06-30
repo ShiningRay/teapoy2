@@ -15,7 +15,7 @@
     <%=h topic.content%>
   </div>
   <%= render 'punish', :user => topic.user %>
-  <table id="article-<%=topic.id%>">
+  <table id="topic-<%=topic.id%>">
   <% report.info.each do |i| %>
   <tr>
     <td>

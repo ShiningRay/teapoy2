@@ -55,7 +55,7 @@
               = t rep.level,:scope=>"reputations"
               =link_to "(#{rep.value})", user_group_reputation_logs_path(@user,m.group),:class =>"#{rep.level} poshytip",:title=>"距离升级还差"+Reputation.num_for_next_lever(rep.value).to_s+"分",:data=>{:poshytiptext=>"距离升级还差"+Reputation.num_for_next_lever(rep.value).to_s+"分"}
             |&nbsp;
-            = link_to m.group.name, user_group_articles_path(@user,m.group)
+            = link_to m.group.name, user_group_topics_path(@user,m.group)
 
   = yield :sidebar
   = link_to t('users.dislike'), dislike_user_path(@user), :method => :post ,:confirm=>" !!! dislike此人后，此人的文章将不会再出现在您的个人页面 !!!" if logged_in? and !current_user.disliked?(@user)

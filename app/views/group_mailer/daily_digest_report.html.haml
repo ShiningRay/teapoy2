@@ -15,15 +15,15 @@
   - if topics.pending.size > 0
     %p
       其中有
-      = link_to pending_group_articles_url(@group) do
+      = link_to pending_group_topics_url(@group) do
         #{topics.pending.size}个新帖子等待审核
 
   %ul
-    - topics.each do |article|
+    - topics.each do |topic|
       %li
-        = link_to article_author(article), article.user
+        = link_to topic_author(topic), topic.user
         发表了
-        = link_to topic_title(article), [@group, article]
+        = link_to topic_title(topic), [@group, topic]
   - if @new_users_count > 0
     %p
       有#{@new_users_count}新用户加入
@@ -34,7 +34,7 @@
     请及时与组员们互动哦～
 
   %p
-    = link_to articles_url(@group) do
+    = link_to topics_url(@group) do
       请点击小组链接查看&gt;&gt;
   %p
     如果不想再接受此类信息，

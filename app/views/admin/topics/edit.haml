@@ -42,20 +42,20 @@
   = f.select :status, Topic::STATUSES
   .form-actions
     = f.submit topic.new_record? ? 'Create' : 'Update', :class => 'btn btn-primary'
-    = link_to "Back", admin_articles_path, :class => 'btn'
+    = link_to "Back", admin_topics_path, :class => 'btn'
 
-- if Inbox.guest.where(:article_id => topic.id).exists?
+- if Inbox.guest.where(:topic_id => topic.id).exists?
   已投递到首页
-  - item = Inbox.guest.where(:article_id => topic.id).first
+  - item = Inbox.guest.where(:topic_id => topic.id).first
   = item.score
   = link_to 'edit', [:edit, :admin, item]
 - else
   - if User.guest.has_read?(topic)
     已从首页撤离
   - else
-    = link_to '投递到首页',{ :controller => 'admin/frontpage', :action => 'deliver', :article_id => topic.id}, { :remote => true}
+    = link_to '投递到首页',{ :controller => 'admin/frontpage', :action => 'deliver', :topic_id => topic.id}, { :remote => true}
 
 - unless topic.prev_in_group.blank?
-  = link_to "上一个", edit_admin_article_path(topic.prev_in_group),:rel => 'prev', :class => 'previous'
+  = link_to "上一个", edit_admin_topic_path(topic.prev_in_group),:rel => 'prev', :class => 'previous'
 - unless topic.next_in_group.blank?
-  = link_to "下一个", edit_admin_article_path(topic.next_in_group),:rel => 'next', :class => 'next'
+  = link_to "下一个", edit_admin_topic_path(topic.next_in_group),:rel => 'next', :class => 'next'

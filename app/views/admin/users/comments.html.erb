@@ -16,8 +16,8 @@
   <span class='check_comment right' id='entity_text<%= comment.id -%>'
     style="<%= 'text-decoration: line-through;' if comment.status == 'private' -%>">
     <%= link_to "<span#{comment.anonymous ? '' : " style='background: yellow'"}>#{comment.user.login}</span>", admin_user_path(comment.user) if comment.user_id > 0 && comment.topic.group_id==2 %>
- <a href="/admin/articles?status=all&id=<%=comment.article.id%>"><%=comment.article.id%></a>
-  <%= format_content comment, comment.article.group %>
+ <a href="/admin/topics?status=all&id=<%=comment.topic.id%>"><%=comment.topic.id%></a>
+  <%= format_content comment, comment.topic.group %>
   </span>
 <span class="clear"></span>
 </li>

@@ -20,7 +20,7 @@
         =link_to badge.title , badge_path(badge)
   %h2
     %p= link_to "编辑用户设置" ,edit_user_path(current_user)
-    %p= link_to "我发表的文章" ,user_articles_path(current_user)
+    %p= link_to "我发表的文章" ,user_topics_path(current_user)
     %p= link_to "我关注的人(#{current_user.followers.count})", followers_user_path(current_user)
     %p= link_to "关注我的人(#{current_user.followings.count})", followings_user_path(current_user)
   %ul.badges

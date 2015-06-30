@@ -1,4 +1,4 @@
 = form.inputs :id => :picture_fields, :class => 'extra_fields' do
   = form.input :picture, :as => :file, :label => '图片附件'
-  = form.input :image_url, :as => :url, :label => '图片地址', :input_html => {:value=>params["article_top_post_attributes_external_image_url"] || "", :size => 50}
+  = form.input :image_url, :as => :url, :label => '图片地址', :input_html => {:value=>params["topic_top_post_attributes_external_image_url"] || "", :size => 50}
   %button#add_more_picture 增加一个附件

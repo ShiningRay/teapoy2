@@ -30,8 +30,8 @@
         ="#{comment.parent_id}L"
     %ul.suckerfish
       %li
-        %a.show-article-actions
-        %ul.article-actions
+        %a.show-topic-actions
+        %ul.topic-actions
           %li
             %a.show-someone-comment{:href=>"#",:data=>{:login=>"#{comment.user.login}"}}="只看此人"
           - if logged_in?
@@ -43,5 +43,5 @@
     %sup.date=time_ago_in_words(comment.created_at)
     %div.body= render_posts comment
 
-    %a.reply{:href=>"javascript:replyComment(#{comment.id},#{comment.article_id},#{f})",:data=>{:floor=>"#{comment.floor}"}}
+    %a.reply{:href=>"javascript:replyComment(#{comment.id},#{comment.topic_id},#{f})",:data=>{:floor=>"#{comment.floor}"}}
     = render 'posts/votecell', {:post => comment}

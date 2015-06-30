@@ -14,7 +14,7 @@
       - Group.each do |g|
         %li[g]{:class => g == @group && 'current'}
           \##{g.id}
-          \#{link_to_unless_current g.name, admin_articles_path(:group_id => g.id)}
+          \#{link_to_unless_current g.name, admin_topics_path(:group_id => g.id)}
           (#{g.alias})
   %li
     =link_to "new mass email","/admin/emails/create"

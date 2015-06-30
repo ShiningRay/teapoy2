@@ -11,7 +11,7 @@
 
     %ul.comments
       -if logged_in? && current_user.has_read_topic?(topic).to_i > 0 && params[:read].nil?
-        =link_to "已经折叠了#{current_user.has_read_topic?(topic)}个已读评论",group_article_path(topic.group,topic,:read=>"full"),:class=>"show_readed manage_readed"
+        =link_to "已经折叠了#{current_user.has_read_topic?(topic)}个已读评论",group_topic_path(topic.group,topic,:read=>"full"),:class=>"show_readed manage_readed"
       = render :partial => 'my/comment', :collection => @comments
     - unless topic.closed?
       %div#comment-form.reply-form

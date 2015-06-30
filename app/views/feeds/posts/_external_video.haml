@@ -2,7 +2,7 @@
 - v = external_video
 
 %embed{:src => v.video_flash_link, :width => 550, :height => 400}
-  %a{:href => article_url(v.topic.group, v.article)} 看不到视频请点此
+  %a{:href => topic_url(v.topic.group, v.topic)} 看不到视频请点此
 
 = render_post_content v
 

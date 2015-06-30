@@ -12,7 +12,7 @@
 <div style="background: none repeat scroll 0% 0% transparent; padding-top: 15px; padding-bottom: 5px;" class="qiushi_counts_afterclick">
   <%=
   link_to "点此展开<strong>#{@offset}</strong>条评论",
-    article_comments_path(topic),
+    topic_comments_path(topic),
     :class => 'expand',
     :id => topic.to_param,
     :style => "text-decoration: none;"
@@ -36,7 +36,7 @@ $(function(){
     if(isNaN(id)) return;
     var comments_el = $('#qiushi_comments_'+id);
     l.text('...');
-    $.get(article_comments_path(id), null, function(data){
+    $.get(topic_comments_path(id), null, function(data){
       comments_el.replaceWith(data);
       l.remove();
       comments_el.ready(floorLink);

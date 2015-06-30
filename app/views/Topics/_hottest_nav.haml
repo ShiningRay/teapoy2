@@ -8,13 +8,13 @@
       = link_to t('nav.latest'), scoped_path(:order => 'latest')
   - if @group
     %li{:class => (@limit == 'day' && 'active')}
-      = link_to t('articles.day'), scoped_path(:order => 'hottest', :limit => 'day')
+      = link_to t('topics.day'), scoped_path(:order => 'hottest', :limit => 'day')
     %li{:class => (@limit == 'week' && 'active')}
-      = link_to t('articles.week'), scoped_path(:order => 'hottest', :limit => 'week')
+      = link_to t('topics.week'), scoped_path(:order => 'hottest', :limit => 'week')
     %li{:class => (@limit == 'month' && 'active')}
-      = link_to t('articles.month'), scoped_path(:order => 'hottest', :limit => 'month')
+      = link_to t('topics.month'), scoped_path(:order => 'hottest', :limit => 'month')
     %li{:class => (@limit == 'year' && 'active')}
-      = link_to t('articles.year'), scoped_path(:order => 'hottest', :limit => 'year')
+      = link_to t('topics.year'), scoped_path(:order => 'hottest', :limit => 'year')
   - if current_user and @group and current_user.id == @group.owner_id
-    %li{:class => current_page?(pending_group_articles_path(@group)) && 'active'}
-      = link_to "待审核 ", pending_group_articles_path(@group)
+    %li{:class => current_page?(pending_group_topics_path(@group)) && 'active'}
+      = link_to "待审核 ", pending_group_topics_path(@group)

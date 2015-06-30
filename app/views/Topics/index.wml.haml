@@ -15,7 +15,7 @@
   - else
     目前尚无帖子
 - else
-  = render(:partial => '/articles/topic', :collection => topics.reject{|a|a.top_post.nil?})
+  = render(:partial => '/topics/topic', :collection => topics.reject{|a|a.top_post.nil?})
 
   = br
   = paginate topics

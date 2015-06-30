@@ -1,14 +1,14 @@
 -# coding: utf-8
 - group = @post.group
-- article = @post.topic
+- topic = @post.topic
 %nav.breadcrumb
   = link_to group.name, group
   &raquo;
-  = link_to article_title(article), [group, article]
+  = link_to topic_title(topic), [group, topic]
   &raquo;
 
 
-%article[@post]
+%topic[@post]
   = render_comments (@post.ancestors + [@post])
 
 - if @post.children.size > 0

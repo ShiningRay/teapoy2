@@ -31,9 +31,9 @@
 %p
   = link_to_unless_current '最新', group_path(@group)
   |
-  = link_to_unless_current '最热', hottest_group_articles_path(@group)
+  = link_to_unless_current '最热', hottest_group_topics_path(@group)
   |
-  = link_to_unless_current '待审', pending_group_articles_path(@group) if logged_in? and current_user == @group.owner
+  = link_to_unless_current '待审', pending_group_topics_path(@group) if logged_in? and current_user == @group.owner
 
 
 - topics = @group.public_topics.order('id desc').includes(:top_post).page params[:page]
@@ -42,5 +42,5 @@
 
 - content_for :title, @group.name
 - content_for :head do
-  %link{:title=> "#{@group.name}近期文章", :type=>"application/rss+xml", :rel=>'alternative', :href=>group_articles_path(@group, :format=>:xml)}/
+  %link{:title=> "#{@group.name}近期文章", :type=>"application/rss+xml", :rel=>'alternative', :href=>group_topics_path(@group, :format=>:xml)}/
 

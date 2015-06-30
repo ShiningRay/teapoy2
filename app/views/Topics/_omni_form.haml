@@ -6,7 +6,7 @@
 -# if @topic && @topic.top_post && @topic.top_post.errors
 =# @topic.top_post.errors
 - @topic.created_at ||= Time.now if @topic
-#new_article_form
+#new_topic_form
   = simple_form_for(@topic, url: @topic.new_record? ? (@group ? topics_path(@group) : {controller: 'topics', action: 'create'}) : [@group, @topic],html:{multipart: true} ) do |f|
     = f.input :status, as: :hidden if @topic.new_record? and logged_in? and (current_user.is_admin? or (@group && current_user.own_group?( @group)))
     - unless @group

@@ -5,7 +5,7 @@
 - read=nil
 - if logged_in?
   - read = current_user.has_truly_read_topic?(topic) ? 'read' : 'unread'
-%article.cf.hentry[topic]{:class => read}
+%topic.cf.hentry[topic]{:class => read}
   .user-info
     - user = topic.user
     - if user
@@ -29,33 +29,33 @@
           %a{:href=>"#",:title=>"标记为已读"}
         %ul.suckerfish
           %li
-            %a.show-article-actions
+            %a.show-topic-actions
               &nbsp;
-            %ul.article-actions
+            %ul.topic-actions
               %li
                 %a.show-someone-comment{:href=>"#",:data=>{:login=>"#{user.login}"}}="只看楼主"
               %li
-                %a{:target=>"_blank",:href=>group_article_path(topic.group, topic,:anchor => "comments_#{topic.id}")}="打开"
+                %a{:target=>"_blank",:href=>group_topic_path(topic.group, topic,:anchor => "comments_#{topic.id}")}="打开"
               %li
                 = link_to repost_form_path(:post_id => top_post.try(:id)) do
-                  = t('articles.repost')
+                  = t('topics.repost')
                   = "(#{topic.top_post.reposts.size})" if topic.top_post.reposts.size > 0
               %li.subscribe-button
                 - if current_user.has_subscribed?(topic)
-                  = link_to t('articles.unsubscribe'), unsubscribe_article_path(group, topic), :class => 'unsubscribe'
+                  = link_to t('topics.unsubscribe'), unsubscribe_topic_path(group, topic), :class => 'unsubscribe'
                 - else
-                  = link_to t('articles.subscribe'), subscribe_article_path(group, topic), :class => 'subscribe'
+                  = link_to t('topics.subscribe'), subscribe_topic_path(group, topic), :class => 'subscribe'
               - if logged_in? && (current_user == topic.group.owner || current_user.own_topic?(topic))
                 %li.admin
                   = link_to '删除', topic_path(group, topic), :method => :delete, :remote => true, :confirm => '确定要删除这篇帖子吗?'
                 - if topic.status == 'pending'
                   %li.admin
-                    = link_to '通过', publish_article_path(group,topic),:class=>"publish-topic"
+                    = link_to '通过', publish_topic_path(group,topic),:class=>"publish-topic"
                   %li.admin
-                    = link_to '移出', move_out_article_path(group,topic),:class=>"move-out-topic"
+                    = link_to '移出', move_out_topic_path(group,topic),:class=>"move-out-topic"
                 - if current_user.own_topic?(topic)
                   %li.admin
-                    = link_to '修改', edit_article_path(group, topic)
+                    = link_to '修改', edit_topic_path(group, topic)
 
       .user-and-group
         -#.user-details
@@ -65,7 +65,7 @@
             转发于
           - else
             发布于
-          = link_to group.name, group_articles_path(group),:data => {:alias => group.alias},:class => 'group'
+          = link_to group.name, group_topics_path(group),:data => {:alias => group.alias},:class => 'group'
 
       - unless topic.title.blank?
         %h2.entry-title= link_to topic.title, topic_path(group, topic), :rel => 'bookmark', :target => '_blank'
@@ -82,7 +82,7 @@
               禁止评论
           - else
             %a{:class=>"comments #{@list_view? "list_view" :  ""}",
-              :href=>group_article_path(topic.group, topic,
+              :href=>group_topic_path(topic.group, topic,
               :anchor => "comments_#{topic.id}"),
               :id=>"c-#{topic.id}"}= topic.comments.size > 0 ? "#{topic.comments.size}条评论" : "暂无评论"
   - if defined?(comments) and not comments.blank?

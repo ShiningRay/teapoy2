@@ -1,6 +1,6 @@
 <% for item in digest %>
   <p>
-<%= link_to("#{@group.name.mb_chars[0,2]}\##{item.id}", article_url(item) ) %>
+<%= link_to("#{@group.name.mb_chars[0,2]}\##{item.id}", topic_url(item) ) %>
 -
 <%= item.created_at.strftime("%H:%M:%S") %> <br />
 <%= format_content item, @group %>
@@ -24,10 +24,10 @@
 ::::
 <% c = item.public_comments_count %>
 <% if c == 0 %>
-<a href="<%= article_url(item) %>#comments" style="color:red">沙发还在，还不快抢</a>
+<a href="<%= topic_url(item) %>#comments" style="color:red">沙发还在，还不快抢</a>
 <% else %>
 已有<strong><%= c %></strong>条评论
-<a href="<%= article_url(item) %>#comments" style="color:red">立即参与评论</a>
+<a href="<%= topic_url(item) %>#comments" style="color:red">立即参与评论</a>
 <% end %>
 </p>
 <hr style="border:1 dashed #987cb9" size="1" />

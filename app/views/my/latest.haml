@@ -16,15 +16,15 @@
         .channel-groups
           = render Group.page(params[:page]).order("feature DESC , score DESC").limit(15)
 -else
-  .articles-list
+  .topics-list
     - @items.each do |item|
-      - topic = @id2article[item.article_id]
+      - topic = @id2topic[item.topic_id]
       - next unless topic
       - @group = topic.group
       - @comments = nil
       - unless item.post_ids.blank?
         - @comments = topic.comments.find_all_by_id(item.post_ids)
-      = render :partial => 'my/article', :object => topic, :locals => {:comments => @comments}
+      = render :partial => 'my/topic', :object => topic, :locals => {:comments => @comments}
       /
         = item.score
         = item.read

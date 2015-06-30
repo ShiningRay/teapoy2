@@ -3,7 +3,7 @@
 - top_post = topic.top_post
 - group = @group || topic.group
 - group_id = topic.group_id
-- fullurl = group_article_url(topic.group, topic)
+- fullurl = group_topic_url(topic.group, topic)
 - if top_post
   - unless topic.anonymous
     - user = topic.user
@@ -13,7 +13,7 @@
       - else
         = link_to user.login, user, :title => "@#{user.login}", :class => 'user'
     发布于
-    = link_to topic.group.name, articles_url(topic.group)
+    = link_to topic.group.name, topics_url(topic.group)
     = topic.created_at
   .content= render_posts topic.top_post
   %hr/
@@ -21,7 +21,7 @@
     - if topic.comment_status == 'closed'
       禁止评论
     - else
-      %a{:href=>group_article_url(topic.group, topic,
+      %a{:href=>group_topic_url(topic.group, topic,
         :anchor => "comments_#{topic.id}"),
         :id=>"c-#{topic.id}"}= topic.posts.size > 1 ? "#{topic.posts.size-1}条评论" : "暂无评论"
     |

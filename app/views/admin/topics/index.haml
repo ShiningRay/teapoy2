@@ -17,7 +17,7 @@
   - if not topics or topics.empty?
     %p No Articles
   - else
-    = render 'admin/articles/selection' unless params[:id]
+    = render 'admin/topics/selection' unless params[:id]
     #entities
       - @checkbox = true
       = render topics

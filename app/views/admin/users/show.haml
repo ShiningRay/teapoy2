@@ -42,7 +42,7 @@
     - @user.badges.each do |badge|
       %li= badge.name
 %p
-  = link_to 'Articles', admin_user_articles_path(@user)
+  = link_to 'Articles', admin_user_topics_path(@user)
 
 = link_to 'edit', edit_admin_user_path(@user)
 |

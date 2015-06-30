@@ -1,13 +1,13 @@
-- article = table_row
-%tr[article]
+- topic = table_row
+%tr[topic]
 
   %td
-    = link_to article_title(article), topic_path(article.group, article)
+    = link_to topic_title(topic), topic_path(topic.group, topic)
   %td
-    = link_to article.group.name, article.group
+    = link_to topic.group.name, topic.group
   %td
-    = link_to article.user.name_or_login, article.user
+    = link_to topic.user.name_or_login, topic.user
   %td
-    = article.posts.size - 1
+    = topic.posts.size - 1
   %td
-    = article.created_at
+    = topic.created_at

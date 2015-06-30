@@ -38,7 +38,7 @@
 - else
   - content_for :keywords, ",第#{@topics.current_page}页"
   - append_page_to_title @topics
-  .articles-list.hfeed
+  .topics-list.hfeed
     = render @topics
   = paginate @topics, :theme => 'twitter-bootstrap-3'
   - if @limit && @next_limit && @topics.num_pages == @topics.current_page && @topics.num_pages > 0
@@ -59,7 +59,7 @@
 -# - elsif @group
 -#   - content_for :title, " - #{@group.name} 中的文章"
 -#   - content_for :head do
--#     -# %link{:title=> "#{@group.name}中的近期文章", :type=>"application/rss+xml", :rel=>'alternative', :href=>feed_articles_path(@group)}/
+-#     -# %link{:title=> "#{@group.name}中的近期文章", :type=>"application/rss+xml", :rel=>'alternative', :href=>feed_topics_path(@group)}/
 -#   - content_for :sidebar do
 -#     = render 'groups/sidebar'
 -# - else

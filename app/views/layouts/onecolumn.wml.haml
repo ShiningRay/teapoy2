@@ -55,9 +55,9 @@
         帖子
         = @group.public_topics.size
         = '.'
-        = link_to_unless_current( '最新', latest_group_articles_path(@group))
+        = link_to_unless_current( '最新', latest_group_topics_path(@group))
         = '.'
-        = link_to_unless_current( '最热', hottest_group_articles_path(@group))
+        = link_to_unless_current( '最热', hottest_group_topics_path(@group))
         = '.'
         = link_to_unless_current("发表", new_topic_path(@group)) if logged_in?
         ='|'
@@ -72,12 +72,12 @@
       - elsif  ['Topics','groups'].include?(controller_name)
         = link_to_unless_current( '小组导航', groups_path)
         |
-        = link_to_unless_current( '最新', latest_all_articles_path)
+        = link_to_unless_current( '最新', latest_all_topics_path)
         |
-        = link_to_unless_current( '最热', hottest_all_articles_path)
+        = link_to_unless_current( '最热', hottest_all_topics_path)
         |
         - if logged_in?
-          = link_to_unless_current("发表", new_all_article_path)
+          = link_to_unless_current("发表", new_all_topic_path)
         - else
           = link_to_unless_current('登录', login_path)
       = yield :nav
@@ -88,11 +88,11 @@
       - unless controller_name == 'Topics' and not @group and not @user
         = link_to_unless_current( '小组导航', groups_path)
         |
-        = link_to_unless_current( '最新', latest_all_articles_path)
+        = link_to_unless_current( '最新', latest_all_topics_path)
         |
-        = link_to_unless_current( '最热', hottest_all_articles_path)
+        = link_to_unless_current( '最热', hottest_all_topics_path)
         |
-        = link_to("发表", new_all_article_path) if logged_in?
+        = link_to("发表", new_all_topic_path) if logged_in?
     = join_oneline( |
       link_to('问题反馈', topics_path('feedback')), |
       '|', |

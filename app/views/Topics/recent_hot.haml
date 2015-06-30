@@ -12,7 +12,7 @@
     - else
       目前尚无帖子
 - else
-  .articles-list.hfeed
+  .topics-list.hfeed
     = render(topics.reject{|a| a.nil? || a.top_post.nil?})
   = paginate @items
   - append_page_to_title @items
