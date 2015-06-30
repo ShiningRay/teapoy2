@@ -19,9 +19,9 @@
   = render( 'comments/index')
 
 - if logged_in? && current_user.is_admin?
-  %form{:action => move_group_article_url(@group, topic), :method => :post}
+  %form{:action => move_group_topic_url(@group, topic), :method => :post}
     %label Group ID
     %input(type="text" name="dest_group_id" value="")
     %input(type='submit' value='Move')
-  = link_to 'Delete', delete_group_article_path(@group, topic)
+  = link_to 'Delete', delete_group_topic_path(@group, topic)
 

@@ -8,9 +8,9 @@
   %h1= @group ? @group.name : '发表文章'
   -#%button(data-icon='check' data-theme='b') Save
 
-%div#new_article_page{:data => {:role => 'content'}}
+%div#new_topic_page{:data => {:role => 'content'}}
   - topic.created_at ||= Time.now if topic
-  = form_for(topic, :url => @group ? group_articles_path(@group, format: :js) : {:controller => 'topics', :action => 'create', :format => :js}, :html => {:method => :post, :multipart => true, :remote => :js} ) do |f|
+  = form_for(topic, :url => @group ? group_topics_path(@group, format: :js) : {:controller => 'topics', :action => 'create', :format => :js}, :html => {:method => :post, :multipart => true, :remote => :js} ) do |f|
     - unless @group
       - groups = current_user.publications(Group)
       = f.select :group_id, options_from_collection_for_select(groups, :id, :name), :label => '小组', :include_blank => false, :prompt => '请选择一个小组'

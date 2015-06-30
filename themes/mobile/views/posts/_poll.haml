@@ -16,7 +16,7 @@
       =poll.vote_count
 - else
   #poll-container
-    = form_tag _article_comments_path(poll.group, poll.topic),:class=>"make_vote" do
+    = form_tag _topic_comments_path(poll.group, poll.topic),:class=>"make_vote" do
       %input(type='hidden' name='comment[type]' value='Vote')
       %input(type='hidden' name='comment[parent_id]' value='0')
       - if poll.single?

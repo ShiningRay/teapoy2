@@ -6,7 +6,7 @@
 - if quoted_post.floor > 0
   %sup=link_to quoted_post.floor, topic_path(quoted_post.group, quoted_post.topic, :anchor => "floor-#{quoted_post.floor}")
 - else
-  %span= link_to article_title(quoted_post.topic), [quoted_post.group, quoted_post.topic] if quoted_post.topic
+  %span= link_to topic_title(quoted_post.topic), [quoted_post.group, quoted_post.topic] if quoted_post.topic
 %div.content
   - if quoted_post.is_a?(Repost)
     = render_post_content quoted_post

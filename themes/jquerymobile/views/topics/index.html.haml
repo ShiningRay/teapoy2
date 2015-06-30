@@ -15,7 +15,7 @@
     = link_to '发表文章', [:new, @group, :topic], data: {rel: 'dialog', icon: 'plus', iconpos: 'notext'}
   - else
     = link_to '发表文章', '/groups/all/topics/new', data: {rel: 'dialog', icon: 'plus', iconpos: 'notext'}
-  =# link_to '发表', new_article_path(@group), 'data-icon' => 'plus' if @group
+  =# link_to '发表', new_topic_path(@group), 'data-icon' => 'plus' if @group
 - if params[:order] == 'latest'
   - content_for :title, '最新'
 %div(data-role="content")
@@ -32,7 +32,7 @@
     - else
       目前尚无帖子
   - else
-    .article-list
+    .topic-list
       = render(topics.reject{|a|a.top_post.nil?})
     .load-more
     = paginate topics

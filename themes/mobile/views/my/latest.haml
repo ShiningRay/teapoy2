@@ -16,9 +16,9 @@
         .channel-groups
           = render Group.page(params[:page]).order("feature DESC , score DESC").limit(15)
 -else
-  .articles-list
+  .topics-list
     - @items.each do |item|
-      - topic = @id2article[item.article_id]
+      - topic = @id2topic[item.topic_id]
       - next unless topic
       - @group = topic.group
       - @comments = nil

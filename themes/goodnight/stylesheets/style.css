@@ -44,10 +44,10 @@ a:link {
 h1, h2 {
   color: rgb(248,187,0);
 }
-#new_article #article_content {
+#new_topic #topic_content {
   height: 40px;
 }
-#new_article #article_content:focus, #new_article #article_content.focus {
+#new_topic #topic_content:focus, #new_topic #topic_content.focus {
   background-color:#F0F0D4;
 }
 .hentry {

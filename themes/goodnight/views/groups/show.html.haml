@@ -22,7 +22,7 @@
       - else
         目前尚无帖子
 - else
-  .article-list.hfeed
+  .topic-list.hfeed
     = render(:partial => topics.reject{|a|a.top_post.nil?})
   = paginate topics
   - if @limit && @next_limit && topics.num_pages == topics.current_page && topics.num_pages > 0

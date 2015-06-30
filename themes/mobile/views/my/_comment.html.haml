@@ -14,5 +14,5 @@
     - if s != 0
       %span.score{:class => s > 0 ? 'pos' : 'neg'}= s > 0 ? "+#{s}" : s
     %span.time= time_ago_in_words comment.created_at if comment.created_at
-    %a.reply{:href=> new__article_comment_path(comment.group||comment.topic.group,comment.topic, :parent_id=>comment.floor)} 回复
+    %a.reply{:href=> new__topic_comment_path(comment.group||comment.topic.group,comment.topic, :parent_id=>comment.floor)} 回复
     .body= render_posts comment

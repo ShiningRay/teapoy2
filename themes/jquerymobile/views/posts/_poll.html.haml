@@ -8,7 +8,7 @@
       =h poll.stats[i].to_i
       )
 - else
-  = form_tag _article_comments_path(poll.group, poll.topic),:class=>"make_vote" do
+  = form_tag _topic_comments_path(poll.group, poll.topic),:class=>"make_vote" do
     %input(type='hidden' name='comment[type]' value='Vote')
     - if poll.single?
       - poll.questions.each_index do |i|

@@ -2,8 +2,8 @@
   =link_to '博聆网 bling bling', root_path, :class => 'logo'
   #nav-menu
     %ul
-      -#%li= link_to t('nav.hottest'), hottest_all_articles_path
-      -#%li= link_to t('nav.latest'), latest_all_articles_path
+      -#%li= link_to t('nav.hottest'), hottest_all_topics_path
+      -#%li= link_to t('nav.latest'), latest_all_topics_path
       - if logged_in?
         %li= link_to '发表', '/groups/all/topics/new'
         %li= link_to t( 'nav.my_groups'), {:controller => 'my', :action => 'groups'}, :class => 'my-groups'

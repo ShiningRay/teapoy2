@@ -15,13 +15,13 @@
     = link_to g.name, g
     %br
 -else
-  .articles-list
+  .topics-list
     - @items.each do |item|
       - next unless item.topic
       - unless item.post_ids.blank?
-        - comments = item.article.comments.find_all_by_id(item.post_ids)
-        = render :partial => 'my/topic', :object => item.article, :locals => {:comments => comments}
+        - comments = item.topic.comments.find_all_by_id(item.post_ids)
+        = render :partial => 'my/topic', :object => item.topic, :locals => {:comments => comments}
       - else
-        = render :partial => 'my/topic', :object => item.article
+        = render :partial => 'my/topic', :object => item.topic
   = link_to "上一页", :page => @current_page - 1 if @current_page > 1
   = link_to "下一页(还有#{@rest_count})", :page => @current_page + 1 if @rest_count > 0

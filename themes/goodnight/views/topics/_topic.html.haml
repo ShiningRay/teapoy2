@@ -29,27 +29,27 @@
         - if logged_in?
           %li.subscribe-button
             - if current_user.has_subscribed?(topic)
-              = link_to t('articles.unsubscribe'), unsubscribe_group_article_path(group, topic), :class => 'unsubscribe'
+              = link_to t('topics.unsubscribe'), unsubscribe_group_topic_path(group, topic), :class => 'unsubscribe'
             - else
-              = link_to t('articles.subscribe'), subscribe_group_article_path(group, topic), :class => 'subscribe'
+              = link_to t('topics.subscribe'), subscribe_group_topic_path(group, topic), :class => 'subscribe'
         - if logged_in?
           %li.repost-button
-            = link_to t('articles.repost'), repost_form_path(:post_id => top_post.try(:id))
+            = link_to t('topics.repost'), repost_form_path(:post_id => top_post.try(:id))
         %li.comment-status
           - if topic.comment_status == 'closed'
             %span.comment_head
               禁止评论
           - else
-            %a.comments{:href=>group_article_path(topic.group, topic,
+            %a.comments{:href=>group_topic_path(topic.group, topic,
               :anchor => "comments_#{topic.id}"),
-              :id=>"c-#{topic.id}", 'data-url' => group_article_comments_path(topic.group, topic)}= topic.posts.size > 1 ? "#{topic.posts.size-1}条评论" : "暂无评论"
+              :id=>"c-#{topic.id}", 'data-url' => group_topic_comments_path(topic.group, topic)}= topic.posts.size > 1 ? "#{topic.posts.size-1}条评论" : "暂无评论"
 
         - if logged_in? && current_user == topic.group.owner || current_user == topic.user
           %li.admin
             = link_to 'Delete', topic_path(group, topic), :method => :delete, :remote => true, :confirm => 'Are you sure to delete this topic?'
             - if topic.status == 'pending'
-              = link_to '通过', publish_article_path(topic.group,topic)
-              = link_to '移出', move_out_article_path(topic.group,topic)
+              = link_to '通过', publish_topic_path(topic.group,topic)
+              = link_to '移出', move_out_topic_path(topic.group,topic)
             = link_to 'Edit', edit_post_path(topic.top_post)
 
   - if controller_name == 'topics' and action_name == 'show'

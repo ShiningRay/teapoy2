@@ -13,7 +13,7 @@
     <%= link_to followings_user_path(user) do %>
       <span class="follow">粉丝</span><span class="stats_count numeric"><%= user.followings.count %></span>
     <% end %>
-    <%= link_to user_articles_path(user) do %>
+    <%= link_to user_topics_path(user) do %>
       <span class="function">文章</span><span class="stats_count numeric"><%= user.topics.public_topics.signed.count %></span>
     <%end%>
     <% if logged_in? %>
@@ -43,7 +43,7 @@
     <%= link_to '我围观的文章', :controller => 'my', :action => 'favorites'   %>
     <%= link_to '我关注的好友的文章', :controller => 'my', :action => 'friends'   %>
     <%= link_to '我关注的好友的评论', :controller => 'my', :action => 'friends_comments' %>
-    <%= link_to '管理我发表的文章', :controller => 'my', :action => 'articles' %>
+    <%= link_to '管理我发表的文章', :controller => 'my', :action => 'topics' %>
     <%= link_to('修改密码', [:edit, user, :password]) %>
     <%= link_to '修改头像', edit_user_path(user)%>
   <% end %>

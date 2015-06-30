@@ -1,4 +1,4 @@
--# content_for :title, "#{@article.id}的#{@comments.total_entries}条评论，#{@comments.current_page}/#{@comments.total_pages}页" rescue nil
+-# content_for :title, "#{@topic.id}的#{@comments.total_entries}条评论，#{@comments.current_page}/#{@comments.total_pages}页" rescue nil
 - content_for :title, "#{topic.id}的评论" rescue nil
 = link_to "< 返回文章#{topic.id}", [topic.group, topic ]
 =# paginate @comments

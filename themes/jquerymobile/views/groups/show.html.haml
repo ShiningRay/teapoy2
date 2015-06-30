@@ -4,7 +4,7 @@
   = link_to '发表文章', [:new, @group, :topic], data: {rel: 'dialog', icon: 'plus', iconpos: 'notext'}
 %div(data-role='content')
   - topics = @group.public_topics.latest.page params[:page]
-  .articles-list
+  .topics-list
     = render topics
   = paginate topics
 

@@ -34,18 +34,18 @@
       = yield :breadcrumbs
     .main-nav><
       - if @group and not @group.new_record?
-        = link_to_unless_current( '最新', latest_group_articles_path(@group))
+        = link_to_unless_current( '最新', latest_group_topics_path(@group))
         = '.'
-        = link_to_unless_current( '最热', hottest_group_articles_path(@group))
+        = link_to_unless_current( '最热', hottest_group_topics_path(@group))
         = '.'
         = link_to_unless_current("发表", new_topic_path(@group)) if logged_in?
       - elsif @user
       - elsif controller_name == 'topics'
         = link_to_unless_current( '小组导航', groups_path)
         |
-        = link_to_unless_current( '最新', latest_all_articles_path)
+        = link_to_unless_current( '最新', latest_all_topics_path)
         |
-        = link_to_unless_current( '最热', hottest_all_articles_path)
+        = link_to_unless_current( '最热', hottest_all_topics_path)
         |
         - if logged_in?
           = link_to_unless_current("发表", '/topics/new')
@@ -65,9 +65,9 @@
         %p
           = link_to( '小组导航', groups_path)
           |
-          = link_to( '全部最新', latest_all_articles_path)
+          = link_to( '全部最新', latest_all_topics_path)
           |
-          = link_to( '最热', hottest_all_articles_path)
+          = link_to( '最热', hottest_all_topics_path)
           |
           = link_to("发表", '/topics/new') if logged_in?
       = render 'user_actions' if logged_in?

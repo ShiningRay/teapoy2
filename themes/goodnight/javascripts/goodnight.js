@@ -25,21 +25,21 @@ $(function(){
     return false;
   });
   $('.topic').on('click', 'a.comments', function(){
-    var article = $(this).parents('.topic'), comment_list = article.find('.comment-list');
+    var topic = $(this).parents('.topic'), comment_list = topic.find('.comment-list');
     if(comment_list.size() > 0){
       comment_list.toggle();
     } else {
       $.get($(this).data('url')).done(function(data){
-        article.append(data);
+        topic.append(data);
       })
     }
     return false;
   })
-  $('#new_article').submit(function(){
+  $('#new_topic').submit(function(){
 
   })
   $('a.add-title').click(function(){
-    $('#article_title').show().focus();
+    $('#topic_title').show().focus();
     $(this).hide();
     return false;
   })

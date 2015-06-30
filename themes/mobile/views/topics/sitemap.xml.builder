@@ -3,12 +3,12 @@ xml.instruct!
 ns = {'xmlns' => "http://www.sitemaps.org/schemas/sitemap/0.9"}
 ns['xmlns:mobile']="http://www.google.com/schemas/sitemap-mobile/1.0" unless cookies[:mobile_view].blank?
 xml.urlset ns do
-  topics.each do |article|
+  topics.each do |topic|
     xml.url do
-      xml.loc article_url(@group, article)
-      xml.lastmod article.updated_at.xmlschema
-      xml.changefreq article.closed? ? 'never' : 'always'
-      xml.priority [0, article.top_post.try(:score).to_i / @max_score].max
+      xml.loc topic_url(@group, topic)
+      xml.lastmod topic.updated_at.xmlschema
+      xml.changefreq topic.closed? ? 'never' : 'always'
+      xml.priority [0, topic.top_post.try(:score).to_i / @max_score].max
       xml.mobile :mobile unless cookies[:mobile_view].blank?
     end
   end

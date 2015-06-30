@@ -19,8 +19,8 @@
         .channel-groups
           = render Group.page(params[:page]).order("feature DESC , score DESC").limit(15)
 -else
-  .articles-list
-    -topics.each do |article|
-      =render article, {:checkbox => true}
+  .topics-list
+    -topics.each do |topic|
+      =render topic, {:checkbox => true}
   = paginate topics
 

@@ -5,7 +5,7 @@
 - read=nil
 - if logged_in?
   - read = current_user.has_truly_read_topic?(topic) ? 'read' : 'unread'
-%topic.cf.hentry[topic]{:class => read}
+%article.cf.hentry[topic]{:class => read}
   .user-info
     - user = topic.user
     - if user

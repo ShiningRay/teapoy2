@@ -3,10 +3,10 @@ atom_feed(:schema_date => topics.first.created_at) do |feed|
 
   feed.updated(topics.first.created_at)
 
-  topics.each do |article|
-    feed.entry(article, :url => article_url(@group, article)) do |entry|
-      entry.title(topic_title article)
-      p = article.top_post
+  topics.each do |topic|
+    feed.entry(topic, :url => topic_url(@group, topic)) do |entry|
+      entry.title(topic_title topic)
+      p = topic.top_post
       c = ''
       unless p.blank?
         c = p.is_a?(Picture) ? "http://#{request.host_with_port}#{p.picture.large.url}" : ''
@@ -18,10 +18,10 @@ atom_feed(:schema_date => topics.first.created_at) do |feed|
       entry.content(c, :type => 'html')
 
       entry.author do |author|
-        if article.anonymous
+        if topic.anonymous
           author.name('Anonymous user')
         else
-          author.name(article.user.login)
+          author.name(topic.user.login)
         end
       end
     end

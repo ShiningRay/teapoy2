@@ -12,7 +12,7 @@
       = link_to '立即注册 !', signup_path, :class => 'button'
   - if logged_in? and current_user.own_group?(@group)
     = link_to '群设置', edit_group_path(@group) if @group.owner == current_user
-    = link_to "审贴" ,pending_group_articles_path(@group)
+    = link_to "审贴" ,pending_group_topics_path(@group)
   - if logged_in?
     -if  current_user.is_member_of?(@group)
       = submit_to "退出小组" , quit_group_path(@group)

@@ -2,7 +2,7 @@
   = render_comments @comments
 - if logged_in?
   - unless topic.closed?
-    = link_to '发表评论', new_group_article_comment_path(@group, topic), data: {:role => 'button', :transition => 'slideup', :rel => 'dialog'} #comment_form
+    = link_to '发表评论', new_group_topic_comment_path(@group, topic), data: {:role => 'button', :transition => 'slideup', :rel => 'dialog'} #comment_form
   - else
     禁止评论
 - else

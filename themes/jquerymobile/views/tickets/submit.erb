@@ -97,15 +97,15 @@ border-width:0 5px 5px 0;color:#000;padding:25px;font-size:14px
   <p style="color:white">谢谢大家一直以来的支持！</p>
     <p><%=flash[:notice]%></p>
 <% if topic %>
-<% article = topic %>
-    <%= link_to_unless article.status != 'publish', "##{article.id}", topic_path(article.group,article)%> <%= link_to article.user.login, article.user unless article.anonymous? %>
+<% topic = topic %>
+    <%= link_to_unless topic.status != 'publish', "##{topic.id}", topic_path(topic.group,topic)%> <%= link_to topic.user.login, topic.user unless topic.anonymous? %>
 
-<% if article.status == 'publish' %>
-+<%= article.pos_score %> <%= article.neg_score %> <%= article.public_comments_count %>条评论
+<% if topic.status == 'publish' %>
++<%= topic.pos_score %> <%= topic.neg_score %> <%= topic.public_comments_count %>条评论
 <% end %>
-<div class="qiushi_body2" id="article<%=article.id%>" title="<%= article.created_at.strftime("%Y.%m.%d %H:%M") %>/<%= article.updated_at.strftime("%Y.%m.%d %H:%M")%>">
-标题: <%= article.title%><br />
-内容：  <%=render_posts article.top_post%>
+<div class="qiushi_body2" id="topic<%=topic.id%>" title="<%= topic.created_at.strftime("%Y.%m.%d %H:%M") %>/<%= topic.updated_at.strftime("%Y.%m.%d %H:%M")%>">
+标题: <%= topic.title%><br />
+内容：  <%=render_posts topic.top_post%>
 </div>
 
 <p>还有<%= @rest_queue.size %>个待审
@@ -145,7 +145,7 @@ border-width:0 5px 5px 0;color:#000;padding:25px;font-size:14px
 <div id="tickets">
 <% if @ticket %>
   <%= form_for @ticket do |f| %>
-  <%= f.hidden_field :article_id %>
+  <%= f.hidden_field :topic_id %>
   <%= f.hidden_field :ticket_type_id, :value => 0 %>
   <%= f.hidden_field :viewed_at %>
   <% TicketType.all.each do |t| %>

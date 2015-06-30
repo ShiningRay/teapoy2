@@ -18,10 +18,10 @@
     %span.user-action-time><
       %span.relativetime><= time_ago_in_words(topic.created_at)
     - if logged_in? && current_user.own_topic?(topic)
-      =# link_to '删除', article_path(group, topic, :_method => :delete)
+      =# link_to '删除', topic_path(group, topic, :_method => :delete)
     - if logged_in? && current_user == topic.group.owner && topic.status == 'pending'
-      = link_to '通过', publish_article_path(group,topic)
-      = link_to '移出', move_out_article_path(group,topic)
+      = link_to '通过', publish_topic_path(group,topic)
+      = link_to '移出', move_out_topic_path(group,topic)
   .content= render_posts post
   .meta.ui-grid-b[post]
     = render 'posts/votecell', post: post if post

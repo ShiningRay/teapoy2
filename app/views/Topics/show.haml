@@ -1,5 +1,5 @@
 - content_for :title, "#{topic_title} - #{@group.name}"
-%topic[@topic]
+%article[@topic]
   %h2.entry-title= link_to topic_title, [@group, @topic]
   
 - @comments = @topic.posts.all || []

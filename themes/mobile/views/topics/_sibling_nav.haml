@@ -2,9 +2,9 @@
   - unless topic.prev_in_group.blank?
     = link_to [@group, topic.prev_in_group], :rel => 'prev', :class => 'previous' do
       &laquo; 上一篇:
-      = article_title topic.prev_in_group
+      = topic_title topic.prev_in_group
   - unless topic.next_in_group.blank?
     = link_to([@group, topic.next_in_group], :rel => 'next', :class => 'next') do
       下一篇:
-      = article_title topic.next_in_group
+      = topic_title topic.next_in_group
       &raquo;
