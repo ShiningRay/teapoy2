@@ -1,0 +1,4 @@
+= div_for topic, 'rewarders' do
+  - if topic.top_post && topic.top_post.rewarders.exists?
+    - topic.top_post.rewarders.each do |rewarder|
+      = link_to image_tag(rewarder.avatar.thumb.url), rewarder
