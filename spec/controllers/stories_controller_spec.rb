@@ -53,6 +53,13 @@ RSpec.describe StoriesController, type: :controller do
         }, guestbook_id: guestbook.id
         expect(assigns(:story)).to be_picture
       end
+      it 'creates anonymous story' do
+        post :create, story: {
+            content: 'testtest',
+            anonymous: '1'
+          }, guestbook_id: guestbook.id
+        expect(assigns(:story)).to be_anonymous
+      end
     end
 
     context 'when not logged in' do

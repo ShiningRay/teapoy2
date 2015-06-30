@@ -1,6 +1,6 @@
 - comments = story.comments.page(1)
-%div[story]
-  .author= link_to story.author.name_or_login, story.author
+%div[story.to_model]
+  .author= story.author_link
   .published_at= link_to story.created_at, [story.guestbook, story]
   .content= simple_format story.content
   .like

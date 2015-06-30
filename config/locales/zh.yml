@@ -17,6 +17,11 @@ zh:
         email: '邮箱'
         password: 密码
         password_confirmation: 确认密码
+      story:
+        content: 正文
+        anonymous: 匿名
+      story_comment:
+        content: 内文
     errors:
       messages:
         record_invalid: "验证失败: %{errors}"
@@ -68,6 +73,8 @@ zh:
             password_confirmation:
               too_long: 太长
               too_short: 太短
+
+
   articles:
     8hr: 8小时内
     all: 有史以来

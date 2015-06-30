@@ -5,7 +5,7 @@ class StoriesController < ApplicationController
   respond_to :html
 
   def index
-    @stories = @guestbook.stories.latest.page(params[:page])
+    @stories = @guestbook.stories.latest.page(params[:page]).decorate
     respond_with(@stories)
   end
 
@@ -70,6 +70,6 @@ class StoriesController < ApplicationController
     end
 
     def story_params
-      params.require(:story).permit(:guestbook_id, :content, :picture, :remote_picture_url)
+      params.require(:story).permit(:guestbook_id, :content, :picture, :remote_picture_url, :anonymous)
     end
 end

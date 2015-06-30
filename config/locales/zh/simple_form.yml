@@ -1,4 +1,11 @@
 zh:
+  helpers:
+    submit:
+      story:
+        create: "发表"
+        update: "保存"
+      story_comment:
+        create: "回复"
   simple_form:
     "yes": '是'
     "no": '否'
