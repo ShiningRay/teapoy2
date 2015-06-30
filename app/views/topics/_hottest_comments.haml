@@ -1,0 +1,11 @@
+%h2.hottest-comments
+  热评
+  %ul
+    - for comment in comments
+      %li
+        %div.count-small.count-comments=comment.score
+        %dl
+          %dt=link_to comment.user.login, comment.user
+          %dd=comment.content
+
+

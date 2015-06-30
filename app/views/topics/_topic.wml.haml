@@ -1,0 +1,28 @@
+- group = @group || topic.group
+- post = topic.top_post
+- return if post.blank?
+- if topic.title?
+  %p><
+    %strong><= link_to topic.title, topic_path(group, topic)
+= render_posts post
+- unless topic.anonymous
+  - user = topic.user
+%p><
+  - if user
+    = link_to user.name_or_login, user
+  - if @show_group
+    发布于#{link_to group.name, topics_path(group)}#{time_ago_in_words topic.created_at}
+%p><
+  - if logged_in? && current_user.own_topic?(topic)
+    =# link_to '删除', topic_path(group, topic, :_method => :delete)
+  - if logged_in? && current_user == topic.group.owner && topic.status == 'pending'
+    = link_to '通过', publish_topic_path(group,topic)
+    = link_to '移出', move_out_topic_path(group,topic)
+  = join_oneline(rating_link(post, :up), ' | ', rating_link(post, :dn))
+  |
+  - if topic.comment_status == 'closed'
+    禁止评论
+  - else
+    = link_to topic.posts.size > 1 ? "#{topic.posts.size-1}条评论" : "暂无评论", topic_path(group, topic)
+='----------------'
+=br
