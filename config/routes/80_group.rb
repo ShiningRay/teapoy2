@@ -1,8 +1,13 @@
 # coding: utf-8
 Teapoy::Application.routes.draw do
-  get '/groups/:group_id/reject_join/:user_id' => 'groups#reject_join', :as => :reject_join_group
-  get '/groups/:group_id/allow_join/:user_id' => 'groups#allow_join', :as => :allow_join_group
+  post '/groups/:group_id/reject_join/:user_id' => 'groups#reject_join', :as => :reject_join_group
+  post '/groups/:group_id/allow_join/:user_id' => 'groups#allow_join', :as => :allow_join_group
 
+
+  get '/groups/:group_id/articles(.:format)' => 'topics#index'
+  get '/groups/:group_id/articles/new(.:format)' => 'topics#new'
+  get '/groups/:group_id/articles/:id(.:format)' => 'topics#show'
+  get '/:group_id/:topic_id(.:format)' => 'topics#show'
   resources :groups do
     member do
       post :join

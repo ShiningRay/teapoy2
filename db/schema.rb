@@ -11,28 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150629203807) do
-
-  create_table "topics", force: true do |t|
-    t.string   "tag_line"
-    t.integer  "user_id",                   default: 0,         null: false
-    t.datetime "created_at"
-    t.string   "status",         limit: 7,  default: "pending", null: false
-    t.integer  "group_id",                  default: 0,         null: false
-    t.string   "comment_status", limit: 15, default: "open",    null: false
-    t.boolean  "anonymous",                 default: false,     null: false
-    t.datetime "updated_at"
-    t.string   "title"
-    t.integer  "top_post_id"
-    t.string   "cached_slug"
-    t.integer  "score",                     default: 0
-    t.integer  "posts_count",               default: 0
-  end
-
-  add_index "topics", ["cached_slug"], name: "index_articles_on_slug", using: :btree
-  add_index "topics", ["group_id", "status", "created_at"], name: "created_at", using: :btree
-  add_index "topics", ["group_id", "status", "updated_at"], name: "index_articles_on_group_id_and_status_and_updated_at", using: :btree
-  add_index "topics", ["status", "group_id", "id"], name: "status", using: :btree
+ActiveRecord::Schema.define(version: 20150630134448) do
 
   create_table "admin_users", force: true do |t|
     t.string   "first_name",       default: "",    null: false
@@ -669,6 +648,25 @@ ActiveRecord::Schema.define(version: 20150629203807) do
   add_index "tickets", ["topic_id"], name: "article_id", using: :btree
   add_index "tickets", ["user_id", "topic_id", "ticket_type_id", "correct"], name: "full_idx", using: :btree
   add_index "tickets", ["user_id", "topic_id"], name: "index_tickets_on_user_id_and_topic_id", unique: true, using: :btree
+
+  create_table "topics", force: true do |t|
+    t.string   "tag_line"
+    t.integer  "user_id",                   default: 0,         null: false
+    t.datetime "created_at"
+    t.string   "status",         limit: 7,  default: "pending", null: false
+    t.integer  "group_id",                  default: 0,         null: false
+    t.string   "comment_status", limit: 15, default: "open",    null: false
+    t.boolean  "anonymous",                 default: false,     null: false
+    t.datetime "updated_at"
+    t.string   "title"
+    t.integer  "top_post_id"
+    t.integer  "score",                     default: 0
+    t.integer  "posts_count",               default: 0
+  end
+
+  add_index "topics", ["group_id", "status", "created_at"], name: "created_at", using: :btree
+  add_index "topics", ["group_id", "status", "updated_at"], name: "index_topics_on_group_id_and_status_and_updated_at", using: :btree
+  add_index "topics", ["status", "group_id", "id"], name: "status", using: :btree
 
   create_table "transactions", force: true do |t|
     t.integer  "balance_id",             null: false

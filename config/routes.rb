@@ -187,5 +187,6 @@ Teapoy::Application.routes.draw do
   # get ':controller(/:action(/:id(.:format)))'
   get '/topics/:article_id/comments(.:format)' => 'comments#index'
   post '/topics/comments(.:format)' => 'comments#create'
+  resources :topics
 end
 Dir[Rails.root.join('config/routes/*.rb')].sort.each{|r| require_dependency(r)}

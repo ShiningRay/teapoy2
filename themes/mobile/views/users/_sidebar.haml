@@ -23,15 +23,15 @@
           = link_to "关注TA的人(#{@user.followings.count})", followings_user_path(@user)
         %li
           - if current_user.following?(@user)
-            = link_to "取消关注", unfollow_user_path(@user),:class=>"unfollow"
+            = link_to '取消关注', unfollow_user_path(@user), class: 'unfollow'
           - else
-            = link_to "关注", follow_user_path(@user) ,:class=>"follow"
+            = link_to '关注', follow_user_path(@user), class: 'follow'
       %li#send_message= link_to "传纸条", new_message_path(:id=>@user.id)
 
   - if current_user == @user
 
-    %p= link_to "修改头像/邮箱", edit_user_path(@user)
-    %p= link_to "修改密码", [:edit, @user, :password]
+    %p= link_to '修改头像/邮箱', edit_user_path(@user)
+    %p= link_to '修改密码', [:edit, @user, :password]
     %p= link_to "我关注的人(#{current_user.followers.count})", followers_user_path(current_user)
     %p= link_to "关注我的人(#{current_user.followings.count})", followings_user_path(current_user)
   %ul.badges
@@ -41,7 +41,7 @@
     - if @user.topics.size > 0
       按照日期查看此人帖子：
       =calendar_options_for_user(@user)
-    = render "/widgets/user_search"
+    = render '/widgets/user_search'
     %h2 按照小组察看此人帖子
     -#- cache [:group_list, @user.login], :expires_in => 1.hour do
     %ul.my-groups-lists
@@ -50,7 +50,7 @@
           %li
             - rep = @user.reputation_in(m.group)
             %abbr{:class => rep.level}
-              = t rep.level,:scope=>"reputations"
+              = t rep.level,:scope=>'reputations'
               =link_to "(#{rep.value})", user_group_reputation_logs_path(@user,m.group),:class =>"#{rep.level} poshytip",:title=>"距离升级还差"+Reputation.num_for_next_lever(rep.value).to_s+"分",:data=>{:poshytiptext=>"距离升级还差"+Reputation.num_for_next_lever(rep.value).to_s+"分"}
             |&nbsp;
             = link_to m.group.name, user_group_topics_path(@user,m.group)
@@ -59,4 +59,4 @@
   = link_to t('users.dislike'), dislike_user_path(@user), :method => :post ,:confirm=>" !!! dislike此人后，此人的文章将不会再出现在您的个人页面 !!!" if logged_in? and !current_user.disliked?(@user)
   = link_to t('users.cancel_dislike'), cancel_dislike_user_path(@user), :method => :post if logged_in? and current_user.disliked?(@user)
 -elsif  @group && action_name == "index"
-  = render "/groups/sidebar"
+  = render '/groups/sidebar'
