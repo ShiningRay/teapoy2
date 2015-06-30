@@ -1,27 +1,27 @@
-- content_for :title, "#{article_title} - #{@group.name}"
+- content_for :title, "#{topic_title} - #{@group.name}"
 
-- group = @group || @article.group
+- group = @group || topic.group
 
-- if @article
-  - @comments = @article.comments
-  - @list_view = true if logged_in? && current_user.has_read_article?(@article) && params[:read].nil?
-  = render @article
+- if topic
+  - @comments = topic.comments
+  - @list_view = true if logged_in? && current_user.has_read_topic?(topic) && params[:read].nil?
+  = render topic
   - @list_view = false
 
   .pagination
     .prev
       上一篇:
-      = @article.prev_in_group.nil? ? '无' : link_to(article_title(@article.prev_in_group), article_path(group, @article.prev_in_group))
+      = topic.prev_in_group.nil? ? '无' : link_to(topic_title(topic.prev_in_group), topic_path(group, topic.prev_in_group))
     .next
       下一篇:
-      = @article.next_in_group.nil? ? '无' : link_to(article_title(@article.next_in_group), article_path(group, @article.next_in_group))
+      = topic.next_in_group.nil? ? '无' : link_to(topic_title(topic.next_in_group), topic_path(group, topic.next_in_group))
   = render 'rewards_info'
   = render( 'comments/index')
 
 - if logged_in? && current_user.is_admin?
-  %form{:action => move_group_article_url(@group, @article), :method => :post}
+  %form{:action => move_group_article_url(@group, topic), :method => :post}
     %label Group ID
     %input(type="text" name="dest_group_id" value="")
     %input(type='submit' value='Move')
-  = link_to 'Delete', delete_group_article_path(@group, @article)
+  = link_to 'Delete', delete_group_article_path(@group, topic)
 

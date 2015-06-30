@@ -10,20 +10,20 @@ class MyController < ApplicationController
     @show_group = true
     params[:order] ||= "time"
     group_ids = current_user.publications(Group).collect{|s|s.id}
-    # article_ids = current_user.publications(Article).collect{|s|s.publication.id}
-    @articles = Article.where(:group_id.in => group_ids).before.public_articles
+    # article_ids = current_user.publications(Topic).collect{|s|s.publication.id}
+    topics = Topic.where(:group_id.in => group_ids).before.public_topics
     if params[:order] == "hot"
-      @articles = @articles.hottest.where(:created_at.gt => 24.hours.ago)
+      topics = topics.hottest.where(:created_at.gt => 24.hours.ago)
     else
-      @articles = @articles.latest
+      topics = topics.latest
     end
-    @articles = @articles.page(params[:page]).includes(:top_post, :group)
-    @articles.reject!{|a| a.top_post.nil? }
+    topics = topics.page(params[:page]).includes(:top_post, :group)
+    topics.reject!{|a| a.top_post.nil? }
     @groups =  current_user.publications(Group)
     respond_to do |format|
       format.any(:html, :mobile, :wml)
       format.json {
-        render :json => {:num_pages => @articles.num_pages, :articles => @articles}
+        render :json => {:num_pages => topics.num_pages, :articles => topics}
       }
     end
     #redirect_to current_user
@@ -67,23 +67,23 @@ class MyController < ApplicationController
 
     @items = @items.limit(30)
     @items = @items.offset(30*(@current_page-1)) if @current_page > 1
-    @articles =  @items.collect{|i| i.article_id }
-    Inbox.delay.bulk_mark_read(current_user.id, @articles)
-    @articles = Article.where(:id => @articles).includes(:top_post, :group).all unless @articles.blank?
+    topics =  @items.collect{|i| i.article_id }
+    Inbox.delay.bulk_mark_read(current_user.id, topics)
+    topics = Topic.where(:id => topics).includes(:top_post, :group).all unless topics.blank?
     @id2article = {}
-    @articles = @articles.compact.collect do |art|
+    topics = topics.compact.collect do |art|
       @id2article[art.id] = art
     end
-    #current_user.preload_subscribed(@articles)
+    #current_user.preload_subscribed(@topics)
 
     respond_to do |format|
       format.any(:html, :mobile, :wml) do
         if request.xhr?
-          render :partial => 'my/article', :collection => @articles
+          render :partial => 'my/article', :collection => topics
         end
       end
       format.json {
-        render :json => {:num_pages => 1, :articles => @articles}
+        render :json => {:num_pages => 1, :articles => topics}
       }
     end
   end
@@ -111,24 +111,24 @@ class MyController < ApplicationController
       @items = Inbox.by_user(current_user).any_in(:article_id => ids)#.order("field(id, #{ids.join(',')}")
     end
 
-    @articles = @items.collect{|i| i.article_id }
-    Inbox.delay.bulk_mark_read(current_user.id, @articles)
-    @articles = Article.where(:id => @articles).includes(:top_post, :group) unless @articles.blank?
-    @articles.compact!
-    #current_user.preload_subscribed(@articles)
+    topics = @items.collect{|i| i.article_id }
+    Inbox.delay.bulk_mark_read(current_user.id, topics)
+    topics = Topic.where(:id => topics).includes(:top_post, :group) unless topics.blank?
+    topics.compact!
+    #current_user.preload_subscribed(@topics)
     @id2article = {}
-    @articles.each do |art|
+    topics.each do |art|
       @id2article[art.id] = art
     end
     respond_to do |format|
       format.any :html, :mobile, :wml do
-        render :partial => 'my/article', :collection => @articles if request.xhr?
+        render :partial => 'my/article', :collection => topics if request.xhr?
       end
       format.json do
-        render :json => {:num_pages => 1, :articles => @articles}
+        render :json => {:num_pages => 1, :articles => topics}
       end
     end
-    #@articles
+    #@topics
   end
 
   # show all the groups current user subscribed
@@ -145,20 +145,20 @@ class MyController < ApplicationController
   end
 
   def watched
-    @all_subscriptions_count = current_user.publications(Article).size
-    @updated_subscriptions_count = 0 #current_user.publications(Article).has_updates.size
-    @subscriptions = current_user.subscriptions.where(:publication_type => 'Article').page(params[:page])
+    @all_subscriptions_count = current_user.publications(Topic).size
+    @updated_subscriptions_count = 0 #current_user.publications(Topic).has_updates.size
+    @subscriptions = current_user.subscriptions.where(:publication_type => 'Topic').page(params[:page])
     #if params[:filter] == 'all'
-      #@subscriptions = current_user.subscriptions.by_publication(Article).page(params[:page])
+      #@subscriptions = current_user.subscriptions.by_publication(Topic).page(params[:page])
     #else
-    #  @subscriptions = current_user.publications(Article).has_updates.page(params[:page])
+    #  @subscriptions = current_user.publications(Topic).has_updates.page(params[:page])
     #end
     @publications = @subscriptions.collect(&:publication).compact
     @user = current_user
   end
 
   def friends
-    @articles = Article.paginate(:page => params[:page],
+    topics = Topic.paginate(:page => params[:page],
       :conditions => {:status => 'publish',
         :anonymous => false,
         :user_id => current_user.friend_ids},
@@ -184,8 +184,8 @@ class MyController < ApplicationController
   end
 
   def articles
-    Article.unscoped do
-      @articles = current_user.articles.where(:status.ne => 'deleted').page(params[:page])
+    Topic.unscoped do
+      topics = current_user.topics.where(:status.ne => 'deleted').page(params[:page])
     end
     render :layout => 'layouts/application'
   end

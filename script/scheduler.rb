@@ -10,8 +10,8 @@ scheduler.every '60m', :blocking => true do
 end
 
 scheduler.every '5m', :blocking => true do
-  Article.update_scores
-  Article.schedule_future_articles
+  Topic.update_scores
+  Topic.schedule_future_articles
 end
 
 scheduler.join

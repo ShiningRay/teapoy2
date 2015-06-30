@@ -27,9 +27,9 @@
   -#- if @last > @end_day
     - next_month = @end_day + 1
     = link_to '下个月', group_archive_path(@group, next_month.year, next_month.month)
-- if @articles.size == 0
+- if topics.size == 0
   本月没有文章
 - else
   .articles-list
-    = render(@articles)
-  = paginate @articles
+    = render(topics)
+  = paginate topics

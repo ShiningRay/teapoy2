@@ -7,7 +7,7 @@ Teapoy::Application.routes.draw do
     get 'statistic/stats' =>'statistic#stats'
     root :to => 'statistic#stats'
     #root :to => 'dashboard#index', :as => 'dashboard'
-    get 'articles/comments/:id' => 'articles#comments'
+    get 'topics/comments/:id' => 'topics#comments'
 
     get '/' => 'statistic#index', :as => 'dashboard'
 
@@ -25,7 +25,7 @@ Teapoy::Application.routes.draw do
         post :quit_group
       end
 
-      resources :articles
+      resources :topics
       resources :transactions
       resources :inboxes
       collection do
@@ -36,7 +36,7 @@ Teapoy::Application.routes.draw do
     get 'frontpage' => 'frontpage#index', :as => :frontpage
     get 'frontpage/:action' => 'frontpage'
 
-    resources :articles do
+    resources :topics do
       member do
         post :move
         post :track
@@ -46,9 +46,9 @@ Teapoy::Application.routes.draw do
         post :move
         post :track
         post :batch_set_status
-        get 'by_status/:status' => 'articles#index'
+        get 'by_status/:status' => 'topics#index'
       end
-      get 'comments' => 'articles#comments'
+      get 'comments' => 'topics#comments'
     end
 
     resources :groups do

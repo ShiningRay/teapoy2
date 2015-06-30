@@ -19,7 +19,7 @@
               = link_to '退出小组', quit_group_path(group), {:class => "quit_group", :data => {:alternative_path => join_group_path(group), :alternative_text => '加入小组' }}
         - cache [group, 'status'], :expires_in => 1.hour do
           = t('groups.topics')
-          = group.public_articles.size
+          = group.public_topics.size
           |
           = t('groups.members')
           = group.memberships.size

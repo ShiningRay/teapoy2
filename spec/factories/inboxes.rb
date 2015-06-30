@@ -4,7 +4,7 @@
 FactoryGirl.define do
   factory :inbox do
     group
-    article
+    topic
     score { rand * 100 }
   end
 end

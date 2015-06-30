@@ -1,7 +1,7 @@
 class Subscription::PostObserver < Mongoid::Observer
   # observe :post
-  # def after_create(article)
-  #   Subscription.notify(Group, article)
-  #   Subscription.notify(User, article)
+  # def after_create(topic)
+  #   Subscription.notify(Group, topic)
+  #   Subscription.notify(User, topic)
   # end
 end

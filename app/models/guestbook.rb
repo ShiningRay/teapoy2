@@ -8,7 +8,7 @@ class Guestbook < ActiveRecord::Base
     group = Group.wrap(group_id)
     book = Guestbook.create name: group.name, owner: (group.owner || User.wrap('shiningray'))
 
-    group.public_articles.each do |article|
+    group.public_topics.each do |article|
       next unless article.top_post
       puts article.id
       puts article.title

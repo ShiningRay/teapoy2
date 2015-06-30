@@ -19,7 +19,7 @@ module User::ReputationAspect
     end
 
     def gain_reputation(amount, post, reason)
-      reputations.where(group_id: post.group_id || post.article.group_id).first_or_create.gain(amount, post, reason)
+      reputations.where(group_id: post.group_id || post.topic.group_id).first_or_create.gain(amount, post, reason)
     end
   #end
 

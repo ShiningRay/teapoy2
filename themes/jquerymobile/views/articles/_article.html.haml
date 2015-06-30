@@ -1,36 +1,36 @@
-- group = @group || article.group
-- post = article.top_post
-%article[article]
-  - if article.title?
+- group = @group || topic.group
+- post = topic.top_post
+%article[topic]
+  - if topic.title?
     %h2.title
-      - if !@group or @group != article.group and @show_group
-        = link_to group.name, articles_path(group), class: 'in-group'
+      - if !@group or @group != topic.group and @show_group
+        = link_to group.name, topics_path(group), class: 'in-group'
 
-      = link_to article.title, article_path(group, article)
-  .post-signature{:class => article.anonymous ? '' : 'topic-owner'}><
-    - unless article.anonymous
-      - user = article.user
+      = link_to topic.title, topic_path(group, topic)
+  .post-signature{:class => topic.anonymous ? '' : 'topic-owner'}><
+    - unless topic.anonymous
+      - user = topic.user
       - if user
 
         = link_to user, :class => 'user' do
           = image_tag user.avatar.thumb
           = user.name_or_login
     %span.user-action-time><
-      %span.relativetime><= time_ago_in_words(article.created_at)
-    - if logged_in? && current_user.own_article?(article)
-      =# link_to '删除', article_path(group, article, :_method => :delete)
-    - if logged_in? && current_user == article.group.owner && article.status == 'pending'
-      = link_to '通过', publish_article_path(group,article)
-      = link_to '移出', move_out_article_path(group,article)
+      %span.relativetime><= time_ago_in_words(topic.created_at)
+    - if logged_in? && current_user.own_topic?(topic)
+      =# link_to '删除', article_path(group, topic, :_method => :delete)
+    - if logged_in? && current_user == topic.group.owner && topic.status == 'pending'
+      = link_to '通过', publish_article_path(group,topic)
+      = link_to '移出', move_out_article_path(group,topic)
   .content= render_posts post
   .meta.ui-grid-b[post]
     = render 'posts/votecell', post: post if post
     .ui-block-c
-      - if article.comment_status == 'closed'
-        = link_to article_path(group, article), data: {role: 'button', mini: true} , class: 'ui-disabled' do
+      - if topic.comment_status == 'closed'
+        = link_to topic_path(group, topic), data: {role: 'button', mini: true} , class: 'ui-disabled' do
           = fa_icon 'comments'
           禁止评论
       - else
-        = link_to article_path(group, article), data: {role: 'button', mini: true, transition: 'slide', shadow: 'false'}, class: current_page?([group, article]) ? 'ui-disabled' : '' do
+        = link_to topic_path(group, topic), data: {role: 'button', mini: true, transition: 'slide', shadow: 'false'}, class: current_page?([group, topic]) ? 'ui-disabled' : '' do
           = fa_icon 'comments'
-          = article.posts.size - 1
+          = topic.posts.size - 1

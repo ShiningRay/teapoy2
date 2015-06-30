@@ -1,6 +1,6 @@
 - if @comments.size > 0 and logged_in? and !params[:read]
-  = cache [:collapse_wap, current_user.id, @article.id], :expires_in => 1.minute do
-    - if (read_to = current_user.has_read_article?(@article)) && read_to > 0
+  = cache [:collapse_wap, current_user.id, topic.id], :expires_in => 1.minute do
+    - if (read_to = current_user.has_read_topic?(topic)) && read_to > 0
       %p><
         = "已经折叠了#{read_to}个已读评论"
         - @comments = @comments[read_to..-1]
@@ -11,7 +11,7 @@
 
 - if logged_in? or @group.preferred_guest_can_reply?
   %br>
-  - unless @article.closed?
+  - unless topic.closed?
     = comment_form
   - else
     禁止评论

@@ -13,5 +13,5 @@
   = render_posts comment
   %br>
 
-  %a{:href=>new__article_comment_path(comment.group||comment.article.group,comment.article, :parent_id=>comment.floor)} 回复
+  %a{:href=>new__article_comment_path(comment.group||comment.topic.group,comment.topic, :parent_id=>comment.floor)} 回复
   %br>

@@ -2,7 +2,7 @@
 .collection-info.article.collection
   %h2
     = h @collection.title
-    - if @collection.article.status == 'private'
+    - if @collection.topic.status == 'private'
       %span.status= '[未公开]'
   .meta.cf
     列表创建人:

@@ -98,7 +98,7 @@ class Salary < ActiveRecord::Base
     User.where('id > 0').find_each do |u|
       sa = u.salaries.order('created_at asc').first
       s = u.created_at
-      s = u.articles.first.created_at unless s
+      s = u.topics.first.created_at unless s
       if sa.created_at > s
         s = s.to_date
         e = sa.created_at.to_date

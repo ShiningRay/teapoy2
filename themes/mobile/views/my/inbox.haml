@@ -1,6 +1,6 @@
 - content_for :title, '最热待读文章'
 = render 'sub_nav'
--if @articles.size == 0
+-if topics.size == 0
   .articles-list
   .recomment-groups
     您目前没有待读文章，去
@@ -16,13 +16,13 @@
 -else
   .articles-list
     - @items.each do |item|
-      - @article = @id2article[item.article_id]
-      - next unless @article
-      - @group = @article.group
+      - topic = @id2article[item.article_id]
+      - next unless topic
+      - @group = topic.group
       - @comments = nil
       - unless item.post_ids.blank?
-        - @comments = @article.comments.find_all_by_id(item.post_ids)
-      = render :partial => 'my/article', :object => @article, :locals => {:comments => @comments}
+        - @comments = topic.comments.find_all_by_id(item.post_ids)
+      = render :partial => 'my/topic', :object => topic, :locals => {:comments => @comments}
       /
         = item.score
         = item.read

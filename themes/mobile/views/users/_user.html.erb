@@ -14,7 +14,7 @@
       <span class="follow">粉丝</span><span class="stats_count numeric"><%= user.followings.count %></span>
     <% end %>
     <%= link_to user_articles_path(user) do %>
-      <span class="function">文章</span><span class="stats_count numeric"><%= user.articles.public_articles.signed.count %></span>
+      <span class="function">文章</span><span class="stats_count numeric"><%= user.topics.public_topics.signed.count %></span>
     <%end%>
     <% if logged_in? %>
       <% unless is_current %>

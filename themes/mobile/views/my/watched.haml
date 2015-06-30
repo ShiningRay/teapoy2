@@ -25,7 +25,7 @@
           %tr[article]
             %td(nowrap='nowrap')= "#{sub.unread_count} / #{article.posts.size - 1}"
             - floor = article.posts.size - sub.unread_count - 1
-            %td= link_to article_title(article), article_path(article.group, article, :anchor => (floor > 0 ? "floor-#{floor}" : nil)), :target => '_blank'
+            %td= link_to topic_title(article), topic_path(article.group, article, :anchor => (floor > 0 ? "floor-#{floor}" : nil)), :target => '_blank'
             %td= link_to article.group.name, article.group
             %td= link_to_unless article.anonymous, article_author(article), article.user
 

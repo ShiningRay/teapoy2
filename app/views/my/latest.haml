@@ -2,7 +2,7 @@
 
 = render 'sub_nav'
 
--if @articles.size == 0
+-if topics.size == 0
   .recomment-groups
     您目前没有待读文章，
     = link_to "去小组导航看看吧", groups_path
@@ -18,17 +18,17 @@
 -else
   .articles-list
     - @items.each do |item|
-      - @article = @id2article[item.article_id]
-      - next unless @article
-      - @group = @article.group
+      - topic = @id2article[item.article_id]
+      - next unless topic
+      - @group = topic.group
       - @comments = nil
       - unless item.post_ids.blank?
-        - @comments = @article.comments.find_all_by_id(item.post_ids)
-      = render :partial => 'my/article', :object => @article, :locals => {:comments => @comments}
+        - @comments = topic.comments.find_all_by_id(item.post_ids)
+      = render :partial => 'my/article', :object => topic, :locals => {:comments => @comments}
       /
         = item.score
         = item.read
   %a.more-item{:href=>"javascript:loadMoreItem();"}
     还有
-    %span.value= @total_count - @articles.size
+    %span.value= @total_count - topics.size
     条

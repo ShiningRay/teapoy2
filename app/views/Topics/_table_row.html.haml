@@ -1,0 +1,13 @@
+- article = table_row
+%tr[article]
+
+  %td
+    = link_to article_title(article), topic_path(article.group, article)
+  %td
+    = link_to article.group.name, article.group
+  %td
+    = link_to article.user.name_or_login, article.user
+  %td
+    = article.posts.size - 1
+  %td
+    = article.created_at

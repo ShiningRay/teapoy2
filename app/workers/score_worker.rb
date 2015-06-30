@@ -21,7 +21,7 @@ class ScoreWorker  < BaseWorker
   end
 
   def update(id)
-    article = Article.find id
+    article = Topic.find id
     gid = article.group_id
     @ids ||= {}
     @ids[gid] ||= Set.new

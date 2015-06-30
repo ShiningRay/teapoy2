@@ -43,7 +43,7 @@ class Admin::ReportsController < Admin::BaseController
     @report = Report.find params[:id]
     @target = @report.target
     case @target
-    when Article
+    when Topic
     when Comment
       @target.status = 'private'
       @target.save!

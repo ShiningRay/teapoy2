@@ -13,24 +13,24 @@ describe Inbox::UserCount do
   describe 'Inbox change' do
     let(:user){create :user}
     let(:group){create :group}
-    let(:article){create :article, group_id: group.id}
+    let(:topic){create :topic, group_id: group.id}
     it 'should increment corresponding user counter cache after create' do
       expect(Inbox::UserCount.where(user_id: user.id)).not_to be_exists
-      Inbox.create!(user_id: user.id, article_id: article.id, group_id: group.id)
+      Inbox.create!(user_id: user.id, topic_id: topic.id, group_id: group.id)
       expect(Inbox::UserCount.count_for(user.id)).to eq(1)
     end
 
     it 'should increment corresponding user counter cache after create' do
       expect(Inbox::UserCount.where(user_id: user.id)).not_to be_exists
-      Inbox.create!(user_id: user.id, article_id: article.id, group_id: group.id)
+      Inbox.create!(user_id: user.id, topic_id: topic.id, group_id: group.id)
       expect(Inbox::UserCount.where(user_id: user.id).first.count).to eq(1)
     end
 
-    context "inbox entry already created" do
+    context 'inbox entry already created' do
       let(:entry) {}
 
-      it "decrements corresponding user counter cache after entry destroyed" do
-        entry = Inbox.create!(user_id: user.id, article_id: article.id, group_id: group.id)
+      it 'decrements corresponding user counter cache after entry destroyed' do
+        entry = Inbox.create!(user_id: user.id, topic_id: topic.id, group_id: group.id)
         expect(Inbox::UserCount.count_for(user.id)).to eq(1)
 
         expect {entry.destroy}.to  change{Inbox::UserCount.count_for(user.id)}.by(-1)

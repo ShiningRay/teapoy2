@@ -3,8 +3,8 @@ require 'rails_helper'
 
 describe Post do
   let(:author) { create :user }
-  let(:article) { create :article, user: author }
-  subject(:post) { article.top_post }
+  let(:topic) { create :topic, user: author }
+  subject(:post) { topic.top_post }
 
   describe '::MentionsDetection' do
     it "detects @ login" do
@@ -25,18 +25,18 @@ describe Post do
   end
 
   describe '::FloorSequence' do
-    let(:article) { create :article }
+    let(:topic) { create :topic }
 
     it "numbers floor correctly" do
       post = Post.new
       post.content = Forgery::LoremIpsum.paragraph
       post.user = create(:user)
-      post.article = article
-      post.parent = article.top_post
+      post.topic = topic
+      post.parent = topic.top_post
       post.save!
 
       expect(post.floor).to eq(1)
-      post2 = create(:post, article: article, parent_id: post.id)
+      post2 = create(:post, topic: topic, parent_id: post.id)
       expect(post2.floor).to eq(2)
     end
   end

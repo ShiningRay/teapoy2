@@ -4,10 +4,10 @@
   %li= link_to_unless_current '待审', pending_group_articles_path(@group) if logged_in? and current_user == @group.owner
 
 
-- @articles = @group.public_articles.latest.includes(:top_post).page params[:page]
+- topics = @group.public_topics.latest.includes(:top_post).page params[:page]
 .articles-list
-  = render @articles
-= paginate @articles
+  = render topics
+= paginate topics
 
 - content_for :title, @group.name
 - content_for :head do

@@ -25,14 +25,14 @@ class Group #< ActiveRecord::Base
   # paginates_per 30
   # acts_as_taggable
   # attr_readonly :alias
-  has_many :articles
-  #has_many :public_articles, class_name: 'Article', conditions: {status: 'publish'}
-  def public_articles
-    articles.public_articles
+  has_many :topics
+  #has_many :public_topics, class_name: 'Topic', conditions: {status: 'publish'}
+  def public_topics
+    topics.public_topics
   end
-  #has_many :pending_articles, class_name: 'Article', conditions: {status: 'pending'}
-  def pending_articles
-    articles.pending
+  #has_many :pending_topics, class_name: 'Topic', conditions: {status: 'pending'}
+  def pending_topics
+    topics.pending
   end
 
   t_belongs_to :owner, class_name: 'User', foreign_key: :owner_id
@@ -65,8 +65,8 @@ class Group #< ActiveRecord::Base
 
   after_create :create_owner_membership
 
-  def self.all_articles
-    articles.unscoped
+  def self.all_topics
+    topics.unscoped
   end
 
   def self.find_by_alias(a, opt = {})
@@ -85,8 +85,8 @@ class Group #< ActiveRecord::Base
 
   def merge_with(other_group)
     transaction do
-      articles.each do |article|
-        article.move_to other_group
+      topics.each do |topic|
+        topic.move_to other_group
       end
       members.each do |user|
         user.quit_group(self)
@@ -98,8 +98,8 @@ class Group #< ActiveRecord::Base
     self.alias= self.alias.downcase
   end
 
-  def recent_hottest_article
-    public_articles.hottest.first
+  def recent_hottest_topic
+    public_topics.hottest.first
   end
 
   def preferred_guest_can_reply?
@@ -116,7 +116,7 @@ class Group #< ActiveRecord::Base
   # FIXME: use mongoid query
   def self.clear_self
     self.all.each do |g|
-      unless Article.exists?(["group_id = ? and created_at > ? and created_at < ?",g.id,1.day.ago,Time.now])
+      unless Topic.exists?(["group_id = ? and created_at > ? and created_at < ?",g.id,1.day.ago,Time.now])
         g.update_attributes!(status:"close")
       end
     end
@@ -125,7 +125,7 @@ class Group #< ActiveRecord::Base
   def self.update_scores
     today = Date.today
     Group.each do |g|
-      g.inc(:score => g.articles.by_date(today).sum(:score))
+      g.inc(:score => g.topics.by_date(today).sum(:score))
     end
   end
 
@@ -133,8 +133,8 @@ class Group #< ActiveRecord::Base
     Subscription.where(publication_type: 'Group', publication_id: id).includes(:subscriber).map{|s|s.subscriber}
   end
 
-  def preferred_articles_need_approval?
-    options.articles_need_approval
+  def preferred_topics_need_approval?
+    options.topics_need_approval
   end
 
   def preferred_membership_need_approval?

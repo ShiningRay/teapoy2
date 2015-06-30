@@ -1,7 +1,7 @@
 <% form_tag batch_admin_reports_path do %>
 <div>
 <ul id="nav88">
-  <%['Comment','User','Article'].each do |report|%>
+  <%['Comment','User','Topic'].each do |report|%>
   <li>
     <%=link_to "#{report}" ,:controller=>'reports',:action=>'index',:type=>"#{report}"%>
   </li>

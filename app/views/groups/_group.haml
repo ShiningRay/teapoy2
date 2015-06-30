@@ -15,7 +15,7 @@
 
         - cache [group, 'status'], :expires_in => 1.hour do
           = t('groups.topics')
-          = group.public_articles.size
+          = group.public_topics.size
           |
           = t('groups.members')
           = group.memberships.size

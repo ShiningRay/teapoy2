@@ -1,0 +1,26 @@
+- if @group
+  %div
+    = @group.name
+    = link_to "编辑这个小组设置",edit_admin_group_path(@group)
+  %ul.nav.nav-tabs
+    - for status in @statuses
+      - c = (params[:group_id] ? @group.topics : Topic).by_status(status).count
+      %li{:class => @status == status && 'active' }
+        %a{:href => url_for( :action => :index, :status => status, :group_id => params[:group_id])}
+          %span= status
+          = content_tag :span, c, :class => 'badge' if c > 0
+- elsif @user
+  %div
+    = @user.login
+    的文章
+#check_body
+  - if not topics or topics.empty?
+    %p No Articles
+  - else
+    = render 'admin/articles/selection' unless params[:id]
+    #entities
+      - @checkbox = true
+      = render topics
+  - end # end if
+  = paginate topics
+  #status

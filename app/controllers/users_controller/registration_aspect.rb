@@ -51,7 +51,7 @@ module UsersController::RegistrationAspect
           inviter.make_salary('invite',Date.today)
           inviter.gain_credit(50, "Invite-#{@user.id}")
           @user.follow(inviter)
-          Message.send_system_message(inviter.id, "您成功邀请了一个用户（#{user_articles_url(@user)}），所以给您奖励50积分")
+          Message.send_system_message(inviter.id, "您成功邀请了一个用户（#{user_topics_url(@user)}），所以给您奖励50积分")
         end
 
         unless params[:device_id].blank?

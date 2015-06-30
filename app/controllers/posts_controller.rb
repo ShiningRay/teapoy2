@@ -32,7 +32,7 @@ class PostsController < ApplicationController
     if resource.update post_params
       respond_to do |format|
         format.html {
-          redirect_to group_article_path(@post.group || @post.article.group, @post.article)
+          redirect_to group_article_path(@post.group || @post.topic.group, @post.topic)
         }
       end
     end
@@ -45,7 +45,7 @@ class PostsController < ApplicationController
 
   def dn
     @post = resource
-    #current_user.spend_credit(10, "vote down \##{@post.article.id} #{@post.floor > 0 && @post.floor}") if logged_in?
+    #current_user.spend_credit(10, "vote down \##{@post.topic.id} #{@post.floor > 0 && @post.floor}") if logged_in?
     vote(@post, -1)
   end
 
@@ -77,7 +77,7 @@ class PostsController < ApplicationController
         render :nothing => true if request.xhr?
       }
       format.any(:mobile, :wml) {
-        redirect_to group_article_path(@post.article)
+        redirect_to group_article_path(@post.topic)
       }
       format.js
     end
@@ -124,7 +124,7 @@ class PostsController < ApplicationController
 
     if logged_in?
       current_user.vote post, score
-      current_user.mark_article_as_read(post.article)
+      current_user.mark_article_as_read(post.topic)
       post.reload
     end
 
@@ -133,7 +133,7 @@ class PostsController < ApplicationController
         if request.xhr?
           render :text => post.score
         else
-          redirect_back_or_default(request.referer || article_path(post.group||post.article.group, post.article))
+          redirect_back_or_default(request.referer || topic_path(post.group||post.article.group, post.article))
         end
       }
       format.any(:mobile, :wml) { show_notice "您为帖子投了#{score > 0 ? '支持' : '反对'}，现在帖子得分为#{post.score}" }

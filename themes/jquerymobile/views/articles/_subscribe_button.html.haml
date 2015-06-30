@@ -1,4 +1,4 @@
-- if current_user.subscribed?(@article)
-  = link_to '取消订阅', [:unsubscribe, @article.group, @article], method: :post, remote: true, id: dom_id(@article, 'unsubscribe')
+- if current_user.subscribed?(topic)
+  = link_to '取消订阅', [:unsubscribe, topic.group, topic], method: :post, remote: true, id: dom_id(topic, 'unsubscribe')
 - else
-  = link_to '订阅', [:subscribe, @article.group, @article], method: :post, remote: true, id: dom_id(@article, 'subscribe')
+  = link_to '订阅', [:subscribe, topic.group, topic], method: :post, remote: true, id: dom_id(topic, 'subscribe')

@@ -1,7 +1,7 @@
 
-namespace :articles do
+namespace :topics do
   def fix_missing_article
-    Article.observers.disable(Article::ChargeObserver)
+    Topic.observers.disable(Topic::ChargeObserver)
     Post.where(floor: nil, parent_id: nil, article_id: nil).update(floor: 0)
     Post.where(article_id: nil).order_by(_id: :asc).each do |post|
       begin
@@ -56,7 +56,7 @@ namespace :articles do
     Post.where(:article_id.ne => nil, :floor => nil).each do |post|
       begin
         puts post.inspect
-        article = post.article
+        article = post.topic
         if post.id == article.top_post_id
           post.parent_id = nil
           post.parent_ids = []

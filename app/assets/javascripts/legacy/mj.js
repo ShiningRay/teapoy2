@@ -17,7 +17,7 @@ $(function(){
          type:"get",
          url:self.data("article_url"),
          success:function(data){
-          $(data).prependTo(".mj-articles");
+          $(data).prependTo(".mj-topics");
          }
        });
       self.dismiss();

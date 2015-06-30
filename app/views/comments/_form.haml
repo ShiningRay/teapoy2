@@ -1,4 +1,4 @@
-- @group ||= @article.group
+- @group ||= topic.group
 - if logged_in? or @group.options.guest_can_reply
   .avatar
     - if logged_in?
@@ -6,26 +6,26 @@
       .name= current_user.name
 
   =# link_to 'Not me?', logout_path
-  - if @group.options.only_member_can_reply and (logged_in? and !current_user.is_member_of?(@article.group))
-    = link_to '加入小组发表评论', join_group_path(@article.group), method: :post, class: "join_group"
+  - if @group.options.only_member_can_reply and (logged_in? and !current_user.is_member_of?(topic.group))
+    = link_to '加入小组发表评论', join_group_path(topic.group), method: :post, class: "join_group"
   - else
     - unless logged_in?
       您目前是游客身份，请
       = link_to '登录', login_path
-    = simple_form_for((@post || @article.comments.new), url: group_article_comments_path(@group, @article, format: :js), html:{multipart: true, remote: true}) do |f|
+    = simple_form_for((@post || @topic.comments.new), url: group_topic_comments_path(@group, @topic, format: :js), html:{multipart: true, remote: true}) do |f|
 
       = f.input :parent_id, as: :hidden
       #faceTitle
       = f.input :content, as: :text, input_html: {rows: 2, placeholder: "按 Ctrl+Enter 快速发表"}
       = f.button :submit, '回复', button_html: {class: 'btn btn-primary', data:{disable_with: '...'}}
       - if logged_in?
-        - if current_user.own_article?(@article) and @article.anonymous?
+        - if current_user.own_topic?(@topic) and @topic.anonymous?
           = f.input :anonymous, as: :boolean, input_html: {checked: "checked" }
         -else
           = f.input :anonymous, as: :boolean
         = f.input :picture, as: :file, label: '图片' if logged_in?
       - if logged_in?
-        - unless (current_user.has_rewarded(@article.top_post) || current_user.own_article?(@article))
+        - unless (current_user.has_rewarded(@topic.top_post) || current_user.own_topic?(@topic))
           %label.reward
             打赏积分(每个帖子只能打赏一次)：
             %input(type='text' name='reward')

@@ -1,11 +1,11 @@
-atom_feed(:schema_date => @articles.first.created_at) do |feed|
+atom_feed(:schema_date => topics.first.created_at) do |feed|
   feed.title("#{@group.name}")
 
-  feed.updated(@articles.first.created_at)
+  feed.updated(topics.first.created_at)
 
-  @articles.each do |article|
+  topics.each do |article|
     feed.entry(article, :url => article_url(@group, article)) do |entry|
-      entry.title(article_title article)
+      entry.title(topic_title article)
       p = article.top_post
       c = ''
       unless p.blank?

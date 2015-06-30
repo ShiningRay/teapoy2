@@ -1,9 +1,9 @@
 -# coding: utf-8
 - f = omni_form
-- p = @article.top_post
+- p = topic.top_post
 = f.inputs do
   = f.input :content, :as => :text
-- if @article and @article.new_record? or (@article and @article.top_post and @article.top_post.new_record?)
+- if topic and topic.new_record? or (topic and topic.top_post and topic.top_post.new_record?)
   :ruby
     types = ['Post', 'Picture', 'Flash', 'ExternalVideo', 'Poll']
     co = ActiveSupport::OrderedHash.new

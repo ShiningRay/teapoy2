@@ -1,4 +1,4 @@
-= form_for Article.new,:url=>articles_path(@group)  do |f|
+= form_for Topic.new,:url=>topics_path(@group)  do |f|
   = f.text_area :content, :placeholder => '对你思念的人说句晚安吧'
   = f.submit '发表', :class => 'btn btn-primary pull-right'
   - if logged_in?

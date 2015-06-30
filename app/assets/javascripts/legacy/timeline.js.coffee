@@ -52,7 +52,7 @@ $ ->
         a.effect "highlight", 3000
 
   load_comments = (group_alias,article_id,highlight_comment_id) ->
-    article = $("article#article_#{article_id}")
+    article = $("topic#article_#{article_id}")
     $.getJSON "/#{group_alias}/#{article_id}/comments" , (data, status, xhr) ->
       if  xhr.status is 200
         if article.find(".comments_article").length > 0
@@ -70,10 +70,10 @@ $ ->
     if article.size() is 0
       $.getJSON self.data("article_url"), (data) ->
         if($('body').hasClass('my-inbox') || $('body').hasClass('my-latest'))
-          highlight $(window.templates.render('new_article',data)).prependTo(".articles-list"), (article) ->
+          highlight $(window.templates.render('new_article',data)).prependTo(".topics-list"), (article) ->
             $('a.comments', article).click() if self.data('scope') is 'reply'
         else
-          highlight $(window.templates.render('article',data)).prependTo(".articles-list")
+          highlight $(window.templates.render('article',data)).prependTo(".topics-list")
         self.dismiss()
     else
       highlight article,( ->

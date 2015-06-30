@@ -41,7 +41,7 @@ class NotificationsController < ApplicationController
     location = case @notification.scope.to_s
     when 'reply', 'mention'
       article = @notification.subject
-      article_path(article.group, article)
+      topic_path(article.group, article)
     when 'new_follower'
       user_path(@notification.key)
     when 'delete_comment'

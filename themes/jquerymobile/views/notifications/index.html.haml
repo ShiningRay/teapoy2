@@ -9,8 +9,8 @@
       - @notifications.each do |n|
         -  data = {}
         -  data[:scope] = n.scope
-        -  if n.subject.is_a?(Article)
-          -  data[:article_url] = article_path(n.subject.group, n.subject)
+        -  if n.subject.is_a?(Topic)
+          -  data[:article_url] = topic_path(n.subject.group, n.subject)
           -  data[:article_id] = n.subject.id
           -  data[:comments_count] = n.subject.comments.size
         %li{:id => "notification_#{n.id}", :class => "notification", :data => data}= render_notification(n) rescue '...'

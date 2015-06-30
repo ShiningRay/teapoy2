@@ -111,19 +111,19 @@ class ApplicationController < ActionController::Base
   end
   alias find_group group
 
-  def article_path(*args)
-    group_article_path(*args)
+  def topic_path(*args)
+    group_topic_path(*args)
   end
 
-  def articles_path(*args)
-    group_articles_path(*args)
+  def topics_path(*args)
+    group_topics_path(*args)
   end
 
-  def new_article_path(*args)
-    new_group_article_path(*args)
+  def new_topic_path(*args)
+    new_group_topic_path(*args)
   end
 
-  helper_method :article_path, :articles_path, :new_article_path
+  helper_method :topic_path, :topics_path, :new_topic_path
   def default_serializer_options
     {
       root: false

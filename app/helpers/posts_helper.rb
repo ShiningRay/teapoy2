@@ -82,27 +82,27 @@ module PostsHelper
       title = $2[1..-1] if $2
 
       if name =~ /\A\d+\z/
-        page = Article.find_by_id(name)
+        page = Topic.find_by_id(name)
         group = page.group if page
       else
-        page = group.articles.find_by_cached_slug(name)
+        page = group.topics.find_by_cached_slug(name)
       end
       if page
-        link_to (title.blank? ? article_title(page) : title), article_path(group, page)
+        link_to (title.blank? ? topic_title(page) : title), topic_path(group, page)
       else
         match
       end
     end
-    group ||= @article.group if @article
+    group ||= topic.group if topic
     return content unless group
     content.gsub(/\[\[([^\|\]]*)(\|[^\]]*)?\]\]/) do |match|
       name = $1
       title = $2[1..-1] if $2
 
-      page = group.articles.featured.where(title: name).first
+      page = group.topics.featured.where(title: name).first
       if page
-        original_title = article_title(page)
-        link_to((title.blank? ? original_title : title), article_path(@group, page), title: original_title)
+        original_title = topic_title(page)
+        link_to((title.blank? ? original_title : title), topic_path(@group, page), title: original_title)
       else
         link_to((title.blank? ? name : title), search_group_articles_path(@group||'all', term: name), rel: 'nofollow', class: 'missing')
         #link_to match, title: '', rel: 'nofollow'

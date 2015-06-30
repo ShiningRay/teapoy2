@@ -24,7 +24,7 @@ class ListsController < ApplicationController
   # GET /lists/1.xml
   def show
     @list = List.find(params[:id])
-    @articles = @list.articles.page(params[:page]).order("position ASC")
+    topics = @list.topics.page(params[:page]).order("position ASC")
     @description =  "博聆网 一个有人情味的社区 轻论坛 #{@list.name}"
     @keywords = "博聆网 一个有人情味的社区 轻论坛 #{@list.name}"
     respond_to do |format|
@@ -108,13 +108,13 @@ class ListsController < ApplicationController
     if @list.user != current_user
       return
     end
-    @article = Article.find(params[:article_url].split("/").last.split("#").first)
-    if @article.status != 'publish'
+    topic = Topic.find(params[:article_url].split("/").last.split("#").first)
+    if topic.status != 'publish'
       flash[:error] = '该文章无法公开'
-    elsif @article.group.preferred_encryption?
+    elsif topic.group.preferred_encryption?
       flash[:error] = '该文章无法公开!'
     else
-      @list.items.create :article_id => @article.id
+      @list.items.create :article_id => topic.id
     end
   rescue ActiveRecord::RecordNotFound
     flash[:error] = '未找到该文章'

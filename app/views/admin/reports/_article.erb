@@ -1,7 +1,7 @@
 <div class="entry" id="entity">
   <div class="entry_bar">
     <div class="entry_bar_left">
-      #<%=link_to article.id, article%> <%= link_to article.user.login, [:admin, article.user], :class => article.anonymous ? 'anonymous' : '' %>
+      #<%=link_to topic.id, topic%> <%= link_to topic.user.login, [:admin, topic.user], :class => topic.anonymous ? 'anonymous' : '' %>
       [<span class="report-edit">
         <label><%= radio_button_tag "report[#{report.id}][result]", 'skip', true %>跳过</label>
         <label><%= radio_button_tag "report[#{report.id}][result]", 'remove' %><%= link_to '删除', remove_admin_report_path(report), :method => :post %></label>
@@ -12,10 +12,10 @@
     <div class="entry_bar_right">    </div>
   </div>
   <div class="entity_text">
-    <%=h article.content%>
+    <%=h topic.content%>
   </div>
-  <%= render 'punish', :user => article.user %>
-  <table id="article-<%=article.id%>">
+  <%= render 'punish', :user => topic.user %>
+  <table id="article-<%=topic.id%>">
   <% report.info.each do |i| %>
   <tr>
     <td>

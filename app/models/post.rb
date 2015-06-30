@@ -7,7 +7,7 @@ class Post
   include Tenacity
 
   belongs_to :group
-  belongs_to :article, touch: true, counter_cache: true, inverse_of: :posts
+  belongs_to :topic, touch: true, counter_cache: true, inverse_of: :posts
   t_belongs_to :user#, class_name: 'User', foreign_key: :user_id
 
   field :content, type: String
@@ -41,7 +41,7 @@ class Post
   harmonize :content
 
   check_spam :content do |post|
-    post.article.status = 'spam'
+    post.topic.status = 'spam'
   end
 
   scope :on_date, ->(date) { where(:created_at.gte => date.beginning_of_day, :created_at.lt => date.end_of_day)}
@@ -142,7 +142,7 @@ class Post
       #  @emoji.respond_to?($1) ? @emoji.send($1) : m
       #end
     end
-    group = group || article.group
+    group = group || topic.group
     res['parent_id'] ||= -1
     res['time_ago_in_words'] = time_ago_in_words(created_at)
     res[:group] = group.alias if group

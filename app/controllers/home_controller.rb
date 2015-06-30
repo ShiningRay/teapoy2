@@ -19,15 +19,15 @@ class HomeController < ApplicationController
   end
 
   def hottest
-    @items = Inbox.guest.includes(:article => [:user, :top_post, :group]).order('score desc').page(params[:page])
-    @articles = @items.collect{|i|i.article}
-    @articles.compact!
+    @items = Inbox.guest.includes(:topic => [:user, :top_post, :group]).order('score desc').page(params[:page])
+    topics = @items.collect{|i|i.topic}
+    topics.compact!
     render :latest
   end
 
   def latest
-    @items = Inbox.guest.joins(:article).includes(:article => [:user, :top_post, :group]).order('articles.created_at desc').page(params[:page])
-    @articles = @items.collect{|i|i.article}
-    @articles.compact!
+    @items = Inbox.guest.joins(:topic).includes(:topic => [:user, :top_post, :group]).order('topics.created_at desc').page(params[:page])
+    topics = @items.collect{|i|i.topic}
+    topics.compact!
   end
 end

@@ -14,7 +14,7 @@
           %option( value="#{i}")>< "#{poll.questions[i]}"
     %anchor
       投票
-      %go{:href=>"#{_article_comments_path(poll.group, poll.article)}", :method=>"post"}
+      %go{:href=>"#{_article_comments_path(poll.group, poll.topic)}", :method=>"post"}
         %postfield{:value=>"✓",:name=>"utf8"}
         %postfield{:value=>"#{form_authenticity_token}",:name=>"authenticity_token"}
         %postfield{:value=>"Vote",:name=>"user_session[login]"}

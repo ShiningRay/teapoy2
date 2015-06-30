@@ -11,7 +11,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150628154456) do
+ActiveRecord::Schema.define(version: 20150629203807) do
+
+  create_table "topics", force: true do |t|
+    t.string   "tag_line"
+    t.integer  "user_id",                   default: 0,         null: false
+    t.datetime "created_at"
+    t.string   "status",         limit: 7,  default: "pending", null: false
+    t.integer  "group_id",                  default: 0,         null: false
+    t.string   "comment_status", limit: 15, default: "open",    null: false
+    t.boolean  "anonymous",                 default: false,     null: false
+    t.datetime "updated_at"
+    t.string   "title"
+    t.integer  "top_post_id"
+    t.string   "cached_slug"
+    t.integer  "score",                     default: 0
+    t.integer  "posts_count",               default: 0
+  end
+
+  add_index "topics", ["cached_slug"], name: "index_articles_on_slug", using: :btree
+  add_index "topics", ["group_id", "status", "created_at"], name: "created_at", using: :btree
+  add_index "topics", ["group_id", "status", "updated_at"], name: "index_articles_on_group_id_and_status_and_updated_at", using: :btree
+  add_index "topics", ["status", "group_id", "id"], name: "status", using: :btree
 
   create_table "admin_users", force: true do |t|
     t.string   "first_name",       default: "",    null: false
@@ -73,27 +94,6 @@ ActiveRecord::Schema.define(version: 20150628154456) do
     t.integer  "parent_id"
     t.datetime "deleted_at"
   end
-
-  create_table "articles", force: true do |t|
-    t.string   "tag_line"
-    t.integer  "user_id",                   default: 0,         null: false
-    t.datetime "created_at"
-    t.string   "status",         limit: 7,  default: "pending", null: false
-    t.integer  "group_id",                  default: 0,         null: false
-    t.string   "comment_status", limit: 15, default: "open",    null: false
-    t.boolean  "anonymous",                 default: false,     null: false
-    t.datetime "updated_at"
-    t.string   "title"
-    t.integer  "top_post_id"
-    t.string   "cached_slug"
-    t.integer  "score",                     default: 0
-    t.integer  "posts_count",               default: 0
-  end
-
-  add_index "articles", ["cached_slug"], name: "index_articles_on_slug", using: :btree
-  add_index "articles", ["group_id", "status", "created_at"], name: "created_at", using: :btree
-  add_index "articles", ["group_id", "status", "updated_at"], name: "index_articles_on_group_id_and_status_and_updated_at", using: :btree
-  add_index "articles", ["status", "group_id", "id"], name: "status", using: :btree
 
   create_table "badges", force: true do |t|
     t.string   "name",              null: false
@@ -397,7 +397,7 @@ ActiveRecord::Schema.define(version: 20150628154456) do
     t.integer  "ip"
     t.string   "type"
     t.integer  "group_id"
-    t.integer  "article_id"
+    t.integer  "topic_id"
     t.integer  "floor"
     t.integer  "neg"
     t.integer  "pos"
@@ -410,9 +410,9 @@ ActiveRecord::Schema.define(version: 20150628154456) do
   end
 
   add_index "posts", ["ancestry"], name: "index_posts_on_ancestry", using: :btree
-  add_index "posts", ["article_id", "floor"], name: "article_id", unique: true, using: :btree
-  add_index "posts", ["group_id", "article_id", "floor"], name: "pk", unique: true, using: :btree
+  add_index "posts", ["group_id", "topic_id", "floor"], name: "pk", unique: true, using: :btree
   add_index "posts", ["parent_id"], name: "index_posts_on_reshare_and_parent_id", using: :btree
+  add_index "posts", ["topic_id", "floor"], name: "article_id", unique: true, using: :btree
 
   create_table "preferences", force: true do |t|
     t.string   "name",       null: false
@@ -453,16 +453,16 @@ ActiveRecord::Schema.define(version: 20150628154456) do
   add_index "ratings", ["score"], name: "index_ratings_on_score", using: :btree
 
   create_table "read_statuses", force: true do |t|
-    t.integer  "user_id",                null: false
+    t.integer  "user_id",              null: false
     t.integer  "group_id"
-    t.integer  "article_id",             null: false
-    t.integer  "read_to",    default: 0
+    t.integer  "topic_id",             null: false
+    t.integer  "read_to",  default: 0
     t.datetime "read_at"
-    t.integer  "updates",    default: 0
+    t.integer  "updates",  default: 0
   end
 
-  add_index "read_statuses", ["user_id", "group_id", "article_id", "read_to"], name: "total_index", using: :btree
-  add_index "read_statuses", ["user_id", "group_id", "article_id"], name: "alter_pk", unique: true, using: :btree
+  add_index "read_statuses", ["user_id", "group_id", "topic_id", "read_to"], name: "total_index", using: :btree
+  add_index "read_statuses", ["user_id", "group_id", "topic_id"], name: "alter_pk", unique: true, using: :btree
 
   create_table "references", force: true do |t|
     t.integer  "source_id"
@@ -658,7 +658,7 @@ ActiveRecord::Schema.define(version: 20150628154456) do
 
   create_table "tickets", force: true do |t|
     t.integer  "user_id",        null: false
-    t.integer  "article_id",     null: false
+    t.integer  "topic_id",       null: false
     t.integer  "ticket_type_id"
     t.boolean  "correct"
     t.datetime "created_at"
@@ -666,9 +666,9 @@ ActiveRecord::Schema.define(version: 20150628154456) do
     t.datetime "viewed_at"
   end
 
-  add_index "tickets", ["article_id"], name: "article_id", using: :btree
-  add_index "tickets", ["user_id", "article_id", "ticket_type_id", "correct"], name: "full_idx", using: :btree
-  add_index "tickets", ["user_id", "article_id"], name: "index_tickets_on_user_id_and_article_id", unique: true, using: :btree
+  add_index "tickets", ["topic_id"], name: "article_id", using: :btree
+  add_index "tickets", ["user_id", "topic_id", "ticket_type_id", "correct"], name: "full_idx", using: :btree
+  add_index "tickets", ["user_id", "topic_id"], name: "index_tickets_on_user_id_and_topic_id", unique: true, using: :btree
 
   create_table "transactions", force: true do |t|
     t.integer  "balance_id",             null: false

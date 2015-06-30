@@ -15,7 +15,7 @@
     %th 理由
   - @reputation_logs.each do |reputation_log|
     %tr
-      %td.post=link_to reputation_log.post_id,"/articles/#{reputation_log.post_id}"
+      %td.post=link_to reputation_log.post_id,"/topics/#{reputation_log.post_id}"
       %td.amount= reputation_log.amount
       %td.reason=reputation_reasons[reputation_log.reason]
 %br/

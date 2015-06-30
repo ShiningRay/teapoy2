@@ -1,18 +1,18 @@
 # encoding: utf-8
 class Notification::MentionObserver < Mongoid::Observer
-  observe :article, :post
+  observe :topic, :post
 
-  def after_publish(article)
-    return unless article.is_a?(Article)
-    send_mention(article.top_post)
+  def after_publish(topic)
+    return unless topic.is_a?(Topic)
+    send_mention(topic.top_post)
   end
   #handle_asynchronously :after_publish if Rails.env.production?
 
   # Post trigger after post is numbered
   def after_numbered(post)
     return unless post.is_a?(Post)
-    return unless post.article
-    return unless post.article.status == 'publish'
+    return unless post.topic
+    return unless post.topic.status == 'publish'
     return unless post.floor and post.floor > 0
     send_mention(post)
   end
@@ -30,7 +30,7 @@ class Notification::MentionObserver < Mongoid::Observer
 
   def send_mention(post)
     post.mentioned.each do |mentioned_user|
-      Notification.send_to mentioned_user, 'mention', post.article, post.user, post
+      Notification.send_to mentioned_user, 'mention', post.topic, post.user, post
     end unless post.mentioned.blank?
   end
 end

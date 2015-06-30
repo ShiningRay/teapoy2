@@ -7,7 +7,7 @@ describe Inbox::ScoreObserver, broken: true do
   let(:group){create :group, hide: false, private: false}
   let(:author){create :user}
   let(:top_post) { create(:post, user: author, floor: 0, group: group) }
-  let(:article){Article.observers.disable :all; create :article, group: group, user: author, status: 'publish', top_post: top_post}
+  let(:topic){Topic.observers.disable :all; create :topic, group: group, user: author, status: 'publish', top_post: top_post}
   let(:subscriber){create :user}
 
   before do
@@ -15,13 +15,13 @@ describe Inbox::ScoreObserver, broken: true do
     Post.observers.enable described_class
     User.stub(:guest).and_return(guest)
     subscriber.subscribe(group)
-    guest.stub(:has_read?).with(kind_of(Article)).and_return(false)
+    guest.stub(:has_read?).with(kind_of(Topic)).and_return(false)
   end
 
   it 'should deliver post to frontpage' do
-    article.top_post.score=100
-    article.top_post.save
-    subscriber.rate 1, article.top_post
-    expect(Inbox.guest.where(:article_id => article.id).count).to eq(1)
+    topic.top_post.score=100
+    topic.top_post.save
+    subscriber.rate 1, topic.top_post
+    expect(Inbox.guest.where(:topic_id => topic.id).count).to eq(1)
   end
 end

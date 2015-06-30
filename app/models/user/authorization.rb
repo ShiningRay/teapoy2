@@ -42,7 +42,7 @@ module User::Authorization
 
   def do_delete
     self.deleted_at = Time.now.utc
-    articles.destroy_all
+    topics.destroy_all
     posts.destroy_all
   end
 

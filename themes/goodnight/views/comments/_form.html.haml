@@ -1,4 +1,4 @@
-- @group ||= @article.group
+- @group ||= topic.group
 - if logged_in? or @group.preferred_guest_can_reply?
   .comment-form
     .avatar
@@ -7,19 +7,19 @@
         .name= current_user.name
 
     =# link_to 'Not me?', logout_path
-    - if @group.preferred_only_member_can_reply? and !current_user.is_member_of?(@article.group)
-      = link_to '加入小组发表评论', join_group_path(@article.group) ,:class=>"join_group"
+    - if @group.preferred_only_member_can_reply? and !current_user.is_member_of?(topic.group)
+      = link_to '加入小组发表评论', join_group_path(topic.group) ,:class=>"join_group"
     - else
       - unless logged_in?
         您目前是游客身份，请
         = link_to '登录', login_path
-      = form_for((@post || [@article, @article.comments.new]), :url => "/#{@group.alias}/#{@article.to_param}/comments.html",:html=>{:multipart => true, :class => 'form-inline', :id => ''}) do |f|
+      = form_for((@post || [topic, topic.comments.new]), :url => "/#{@group.alias}/#{topic.to_param}/comments.html",:html=>{:multipart => true, :class => 'form-inline', :id => ''}) do |f|
         = f.hidden_field :parent_id
         #faceTitle
         = f.text_area :content, :rows => 2, :placeholder=>"按 Ctrl+Enter 快速发表", :class => 'span6'
         %label.checkbox
           - if logged_in?
-            - if current_user.own_article?(@article) and @article.anonymous?
+            - if current_user.own_topic?(topic) and topic.anonymous?
               = f.check_box :anonymous, :checked => "checked"
             -else
               = f.check_box :anonymous

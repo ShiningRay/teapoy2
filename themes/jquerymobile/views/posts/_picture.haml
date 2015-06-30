@@ -1,7 +1,7 @@
 
 - if picture.picture?
-  - alt = picture.content && picture.content.mb_chars[0,50] || picture.article.title || ''
-  - title = (picture.article.title || alt[0, 10])
+  - alt = picture.content && picture.content.mb_chars[0,50] || picture.topic.title || ''
+  - title = (picture.topic.title || alt[0, 10])
   - if @list_view
     - if picture.gif?
       = link_to image_tag(picture.picture.thumb.url, :alt => alt), picture.picture.url, :class => 'picture', :id => "picture-#{picture.id}", :title => title

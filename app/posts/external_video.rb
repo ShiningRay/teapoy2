@@ -106,7 +106,7 @@ class ExternalVideo < Post
         Rails.logger.debug(info.inspect)
         self.video_flash_link = "http://player.ku6.com/refer/#{info['id']}/v.swf"
         self.thumb_img_link = info['cover']
-        self.article.title ||= self.video_title = info['title']
+        self.topic.title ||= self.video_title = info['title']
         self['video_description'] = info['desc']
       end
     when VideoPageLinkPattern[:com56album]

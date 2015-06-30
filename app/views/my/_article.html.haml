@@ -1,15 +1,15 @@
-- id=article.id
-- top_post = article.top_post
-- group = @group || article.group
-- group_id = article.group_id
+- id=topic.id
+- top_post = topic.top_post
+- group = @group || topic.group
+- group_id = topic.group_id
 - read=nil
 - if logged_in?
-  - read = current_user.has_truly_read_article?(article) ? 'read' : 'unread'
-%article.cf.hentry[article]{:class => read}
+  - read = current_user.has_truly_read_topic?(topic) ? 'read' : 'unread'
+%article.cf.hentry[topic]{:class => read}
   .user-info
-    - user = article.user
+    - user = topic.user
     - if user
-      - unless article.anonymous
+      - unless topic.anonymous
         .user-avatar
           =link_to image_tag(user.avatar.url("small"), :alt => "#{user.name_or_login}", :class => 'avatar'), user_path(user)
         .user-name=link_to user.name_or_login, user_path(user)
@@ -21,10 +21,10 @@
           %span=user.name_or_login
   .arraw.arraw-b
   - if top_post
-    %div[article.top_post]{:class => [article.top_post.class_names, is_mine_class(article.top_post)]}
+    %div[topic.top_post]{:class => [topic.top_post.class_names, is_mine_class(topic.top_post)]}
       -#= render "posts/votecell", :post => top_post if top_post
-      .post-signature{:class => article.anonymous ? user.class_names : ''}
-        %time.relativetime{:datetime => article.created_at.strftime("%m/%d/%Y %H:%M:%S"), :title => article.created_at.to_s}= time_ago_in_words(article.created_at)
+      .post-signature{:class => topic.anonymous ? user.class_names : ''}
+        %time.relativetime{:datetime => topic.created_at.strftime("%m/%d/%Y %H:%M:%S"), :title => topic.created_at.to_s}= time_ago_in_words(topic.created_at)
         .markread
           %a{:href=>"#",:title=>"标记为已读"}
         %ul.suckerfish
@@ -35,27 +35,27 @@
               %li
                 %a.show-someone-comment{:href=>"#",:data=>{:login=>"#{user.login}"}}="只看楼主"
               %li
-                %a{:target=>"_blank",:href=>group_article_path(article.group, article,:anchor => "comments_#{article.id}")}="打开"
+                %a{:target=>"_blank",:href=>group_article_path(topic.group, topic,:anchor => "comments_#{topic.id}")}="打开"
               %li
                 = link_to repost_form_path(:post_id => top_post.try(:id)) do
                   = t('articles.repost')
-                  = "(#{article.top_post.reposts.size})" if article.top_post.reposts.size > 0
+                  = "(#{topic.top_post.reposts.size})" if topic.top_post.reposts.size > 0
               %li.subscribe-button
-                - if current_user.has_subscribed?(article)
-                  = link_to t('articles.unsubscribe'), unsubscribe_article_path(group, article), :class => 'unsubscribe'
+                - if current_user.has_subscribed?(topic)
+                  = link_to t('articles.unsubscribe'), unsubscribe_article_path(group, topic), :class => 'unsubscribe'
                 - else
-                  = link_to t('articles.subscribe'), subscribe_article_path(group, article), :class => 'subscribe'
-              - if logged_in? && (current_user == article.group.owner || current_user.own_article?(article))
+                  = link_to t('articles.subscribe'), subscribe_article_path(group, topic), :class => 'subscribe'
+              - if logged_in? && (current_user == topic.group.owner || current_user.own_topic?(topic))
                 %li.admin
-                  = link_to '删除', article_path(group, article), :method => :delete, :remote => true, :confirm => '确定要删除这篇帖子吗?'
-                - if article.status == 'pending'
+                  = link_to '删除', topic_path(group, topic), :method => :delete, :remote => true, :confirm => '确定要删除这篇帖子吗?'
+                - if topic.status == 'pending'
                   %li.admin
-                    = link_to '通过', publish_article_path(group,article),:class=>"publish-article"
+                    = link_to '通过', publish_article_path(group,topic),:class=>"publish-topic"
                   %li.admin
-                    = link_to '移出', move_out_article_path(group,article),:class=>"move-out-article"
-                - if current_user.own_article?(article)
+                    = link_to '移出', move_out_article_path(group,topic),:class=>"move-out-topic"
+                - if current_user.own_topic?(topic)
                   %li.admin
-                    = link_to '修改', edit_article_path(group, article)
+                    = link_to '修改', edit_article_path(group, topic)
 
       .user-and-group
         -#.user-details
@@ -67,24 +67,24 @@
             发布于
           = link_to group.name, group_articles_path(group),:data => {:alias => group.alias},:class => 'group'
 
-      - unless article.title.blank?
-        %h2.entry-title= link_to article.title, article_path(group, article), :rel => 'bookmark', :target => '_blank'
-      .entry-content= render_posts article.top_post
+      - unless topic.title.blank?
+        %h2.entry-title= link_to topic.title, topic_path(group, topic), :rel => 'bookmark', :target => '_blank'
+      .entry-content= render_posts topic.top_post
       %ul.meta
         = render "posts/votecell", :post => top_post if top_post
         -#- if logged_in?
           %li.score-area
             %span
-              =article.top_post.score
+              =topic.top_post.score
         %li.comment-status
-          - if article.comment_status == 'closed'
+          - if topic.comment_status == 'closed'
             %span.comment_head
               禁止评论
           - else
             %a{:class=>"comments #{@list_view? "list_view" :  ""}",
-              :href=>group_article_path(article.group, article,
-              :anchor => "comments_#{article.id}"),
-              :id=>"c-#{article.id}"}= article.comments.size > 0 ? "#{article.comments.size}条评论" : "暂无评论"
+              :href=>group_article_path(topic.group, topic,
+              :anchor => "comments_#{topic.id}"),
+              :id=>"c-#{topic.id}"}= topic.comments.size > 0 ? "#{topic.comments.size}条评论" : "暂无评论"
   - if defined?(comments) and not comments.blank?
     - @comments = comments
     = render 'my/comment_index'

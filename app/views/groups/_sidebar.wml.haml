@@ -4,9 +4,9 @@
     - if logged_in?
       - unless current_user.is_member_of?(@group)
         - unless @group.preferred_only_member_can_post?
-          = link_to t("groups.start_new_topic"), new_article_path(@group) , :id => 'start_new_topic', :class => 'button'
+          = link_to t("groups.start_new_topic"), new_topic_path(@group) , :id => 'start_new_topic', :class => 'button'
       -else
-        = link_to t("groups.start_new_topic"), new_article_path(@group) , :id => 'start_new_topic', :class => 'button'
+        = link_to t("groups.start_new_topic"), new_topic_path(@group) , :id => 'start_new_topic', :class => 'button'
     - else
       = link_to '立即注册 !', signup_path, :class => 'button'
   - if logged_in? and current_user.own_group?(@group)
@@ -19,7 +19,7 @@
       =link_to "加入小组",join_group_path(@group),:class=>"quit_group"
     %br
   话题
-  = link_to @group.articles.public_articles.count, articles_path(@group)
+  = link_to @group.topics.public_topics.count, topics_path(@group)
   , 回复
   = @group.posts.count
 

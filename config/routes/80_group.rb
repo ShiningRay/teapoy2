@@ -1,7 +1,7 @@
 # coding: utf-8
 Teapoy::Application.routes.draw do
-  get '/groups/:group_id/reject_join/:user_id' => "groups#reject_join", :as => :reject_join_group
-  get '/groups/:group_id/allow_join/:user_id' => "groups#allow_join", :as => :allow_join_group
+  get '/groups/:group_id/reject_join/:user_id' => 'groups#reject_join', :as => :reject_join_group
+  get '/groups/:group_id/allow_join/:user_id' => 'groups#allow_join', :as => :allow_join_group
 
   resources :groups do
     member do
@@ -15,11 +15,11 @@ Teapoy::Application.routes.draw do
       get :search
     end
 
-    resources :articles do
+    resources :topics do
       collection do
         get 'latest_comment(/page/:page)(.:format)', :action => :index, :order => 'latest_comment'
         get 'latest(/page/:page)(.:format)', :action => :index, :order => 'latest', :as => 'latest'
-        #match 'hottest(/:limit)' => 'articles#hottest', :via => :get, :as => :hottest
+        #match 'hottest(/:limit)' => 'topics#hottest', :via => :get, :as => :hottest
         get 'hottest(/:limit)(/page/:page)(.:format)', :action => :index, :order => 'hottest', :as => 'hottest'
         get :pending
         get :sitemap
@@ -51,7 +51,7 @@ Teapoy::Application.routes.draw do
         post 'set_price', :on => :member
       end
       resources :rewards
-      #match 'feed' => 'articles#index', :via => :get, :format => 'xml', :as => :group_feed
+      #match 'feed' => 'topics#index', :via => :get, :format => 'xml', :as => :group_feed
     end
 
     resources :archives, :only => [:index, :show]

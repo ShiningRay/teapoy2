@@ -1,57 +1,57 @@
-- id=article.id
-- top_post = article.top_post
-- group = @group || article.group
-- group_id = article.group_id
+- id=topic.id
+- top_post = topic.top_post
+- group = @group || topic.group
+- group_id = topic.group_id
 
-%article.cf.hentry[article]
+%article.cf.hentry[topic]
   - if top_post
-    %div[article.top_post]{:class => [is_mine_class(article.top_post)]}
+    %div[topic.top_post]{:class => [is_mine_class(topic.top_post)]}
 
-      - unless article.title.blank?
-        %h2.entry-title= link_to article.title, article_path(group, article), :rel => 'bookmark'
-      .entry-content= render_posts article.top_post
-      -# unless article.tag_line.blank?
-      -# %p.tags= raw(show_tags(article))
+      - unless topic.title.blank?
+        %h2.entry-title= link_to topic.title, topic_path(group, topic), :rel => 'bookmark'
+      .entry-content= render_posts topic.top_post
+      -# unless topic.tag_line.blank?
+      -# %p.tags= raw(show_tags(topic))
       .post-signature.pull-right.cf{:style => 'text-align:right'}
-        - unless article.anonymous
-          - user = article.user
+        - unless topic.anonymous
+          - user = topic.user
           - if user
             = link_to user.name_or_login, user, :title => "@#{user.login}",:class => 'user', :data => {:login => user.login}
           %br/
-        %time{:datetime => article.created_at, :title => article.created_at.to_s}= article.created_at.strftime("%Y-%m-%d %H:%M")
+        %time{:datetime => topic.created_at, :title => topic.created_at.to_s}= topic.created_at.strftime("%Y-%m-%d %H:%M")
 
       %ul.meta.cf
         - unless top_post.blank?
           %li.score
             %span.value= top_post.score
             人喜欢
-            = link_to '喜欢', up_post_path(top_post), :class=>'vote' if logged_in? and not current_user.has_rated?(article) and not current_user.own_article?(article)
+            = link_to '喜欢', up_post_path(top_post), :class=>'vote' if logged_in? and not current_user.has_rated?(topic) and not current_user.own_topic?(topic)
         - if logged_in?
           %li.subscribe-button
-            - if current_user.has_subscribed?(article)
-              = link_to t('articles.unsubscribe'), unsubscribe_group_article_path(group, article), :class => 'unsubscribe'
+            - if current_user.has_subscribed?(topic)
+              = link_to t('articles.unsubscribe'), unsubscribe_group_article_path(group, topic), :class => 'unsubscribe'
             - else
-              = link_to t('articles.subscribe'), subscribe_group_article_path(group, article), :class => 'subscribe'
+              = link_to t('articles.subscribe'), subscribe_group_article_path(group, topic), :class => 'subscribe'
         - if logged_in?
           %li.repost-button
             = link_to t('articles.repost'), repost_form_path(:post_id => top_post.try(:id))
         %li.comment-status
-          - if article.comment_status == 'closed'
+          - if topic.comment_status == 'closed'
             %span.comment_head
               禁止评论
           - else
-            %a.comments{:href=>group_article_path(article.group, article,
-              :anchor => "comments_#{article.id}"),
-              :id=>"c-#{article.id}", 'data-url' => group_article_comments_path(article.group, article)}= article.posts.size > 1 ? "#{article.posts.size-1}条评论" : "暂无评论"
+            %a.comments{:href=>group_article_path(topic.group, topic,
+              :anchor => "comments_#{topic.id}"),
+              :id=>"c-#{topic.id}", 'data-url' => group_article_comments_path(topic.group, topic)}= topic.posts.size > 1 ? "#{topic.posts.size-1}条评论" : "暂无评论"
 
-        - if logged_in? && current_user == article.group.owner || current_user == article.user
+        - if logged_in? && current_user == topic.group.owner || current_user == topic.user
           %li.admin
-            = link_to 'Delete', article_path(group, article), :method => :delete, :remote => true, :confirm => 'Are you sure to delete this article?'
-            - if article.status == 'pending'
-              = link_to '通过', publish_article_path(article.group,article)
-              = link_to '移出', move_out_article_path(article.group,article)
-            = link_to 'Edit', edit_post_path(article.top_post)
+            = link_to 'Delete', topic_path(group, topic), :method => :delete, :remote => true, :confirm => 'Are you sure to delete this topic?'
+            - if topic.status == 'pending'
+              = link_to '通过', publish_article_path(topic.group,topic)
+              = link_to '移出', move_out_article_path(topic.group,topic)
+            = link_to 'Edit', edit_post_path(topic.top_post)
 
-  - if controller_name == 'articles' and action_name == 'show'
-    - @comments = @article.comments.all || []
+  - if controller_name == 'topics' and action_name == 'show'
+    - @comments = topic.comments.all || []
     = render 'comments/index'

@@ -4,18 +4,18 @@ module Post::Validators
 	module ClassMethods
 		def acts_as_top_post_only
       validates_each :parent_id do |model, attr, value|
-        model.errors.add(attr, 'must be top post in article') unless value.nil?
+        model.errors.add(attr, 'must be top post in topic') unless value.nil?
       end
     end
 
     def acts_as_children_only
     	validates_each :parent_id do |model, attr, value|
-    		model.errors.add(attr, 'must be children in article') if value.nil?
+    		model.errors.add(attr, 'must be children in topic') if value.nil?
     	end
     end
 
     def acts_as_unique_child
-      validates  :user_id, :uniqueness  => {:scope => :article_id}
+      validates  :user_id, :uniqueness  => {:scope => :topic_id}
     end
 
     def validates_parent_of(clazz)

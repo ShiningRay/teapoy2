@@ -1,14 +1,14 @@
-- top_post = @article.try(:top_post)
+- top_post = topic.try(:top_post)
 %p.error=flash[:error]
 - if top_post && top_post.errors
-  - @article.top_post.errors[:base].each do |error|
+  - topic.top_post.errors[:base].each do |error|
     %p.error=error
--# if @article && @article.top_post && @article.top_post.errors
-=# @article.top_post.errors
-- @article.created_at ||= Time.now if @article
+-# if @topic && @topic.top_post && @topic.top_post.errors
+=# @topic.top_post.errors
+- topic.created_at ||= Time.now if topic
 #new_article_form
-  = simple_form_for(@article, :url => @article.new_record? ? (@group ? articles_path(@group) : {:controller => 'articles', :action => 'create'}) : [@group, @article],:html=>{:multipart => true} ) do |f|
-    = f.input :status, :as => :hidden if @article.new_record? and logged_in? and (current_user.is_admin? or (@group && current_user.own_group?( @group)))
+  = simple_form_for(topic, :url => topic.new_record? ? (@group ? topics_path(@group) : {:controller => 'topics', :action => 'create'}) : [@group, topic],:html=>{:multipart => true} ) do |f|
+    = f.input :status, :as => :hidden if topic.new_record? and logged_in? and (current_user.is_admin? or (@group && current_user.own_group?( @group)))
     - unless @group
       - groups = current_user.publications(Group)
       = f.input :group, :label => '小组', :as => :select, :collection => groups, :include_blank => false, :prompt => '请选择一个小组'
@@ -16,7 +16,7 @@
         您还没加入任何小组，
         = link_to '赶紧去找一个找自己喜欢的吧', groups_path
 
-      = f.input :title, :label => '标题', :required => false, :hint => '标题可以省略',:input_html =>{:value=>params[:title] || @article.title}
+      = f.input :title, :label => '标题', :required => false, :hint => '标题可以省略',:input_html =>{:value=>params[:title] || topic.title}
     - if logged_in?
       = f.fields_for :top_post do |top_post_form|
         = render :partial => 'posts/omni_form', :object => top_post_form
@@ -29,4 +29,4 @@
     = f.inputs :id => :picture_attachment_fields, :for => :attachments do |attachment_form|
       = attachment_form.input :type, :as => :hidden, :value => 'Picture'
       = attachment_form.input :picture, :as => :file
-    = f.button :submit, @article.new_record? ? '发布' : '修改', :button_html => {:disable_with => '...', :class => 'btn btn-primary'}
+    = f.button :submit, topic.new_record? ? '发布' : '修改', :button_html => {:disable_with => '...', :class => 'btn btn-primary'}

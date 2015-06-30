@@ -4,7 +4,7 @@
 class CommentWorker  < BaseWorker
   def vote(opt)
     @comment = Comment.find opt[:comment_id]
-    if @comment.article.group_id == 1 or @comment.article.group_id == 3
+    if @comment.topic.group_id == 1 or @comment.topic.group_id == 3
       if opt[:score] > 0
         @comment.increment :pos
         @comment.increment :score
@@ -30,7 +30,7 @@ class CommentWorker  < BaseWorker
   def sweep_cache(comment_id)
     comment = Comment.find comment_id
     article_id = comment.article_id
-    group =  comment.article.group
+    group =  comment.topic.group
     domain = comment.article.group.domain
   rescue => e
     puts e
@@ -39,7 +39,7 @@ class CommentWorker  < BaseWorker
 
   def update_score(comment_id)
     comment = Comment.find comment_id
-    article = comment.article
+    article = comment.topic
     return unless article.status == 'publish'
     score = article.ensure_score
     c = article.comments.public.count
@@ -63,8 +63,8 @@ class CommentWorker  < BaseWorker
     puts e.backtrace.join("\n")
   end
 
-  # when new comments was left on an article, update those who're watching the
-  # article in order that they can saw the comments on their favoriates page
+  # when new comments was left on an topic, update those who're watching the
+  # topic in order that they can saw the comments on their favoriates page
   def notify_watchers(comment_id)
     comment = Comment.find comment_id
 
@@ -84,7 +84,7 @@ class CommentWorker  < BaseWorker
 
   def detect_parent(comment_id)
     comment = Comment.find comment_id
-    article = comment.article
+    article = comment.topic
     comment.detect_parent
   rescue => e
     puts e

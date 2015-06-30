@@ -16,7 +16,7 @@ class TagsController < ApplicationController
       format.html
       format.mobile
       format.js {
-        @tags = @group.public_articles.cached_tag_clouds
+        @tags = @group.public_topics.cached_tag_clouds
         render :json => @tags
       }
     end
@@ -26,23 +26,23 @@ class TagsController < ApplicationController
     @tag = params[:id]
     group_ids = Group.tagged_with(params[:id]).select('groups.id').collect(&:id)
     params[:limit] ||= 'day'
-    parent = Article.where(:group_id => group_ids)
+    parent = Topic.where(:group_id => group_ids)
 
-    i = ArticlesController::KEYS.index(params[:limit])
+    i = TopicsController::KEYS.index(params[:limit])
     if i
       @limit = params[:limit]
-      @next_limit = ArticlesController::KEYS[i+1]
+      @next_limit = TopicsController::KEYS[i+1]
     else
       @limit = 'day'
     end
 
     @show_group = !@group
     @list_view = true
-    @articles = parent.public_articles.before.includes(:top_post, :user, :group).order('articles.score desc').page(params[:page])
-    @articles = @articles.where('created_at >= ?', ArticlesController::DateRanges[@limit].ago) if @limit != 'all'
+    topics = parent.public_topics.before.includes(:top_post, :user, :group).order('topics.score desc').page(params[:page])
+    topics = topics.where('created_at >= ?', TopicsController::DateRanges[@limit].ago) if @limit != 'all'
     respond_to do |format|
       format.any(:html, :mobile ){
-        render :template => 'articles/index'
+        render :template => 'topics/index'
       }
     end
   end
@@ -52,21 +52,21 @@ class TagsController < ApplicationController
     group_ids = Group.tagged_with(params[:id]).select('groups.id').collect(&:id)
     @show_group = !@group
     @list_view = true
-    @articles = Article.where(:group_id => group_ids).public_articles.before.latest.includes(:top_post, :user, :group).page(params[:page])
+    topics = Topic.where(:group_id => group_ids).public_topics.before.latest.includes(:top_post, :user, :group).page(params[:page])
     respond_to do |format|
       format.any(:html, :mobile){
-        render :template => 'articles/index'
+        render :template => 'topics/index'
       }
     end
   end
 
   def tag
-    opt = Article.find_options_for_find_tagged_with params[:tag],
-      :select => 'articles.*',
-      :order => 'articles.id DESC'
+    opt = Topic.find_options_for_find_tagged_with params[:tag],
+      :select => 'topics.*',
+      :order => 'topics.id DESC'
     opt[:page] = params[:page]
-    @articles = @group.articles.public_articles.paginate opt
-    #@group.public_articles.paginate :page => params[:page], :conditions => ['cached_tag_list LIKE ?', "%#{params[:tag]}%"]
+    topics = @group.topics.public_topics.paginate opt
+    #@group.public_topics.paginate :page => params[:page], :conditions => ['cached_tag_list LIKE ?', "%#{params[:tag]}%"]
     @current_tag = params[:tag]
     render :archives
   rescue ArgumentError

@@ -2,7 +2,7 @@ window.B = window.sr =
   post: (o) ->
     $(o).parents ".post:first"
   article: (o) ->
-    $(o).parents ".article:first"
+    $(o).parents ".topic:first"
   object_id: (o) ->
     n = $(o).attr("id")
     n?.split /_/

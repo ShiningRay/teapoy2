@@ -2,10 +2,10 @@
 - @show_group = true
 
 %ul.article-list
-  = render @articles
+  = render topics
 = paginate @items
 /
   threshold:
   = Inbox.frontpage_threshold
   - @items.each do |item|
-    = "#{article_title item.article} #{item.score}"
+    = "#{article_title item.topic} #{item.score}"

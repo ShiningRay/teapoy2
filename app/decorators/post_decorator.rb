@@ -23,7 +23,7 @@ class PostDecorator < Draper::Decorator
     else
       c += Array.wrap(user.class_names)
     end
-    c << "topic-owner" if !object.anonymous and object.article and !object.article.anonymous and object.user_id == object.article.read_attribute(:user_id)
+    c << "topic-owner" if !object.anonymous and object.topic and !object.topic.anonymous and object.user_id == object.topic.read_attribute(:user_id)
     if object.score == 0
       c << 'zero'
     else

@@ -3,7 +3,7 @@
   %dt.group 圈子数
   %dd.count= link_to number_with_delimiter(Group.count, :locale => :en), groups_path
   %dt.group 文章数
-  %dd.count=number_with_delimiter(Article.count, :locale => :en)
+  %dd.count=number_with_delimiter(Topic.count, :locale => :en)
   %dt.group 用户数
   %dd.count= link_to number_with_delimiter(User.count, :locale => :en), signup_path
   %p.sub2

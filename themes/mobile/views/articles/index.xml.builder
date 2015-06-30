@@ -12,17 +12,17 @@ xml.rss "version" => "2.0", "xmlns:dc" => "http://purl.org/dc/elements/1.1/", "x
       xml.title       ENV['SITE_NAME']
       xml.link        root_url
     end
-    xml.pubDate     @articles.first.try(:created_at).try(:rfc2822)
+    xml.pubDate     topics.first.try(:created_at).try(:rfc2822)
     xml.description @group.try(:description)
 
-    @articles.each do |article|
+    topics.each do |article|
       xml.item do
-        xml.title       article_title article
+        xml.title       topic_title article
         xml.link        article_url(article.group, article)
-        xml.description render(:partial => 'articles/article.html', :object => article)
+        xml.description render(:partial => 'topics/topic.html', :object => article)
         xml.pubDate     article.created_at.rfc2822
         xml.guid        article_url(article.group, article)
-        #xml.author      article.user.login
+        #xml.author      topic.user.login
       end
     end
   end

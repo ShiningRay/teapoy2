@@ -19,11 +19,11 @@
       - if logged_in?
         - if @group.preferred_only_member_can_post?
           - if current_user.is_member_of?(@group)
-            = link_to '发表新贴', new_article_path(@group)
+            = link_to '发表新贴', new_topic_path(@group)
           - else
             = link_to '加入小组', join_group_path(@group),:class=>"join_group"
         - else
-          = link_to '发表新贴', new_article_path(@group)
+          = link_to '发表新贴', new_topic_path(@group)
       - else
         登入后发言
 
@@ -36,9 +36,9 @@
   = link_to_unless_current '待审', pending_group_articles_path(@group) if logged_in? and current_user == @group.owner
 
 
-- @articles = @group.public_articles.order('id desc').includes(:top_post).page params[:page]
-= render @articles
-= paginate @articles
+- topics = @group.public_topics.order('id desc').includes(:top_post).page params[:page]
+= render topics
+= paginate topics
 
 - content_for :title, @group.name
 - content_for :head do

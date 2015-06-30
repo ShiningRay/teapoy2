@@ -5,7 +5,7 @@
 class SyncSocialWorker
   include Sidekiq::Worker
   def perform(article_id)
-    article = Article.find article_id
+    article = Topic.find article_id
     sina_token = article.user.user_tokens.sina
     return unless sina_token
     return if sina_token.expired?

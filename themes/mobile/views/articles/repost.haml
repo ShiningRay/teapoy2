@@ -8,10 +8,10 @@
           转发至
           = link_to group.name, group
           = ':'
-          = link_to article_title(article), [group, article]
+          = link_to topic_title(article), [group, article]
 
 #new_article_form
-  =simple_form_for @article, :url => repost_form_path(:post_id => @post.id) do |f|
+  =simple_form_for topic, :url => repost_form_path(:post_id => @post.id) do |f|
     = f.inputs do
       = f.input :title,:label => '标题'
       - groups = current_user.publications(Group)

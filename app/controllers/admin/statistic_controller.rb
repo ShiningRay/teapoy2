@@ -6,7 +6,7 @@ class Admin::StatisticController < Admin::BaseController
     today = Date.today
     b = today << 1
     today_articles = ActiveRecord::Base.connection.select_all(<<sql).collect{|c| c["count(*)"].to_i}
-select date(created_at),count(*) from articles
+select date(created_at),count(*) from topics
 where created_at < '#{today}' and created_at > '#{b}'
 group by date(created_at)
 sql
@@ -16,14 +16,14 @@ where created_at < '#{today}' and created_at > '#{b}'
 group by date(created_at)
 sql
     date=ActiveRecord::Base.connection.select_all( <<sql ).collect{|c| c["date(created_at)"].to_date.day.to_s}
-select date(created_at),count(*) from articles
+select date(created_at),count(*) from topics
 where created_at < '#{today}' and created_at > '#{b}'
 group by date(created_at)
 sql
 
-    @chart = LazyHighCharts.new("articles and users statistics" ) do |f|
+    @chart = LazyHighCharts.new("topics and users statistics" ) do |f|
       f.xAxis categories: date
-      f.series name: 'articles', data: today_articles
+      f.series name: 'topics', data: today_articles
       f.series name: 'new users', data: today_articles
     end
   end
@@ -37,7 +37,7 @@ sql
      @end = params[:end] ? Date.parse(params[:end]) : (@today+1)
      params[:object]||='User'
      case params[:object]
-     when "Article"
+     when "Topic"
        then  @stats = Post.count :all, :conditions => ["created_at >= ? and created_at <= ? and floor = 0 and (type is NULL or type = 'Picture' or type ='ExternalVideo' )", @start, @end], :group => 'date(created_at)'
      when 'Post'
        then

@@ -8,7 +8,7 @@ class Inbox
   #include Mongoid::Timestamps
   t_belongs_to :group
   t_belongs_to :user
-  belongs_to :article
+  belongs_to :topic
   field :score,      type: Integer, default: 0
   field :read,       type: Boolean, default: false
   #field :post_ids,   type: Array,   default: []
@@ -16,10 +16,10 @@ class Inbox
   field :repost_ids, type: Array,   default: []
   field :is_repost,  type: Boolean, default: false
   field :created_at, type: DateTime, default: -> { Time.now }
-  index({article_id: 1},  {background: true})
+  index({topic_id: 1},  {background: true})
 
   index({user_id: 1,
-         article_id: -1}, {unique: true})
+         topic_id: -1}, {unique: true})
   index({user_id:    1,
          post_ids:   1}, { background: true})
   index({user_id:    1,
@@ -50,7 +50,7 @@ class Inbox
   scope :lt1,      -> {where(:score.lt => 1)}
   scope :hottest,  -> {desc(:score)}
   scope :by_user,    -> (user) { where(user_id: User.wrap(user).id)}
-  scope :by_article, -> (article) { where(article_id: article) }
+  scope :by_topic, -> (topic) { where(topic_id: topic) }
 
 
   ##
@@ -145,15 +145,15 @@ class Inbox
       return logger.debug('deliver: cannot find post') unless post
       return logger.debug('deliver: cannot find user') unless user
       return logger.debug('deliver: cannot find post.user') unless post.user
-      return logger.debug('deliver: cannot find post.article') unless post.article
-      return logger.debug('deliver: cannot find post.article.user') unless post.article.user
-      return logger.debug('deliver: blacklisted') if user.disliked?(post.user) or user.disliked?(post.article.user)
+      return logger.debug('deliver: cannot find post.topic') unless post.topic
+      return logger.debug('deliver: cannot find post.topic.user') unless post.topic.user
+      return logger.debug('deliver: blacklisted') if user.disliked?(post.user) or user.disliked?(post.topic.user)
       return logger.debug('deliver: user is not active') unless user.state.in?(%w(pending active))
 
       if post.is_a?(Repost)
         delay.deliver_repost(user.id, post.id)
       else
-        res = where(user_id: user.id, article_id: post.article_id).find_and_modify({
+        res = where(user_id: user.id, topic_id: post.topic_id).find_and_modify({
                     '$inc'      => {score: Score.again(post, user)},
                     '$addToSet' => {post_ids: post.id},
                     '$set'      => {read: false}
@@ -161,21 +161,21 @@ class Inbox
         unless res
           Rails.logger.debug(
             user_id: user.id,
-            article_id: post.article_id,
-            group_id: post.group_id || post.article.group_id,
+            topic_id: post.topic_id,
+            group_id: post.group_id || post.topic.group_id,
             post_ids: [post.id],
             read: false,
             score: Score.initial(post, user),
-            created_at: post.article.created_at.utc
+            created_at: post.topic.created_at.utc
           )
           create!(
             user_id: user.id,
-            article_id: post.article_id,
-            group_id: post.group_id || post.article.group_id,
+            topic_id: post.topic_id,
+            group_id: post.group_id || post.topic.group_id,
             post_ids: [post.id],
             read: false,
             score: Score.initial(post, user),
-            created_at: post.article.created_at.utc
+            created_at: post.topic.created_at.utc
           )
         end
       end
@@ -193,14 +193,14 @@ class Inbox
       post = Post.wrap(post)
       return logger.debug('deliver: user is not active') unless user.state.in?(%w(pending active))
       return unless post.is_a?(Repost)
-      art = post.original_post.reposted_articles_with_self
+      art = post.original_post.reposted_topics_with_self
       # find if any repost or the original post has already exists in the inbox queue
-      art.each do |article|
-        next unless article
-        next unless user.has_subscribed?(article.group)
+      art.each do |topic|
+        next unless topic
+        next unless user.has_subscribed?(topic.group)
         res = with(safe: true).where({
           user_id: user.id,
-          article_id: article.id
+          topic_id: topic.id
         }).update_all({
           '$addToSet' => {repost_ids: post.id},
           '$inc'      => {score: Score.again(post, user)}
@@ -210,8 +210,8 @@ class Inbox
       # nothing find, create a new item
       create!(
         user_id: user.id,
-        article_id: post.article_id,
-        group_id: post.group_id || post.article.group_id,
+        topic_id: post.topic_id,
+        group_id: post.group_id || post.topic.group_id,
         post_ids: [post.id],
         repost_ids: [post.original_id],
         read: false,
@@ -225,24 +225,24 @@ class Inbox
       if post.is_a?(Repost)
         s = s.and(repost_ids: post.id)
       else
-        s = s.and(article_id: post.article_id)
+        s = s.and(topic_id: post.topic_id)
       end
       s.inc(score: Score.change(post, rating))
     end
 
     def frontpage_deliver(post, threshold=5)
       guest = User.guest
-      article = post.article
-      group = post.group || article.group
+      topic = post.topic
+      group = post.group || topic.group
       return if group.private? or group.hide?
-      return if Inbox.guest.where(article_id: article.id).exists?
-      deliver(guest, post) if !guest.has_read?(article) and article.created_at >= 3.days.ago and post.score >= threshold
+      return if Inbox.guest.where(topic_id: topic.id).exists?
+      deliver(guest, post) if !guest.has_read?(topic) and topic.created_at >= 3.days.ago and post.score >= threshold
     end
 
     def set_score(user, post, score)
       user = User.wrap(user)
       post = Post.wrap(post)
-      item = where( user_id: user.id, article_id: post.article_id).first
+      item = where( user_id: user.id, topic_id: post.topic_id).first
       return unless item
       item.score = score
       yield item if block_given?
@@ -255,15 +255,15 @@ class Inbox
     end
 
     def bulk_mark_read(user_id, *ids)
-      s = where(user_id: user_id).any_in(article_id: ids.flatten)
+      s = where(user_id: user_id).any_in(topic_id: ids.flatten)
       s.read!
-      s.only(:user_id, :article_id).find_each do |i|
-        i.user.mark_read(i.article, 0) if i.article
+      s.only(:user_id, :topic_id).find_each do |i|
+        i.user.mark_read(i.topic, 0) if i.topic
       end
     end
     def mark_all_as_read
       find_each do |i|
-        i.user.mark_read(i.article, 0) if i.user
+        i.user.mark_read(i.topic, 0) if i.user
       end
       destroy_all
     end
@@ -289,14 +289,14 @@ class Inbox
     def evict!
       puts nonguest.read.lt1.destroy_all     # for normal users, only evict read items that score is low
       guest.lt1.each do |i|
-          User.guest.mark_read i.article rescue nil
+          User.guest.mark_read i.topic rescue nil
       end
       guest.lt1.where(:created_at.lt => 1.day.ago.utc).destroy_all
     end
 
     def cleanup
       find_each do |item|
-        item.destroy unless item.article && item.article.status != 'deleted'
+        item.destroy unless item.topic && item.topic.status != 'deleted'
       end
     end
   end

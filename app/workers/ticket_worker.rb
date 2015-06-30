@@ -4,7 +4,7 @@
 class TicketWorker  < BaseWorker
   def check(article_id)
     puts '===new==='
-    article = Article.find article_id
+    article = Topic.find article_id
     return unless article.status == 'pending'
 
     unless @ticket_types
@@ -58,7 +58,7 @@ class TicketWorker  < BaseWorker
     approval = options[:approval]
 
     puts "judging #{article_id}"
-    article = Article.find article_id
+    article = Topic.find article_id
 
     if approval
       article.publish!

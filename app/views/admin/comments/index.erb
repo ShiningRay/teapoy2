@@ -7,13 +7,13 @@
   </ul>
 </div>
 <div id="check_body">
-<% if @articles.size == 0 %>
+<% if topics.size == 0 %>
     <p> 无评论 </p>
 <% else %>
 <% form_tag({:action => :batch_set_status }, {:onsubmit => "return deleteelse(this);"}) do  %>
   <%= render :partial => 'admin/articles/selection' %>
   <div id="entities">
-    <% for article in @articles %>
+    <% for article in topics %>
       <div id="article-<%=article.id%>" class="entry">
        <div class='secret_entity'>
           <%= render :partial => 'admin/articles/article', :object => article %>
@@ -29,5 +29,5 @@
   <%= submit_tag "通过选中的内容" %><label><input type="checkbox" checked="checked" name="delete_else" value="" />删除其他未标记的</label>
 <% end %>
 <% end # end if %>
-<div id="pagination"><%= will_paginate @articles %></div>
+<div id="pagination"><%= will_paginate topics %></div>
 </div>

@@ -62,7 +62,7 @@ class Poll < Post
     self.vote_count = 0
     self.stats = {}
 
-    article.comments.where(type: 'Vote').each do |vote|
+    topic.comments.where(type: 'Vote').each do |vote|
       vote(vote.choice, vote.original_user, false)
     end
 
@@ -72,7 +72,7 @@ class Poll < Post
 
   def voted_by?(user)
     user = User.wrap(user)
-    article.comments.where(user_id: user.id, type: 'Vote').exists?
+    topic.comments.where(user_id: user.id, type: 'Vote').exists?
   end
 
   def as_json(opts={})

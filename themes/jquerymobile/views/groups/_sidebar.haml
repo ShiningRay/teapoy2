@@ -11,19 +11,19 @@
         - if logged_in?
           - unless current_user.is_member_of?(@group)
             - unless @group.preferred_only_member_can_post?
-              = link_to t("groups.start_new_topic"), new_article_path(@group) , :id => 'start_new_topic', :class => 'button'
+              = link_to t("groups.start_new_topic"), new_topic_path(@group) , :id => 'start_new_topic', :class => 'button'
           -else
-            = link_to t("groups.start_new_topic"), new_article_path(@group) , :id => 'start_new_topic', :class => 'button'
+            = link_to t("groups.start_new_topic"), new_topic_path(@group) , :id => 'start_new_topic', :class => 'button'
         - else
           - if @group.preferred_guest_can_post?
-            = link_to t("groups.start_new_topic"), new_article_path(@group) , :id => 'start_new_topic', :class => 'button'
+            = link_to t("groups.start_new_topic"), new_topic_path(@group) , :id => 'start_new_topic', :class => 'button'
           - else
             = link_to '立即注册 !', signup_path, :class => 'button'
         %br.clr
       - if logged_in? && (current_user.own_group?(@group) || current_user.is_admin?)
         .group_setting
           = link_to '小组设置', edit_group_path(@group)
-          = link_to "审贴(#{@group.articles.pending.count}个待审)" ,pending_group_articles_path(@group)
+          = link_to "审贴(#{@group.topics.pending.count}个待审)" ,pending_group_articles_path(@group)
           = link_to "编辑小组页面",editinfo_group_path(@group)
       .group_setting
         - if logged_in?
@@ -33,7 +33,7 @@
             =link_to "加入小组",join_group_path(@group),:class=>"quit_group"
           %br
         话题
-        = link_to @group.articles.public_articles.count, articles_path(@group)
+        = link_to @group.topics.public_topics.count, topics_path(@group)
         %br
         回复
         = @group.posts.count

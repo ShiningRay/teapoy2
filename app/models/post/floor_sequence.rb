@@ -5,12 +5,12 @@ module Post::FloorSequence
     # include Mongoid::MagicCounterCache
     field :floor, type: Integer, default: nil
     validates :floor, presence: true, uniqueness: {
-      scope: :article_id,
-    }, if: 'article'
-    index({article_id: 1, floor: 1}, {unique: true, background: true})
+      scope: :topic_id,
+    }, if: 'topic'
+    index({topic_id: 1, floor: 1}, {unique: true, background: true})
 
-    before_validation :number_floor, :if => 'article && !floor'     # if floor is already calced, then return
-    # counter_cache :article, field: 'posts_count'
+    before_validation :number_floor, :if => 'topic && !floor'     # if floor is already calced, then return
+    # counter_cache :topic, field: 'posts_count'
     after_save {
       notify_observers(:after_numbered)
     }
@@ -19,24 +19,24 @@ module Post::FloorSequence
   # get next floor number and save to floor field
   def number_floor
     # binding.pry
-    posts_count = article.posts_count
+    posts_count = topic.posts_count
     logger.debug "Find next floor number-#{posts_count}"
     if posts_count.blank?
-      posts_count = article.posts_count = article.posts.where(:floor.ne => nil).count
-      logger.debug "update article posts_count #{posts_count}"
-      article.save
+      posts_count = topic.posts_count = topic.posts.where(:floor.ne => nil).count
+      logger.debug "update topic posts_count #{posts_count}"
+      topic.save
     end
 
     self.floor = posts_count
     logger.debug "use floor #{floor}"
-    # article.inc(:posts_count => 1)
+    # topic.inc(:posts_count => 1)
     # notify_observers(:after_numbered)
   end
 
   def save(*args)
     # unless super
     #   # don't
-    #   article.inc(:posts_count => -1)
+    #   topic.inc(:posts_count => -1)
     #   false
     # else
     #   true
@@ -45,9 +45,9 @@ module Post::FloorSequence
   rescue Moped::Errors::OperationFailure => e
     d = e.details
     if d['code'] == 11000 and d['err'] =~ /duplicate/
-      logger.info("clash floor on #{self.floor} in #{self.article_id} ")
+      logger.info("clash floor on #{self.floor} in #{self.topic_id} ")
       self.floor += 1
-      # article.inc(:posts_count => 1)
+      # topic.inc(:posts_count => 1)
       retry
     else
       raise e

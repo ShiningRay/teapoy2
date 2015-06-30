@@ -4,9 +4,9 @@ class TicketsController < ApplicationController
   before_filter :active_user_required
   def submit
     @group = Group.find_by_alias params[:group_id]
-    @articles = @group.articles.pending.includes(:top_post, :user).page(params[:page]||1)
-     if @articles.size > 0
-      pending_queue=@articles.collect{|i|i.id}
+    topics = @group.topics.pending.includes(:top_post, :user).page(params[:page]||1)
+     if topics.size > 0
+      pending_queue=topics.collect{|i|i.id}
       if pending_queue.size > 60
         pending_queue = pending_queue[0,60].shuffle + pending_queue[60..-1]
       else
@@ -17,15 +17,15 @@ class TicketsController < ApplicationController
 
       if @rest_queue.size > 0
         f = @rest_queue.shift
-        @article = Article.find(f)
-        @comments = @article.comments.find :all, :order => "id asc"
+        topic = Topic.find(f)
+        @comments = topic.comments.find :all, :order => "id asc"
         #        @tickets = {}
-        #        @article.tickets.each do |t |
+        #        @topic.tickets.each do |t |
         #          @tickets[t.ticket_type_id.to_i] ||= 0
         #          @tickets[t.ticket_type_id.to_i] += 1
         #        end
-        @group = @article.group
-        @ticket = Ticket.new(:article_id => @article.id, :viewed_at => Time.now)
+        @group = topic.group
+        @ticket = Ticket.new(:topic_id => topic.id, :viewed_at => Time.now)
         c = current_user.tickets.count
         if c != 0 && c % 30 == 0
           flash[:notice]="感谢您的辛勤劳动，我们已将您的人品+1"
@@ -60,11 +60,11 @@ class TicketsController < ApplicationController
   # GET /tickets/new
   # GET /tickets/new.xml
   def new
-    @article = Article.find params[:article_id]
-    @ticket = Ticket.find :first, :conditions => {:article_id => @article.id, :user_id => current_user.id}
+    topic = Topic.find params[:topic_id]
+    @ticket = Ticket.where(:topic_id => topic.id, :user_id => current_user.id).first
     return render :text => '你已投过票' if @ticket
-    @ticket = Ticket.new :article_id => @article.id
-    @ticket_types = TicketType.find :all, :conditions => 'weight < 0'
+    @ticket = Ticket.new :topic_id => topic.id
+    @ticket_types = TicketType.where('weight < 0')
 
     respond_to do |format|
       format.html { render :layout => false}
@@ -93,20 +93,20 @@ class TicketsController < ApplicationController
     end
     @ticket.user_id = current_user.id
 
-    @article=@ticket.article
-    if @article.comment_status != 'closed' and params[:content]
+    topic=@ticket.topic
+    if topic.comment_status != 'closed' and params[:content]
       comment = Comment.new(
         :content => params[:content],
         :user_id => current_user.id,
-        :article_id => @article.id,
+        :topic_id => topic.id,
         :ip => request.remote_ip,
         :anonymous => params[:anonymous]||false,
         :status => 'publish'
       )
       comment.content.strip!
-      #current_user.has_favorite @article
+      #current_user.has_favorite @topic
 
-      @article.comments << comment
+      topic.comments << comment
     end
     successful = true
     duplicate = false
@@ -124,16 +124,16 @@ class TicketsController < ApplicationController
     respond_to do |format|
       if successful
         unless duplicate
-          TicketWorker.check @ticket.article_id
+          TicketWorker.check @ticket.topic_id
           #          submitted = get_submitted
-          #          submitted << @ticket.article_id
+          #          submitted << @ticket.topic_id
           if d and s
-            ScoreWorker.vote(:action => d, :id => @ticket.article_id)
-            current_user.rate(@ticket.article_id, s)
+            ScoreWorker.vote(:action => d, :id => @ticket.topic_id)
+            current_user.rate(@ticket.topic_id, s)
           end
         end
         if session[:submitted]
-          session[:submitted] << " #{@ticket.article_id}"
+          session[:submitted] << " #{@ticket.topic_id}"
         end
 
         format.any :html, :mobile do
@@ -185,8 +185,8 @@ class TicketsController < ApplicationController
     if session[:submitted]
       submitted=session[:submitted].split(' ').collect{|i|i.to_i}
     else
-      submitted = current_user.tickets.find :all, :conditions => ['article_id >= ? and article_id <= ?',pending_queue.min, pending_queue.max], :select => 'article_id'
-      submitted.collect!{|i|i.article_id}
+      submitted = current_user.tickets.find :all, :conditions => ['topic_id >= ? and topic_id <= ?',pending_queue.min, pending_queue.max], :select => 'topic_id'
+      submitted.collect!{|i|i.topic_id}
       session[:submitted] = submitted.join(' ')
     end
     submitted

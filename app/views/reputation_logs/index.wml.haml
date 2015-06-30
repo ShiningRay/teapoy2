@@ -10,7 +10,7 @@
   =link_to "(关于声望的说明)","/"
   %br
 - @reputation_logs.each do |reputation_log|
-  = link_to "相关帖子 #{reputation_log.post_id}","/articles/#{reputation_log.post_id}"
+  = link_to "相关帖子 #{reputation_log.post_id}","/topics/#{reputation_log.post_id}"
   %br
   ="数值"
   = reputation_log.amount

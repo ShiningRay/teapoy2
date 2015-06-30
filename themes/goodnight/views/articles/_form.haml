@@ -1,5 +1,5 @@
-= form_for logged_in? ? current_user.articles.build : Article.new do |f|
-  - unless controller_name == 'articles' and (action_name == 'new' or action_name == 'create')
+= form_for logged_in? ? current_user.topics.build : Topic.new do |f|
+  - unless controller_name == 'topics' and (action_name == 'new' or action_name == 'create')
     %label
       %a.add-title +添加标题
     = f.text_field :title, :class => 'span8', :style => 'display:none'

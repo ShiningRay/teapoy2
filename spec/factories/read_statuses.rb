@@ -16,8 +16,8 @@
 FactoryGirl.define do
   factory :read_status do
     association :user
-    article { create :article }
-    group_id { article.group_id }
+    topic { create :topic }
+    group_id { topic.group_id }
     read_to 0
     read_at { Time.now }
     updates 0

@@ -8,7 +8,7 @@ class Reputation::RatingObserver < Mongoid::Observer
     return unless ratee = post.original_user
     return unless post.top?
     return if post.group_id <= 0
-    group = post.group || post.article.group
+    group = post.group || post.topic.group
      # don't calculation reputations in meta groups
     ratee_rep = ratee.reputation_in(group)
     rater_rep = rater.reputation_in(group)

@@ -33,7 +33,7 @@ module Teapoy
         #{config.root}/app/posts
         #{config.root}/app/observers)
     # config.paths['config/routes'] += Dir[Rails.root.join("config/routes/*.rb")].sort
-    config.paths["config/routes"] = Dir[Rails.root.join("config/routes/*.rb")].sort
+    config.paths['config/routes'] = Dir[Rails.root.join('config/routes/*.rb')].sort
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
     # config.plugins = [ :exception_notification, :ssl_requirement, :all ]
@@ -53,7 +53,7 @@ module Teapoy
     # JavaScript files you want as :defaults (application.js is always included).
     # config.action_view.javascript_expansions[:defaults] = %w(rails.js plugins.js doT.js floorlink.js jquery.qtip.pack.js)
     # Configure the default encoding used in templates for Ruby 1.9.
-    config.encoding = "utf-8"
+    config.encoding = 'utf-8'
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password, :password_confirmation]
@@ -71,18 +71,18 @@ module Teapoy
             notification/reply
             reputation/rating
             reputation/post
-            article/sync_social
-            subscription/article
+            topic/sync_social
+            subscription/topic
     ).map{|i|"#{i}_observer"}
     config.active_record.observers =
-            #article/charge
+            #topic/charge
         %w( user/registration
             ).map{|i|"#{i}_observer"}
     
-    Haml::Template.options[:format] = :xhtml
-    Haml::Template.options[:encoding] = 'utf-8'
-    config.action_view.sanitized_allowed_tags = %w(p div h1 h2 h3 h4 h5 h6 ol ul li strong em u b i span table thead tbody tfoot th tr td caption img embed a  br cite sub sup ins acronym q)
-    config.action_view.sanitized_allowed_attributes = %w(id class style href title alt colspan rowspan allowfullscreen src quality width height align allowscriptaccess type)
+    # Haml::Template.options[:format] = :xhtml
+    # Haml::Template.options[:encoding] = 'utf-8'
+    # config.action_view.sanitized_allowed_tags = %w(p div h1 h2 h3 h4 h5 h6 ol ul li strong em u b i span table thead tbody tfoot th tr td caption img embed a  br cite sub sup ins acronym q)
+    # config.action_view.sanitized_allowed_attributes = %w(id class style href title alt colspan rowspan allowfullscreen src quality width height align allowscriptaccess type)
     # for method override in params
     # require File.join(Rails.root, 'lib/method_override_with_params' )
     # config.middleware.swap Rack::MethodOverride, MethodOverrideWithParams rescue nil
@@ -94,7 +94,7 @@ module Teapoy
     config.assets.precompile << /\.(?:svg|eot|woff|ttf)$/
     I18n.enforce_available_locales = false
 
-    config.middleware.insert_before 0, "Rack::Cors" do
+    config.middleware.insert_before 0, 'Rack::Cors' do
       allow do
         origins '*'
         resource '*', :headers => :any, :methods => [:get, :post, :options, :put, :patch]

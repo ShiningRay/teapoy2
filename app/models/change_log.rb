@@ -6,7 +6,7 @@ class ChangeLog
   field :post_id, type: Integer
   def self.migrate
     id = 0
-    Article.unscoped do
+    Topic.unscoped do
       loop do
         recs = Post.connection.select_all("select * from posts where `type` like 'ChangeLog' and id > #{id} order by id asc limit 2000")
         break if recs.size == 0
@@ -16,8 +16,8 @@ class ChangeLog
           puts id
           meta = MessagePack.unpack(rec['meta'])
           a = {}
-          article = Article.find_by_id(rec['article_id'])
-          post = article.posts.find_by_floor(rec['parent_id'])
+          topic = Topic.find_by_id(rec['topic_id'])
+          post = topic.posts.find_by_floor(rec['parent_id'])
           if post
             a[:changed_values] = meta['changed_fields']
             a[:post_id] = post.id

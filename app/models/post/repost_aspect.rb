@@ -23,13 +23,13 @@ module Post::RepostAspect
     repost.user_id = user_id
     title = nil if title.blank?
     #group_ids.map do |gid|
-    art= Article.new  group_id: group_id,
+    art= Topic.new  group_id: group_id,
                       title: title,
                       anonymous: anonymous
 
     art.user_id = sharer_id
     art.top_post = repost
-    art.publish! unless art.group.options.articles_need_approval
+    art.publish! unless art.group.options.topics_need_approval
     art.save!
     #art.top_post.save!
     #reposted_to[group_id] = sharer_id
@@ -42,27 +42,27 @@ module Post::RepostAspect
     Repost.where(:'index.original_id' => id, :'index.group_id' => Group.wrap(group).id).exists?
   end
 
-  def reposted_articles
+  def reposted_topics
     Repost.where(:'index.original_id' => id).order_by(:id =>  'asc')
   end
 
-  def reposted_articles_with_self
-    arts = reposted_articles.to_a
-    arts.unshift article
+  def reposted_topics_with_self
+    arts = reposted_topics.to_a
+    arts.unshift topic
     arts
   end
 
-  def reposted_group_articles
+  def reposted_group_topics
     art = {}
     repost_indexes.each do |index|
-      art[index.group] = index.article
+      art[index.group] = index.topic
     end
     art
   end
 
-  def reposted_group_articles_with_self
-    art = reposted_articles
-    art[group] = article
+  def reposted_group_topics_with_self
+    art = reposted_topics
+    art[group] = topic
     art
   end
 
