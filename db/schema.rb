@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150630141434) do
+ActiveRecord::Schema.define(version: 20150630151626) do
 
   create_table "admin_users", force: true do |t|
     t.string   "first_name",       default: "",    null: false
@@ -579,11 +579,13 @@ ActiveRecord::Schema.define(version: 20150630141434) do
     t.text     "content"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "likes_count",  default: 0,     null: false
+    t.integer  "likes_count",             default: 0,     null: false
     t.string   "picture"
-    t.boolean  "anonymous",    default: false, null: false
+    t.boolean  "anonymous",               default: false, null: false
+    t.string   "email",        limit: 64
   end
 
+  add_index "stories", ["email"], name: "index_stories_on_email", using: :btree
   add_index "stories", ["guestbook_id", "author_id"], name: "index_stories_on_guestbook_id_and_author_id", using: :btree
 
   create_table "story_comments", force: true do |t|

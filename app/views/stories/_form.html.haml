@@ -3,7 +3,10 @@
 
   .form-inputs
     = f.input :content
-    = f.input :anonymous
+    - if logged_in?
+      = f.input :anonymous
+    - else
+      = f.input :email
 
   .form-actions
     = f.button :submit

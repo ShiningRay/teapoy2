@@ -63,12 +63,12 @@ RSpec.describe StoriesController, type: :controller do
     end
 
     context 'when not logged in' do
-      it 'does not create story' do
-        expect {
-          post :create, story: {
-            content: 'testtest'
-          }, guestbook_id: guestbook.id
-        }.not_to change{ guestbook.stories.count }
+      it 'creates anonymous story' do
+        post :create, story: {
+          content: 'testtest',
+          email: 'test@test.com'
+        }, guestbook_id: guestbook.id
+        expect(assigns(:story)).to be_anonymous
       end
     end
   end

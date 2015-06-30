@@ -1,7 +1,7 @@
 class StoriesController < ApplicationController
   before_action :set_guestbook
   before_action :set_story, only: [:show, :edit, :update, :destroy]
-  before_action :login_required, only: [:new, :create, :edit, :update, :destroy, :like, :unlike]
+  before_action :login_required, only: [:edit, :update, :destroy, :like, :unlike]
   respond_to :html
 
   def index
@@ -19,11 +19,12 @@ class StoriesController < ApplicationController
   end
 
   def edit
+    respond_with(story)
   end
 
   def create
     @story = @guestbook.stories.new(story_params)
-    @story.author = current_user
+    @story.author = current_user if logged_in?
     @story.save
     respond_with(@story, location: [guestbook, :stories])
   end
@@ -70,6 +71,6 @@ class StoriesController < ApplicationController
     end
 
     def story_params
-      params.require(:story).permit(:guestbook_id, :content, :picture, :remote_picture_url, :anonymous)
+      params.require(:story).permit(:guestbook_id, :content, :picture, :remote_picture_url, :anonymous, :email)
     end
 end
