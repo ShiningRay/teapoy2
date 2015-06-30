@@ -1,3 +1,4 @@
+- comments = story.comments.page(1)
 %div[story]
   .author= link_to story.author.name_or_login, story.author
   .published_at= link_to story.created_at, [story.guestbook, story]
@@ -16,5 +17,7 @@
         - else
           = link_to '喜欢', [:like, story.guestbook, story], method: :post, remote: true
 
-  .comments= render story.comments
+  .comments= render comments
+  - if comments.total_pages > 1
+    .load_more= link_to '加载更多...', guestbook_story_story_comments_path(story.guestbook, story, page: 2), remote: true
   .comment_form= render 'story_comments/form', story_comment: story.comments.new, guestbook: story.guestbook, story: story

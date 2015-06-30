@@ -1,0 +1,7 @@
+<% sid = dom_id @story %>
+$('#<%= sid %> .comments').append('<%= j render @story_comments %>')
+<% if @story_comments.last_page? %>
+$('#<%= sid %> .load_more').hide();
+<% else %>
+$('#<%= sid %> .load_more a').prop('href', '<%= guestbook_story_story_comments_path(@guestbook, @story, page: @story_comments.current_page + 1)%>')
+<% end %>

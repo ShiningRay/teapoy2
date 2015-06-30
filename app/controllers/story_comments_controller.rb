@@ -1,8 +1,9 @@
 class StoryCommentsController < ApplicationController
   before_action :set_story_comment, only: [:show, :edit, :update, :destroy]
   before_action :login_required, only: [:create, :destroy]
+
   def index
-    @story_comments = scope.all
+    @story_comments = scope.page(params[:page])
     respond_with(@story_comments)
   end
 
