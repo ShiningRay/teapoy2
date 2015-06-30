@@ -1,8 +1,0 @@
-%h2 您正在搜索“#{@term}”
-
-- if logged_in? and (current_user.own_group?(@group) or current_user.is_admin?)
-  = link_to "创建特色页面 #{@term}", new_topic_path(@group, :title => @term, :featured => true)
-- if topics.size > 0
-  %h3 搜索结果
-  = render topics
-  = paginate topics

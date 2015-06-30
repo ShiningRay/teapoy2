@@ -1,7 +1,0 @@
-- if topic.top_post
-  %h4
-    收到了总计 #{topic.top_post.total_rewards} 积分打赏
-  - if topic.top_post &&  topic.top_post.rewarders.exists?
-    #{topic.top_post.rewarders.count} 打赏者：
-    - topic.top_post.rewarders.each do |rewarder|
-      = link_to rewarder.login, rewarder

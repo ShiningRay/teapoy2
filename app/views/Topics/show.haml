@@ -1,9 +1,0 @@
-- content_for :title, "#{topic_title} - #{@group.name}"
-%article[@topic]
-  %h2.entry-title= link_to topic_title, [@group, @topic]
-  
-- @comments = @topic.posts.all || []
-= render('comments/index')
-
-- content_for :sidebar do
-  = render 'groups/sidebar'
