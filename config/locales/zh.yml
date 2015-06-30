@@ -21,7 +21,7 @@ zh:
       messages:
         record_invalid: "验证失败: %{errors}"
       models:
-        article:
+        topic:
           attributes:
             title:
               taken: 这个标题的文章在小组里已经有了，请区分一下吧
@@ -68,10 +68,10 @@ zh:
             password_confirmation:
               too_long: 太长
               too_short: 太短
-  articles:
+  topics:
     8hr: 8小时内
     all: 有史以来
-    cannot_reply_to_closed_article: 评论已被关闭，无法回复
+    cannot_reply_to_closed_topic: 评论已被关闭，无法回复
     day: 24小时内
     month: 一个月内
     repost: 转贴

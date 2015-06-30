@@ -23,7 +23,7 @@ zh:
             the validations."
 
       models:
-        article:
+        topic:
           attributes:
             title:
               taken: 这个标题的文章在小组里已经有了，请区分一下吧
