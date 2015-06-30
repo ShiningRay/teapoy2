@@ -19,6 +19,7 @@ db.inboxes.update({}, {'$rename':{'article_id': 'topic_id'}}, {multi: true});
 db.inboxes.ensureIndex({"user_id" : 1, "topic_id" : -1 });
 db.inboxes.ensureIndex({"topic_id" : 1 });
 db.notifications.update({subject_type: 'Article'}, {$set: {subject_type: 'Topic'}}, {multi: true});
+db.sequences.update({seq_name: "article__id"}, {$set: {seq_name: 'topic__id'}});
 js
   end
 end

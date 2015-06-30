@@ -6,8 +6,8 @@
       .name= current_user.name
 
   =# link_to 'Not me?', logout_path
-  - if @group.options.only_member_can_reply and (logged_in? and !current_user.is_member_of?(topic.group))
-    = link_to '加入小组发表评论', join_group_path(topic.group), method: :post, class: "join_group"
+  - if @group.options.only_member_can_reply and (logged_in? and !current_user.is_member_of?(@topic.group))
+    = link_to '加入小组发表评论', join_group_path(@topic.group), method: :post, class: "join_group"
   - else
     - unless logged_in?
       您目前是游客身份，请

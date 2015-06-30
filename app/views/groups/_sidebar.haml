@@ -23,7 +23,7 @@
       - if logged_in? && (current_user.own_group?(@group) || current_user.is_admin?)
         .group_setting
           = link_to '小组设置', edit_group_path(@group)
-          = link_to "审贴(#{@group.topics.pending.count}个待审)" ,pending_group_articles_path(@group)
+          = link_to "审贴(#{@group.topics.pending.count}个待审)" ,pending_group_topics_path(@group)
       .group_setting
         = render 'groups/join_button', group: @group
         %br
