@@ -104,7 +104,7 @@ module PostsHelper
         original_title = topic_title(page)
         link_to((title.blank? ? original_title : title), topic_path(@group, page), title: original_title)
       else
-        link_to((title.blank? ? name : title), search_group_articles_path(@group||'all', term: name), rel: 'nofollow', class: 'missing')
+        link_to((title.blank? ? name : title), search_group_topics_path(@group||'all', term: name), rel: 'nofollow', class: 'missing')
         #link_to match, title: '', rel: 'nofollow'
       end
     end

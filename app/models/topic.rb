@@ -2,7 +2,7 @@
 
 # Public
 # The topic model
-
+# @author ShiningRay
 class Topic
   include Mongoid::Document
   include Mongoid::Timestamps

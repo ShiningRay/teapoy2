@@ -5,7 +5,7 @@ class HomeController < ApplicationController
 
   caches_action :index, :cache_path => {:revision => $revision, :only_path => true}
   def send_user
-    return redirect_to(hottest_all_articles_path) if in_mobile_view?
+    return redirect_to(hottest_all_topics_path) if in_mobile_view?
     return redirect_to(:controller => 'my', :action => 'latest') if logged_in?
   end
   protected :send_user

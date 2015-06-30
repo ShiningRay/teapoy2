@@ -35,7 +35,7 @@ module User::Privilege
     own_group?(group)
   end
 
-  def can_delete?(article)
+  def can_delete?(topic)
 
   end
 

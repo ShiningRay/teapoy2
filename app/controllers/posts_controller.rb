@@ -32,7 +32,7 @@ class PostsController < ApplicationController
     if resource.update post_params
       respond_to do |format|
         format.html {
-          redirect_to group_article_path(@post.group || @post.topic.group, @post.topic)
+          redirect_to group_topic_path(@post.group || @post.topic.group, @post.topic)
         }
       end
     end
@@ -77,7 +77,7 @@ class PostsController < ApplicationController
         render :nothing => true if request.xhr?
       }
       format.any(:mobile, :wml) {
-        redirect_to group_article_path(@post.topic)
+        redirect_to group_topic_path(@post.topic)
       }
       format.js
     end
@@ -124,7 +124,7 @@ class PostsController < ApplicationController
 
     if logged_in?
       current_user.vote post, score
-      current_user.mark_article_as_read(post.topic)
+      current_user.mark_topic_as_read(post.topic)
       post.reload
     end
 
@@ -133,7 +133,7 @@ class PostsController < ApplicationController
         if request.xhr?
           render :text => post.score
         else
-          redirect_back_or_default(request.referer || topic_path(post.group||post.article.group, post.article))
+          redirect_back_or_default(request.referer || topic_path(post.group||post.topic.group, post.topic))
         end
       }
       format.any(:mobile, :wml) { show_notice "您为帖子投了#{score > 0 ? '支持' : '反对'}，现在帖子得分为#{post.score}" }

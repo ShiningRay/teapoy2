@@ -108,13 +108,13 @@ class ListsController < ApplicationController
     if @list.user != current_user
       return
     end
-    topic = Topic.find(params[:article_url].split("/").last.split("#").first)
+    topic = Topic.find(params[:topic_url].split("/").last.split("#").first)
     if topic.status != 'publish'
       flash[:error] = '该文章无法公开'
     elsif topic.group.preferred_encryption?
       flash[:error] = '该文章无法公开!'
     else
-      @list.items.create :article_id => topic.id
+      @list.items.create :topic_id => topic.id
     end
   rescue ActiveRecord::RecordNotFound
     flash[:error] = '未找到该文章'

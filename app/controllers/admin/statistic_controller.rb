@@ -5,7 +5,7 @@ class Admin::StatisticController < Admin::BaseController
   def index
     today = Date.today
     b = today << 1
-    today_articles = ActiveRecord::Base.connection.select_all(<<sql).collect{|c| c["count(*)"].to_i}
+    today_topics = ActiveRecord::Base.connection.select_all(<<sql).collect{|c| c["count(*)"].to_i}
 select date(created_at),count(*) from topics
 where created_at < '#{today}' and created_at > '#{b}'
 group by date(created_at)
@@ -23,8 +23,8 @@ sql
 
     @chart = LazyHighCharts.new("topics and users statistics" ) do |f|
       f.xAxis categories: date
-      f.series name: 'topics', data: today_articles
-      f.series name: 'new users', data: today_articles
+      f.series name: 'topics', data: today_topics
+      f.series name: 'new users', data: today_topics
     end
   end
   def  statistics_info

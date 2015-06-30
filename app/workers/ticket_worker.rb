@@ -2,10 +2,10 @@
 # coding: utf-8
 
 class TicketWorker  < BaseWorker
-  def check(article_id)
+  def check(topic_id)
     puts '===new==='
-    article = Topic.find article_id
-    return unless article.status == 'pending'
+    topic = Topic.find topic_id
+    return unless topic.status == 'pending'
 
     unless @ticket_types
       @ticket_types = {}
@@ -13,7 +13,7 @@ class TicketWorker  < BaseWorker
         @ticket_types[tt.id] = tt
       end
     end
-    @tickets = article.tickets.find :all, :conditions => 'ticket_type_id is not null'
+    @tickets = topic.tickets.find :all, :conditions => 'ticket_type_id is not null'
 
     return if @tickets.size < 5
     scores = @tickets.collect do |t|
@@ -29,22 +29,22 @@ class TicketWorker  < BaseWorker
     ub = 3.0 / num - 0.05
 #lb = -3.33 / num + 0.066
     lb=-8.5/num+0.3
-    puts "check,#{article.id},#{@tickets.size},#{num},#{score},#{av}"
+    puts "check,#{topic.id},#{@tickets.size},#{num},#{score},#{av}"
     if num < 16
       if av <= lb
-        puts "reject #{article_id} due to avg #{av}"
-        judge(:article_id => article_id, :approval => false)
+        puts "reject #{topic_id} due to avg #{av}"
+        judge(:topic_id => topic_id, :approval => false)
       elsif av >= ub
-        puts "accept #{article_id} due to avg #{av}"
-        judge(:article_id => article_id, :approval => true)
+        puts "accept #{topic_id} due to avg #{av}"
+        judge(:topic_id => topic_id, :approval => true)
       end
     else
       if av >= 0.02
         puts 'accept'
-        judge(:article_id => article_id, :approval => true)
+        judge(:topic_id => topic_id, :approval => true)
       else
         puts 'reject'
-        judge(:article_id => article_id, :approval => false)
+        judge(:topic_id => topic_id, :approval => false)
       end
     end
     puts '========='
@@ -54,19 +54,19 @@ class TicketWorker  < BaseWorker
   end
 
   def judge(options)
-    article_id = options[:article_id]
+    topic_id = options[:topic_id]
     approval = options[:approval]
 
-    puts "judging #{article_id}"
-    article = Topic.find article_id
+    puts "judging #{topic_id}"
+    topic = Topic.find topic_id
 
     if approval
-      article.publish!
+      topic.publish!
     else
-      article.reject!
+      topic.reject!
     end
 
-    article.tickets.each do |t|
+    topic.tickets.each do |t|
       next unless t.ticket_type
       a = (t.ticket_type.weight > 0)
       t.correct = (a == approval)

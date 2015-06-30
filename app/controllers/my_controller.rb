@@ -10,7 +10,7 @@ class MyController < ApplicationController
     @show_group = true
     params[:order] ||= "time"
     group_ids = current_user.publications(Group).collect{|s|s.id}
-    # article_ids = current_user.publications(Topic).collect{|s|s.publication.id}
+    # topic_ids = current_user.publications(Topic).collect{|s|s.publication.id}
     topics = Topic.where(:group_id.in => group_ids).before.public_topics
     if params[:order] == "hot"
       topics = topics.hottest.where(:created_at.gt => 24.hours.ago)
@@ -23,7 +23,7 @@ class MyController < ApplicationController
     respond_to do |format|
       format.any(:html, :mobile, :wml)
       format.json {
-        render :json => {:num_pages => topics.num_pages, :articles => topics}
+        render :json => {:num_pages => topics.num_pages, :topics => topics}
       }
     end
     #redirect_to current_user
@@ -67,23 +67,23 @@ class MyController < ApplicationController
 
     @items = @items.limit(30)
     @items = @items.offset(30*(@current_page-1)) if @current_page > 1
-    topics =  @items.collect{|i| i.article_id }
+    topics =  @items.collect{|i| i.topic_id }
     Inbox.delay.bulk_mark_read(current_user.id, topics)
     topics = Topic.where(:id => topics).includes(:top_post, :group).all unless topics.blank?
-    @id2article = {}
+    @id2topic = {}
     topics = topics.compact.collect do |art|
-      @id2article[art.id] = art
+      @id2topic[art.id] = art
     end
     #current_user.preload_subscribed(@topics)
 
     respond_to do |format|
       format.any(:html, :mobile, :wml) do
         if request.xhr?
-          render :partial => 'my/article', :collection => topics
+          render :partial => 'my/topic', :collection => topics
         end
       end
       format.json {
-        render :json => {:num_pages => 1, :articles => topics}
+        render :json => {:num_pages => 1, :topics => topics}
       }
     end
   end
@@ -103,29 +103,29 @@ class MyController < ApplicationController
       @current_page = params[:page] ? params[:page].to_i : 1
       @rest_count = @total_count - @current_page*30
       @items = @items.limit(30).offset((@current_page-1)*30) if @current_page > 1
-      @item_ids = @items.collect{|i|i.article_id}
+      @item_ids = @items.collect{|i|i.topic_id}
       @items = @items[0, 30]
       @item_ids = @item_ids[30..-1]
     else
       ids = params[:ids].map{|i|i.to_i}
-      @items = Inbox.by_user(current_user).any_in(:article_id => ids)#.order("field(id, #{ids.join(',')}")
+      @items = Inbox.by_user(current_user).any_in(:topic_id => ids)#.order("field(id, #{ids.join(',')}")
     end
 
-    topics = @items.collect{|i| i.article_id }
+    topics = @items.collect{|i| i.topic_id }
     Inbox.delay.bulk_mark_read(current_user.id, topics)
     topics = Topic.where(:id => topics).includes(:top_post, :group) unless topics.blank?
     topics.compact!
     #current_user.preload_subscribed(@topics)
-    @id2article = {}
+    @id2topic = {}
     topics.each do |art|
-      @id2article[art.id] = art
+      @id2topic[art.id] = art
     end
     respond_to do |format|
       format.any :html, :mobile, :wml do
-        render :partial => 'my/article', :collection => topics if request.xhr?
+        render :partial => 'my/topic', :collection => topics if request.xhr?
       end
       format.json do
-        render :json => {:num_pages => 1, :articles => topics}
+        render :json => {:num_pages => 1, :topics => topics}
       end
     end
     #@topics
@@ -183,7 +183,7 @@ class MyController < ApplicationController
     end
   end
 
-  def articles
+  def topics
     Topic.unscoped do
       topics = current_user.topics.where(:status.ne => 'deleted').page(params[:page])
     end

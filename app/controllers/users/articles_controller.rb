@@ -41,11 +41,11 @@ class Users::ArticlesController < TopicsController
 
     respond_to do |format|
       format.any(:html,:wml,:mobile){
-       return render :template=>"/articles/index"
+       return render :template=>"/topics/index"
       }
       format.json do
         render :json => {
-          :articles => topics,
+          :topics => topics,
           :num_pages => topics.num_pages
         }
       end

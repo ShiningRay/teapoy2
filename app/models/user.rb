@@ -285,10 +285,10 @@ class User < ActiveRecord::Base
 
   ##
   # Public - Test if user is the original author of the topic
-  # @param article [Topic]
+  # @param topic [Topic]
 
-  def own_topic?(article)
-    article.read_attribute(:user_id) == self.id
+  def own_topic?(topic)
+    topic.read_attribute(:user_id) == self.id
   end
   alias own_post?  own_topic?
 

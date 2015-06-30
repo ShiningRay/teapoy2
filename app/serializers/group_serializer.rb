@@ -14,16 +14,16 @@ class GroupSerializer < ActiveModel::Serializer
   #   end
   #   res[:icon] = i
   #   #res[:posts_count] = posts.size
-  #   res[:articles_count] = public_articles.size
+  #   res[:topics_count] = public_topics.size
   #   res[:members_count] = member_ids.size
 
   #   res
   # end
         # json = @group.as_json(:except=>[:feature, :hide, :private, :id,:score,:status,:owner])
-        # json['group_url'] = group_articles_path(@group)
+        # json['group_url'] = group_topics_path(@group)
         # json['join_or_quit_group_url'] = join_group_path(@group)
         # json['join_or_quit_text'] = "加入小组"
-        # json['new_article_path'] = new_article_path(@group)
+        # json['new_topic_path'] = new_topic_path(@group)
         # if logged_in? && current_user.is_member_of?(@group)
         #     json['join_or_quit_group_url'] = quit_group_path(@group)
         #     json['join_or_quit_text'] = "退出小组"

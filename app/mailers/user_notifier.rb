@@ -59,11 +59,11 @@ class UserNotifier < ActionMailer::Base
     body :username => user.login, :text => text
   end
 
-  def digest_notification(user, articles, comments)
+  def digest_notification(user, topics, comments)
     recipients user.email
     subject     "您关注的帖子今日有更新"
     sent_on     Time.now
-    body :user => user, :topics => articles, :comments => comments
+    body :user => user, :topics => topics, :comments => comments
   end
 
   def recall_mail(user)

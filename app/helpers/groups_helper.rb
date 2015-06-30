@@ -20,12 +20,12 @@ module GroupsHelper
     nested_set_options(Group) {|i| "#{'-' * i.level} #{i.name}" }
   end
 
-  def group_detail_for(article)
-    group = article.group
+  def group_detail_for(topic)
+    group = topic.group
     if logged_in? and !current_user.is_member_of?(group)
-      link_to article.group.name, group_articles_path(article.group),:data=>{:id=>"#{group.alias}",:description=>"#{group.description}"},:class=>"group_card"
+      link_to topic.group.name, group_topics_path(topic.group),:data=>{:id=>"#{group.alias}",:description=>"#{group.description}"},:class=>"group_card"
     else
-      link_to article.group.name, group_articles_path(article.group),:data=>{:description=>"#{group.description}"},:class=>"group_card"
+      link_to topic.group.name, group_topics_path(topic.group),:data=>{:description=>"#{group.description}"},:class=>"group_card"
     end
   end
 

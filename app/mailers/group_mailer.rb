@@ -1,7 +1,7 @@
 # coding: utf-8
 class GroupMailer < ActionMailer::Base
   default :from => "博聆 <admin@bling0.com>"
-  helper :articles
+  helper :topics
   layout "mail"
   def self.daily_deliver_for_all
     Group.find_each do |g|

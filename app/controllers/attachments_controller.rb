@@ -39,7 +39,7 @@ class AttachmentsController < ApplicationController
   end
 
   def find_topic
-    topic ||= @group.topics.find params[:article_id]
+    topic ||= @group.topics.find params[:topic_id]
   end
 
   def resource

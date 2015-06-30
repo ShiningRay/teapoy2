@@ -8,10 +8,10 @@ module Topic::ScheduleAspect
   end
   module ClassMethods
     def schedule_future_topics
-      unscoped.where(status: 'future').where(:created_at.lte => Time.now).each do |article|
-        article.no_log = true
-        article.publish!
-        article.save!
+      unscoped.where(status: 'future').where(:created_at.lte => Time.now).each do |topic|
+        topic.no_log = true
+        topic.publish!
+        topic.save!
       end
     end
   end

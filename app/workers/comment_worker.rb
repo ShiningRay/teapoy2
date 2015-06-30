@@ -29,9 +29,9 @@ class CommentWorker  < BaseWorker
   ## FIXME
   def sweep_cache(comment_id)
     comment = Comment.find comment_id
-    article_id = comment.article_id
+    topic_id = comment.topic_id
     group =  comment.topic.group
-    domain = comment.article.group.domain
+    domain = comment.topic.group.domain
   rescue => e
     puts e
     #puts e.backtrace.join("\n")
@@ -39,10 +39,10 @@ class CommentWorker  < BaseWorker
 
   def update_score(comment_id)
     comment = Comment.find comment_id
-    article = comment.topic
-    return unless article.status == 'publish'
-    score = article.ensure_score
-    c = article.comments.public.count
+    topic = comment.topic
+    return unless topic.status == 'publish'
+    score = topic.ensure_score
+    c = topic.comments.public.count
     if score.public_comments_count != c
       score.public_comments_count = c
       score.save!
@@ -72,7 +72,7 @@ class CommentWorker  < BaseWorker
     puts "notify #{ids.join(',')}"
   end
 
-  def number_floor(article_id)
+  def number_floor(topic_id)
     comments = Comment.public.where(:floor => nil).order('id asc').lock.each do |c|
       next if c.floor or c.status != 'publish'
       c.number_floor
@@ -84,7 +84,7 @@ class CommentWorker  < BaseWorker
 
   def detect_parent(comment_id)
     comment = Comment.find comment_id
-    article = comment.topic
+    topic = comment.topic
     comment.detect_parent
   rescue => e
     puts e

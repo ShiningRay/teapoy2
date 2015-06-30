@@ -8,8 +8,8 @@ class PostSweeper < ActionController::Caching::Sweeper
 
   def expire_comment(comment)
     #CommentWorker.async_sweep_cache(comment.id)
-    #ScoreWorker.async_update(comment.article_id)
-    expire_page "/cache#{topic_path(comment.article_id)}"
-    expire_page "/cache#{article_comments_path(comment.article_id)}"
+    #ScoreWorker.async_update(comment.topic_id)
+    expire_page "/cache#{topic_path(comment.topic_id)}"
+    expire_page "/cache#{topic_comments_path(comment.topic_id)}"
   end
 end
