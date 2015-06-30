@@ -113,7 +113,7 @@ $(function () {
 
 $(function () {
   $('.topic a[data-method=delete]').bind('ajax:success', function () {
-    sr.article(this).slideUp(function () {
+    sr.topic(this).slideUp(function () {
       $(this).remove();
     });
   });
@@ -222,7 +222,7 @@ $(function () {
       url: A.attr('href'),
       success: function (data) {
         if (data.status == "publish") {
-          A.parents(".article:first").remove();
+          A.parents(".topic:first").remove();
         }
       }
     });
@@ -235,7 +235,7 @@ $(function () {
       dataType: "json",
       url: A.attr('href'),
       success: function () {
-        A.parents(".article:first").remove();
+        A.parents(".topic:first").remove();
       }
     });
     return false;

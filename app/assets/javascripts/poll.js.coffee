@@ -9,7 +9,7 @@ formProcess = ->
       url: f.attr("action")
       data: f.serialize()
       success: (vote) ->
-        $.getJSON "/" + vote.group + "/" + vote.article_id, (data) ->
+        $.getJSON "/" + vote.group + "/" + vote.topic_id, (data) ->
           total_votes = 0
           percent = undefined
           data = data.top_post.results
@@ -35,5 +35,5 @@ OPT_TITLE = 1
 OPT_VOTES = 2
 votedID = undefined
 $(document).ready ->
-  $("<label for=\"article_top_post_attributes_question_content\">投票选项，每个选项占一行</label>").insertBefore "#article_top_post_attributes_question_content"
+  $("<label for=\"topic_top_post_attributes_question_content\">投票选项，每个选项占一行</label>").insertBefore "#topic_top_post_attributes_question_content"
   $(".make_vote").submit formProcess

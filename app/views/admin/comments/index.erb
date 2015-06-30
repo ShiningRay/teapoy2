@@ -16,7 +16,7 @@
     <% for article in topics %>
       <div id="article-<%=article.id%>" class="entry">
        <div class='secret_entity'>
-          <%= render :partial => 'admin/articles/article', :object => article %>
+          <%= render :partial => 'admin/articles/topic', :object => article %>
         </div> <!-- end entity -->
         <hr />
         <ul class="list">

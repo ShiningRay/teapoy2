@@ -47,7 +47,7 @@ $(document).bind 'pageinit', ->
   disabled_with = (selector) ->
     $(document).on 'ajax:before', selector, disable
     .on 'ajax:complete', selector, enable
-  disabled_with 'form#new_article'
+  disabled_with 'form#new_topic'
   disabled_with 'form#new_post'
 
   initPhotoSwipe()
