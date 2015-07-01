@@ -21,7 +21,7 @@
 %div(data-role="content")
   - if @limit
     - content_for :title, sprintf("浏览%s中最热的帖子", t("topics.#{@limit}"))
-  - if topics.num_pages == 0
+  - if @topics.total_pages == 0
     - if @limit
       = t("topics.#{@limit}")
       尚无帖子
@@ -33,11 +33,11 @@
       目前尚无帖子
   - else
     .topic-list
-      = render(topics.reject{|a|a.top_post.nil?})
+      = render(@topics.reject{|a|a.top_post.nil?})
     .load-more
-    = paginate topics
+    = paginate @topics
 
-    - if @limit && @next_limit && topics.num_pages == topics.current_page && topics.num_pages > 0
+    - if @limit && @next_limit && @topics.num_pages == @topics.current_page && @topics.num_pages > 0
       您已看完了
       = t("topics.#{@limit}")
       中最热的所有帖子，请继续

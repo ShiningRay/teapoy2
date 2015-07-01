@@ -1,23 +1,23 @@
 - content_for :title, "#{topic_title} - #{@group.name}"
 
-- group = @group || topic.group
+- group = @group || @topic.group
 
 %div{:data => {:role => 'header', 'position' => 'fixed'}}
   = link_to "Back", [@group, :topics], 'data-icon' => 'carat-l', 'data-rel' => 'back', 'data-iconpos' => 'notext'
   %h1= @group.name
-  = link_to 'Options', "#options_#{topic.id}", data: {icon: 'gear', rel: 'popup', iconpos: 'notext'}
+  = link_to 'Options', "#options_#{@topic.id}", data: {icon: 'gear', rel: 'popup', iconpos: 'notext'}
 
 %div{:data => {:role => 'content'}}
-  - if topic
-    - @comments = topic.comments
-    = render topic
+  - if @topic
+    - @comments = @topic.comments
+    = render @topic
     %div{:data => {:role => 'collapsible'}}
       = render 'rewards_info'
     = render( 'comments/index')
 
-%div{:id => "options_#{topic.id}", :data => {:role => 'popup', :'position-to' => 'window', :'overlay-theme' => 'b'}}
+%div{:id => "options_#{@topic.id}", :data => {:role => 'popup', :'position-to' => 'window', :'overlay-theme' => 'b'}}
   %ul{:data => {:role => 'listview'}, :style => 'min-width: 210px;'}
-    - if logged_in? && (current_user.own_group?(group) || current_user.own_topic?(topic) || current_user.is_admin?)
+    - if logged_in? && (current_user.own_group?(group) || current_user.own_topic?(@topic) || current_user.is_admin?)
       %li
         = link_to [group, topic], :method => :delete, :remote => true do
           删除
