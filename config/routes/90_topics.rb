@@ -23,10 +23,11 @@ Teapoy::Application.routes.draw do
   post '/topics/comments(.:format)' => 'posts#create'
 
   # compat with old style article path
-  get ':group_id/:id(.:format)' => 'topics#show'
-  post ':group_id/:id/comments(.:format)' => 'posts#create'
-  get ':group_id(.:format)' => 'topics#index'
-  get ':group_id/archives/:id' => 'archives#show'
+  get '/:group_id/archives/:id', to: 'archives#show', constraints: { id: /\d{4}(-\d{1,2}(-\d{1,2})?)?/ }
+  post '/:group_id/:id/comments(.:format)' => 'posts#create'
+  get '/:group_id/:id(.:format)' => 'topics#show'
+  get '/:group_id(.:format)' => 'topics#index'
+
   # resources :groups
   # scope ":group_id", :as => '' do
   #   resources :tickets do
