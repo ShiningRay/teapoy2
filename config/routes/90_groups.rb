@@ -15,8 +15,8 @@ Teapoy::Application.routes.draw do
   match 'all/latest(/page/:page)(.:format)' => 'topics#index',
         :via => :get, :as => :latest_all_articles,
         :group_id => 'all', :order => 'latest'
-  get ':group_id/:id' => 'topics#show'
-  get ':group_id' => 'topics#index'
+  get ':group_id/:id(.:format)' => 'topics#show'
+  get ':group_id(.:format)' => 'topics#index'
 
   # resources :groups
   # scope ":group_id", :as => '' do

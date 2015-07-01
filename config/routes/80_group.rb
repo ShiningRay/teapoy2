@@ -7,7 +7,7 @@ Teapoy::Application.routes.draw do
   get '/groups/:group_id/articles(.:format)' => 'topics#index'
   get '/groups/:group_id/articles/new(.:format)' => 'topics#new'
   get '/groups/:group_id/articles/:id(.:format)' => 'topics#show'
-  get '/:group_id/:topic_id(.:format)' => 'topics#show'
+
   resources :groups do
     member do
       post :join
