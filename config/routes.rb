@@ -181,12 +181,9 @@ Teapoy::Application.routes.draw do
   #match ':group_id/:id(.:format)', :to => 'topics#show', :as => :topic
   #match ':id', :to => 'groups#show', :as => :group
   #root :to => 'tags#show', :id => '搞笑'
-  get ':group_id/archives/:id' => 'archives#show'
   root :to => 'topics#index', :group_id => 'all'
   #root :to => 'home#index'
   # get ':controller(/:action(/:id(.:format)))'
-  get '/topics/:article_id/comments(.:format)' => 'posts#index'
-  post '/topics/comments(.:format)' => 'posts#create'
-  resources :topics
+
 end
 Dir[Rails.root.join('config/routes/*.rb')].sort.each{|r| require_dependency(r)}

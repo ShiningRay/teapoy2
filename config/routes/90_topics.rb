@@ -4,9 +4,6 @@ Teapoy::Application.routes.draw do
   #match '/users(.:format)' => 'users#index', :as => :all_users
   # match ':group_id/users(.:format)' => 'users#index', :as => :group_users, :via => :get
   # match 'topics' => 'topics#create', :via => :post, :as => :all_articles
-  match 'topics/repost' => 'topics#repost', :as => :repost_form, :via => :get
-  match 'topics/create(.:format)' => 'topics#create', :via => [:post, :patch]
-  post 'topics(.:format)' => 'topics#create', group_id: 'all'
   # match 'topics/new' => 'topics#new', :as => :new_all_article, :via => :get
   # match 'topics/:id/dismiss' => 'topics#dismiss', :as => :dismiss_article, :via => :get
   match 'all/hottest(/:limit)(/page/:page)(.:format)' => 'topics#index',
@@ -15,9 +12,21 @@ Teapoy::Application.routes.draw do
   match 'all/latest(/page/:page)(.:format)' => 'topics#index',
         :via => :get, :as => :latest_all_articles,
         :group_id => 'all', :order => 'latest'
-  get ':group_id/:id(.:format)' => 'topics#show'
-  get ':group_id(.:format)' => 'topics#index'
 
+  resources :topics
+  match 'topics/repost' => 'topics#repost', :as => :repost_form, :via => :get
+  match 'topics/create(.:format)' => 'topics#create', :via => [:post, :patch]
+  post 'topics(.:format)' => 'topics#create', group_id: 'all'
+
+  # compat with comments
+  get '/topics/:article_id/comments(.:format)' => 'posts#index'
+  post '/topics/comments(.:format)' => 'posts#create'
+
+  # compat with old style article path
+  get ':group_id/:id(.:format)' => 'topics#show'
+  post ':group_id/:id/comments(.:format)' => 'posts#create'
+  get ':group_id(.:format)' => 'topics#index'
+  get ':group_id/archives/:id' => 'archives#show'
   # resources :groups
   # scope ":group_id", :as => '' do
   #   resources :tickets do
