@@ -25,7 +25,6 @@ end
   gem 'jquery-atwho-rails', :github => 'ShiningRay/jquery-atwho-rails'
   gem 'lazy_high_charts'
   gem 'bourbon'
-  gem 'compass-blueprint'
   gem 'sass-rails'
   gem 'coffee-rails'
   gem 'uglifier'
