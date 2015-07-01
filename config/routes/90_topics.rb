@@ -24,7 +24,7 @@ Teapoy::Application.routes.draw do
 
   # compat with old style article path
   get '/:group_id/archives/:id', to: 'archives#show', constraints: { id: /\d{4}(-\d{1,2}(-\d{1,2})?)?/ }
-  post '/:group_id/:id/comments(.:format)' => 'posts#create'
+  post '/:group_id/:topic_id/comments(.:format)' => 'posts#create'
   get '/:group_id/:id(.:format)' => 'topics#show'
   get '/:group_id(.:format)' => 'topics#index'
 

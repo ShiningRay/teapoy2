@@ -34,7 +34,7 @@
 
     %span.floor=f
     %div.operator
-      %a.reply{:href=>"javascript:replypost('#{post.id}',#{post.topic_id},#{f})",:data=>{:floor=>"#{post.floor}"}}
+      %a.reply{:href=>"javascript:replyComment('#{post.id}',#{post.topic_id},#{f})",:data=>{:floor=>"#{post.floor}"}}
         = typicon 'arrow-back'
         回复
       - if logged_in?
