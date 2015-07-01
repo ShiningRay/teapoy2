@@ -196,9 +196,9 @@ class PostsController < ApplicationController
 
   def new
     @group = Group.find_by_alias params[:group_id] unless @group
-    topic = @group.topics.wrap params[:topic_id] unless topic
-    @parent = topic.posts.find_by_floor params[:parent_id].to_i
-    @post = topic.posts.new
+    @topic = @group.topics.find params[:topic_id] unless topic
+    @parent = @topic.posts.find_by_floor params[:parent_id].to_i
+    @post = @topic.posts.new
 
     if @parent
       @post.parent_id = @parent.id

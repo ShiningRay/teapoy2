@@ -19,7 +19,7 @@
   %ul{:data => {:role => 'listview'}, :style => 'min-width: 210px;'}
     - if logged_in? && (current_user.own_group?(group) || current_user.own_topic?(@topic) || current_user.is_admin?)
       %li
-        = link_to [group, topic], :method => :delete, :remote => true do
+        = link_to [group, @topic], :method => :delete, :remote => true do
           删除
       %li
         = render 'subscribe_button'

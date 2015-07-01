@@ -1,0 +1,13 @@
+%div(data-role='header')
+  %h1 发表回复
+  / %button(data-icon='check') 发送
+%div(data-role='content')
+  - unless @parent.top?
+    =@parent.floor
+    ="L:"
+  - if @parent.anonymous or @parent.user_id == 0 or @parent.user.blank?
+    匿名人士
+  - else
+    =link_to @parent.user.name_or_login, user_path(@parent.user)
+  = "的评论:" unless @parent.top?
+  = render 'form'
