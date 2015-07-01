@@ -13,5 +13,5 @@
     %ul
       - Group.where(id: c).order('created_at desc').limit(5).each do |group|
         %li
-          = link_to articles_path(group), title: group.name, class: 'group', :'data-alias' => group.alias do
+          = link_to topics_path(group), title: group.name, class: 'group', :'data-alias' => group.alias do
             = image_tag group.icon.thumb.url, alt: group.name, size: '48x48'

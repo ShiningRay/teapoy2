@@ -2,10 +2,10 @@
   =link_to '博聆网 bling bling', root_path, :class => 'logo'
   #nav-menu
     %ul
-      -#%li= link_to t('nav.hottest'), hottest_all_articles_path
-      -#%li= link_to t('nav.latest'), latest_all_articles_path
+      -#%li= link_to t('nav.hottest'), hottest_all_topics_path
+      -#%li= link_to t('nav.latest'), latest_all_topics_path
       - if logged_in?
-        %li= link_to '发表', :controller => 'articles', :action => 'new', :i => Time.new.to_i
+        %li= link_to '发表', :controller => 'topics', :action => 'new', :i => Time.new.to_i
         %li= link_to t( 'nav.my_groups'), {:controller => 'my', :action => 'groups'}, :class => 'my-groups'
       -#%li=link_to t('nav.explore_groups'), groups_path
   %div#login-info

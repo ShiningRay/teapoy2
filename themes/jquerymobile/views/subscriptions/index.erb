@@ -1,20 +1,20 @@
 <% content_for :title do %>我围观的帖子<% end %>
 
 <h2>我围观的帖子</h2>
-<% if @articles %>
+<% if topics %>
 <% @open = true %>
-<% for art in @articles %>
+<% for art in topics %>
 <%= render art %>
-<% @article = art %>
+<% topic = art %>
 <% @comments = @all_comments[art.id] %>
-<% @offset = @article.public_comments_count - @comments.size %>
+<% @offset = topic.public_comments_count - @comments.size %>
 <% if @offset > 0 %>
 <div style="background: none repeat scroll 0% 0% transparent; padding-top: 15px; padding-bottom: 5px;" class="qiushi_counts_afterclick">
   <%=
   link_to "点此展开<strong>#{@offset}</strong>条评论",
-    article_comments_path(@article),
+    topic_comments_path(topic),
     :class => 'expand',
-    :id => @article.to_param,
+    :id => topic.to_param,
     :style => "text-decoration: none;"
   %>
 </div>
@@ -22,7 +22,7 @@
 <%# @offset += 1 %>
 <%= render 'comments/index'%>
 <% end %>
-<% @articles = @favorites %>
+<% topics = @favorites %>
 <%= render 'common/pagination' %>
 <% else %>
 <p>您还没有围观过任何帖子</p>
@@ -36,7 +36,7 @@ $(function(){
     if(isNaN(id)) return;
     var comments_el = $('#qiushi_comments_'+id);
     l.text('...');
-    $.get(article_comments_path(id), null, function(data){
+    $.get(topic_comments_path(id), null, function(data){
       comments_el.replaceWith(data);
       l.remove();
       comments_el.ready(floorLink);

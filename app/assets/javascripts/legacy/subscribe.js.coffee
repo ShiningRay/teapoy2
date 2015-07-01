@@ -1,6 +1,6 @@
 
 $ ->
-  $('.article').on 'click', '.subscribe,.unsubscribe', ->
+  $('.topic').on 'click', '.subscribe,.unsubscribe', ->
     e = $(this)
     p = e.parent()
     p.load("#{e.attr('href')}", (text) ->

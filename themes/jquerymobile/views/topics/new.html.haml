@@ -1,0 +1,34 @@
+- content_for :title, '发表文章'
+- content_for :breadcrumbs do
+  = '/'
+  发表新文章
+
+- topic ||= Topic.new
+%div{:data => {:role => 'header', 'position' => 'fixed'}}
+  %h1= @group ? @group.name : '发表文章'
+  -#%button(data-icon='check' data-theme='b') Save
+
+%div#new_topic_page{:data => {:role => 'content'}}
+  - topic.created_at ||= Time.now if topic
+  = form_for(topic, :url => @group ? group_topics_path(@group, format: :js) : {:controller => 'topics', :action => 'create', :format => :js}, :html => {:method => :post, :multipart => true, :remote => :js} ) do |f|
+    - unless @group
+      - groups = current_user.publications(Group)
+      = f.select :group_id, options_from_collection_for_select(groups, :id, :name), :label => '小组', :include_blank => false, :prompt => '请选择一个小组'
+      - if groups.size == 0
+        您还没加入任何小组，
+        = link_to '赶紧去找一个找自己喜欢的吧', groups_path
+
+    = f.text_field :title, :placeholder => '标题'
+    = f.file_field :picture, :label => '图片附件'
+    -#= f.input :video_page_link, :label => '视频地址', :as => :url, :required => false, :hint => '请贴视频页面的地址，目前只支持优酷和土豆', :input_html => {:value => params[:topic].try(:delete, :video_page_link) || ''  }
+    = f.text_area :content, placeholder: '内容正文'
+    =# f.input :created_at, :label => '时间', :as => :datetime, :default => Time.now if current_user.is_admin?
+    -#= f.input :tag_line
+    - if logged_in?
+      %select{:name => "topic[anonymous]", :data => {:role => 'slider', :mini => true }}
+        %option{:value => "0", :select => ''} 署名
+        %option{:value => "1"} 匿名
+    %select{:name => "topic[uncommentable]", :data => {:role => 'slider', :mini => true }}
+      %option{:value => "0", :select => ''} 可以评论
+      %option{:value => "1"} 禁止评论
+    = f.submit '添加', data: {:disable_with => '...'}

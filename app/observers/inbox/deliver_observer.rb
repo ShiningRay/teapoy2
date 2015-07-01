@@ -3,38 +3,38 @@ class Inbox::DeliverObserver < Mongoid::Observer
   observe :post
 
   def after_publish(post)
-    return unless post and post.article
-    self.class.delay.deliver(post.id) if post.article.status == 'publish'
+    return unless post and post.topic
+    self.class.delay.deliver(post.id) if post.topic.status == 'publish'
   end
 
   def after_destroy(post)
     return unless post.is_a?(Post)
-    #article = post.article
+    #topic = post.topic
     if post.top?
-      self.class.delay.remove_article post.article_id
+      self.class.delay.remove_topic post.topic_id
     else
-      self.class.delay.remove_post post.article_id, post.id
+      self.class.delay.remove_post post.topic_id, post.id
     end
   end
 
   class << self
-    def remove_article(article_id)
-      Inbox.delete_all(:article_id => article_id)
+    def remove_topic(topic_id)
+      Inbox.delete_all(:topic_id => topic_id)
     end
 
-    def remove_post(article_id, post_id)
-      Inbox.where(:article_id => article_id).remove_post(post_id)
+    def remove_post(topic_id, post_id)
+      Inbox.where(:topic_id => topic_id).remove_post(post_id)
     end
 
     def deliver(post)
       post = Post.wrap(post)
       owner = post.original_user
-      article = post.article
+      topic = post.topic
       group = post.group
       return unless group
-      return if article.blank? or article.status != 'publish'
+      return if topic.blank? or topic.status != 'publish'
       if post.top?
-        #Rails.logger.debug {"Article deliver #{group.subscribers.size}"}
+        #Rails.logger.debug {"Topic deliver #{group.subscribers.size}"}
         deliver_proc = Proc.new do |user|
           Rails.logger.debug {user.name_or_login}
           Inbox.deliver user.id, post.id
@@ -42,8 +42,8 @@ class Inbox::DeliverObserver < Mongoid::Observer
         group.subscribers.each(&deliver_proc)
         owner.followers.each(&deliver_proc) unless post.anonymous?
       else
-        #Rails.logger.debug {"Comment deliver #{article.subscribers.size}"}
-        article.subscribers.each do |user|
+        #Rails.logger.debug {"Comment deliver #{topic.subscribers.size}"}
+        topic.subscribers.each do |user|
           Rails.logger.debug {user.name_or_login}
           Inbox.deliver user.id, post.id
         end

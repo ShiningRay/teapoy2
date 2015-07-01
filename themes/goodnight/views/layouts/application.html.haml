@@ -6,7 +6,7 @@
     = render 'navbar'
     .container
       .row
-        %h1#logo= link_to @group.name, articles_path(@group) if @group
+        %h1#logo= link_to @group.name, topics_path(@group) if @group
         .span8.offset2
           = content_for?(:main) ? (yield :main) : yield
     %footer#footer

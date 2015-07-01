@@ -10,7 +10,7 @@
 
 %ul
   %li
-    Articles: #{@user.articles.count}
+    Articles: #{@user.topics.count}
   %li
     comments: #{@user.comments.count}
   %li
@@ -18,10 +18,10 @@
 %li Comments:
 %li Total Articles Score
 %li Total Comments Score
-%li Total articles comments
+%li Total topics comments
 %li average Articles Score
 %li average Comments Score
-%li average articles comments
+%li average topics comments
 %li Followers
 %li
   注册时间：#{@user.created_at}
@@ -42,7 +42,7 @@
     - @user.badges.each do |badge|
       %li= badge.name
 %p
-  = link_to 'Articles', admin_user_articles_path(@user)
+  = link_to 'Articles', admin_user_topics_path(@user)
 
 = link_to 'edit', edit_admin_user_path(@user)
 |

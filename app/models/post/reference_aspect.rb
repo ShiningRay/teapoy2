@@ -15,7 +15,7 @@ module ReferenceAspect
 
   included do
     has_many :references
-    has_many :referenced_articles, :through => :references
+    has_many :referenced_topics, :through => :references
     belongs_to :sources
   end
 end

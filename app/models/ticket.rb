@@ -5,7 +5,7 @@
 #
 #  id             :integer          not null, primary key
 #  user_id        :integer          not null
-#  article_id     :integer          not null
+#  topic_id     :integer          not null
 #  ticket_type_id :integer
 #  correct        :boolean
 #  created_at     :datetime
@@ -16,12 +16,12 @@
 class Ticket < ActiveRecord::Base
   belongs_to :user
   belongs_to :ticket_type
-  belongs_to :article
+  belongs_to :topic
   after_create :update_counter
   after_save :update_correct
-  def self.article_score(article_id)
-    article = Article.find article_id
-    @tickets = article.tickets.find :all
+  def self.topic_score(topic_id)
+    topic = Topic.find topic_id
+    @tickets = topic.tickets.find :all
     return 0.0 unless @tickets
     score = 0.0
     @tickets.each do |t|
@@ -34,9 +34,9 @@ class Ticket < ActiveRecord::Base
   end
   def self.stats
     t = Time.parse ENV['DATE']
-    @articles = Article.where('created_at >= ? and created_at < ?', t, t+24.hours)
-    @articles.each do |a|
-      puts "#{a.id}, #{article_score(a.id)}"
+    topics = Topic.where('created_at >= ? and created_at < ?', t, t+24.hours)
+    topics.each do |a|
+      puts "#{a.id}, #{topic_score(a.id)}"
     end
   end
   def self.dump

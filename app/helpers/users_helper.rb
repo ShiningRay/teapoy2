@@ -132,7 +132,7 @@ module UsersHelper
 
   def calendar_options_for_user(user)
      dates=[]
-     first = user.articles.latest.only('created_at', 'top_post_id').first.created_at.to_date
+     first = user.topics.latest.only('created_at', 'top_post_id').first.created_at.to_date
      last = Date.today
      first_month = first.month
      first_year = first.year

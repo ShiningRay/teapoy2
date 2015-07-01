@@ -1,5 +1,5 @@
 = content_for :title, @title_name || "声望记录"
--reputation_reasons= {"upvoted"=>"帖子被顶","article_deleted"=>"文章被删除","downvoting"=>"拍别人的帖子","downvoted"=>"帖子被拍"}
+-reputation_reasons= {"upvoted"=>"帖子被顶","topic_deleted"=>"文章被删除","downvoting"=>"拍别人的帖子","downvoted"=>"帖子被拍"}
 - if @group
   %h2
     距离升级还差
@@ -10,7 +10,7 @@
   =link_to "(关于声望的说明)","/"
   %br
 - @reputation_logs.each do |reputation_log|
-  = link_to "相关帖子 #{reputation_log.post_id}","/articles/#{reputation_log.post_id}"
+  = link_to "相关帖子 #{reputation_log.post_id}","/topics/#{reputation_log.post_id}"
   %br
   ="数值"
   = reputation_log.amount

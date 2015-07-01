@@ -1,0 +1,36 @@
+- group = @group || topic.group
+- post = topic.top_post
+%article[topic]
+  - if topic.title?
+    %h2.title
+      - if !@group or @group != topic.group and @show_group
+        = link_to group.name, topics_path(group), class: 'in-group'
+
+      = link_to topic.title, topic_path(group, topic)
+  .post-signature{:class => topic.anonymous ? '' : 'topic-owner'}><
+    - unless topic.anonymous
+      - user = topic.user
+      - if user
+
+        = link_to user, :class => 'user' do
+          = image_tag user.avatar.thumb
+          = user.name_or_login
+    %span.user-action-time><
+      %span.relativetime><= time_ago_in_words(topic.created_at)
+    - if logged_in? && current_user.own_topic?(topic)
+      =# link_to '删除', topic_path(group, topic, :_method => :delete)
+    - if logged_in? && current_user == topic.group.owner && topic.status == 'pending'
+      = link_to '通过', publish_topic_path(group,topic)
+      = link_to '移出', move_out_topic_path(group,topic)
+  .content= render_posts post
+  .meta.ui-grid-b[post]
+    = render 'posts/votecell', post: post if post
+    .ui-block-c
+      - if topic.comment_status == 'closed'
+        = link_to topic_path(group, topic), data: {role: 'button', mini: true} , class: 'ui-disabled' do
+          = fa_icon 'comments'
+          禁止评论
+      - else
+        = link_to topic_path(group, topic), data: {role: 'button', mini: true, transition: 'slide', shadow: 'false'}, class: current_page?([group, topic]) ? 'ui-disabled' : '' do
+          = fa_icon 'comments'
+          = topic.posts.size - 1

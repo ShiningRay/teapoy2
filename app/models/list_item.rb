@@ -4,7 +4,7 @@
 # Table name: list_items
 #
 #  id         :integer          not null, primary key
-#  article_id :integer          not null
+#  topic_id :integer          not null
 #  list_id    :integer          not null
 #  position   :integer          default(0), not null
 #  notes      :string(255)
@@ -14,6 +14,6 @@
 
 class ListItem < ActiveRecord::Base
   belongs_to :list
-  belongs_to :article
+  belongs_to :topic
   acts_as_list :scope => :list
 end

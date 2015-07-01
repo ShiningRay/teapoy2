@@ -1,7 +1,7 @@
-x#= require waypoints/jquery.waypoints.js
+#= require waypoints/jquery.waypoints.js
 #= require 'jquery/ba-throttle-debounce'
-#= require 'views/new_article'
-#= require 'views/article'
+#= require 'views/new_topic'
+#= require 'views/topic'
 #= require 'views/notifications'
 #= require 'views/comments'
 #= require 'vendor/amplify.min'
@@ -51,37 +51,37 @@ $ ->
         fun a if fun
         a.effect "highlight", 3000
 
-  load_comments = (group_alias,article_id,highlight_comment_id) ->
-    article = $("article#article_#{article_id}")
-    $.getJSON "/#{group_alias}/#{article_id}/comments" , (data, status, xhr) ->
+  load_comments = (group_alias,topic_id,highlight_comment_id) ->
+    topic = $("topic#topic_#{topic_id}")
+    $.getJSON "/#{group_alias}/#{topic_id}/comments" , (data, status, xhr) ->
       if  xhr.status is 200
-        if article.find(".comments_article").length > 0
-          article.find(".comments_article").remove()
-        $(window.templates.render('comments', data)).appendTo(article)
-        if article.find("ul.comments li").length > 0
-          A.text article.find("ul.comments li").length +"条评论"
+        if topic.find(".comments_topic").length > 0
+          topic.find(".comments_topic").remove()
+        $(window.templates.render('comments', data)).appendTo(topic)
+        if topic.find("ul.comments li").length > 0
+          A.text topic.find("ul.comments li").length +"条评论"
         else
           A.text("暂无评论")
         highlight $("li#post_#{highlight_comment_id}")
 
   $(".notification-box").on "click", 'li', ->
     self = $(this)
-    article = $("#article_" + self.data("article_id"))
-    if article.size() is 0
-      $.getJSON self.data("article_url"), (data) ->
+    topic = $("#topic_" + self.data("topic_id"))
+    if topic.size() is 0
+      $.getJSON self.data("topic_url"), (data) ->
         if($('body').hasClass('my-inbox') || $('body').hasClass('my-latest'))
-          highlight $(window.templates.render('new_article',data)).prependTo(".articles-list"), (article) ->
-            $('a.comments', article).click() if self.data('scope') is 'reply'
+          highlight $(window.templates.render('new_topic',data)).prependTo(".topics-list"), (topic) ->
+            $('a.comments', topic).click() if self.data('scope') is 'reply'
         else
-          highlight $(window.templates.render('article',data)).prependTo(".articles-list")
+          highlight $(window.templates.render('topic',data)).prependTo(".topics-list")
         self.dismiss()
     else
-      highlight article,( ->
-        if self.data('scope') is 'reply' and $('.comment', article).size() < parseInt(self.data('comments_count'))
-          $('.comments_article', article).remove()
-          $('a.comments', article).click()
+      highlight topic,( ->
+        if self.data('scope') is 'reply' and $('.comment', topic).size() < parseInt(self.data('comments_count'))
+          $('.comments_topic', topic).remove()
+          $('a.comments', topic).click()
         self.dismiss())
-    #load_comments self.data("group_alias"),self.data("article_id"),self.data("comment_id")
+    #load_comments self.data("group_alias"),self.data("topic_id"),self.data("comment_id")
     return false
   if $('html').hasClass('ie6')
     autoHoverClass('.notification', '.notification-box')

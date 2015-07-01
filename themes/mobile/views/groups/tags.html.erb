@@ -2,7 +2,7 @@
 
 <%
   @content_for_title = '帖子的标签云'
-  @tags = @group.public_articles.cached_tag_clouds
+  @tags = @group.public_topics.cached_tag_clouds
 %>
 <div id="tagcloud">
     <% if ( @msg || flash[:notice] ) %>

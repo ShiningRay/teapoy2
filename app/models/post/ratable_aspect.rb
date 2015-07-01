@@ -23,7 +23,7 @@ module Post::RatableAspect
           pos = p.ratings.where(score: 1).sum(:score)
           neg = p.ratings.where(score: -1).sum(:score)
           p.update_attributes!(score: count, pos: pos, neg: neg)
-          p.article.update_attributes!(score: count) if p.floor == 0 and p.article
+          p.topic.update_attributes!(score: count) if p.floor == 0 and p.topic
           print '.'
         end
       end

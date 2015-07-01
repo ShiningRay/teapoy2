@@ -1,4 +1,4 @@
-- if article_page?
+- if topic_page?
   %div.flash_container{:id => "swf-#{flash.id}", :data => {:url => flash.swf.url}}
   %a{:href=>"javascript:fullscreen('swf-#{flash.id}')"} fullscreen
 = render_post_content  flash

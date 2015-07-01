@@ -1,33 +1,33 @@
-- @articles = @group.public_articles.order('id desc').before.includes(:top_post).page params[:page]
-= form_for Article.new,:url=>articles_path(@group)  do |f|
+- topics = @group.public_topics.order('id desc').before.includes(:top_post).page params[:page]
+= form_for Topic.new,:url=>topics_path(@group)  do |f|
   = f.text_area :content, :placeholder => '对你思念的人说句晚安吧'
   = f.submit '发表', :class => 'btn btn-primary pull-right'
   - if logged_in?
     %label.checkbox.pull-right.span1
       = f.check_box :anonymous
       匿名
-= render 'articles/hottest_nav'
+= render 'topics/hottest_nav'
 
 - if @limit
-  - content_for :title, sprintf("浏览%s中最热的帖子", t("articles.#{@limit}"))
-- if @articles.num_pages == 0
+  - content_for :title, sprintf("浏览%s中最热的帖子", t("topics.#{@limit}"))
+- if topics.num_pages == 0
   - if @limit
     .empty-list
-      = t("articles.#{@limit}")
+      = t("topics.#{@limit}")
       尚无帖子
       - if @next_limit
-        = link_to sprintf("浏览%s中最热的帖子", t("articles.#{@next_limit}")), :limit => @next_limit
+        = link_to sprintf("浏览%s中最热的帖子", t("topics.#{@next_limit}")), :limit => @next_limit
         或
         = link_to "发表自己的帖子", :action => :new
       - else
         目前尚无帖子
 - else
-  .article-list.hfeed
-    = render(:partial => @articles.reject{|a|a.top_post.nil?})
-  = paginate @articles
-  - if @limit && @next_limit && @articles.num_pages == @articles.current_page && @articles.num_pages > 0
+  .topic-list.hfeed
+    = render(:partial => topics.reject{|a|a.top_post.nil?})
+  = paginate topics
+  - if @limit && @next_limit && topics.num_pages == topics.current_page && topics.num_pages > 0
     .empty-list
       您已看完了
-      = t("articles.#{@limit}")
+      = t("topics.#{@limit}")
       中最热的所有帖子，请继续
-      = link_to sprintf("浏览%s中最热的帖子", t("articles.#{@next_limit}")), :limit => @next_limit
+      = link_to sprintf("浏览%s中最热的帖子", t("topics.#{@next_limit}")), :limit => @next_limit

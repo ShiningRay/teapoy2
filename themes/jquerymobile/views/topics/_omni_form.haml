@@ -1,0 +1,39 @@
+- top_post = topic.try(:top_post)
+%p.error=flash[:error]
+- if top_post && top_post.errors
+  - topic.top_post.errors[:base].each do |error|
+    %p.error=error
+-# if @topic && @topic.top_post && @topic.top_post.errors
+=# @topic.top_post.errors
+- topic.created_at ||= Time.now if topic
+#new_topic_form
+  = simple_form_for(topic, :url => topic.new_record? ? (@group ? topics_path(@group) : {:controller => 'topics', :action => 'create'}) : [@group, topic],:html=>{:multipart => true} ) do |f|
+    = f.input :status, :as => :hidden if topic.new_record? and logged_in? and (current_user.is_admin? or (@group && current_user.own_group?( @group)))
+
+    - unless @group
+      - groups = current_user.publications(Group)
+      = f.input :group, :label => '小组', :as => :select, :collection => groups, :include_blank => false, :prompt => '请选择一个小组'
+      - if groups.size == 0
+        您还没加入任何小组，
+        = link_to '赶紧去找一个找自己喜欢的吧', groups_path
+
+    = f.input :title, :label => '标题', :required => false, :hint => '标题可以省略',:input_html =>{:value=>params[:title] || topic.title}
+  - if logged_in?
+    = f.fields_for :top_post do |top_post_form|
+      = render :partial => 'posts/omni_form', :object => top_post_form
+  - else
+    = f.input :content, :as => :text, :label => '正文'
+
+    =# f.input :created_at, :label => '时间', :as => :datetime, :default => Time.now if logged_in? and (current_user.is_admin? or  current_user.is_publisher?)
+    = f.input :uncommentable, :label => '禁止评论', :as => :boolean, :default => false
+    = f.input :anonymous, :label => '匿名发表（花费20积分）' if logged_in?
+    = f.simple_fields_for :attachments, :id => :picture_attachment_fields do |attachment_form|
+      = attachment_form.input :type, :as => :hidden, :value => 'Picture'
+      = attachment_form.input :picture, :as => :file
+
+    = f.button :submit, :label => topic.new_record? ? '发布' : '修改', :button_html => {data:{disable_with: '正在发布...'}}
+- content_for :javascripts do
+  :javascript
+    $(function(){
+      $('#topic_group_id').select2({width: '300px'})
+    })

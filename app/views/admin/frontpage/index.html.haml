@@ -1,18 +1,18 @@
 %table
 	- @items.each do |item|
 		%tr[item]
-			- if item.article
+			- if item.topic
 				%td
-					= link_to item.article.group.name, item.article.group
+					= link_to item.topic.group.name, item.topic.group
 				%td
-					= link_to item.article_id, article_path(item.article.group, item.article)
+					= link_to item.topic_id, topic_path(item.topic.group, item.topic)
 				%td
-					=link_to article_title(item.article), [:edit, :admin, item.article]
+					=link_to topic_title(item.topic), [:edit, :admin, item.topic]
 				%td
-					= link_to [:admin, item.article.user] do
-						= item.article.user.login
+					= link_to [:admin, item.topic.user] do
+						= item.topic.user.login
 						(
-						= item.article.user.name
+						= item.topic.user.name
 						)
 			%td
 				=item.score

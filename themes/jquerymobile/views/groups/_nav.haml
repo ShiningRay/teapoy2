@@ -4,7 +4,7 @@
     = link_to group.name, group
     &raquo;
   帖子
-  = link_to group.public_articles.size, articles_path(group)
+  = link_to group.public_topics.size, topics_path(group)
   ='.'
   成员
   = link_to group.memberships.size, group_memberships_path(group)

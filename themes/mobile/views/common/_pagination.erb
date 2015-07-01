@@ -1,7 +1,7 @@
 <% p = params.dup; p[:page] = nil  %>
 <form action="<%= url_for p %>">
   <center id="pagination">
-    <%= will_paginate @articles,
+    <%= will_paginate topics,
       :previous_label => "&lt;",
       :next_label => "下一页 &gt;",
       :inner_window => 2,
@@ -9,7 +9,7 @@
       :renderer => ::ApplicationHelper::MyLinkRender %>
   &nbsp;&nbsp;&nbsp;&nbsp;
 
-  <% if @articles.total_pages > 1 %>
+  <% if topics.total_pages > 1 %>
      <span id="jump">&nbsp; 到第<input type="text" value="1" size="3" onmouseover="this.focus(); if(this.value==1){this.value='';}" name="page" class="page"/>页<span class="go"><input class="submit" type="submit" value="GO" /></span></span>
   <% end %>
     </center>

@@ -22,7 +22,7 @@
     %ul.my-groups-list
       - current_user.publications(Group).each do |g|
         %li
-          = link_to g.name, articles_path(g)
+          = link_to g.name, topics_path(g)
 
 :javascript
   var current_user = #{info[:current_user].to_json};

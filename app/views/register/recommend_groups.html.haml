@@ -6,7 +6,7 @@
         .name
           %label
             %input(type="checkbox" name="group_ids[]" value="#{group.id}" checked='checked')
-            =link_to group.name, articles_path(group)
+            =link_to group.name, topics_path(group)
         .description= h group.description
         .stats
           %ul
@@ -15,7 +15,7 @@
               %span.value= group.members.size
             %li
               %span.term 主题
-              %span.value= group.articles.size
+              %span.value= group.topics.size
             %li
               %span.term 回复
               %span.value= group.posts.size

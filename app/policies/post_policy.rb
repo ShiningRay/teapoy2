@@ -1,12 +1,12 @@
-class PostPolicy < ArticlePolicy
+class PostPolicy < TopicPolicy
   attr_reader :post
   def initialize(user, record)
     @post = record
-    super(user, @post.article) if @post.article
+    super(user, @post.topic) if @post.topic
   end
 
   def create?
-    article.comment_status == 'open'
+    topic.comment_status == 'open'
   end
 
   def update?
@@ -14,7 +14,7 @@ class PostPolicy < ArticlePolicy
   end
 
   def destroy?
-    admin? || post_author? || article_author? || group_owner?
+    admin? || post_author? || topic_author? || group_owner?
   end
 
   protected

@@ -1,7 +1,0 @@
-- content_for :title, '编辑文章'
-.breadcrumb
-  = link_to '首页', root_path
-  &raquo;
-  = link_to @group.name, @group if @group
-
-= render 'articles/omni_form'

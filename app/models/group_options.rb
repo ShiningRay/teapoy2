@@ -6,7 +6,7 @@ class GroupOptions
   field :only_member_can_post, type: Boolean, default: false
   field :membership_need_approval, type: Boolean, default: false
   field :only_member_can_reply, type: Boolean, default: false
-  field :articles_need_approval, type: Boolean, default: false
+  field :topics_need_approval, type: Boolean, default: false
   field :comments_need_approval, type: Boolean, default: false
   field :force_comments_anonymous, type: Boolean, default: false
   field :force_anonymous, type: Boolean, default: false

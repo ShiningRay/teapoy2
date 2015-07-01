@@ -239,7 +239,7 @@ fieldset.current_extra_fields {
   display: block !important;
 }
 
-#article_top_post_attributes_type_input {
+#topic_top_post_attributes_type_input {
   @include clearfix();
     legend.label { display: none }
     ol li {
@@ -254,7 +254,7 @@ td.follow , td.membership { width:60px;}
 td.new_message { width:80px;}
 }
 /*
-.star-particle {
+.star-ptopic {
   @include experimental(animation-name, rotation);
   @include experimental(animation-duration, 1s);
   @include experimental(animation-iteration-count, infinite);

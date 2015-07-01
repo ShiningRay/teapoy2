@@ -121,7 +121,7 @@ jQuery.fn.absolutize = function(placeholder)
 $(function(){
 
   $('.extra_fields input, .extra_fields textarea').attr('disabled', 'disabled');
-  $('#article_top_post_attributes_type_input input[type=radio]').change(function(){
+  $('#topic_top_post_attributes_type_input input[type=radio]').change(function(){
     var e = $(this);
     if(e.val() === ''){
       return;
@@ -132,7 +132,7 @@ $(function(){
     //console.debug(this);
     //console.debug(e)
   });
-  $('#article_top_post_attributes_type_input input[type=radio]:checked').change();
+  $('#topic_top_post_attributes_type_input input[type=radio]:checked').change();
 });
 
 //$("#post_content").Face({left : "30" , top : "1" });

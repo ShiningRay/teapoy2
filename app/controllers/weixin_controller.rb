@@ -100,30 +100,30 @@ class WeixinController < ApplicationController
       end
     when '热点'
       @items = Inbox.guest.hottest.page(1).per(5).all
-      @articles = @items.collect{|i|i.article}
-      @articles.reject!do |art|
+      topics = @items.collect{|i|i.topic}
+      topics.reject!do |art|
         art.nil? or art.top_post.nil? or (logged_in? and (current_user.disliked?(art.user) or current_user.disliked?(art.group)))
       end
-      @articles.collect{|art| "#{art.article_title} #{article_url(art.group, art, :host => 'm.bling0.com')}"}.join("\n")
+      topics.collect{|art| "#{art.topic_title} #{topic_url(art.group, art, :host => 'm.bling0.com')}"}.join("\n")
     when '最新'
       gids = Group.not_show_in_list.collect{|g|g.id}
-      scope = Article.unscoped.where(:status => 'publish').where("articles.group_id not in (?)", gids)
-      scope = scope.order('articles.created_at desc').where('articles.created_at < NOW()')
-      @articles = scope.page(1).per(5)
-      @articles.collect{|art| "#{art.article_title} #{article_url(art.group, art, :host => 'm.bling0.com')}"}.join("\n")
+      scope = Topic.unscoped.where(:status => 'publish').where("topics.group_id not in (?)", gids)
+      scope = scope.order('topics.created_at desc').where('topics.created_at < NOW()')
+      topics = scope.page(1).per(5)
+      topics.collect{|art| "#{art.topic_title} #{topic_url(art.group, art, :host => 'm.bling0.com')}"}.join("\n")
 
     when /晚安|goodnight/i
       @weixin_user.session['goodnight_id'] ||= 0
       group = Group.wrap('goodnight')
-      article = group.public_articles.where('id > ?', @weixin_user.session['goodnight_id']).order('id asc').first
-      if article
-        @weixin_user.session['goodnight_id']= article.id
+      topic = group.public_topics.where('id > ?', @weixin_user.session['goodnight_id']).order('id asc').first
+      if topic
+        @weixin_user.session['goodnight_id']= topic.id
       else
         @weixin_user.session['goodnight_id']= 0
-        article = group.public_articles.first
+        topic = group.public_topics.first
       end
 
-      "#{article.title}#{article.content} - by #{article.user.name}"
+      "#{topic.title}#{topic.content} - by #{topic.user.name}"
     else
       '发送“热点”、“最新”查询相应文章，请绑定账号获得更多功能'
     end

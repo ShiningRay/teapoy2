@@ -5,13 +5,13 @@
     - for item in @list.items
       = content_tag_for :li,item do
         %span.handle [拖动]
-        = link_to item.article.title, item.article
+        = link_to item.topic.title, item.topic
         = link_to 'X', [@list, item], :method => :delete
   = form_tag append_list_path(@list) do
     %label
       帖子地址(比如：http://bling0.com/ufo/66458):
       %br
-      =text_field_tag :article_url
+      =text_field_tag :topic_url
       = submit_tag '添加'
   = link_to '显示', @list
   |

@@ -26,7 +26,7 @@ function load_comments(el, id){
     if(ul.size() === 0){
       ul = $("<ul class='list'/>").appendTo(entry);
     }
-    ul.load('/admin/articles/comments/'+id);
+    ul.load('/admin/topics/comments/'+id);
 }
 
 $(function(){

@@ -20,14 +20,14 @@ require 'rails_helper'
 
 describe CommentsController, type: :controller do
   let(:group) { create :group }
-  let(:article) { create :article, group: group }
+  let(:topic) { create :topic, group: group }
 
   describe 'GET #index' do
     before do
-       @comments = create_list :post, 3, article: article
+       @comments = create_list :post, 3, topic: topic
     end
     it 'returns comments' do
-      get :index, article_id: article.id, group_id: group.id
+      get :index, topic_id: topic.id, group_id: group.id
 
       expect(assigns(:comments)).to match(@comments)
     end
@@ -41,12 +41,12 @@ describe CommentsController, type: :controller do
 
       it 'creates comment' do
         expect{
-          post :create, comment: { content: 'testtest' }, article_id: article.id, group_id: group.id
-        }.to change{article.comments.count}
+          post :create, comment: { content: 'testtest' }, topic_id: topic.id, group_id: group.id
+        }.to change{topic.comments.count}
 
       end
       it 'increments comment floor' do
-        post :create, comment: { content: 'testtest' }, article_id: article.id, group_id: group.id
+        post :create, comment: { content: 'testtest' }, topic_id: topic.id, group_id: group.id
         expect(assigns(:comment).floor).to eq(1)
       end
     end

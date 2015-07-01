@@ -8,7 +8,7 @@
     %a{:href=>"/my/index?order=time",:class=>"#{params[:order] == 'time' && 'youarehere'}"}
       最新
 
--if @articles.size == 0
+-if topics.size == 0
   .recomment-groups
     您还没有加入任何小组，
     = link_to "去小组导航看看吧", groups_path
@@ -19,8 +19,8 @@
         .channel-groups
           = render Group.page(params[:page]).order("feature DESC , score DESC").limit(15)
 -else
-  .articles-list
-    -@articles.each do |article|
-      =render article, {:checkbox => true}
-  = paginate @articles
+  .topics-list
+    -topics.each do |topic|
+      =render topic, {:checkbox => true}
+  = paginate topics
 

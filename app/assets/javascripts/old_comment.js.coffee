@@ -7,8 +7,8 @@
 #.hide().slideDown(500);
 #console.debug(xhr)
 #      alignTo: 'target',
-window.replyComment = (comment_id, article_id, reply_to_floor) ->
-  article = $("#comments_article_" + article_id)
+window.replyComment = (comment_id, topic_id, reply_to_floor) ->
+  topic = $("#comments_topic_" + topic_id)
   editorTextPosition = -1
   commentArea = $("#post_content")
   editorPositionFunc = ->
@@ -16,14 +16,14 @@ window.replyComment = (comment_id, article_id, reply_to_floor) ->
 
   commentArea.mouseup(editorPositionFunc).keyup editorPositionFunc
   editorTextPosition = commentArea.textPosition()  if editorTextPosition is -1
-  floor = $("#post_parent_id", article).val()
+  floor = $("#post_parent_id", topic).val()
   if parseInt(floor) > 0
     content = "  @#{$.trim($("#post_#{comment_id} .nickname").text())} "
     pos = commentArea.val().length
     commentArea.textPosition pos, content
     commentArea.focus()
   else
-    $("#post_parent_id", article).val reply_to_floor
+    $("#post_parent_id", topic).val reply_to_floor
     nickname = $.trim($("#post_#{comment_id} .nickname").text())
     nv = "回复#{reply_to_floor}L #{nickname}: "
     orig_text = commentArea.val()
@@ -35,7 +35,7 @@ window.show_comment_of = (me, user_login) ->
   to_show = []
   to_hide = []
 
-  me.parents(".comments_article:first").find("ul.comments li.comment").each ->
+  me.parents(".comments_topic:first").find("ul.comments li.comment").each ->
     if @className.indexOf(target) >= 0
       to_show.push this
     else
@@ -45,8 +45,8 @@ window.show_comment_of = (me, user_login) ->
   $(to_hide).slideUp 500
 
 
-window.show_all = (article_id) ->
-  a = $("#comments_article_" + article_id).find("ul.comments li")
+window.show_all = (topic_id) ->
+  a = $("#comments_topic_" + topic_id).find("ul.comments li")
   if a.size() < 50
     a.slideDown 500
   else

@@ -1,7 +1,7 @@
 # coding: utf-8
 class GroupMailer < ActionMailer::Base
   default :from => "博聆 <admin@bling0.com>"
-  helper :articles
+  helper :topics
   layout "mail"
   def self.daily_deliver_for_all
     Group.find_each do |g|
@@ -44,7 +44,7 @@ class GroupMailer < ActionMailer::Base
     today = Date.today
     yesterday = today - 1
     @date = yesterday
-    @articles = @group.articles.where(:created_at => yesterday..today)
+    topics = @group.topics.where(:created_at => yesterday..today)
     yesterday_memberships = @group.memberships.where('created_at >= ?', today)
     @new_users_count = yesterday_memberships.count
     @new_pending_users_count = yesterday_memberships.where(:role => 'pending').count
@@ -65,7 +65,7 @@ class GroupMailer < ActionMailer::Base
 
     if today.wday == 1
       @date = "上一周"
-      @articles = @group.articles.where("articles.created_at >= ? AND articles.created_at <= ? ",
+      topics = @group.topics.where("topics.created_at >= ? AND topics.created_at <= ? ",
         1.week.ago.strftime("%Y-%m-%d"),
         today.strftime("%Y-%m-%d"))
       @new_users_count = Membership.count :conditions => ["group_id =? and created_at >= ? and role = ? ",g.id,1.week.ago.strftime("%Y-%m-%d")]

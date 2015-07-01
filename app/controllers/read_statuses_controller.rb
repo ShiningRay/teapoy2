@@ -1,8 +1,8 @@
 class ReadStatusesController < ApplicationController
   before_filter :login_required
   def create
-    #Article
-    current_user.mark_as_read(params[:article_id], params[:floor])
+    #Topic
+    current_user.mark_as_read(params[:topic_id], params[:floor])
     respond_to do |format|
       format.json {
         render :status => :created

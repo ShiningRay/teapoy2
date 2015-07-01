@@ -18,8 +18,8 @@
 FactoryGirl.define do
   factory :subscription do
     association :subscriber, factory: :user
-    publication_type { 'Article' }
-    publication_id { create(:article).id.to_s }
+    publication_type { 'Topic' }
+    publication_id { create(:topic).id.to_s }
     unread_count 0
     updated_at { Time.now }
   end

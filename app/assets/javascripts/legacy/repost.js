@@ -40,8 +40,8 @@ $(function(){
     events: {
       show: function(event, api){
         var t = api.elements.target, tip = api.elements.tooltip;
-        var article = sr.article(t);
-        var post = article.contents('.post:first');
+        var topic = sr.topic(t);
+        var post = topic.contents('.post:first');
         tip.data('post_id', sr.id(post));
         $('.repost_to_group', tip).click(repost);
         $('.reposted_to', post).each(function(){

@@ -1,0 +1,5 @@
+$('#options_<%=topic.id%>').popup('close');
+$('#<%= dom_id topic, "unsubscribe" %>').replaceWith('<%= j render("subscribe_button")%>');
+setTimeout(function(){
+  $('#options_<%=topic.id%> ul').listview('refresh');
+})

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe ArchivesController do
-  it "should route to show" do
+  it 'should route to show' do
     expect(get '/groups/pool/archives/2012-1-1').to route_to(
       controller: 'archives',
       action: 'show',
@@ -9,7 +9,7 @@ describe ArchivesController do
       group_id: 'pool')
   end
 
-  it "routes old style to show" do
+  it 'routes old style to show' do
     expect(get '/pool/archives/2013-04-05').to route_to(
       controller: 'archives',
       action: 'show',

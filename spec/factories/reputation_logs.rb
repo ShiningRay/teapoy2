@@ -22,6 +22,6 @@ FactoryGirl.define do
     association :reputation
     post_id { create(:post).id.to_s }
     amount 1
-    reason "test"
+    reason 'test'
   end
 end

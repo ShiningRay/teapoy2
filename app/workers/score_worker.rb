@@ -7,9 +7,9 @@ class ScoreWorker  < BaseWorker
     puts "#{action}, #{id}"
     case action
     when :up
-      query = "UPDATE scores SET pos=pos+1 WHERE article_id=#{id}"
+      query = "UPDATE scores SET pos=pos+1 WHERE topic_id=#{id}"
     when :down
-      query = "UPDATE scores SET neg=neg-1 WHERE article_id=#{id}"
+      query = "UPDATE scores SET neg=neg-1 WHERE topic_id=#{id}"
     end
     Score.connection.execute query
 
@@ -21,8 +21,8 @@ class ScoreWorker  < BaseWorker
   end
 
   def update(id)
-    article = Article.find id
-    gid = article.group_id
+    topic = Topic.find id
+    gid = topic.group_id
     @ids ||= {}
     @ids[gid] ||= Set.new
     @ids[gid] << id
@@ -38,7 +38,7 @@ class ScoreWorker  < BaseWorker
     @ids.each do |gid, s|
       next if s.size == 0
       al = Group.find(gid).inherited_option(:score_algorithm)
-      sql = "update scores set score=(#{al}) where article_id in (#{s.to_a.join(',')})"
+      sql = "update scores set score=(#{al}) where topic_id in (#{s.to_a.join(',')})"
       puts "---#{gid}---"
       puts sql
       Score.connection.execute sql

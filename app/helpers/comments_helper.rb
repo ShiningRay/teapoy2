@@ -1,7 +1,7 @@
 # coding: utf-8
 module CommentsHelper
-  def comment_form(article=@article)
-    render :partial => 'comments/form', :locals => {:article => article}
+  def comment_form(topic=@topic)
+    render :partial => 'comments/form', :locals => {:topic => topic}
   end
   def render_comments(comments=@comments)
   	render :partial => 'comments/comment', :collection => comments

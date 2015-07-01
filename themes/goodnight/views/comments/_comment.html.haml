@@ -30,6 +30,6 @@
     %div.floor{:title => comment.created_at.strftime('%Y-%m-%d %H:%M:%S')}=f
 
     %div.operator(style="text-align:right;")
-      %a.reply{:href=>"javascript:replyComment(#{comment.id},#{comment.article_id},#{f})",:data=>{:floor=>"#{comment.floor}"}} 回复
+      %a.reply{:href=>"javascript:replyComment(#{comment.id},#{comment.topic_id},#{f})",:data=>{:floor=>"#{comment.floor}"}} 回复
       =#link_to t('posts.repost'), repost_form_path(:post_id => comment.id), :class => 'repost' if logged_in?
       =#link_to t('posts.destroy'), post_path(comment), :method => :delete, :remote => true, :confirm => '确定要删除吗?' if logged_in? and (current_user == comment.user or current_user.is_admin?)

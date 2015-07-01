@@ -41,7 +41,7 @@ class Reward < ActiveRecord::Base
   end
   def self.migrate
     id = 0
-    Article.unscoped do
+    Topic.unscoped do
       loop do
         recs = connection.select_all("select * from posts where `type` like 'Reward' and id > #{id} order by id asc limit 2000")
         break if recs.size == 0
@@ -51,8 +51,8 @@ class Reward < ActiveRecord::Base
           puts id
           meta = MessagePack.unpack(rec['meta'])
           a = {}
-          article = Article.find_by_id(rec['article_id'])
-          post = article.posts.find_by_floor(rec['parent_id'])
+          topic = Topic.find_by_id(rec['topic_id'])
+          post = topic.posts.find_by_floor(rec['parent_id'])
           if post
             a[:amount] = meta['amount']
             a[:rewarder_id] = rec['user_id']

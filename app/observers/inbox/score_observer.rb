@@ -10,13 +10,13 @@ class Inbox::ScoreObserver #< ActiveRecord::Observer
     rating = Rating.find rating_id
     post = rating.post
     #score = post.score
-    article = post.article
-    return unless article
-    return if article.status == 'private'
+    topic = post.topic
+    return unless topic
+    return if topic.status == 'private'
     if post.top?
       Inbox.frontpage_deliver(post)
-      Inbox.where(:article_id => article.id).deliver_score(post, rating)
-      #Inbox.where(:article_id => article.id).update_all(:score => post.score)
+      Inbox.where(:topic_id => topic.id).deliver_score(post, rating)
+      #Inbox.where(:topic_id => topic.id).update_all(:score => post.score)
     end
   end
 end

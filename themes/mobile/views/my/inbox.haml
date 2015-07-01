@@ -1,7 +1,7 @@
 - content_for :title, '最热待读文章'
 = render 'sub_nav'
--if @articles.size == 0
-  .articles-list
+-if topics.size == 0
+  .topics-list
   .recomment-groups
     您目前没有待读文章，去
     = link_to "小组导航", groups_path
@@ -14,15 +14,15 @@
         .channel-groups
           = render Group.page(params[:page]).order("feature DESC , score DESC").limit(15)
 -else
-  .articles-list
+  .topics-list
     - @items.each do |item|
-      - @article = @id2article[item.article_id]
-      - next unless @article
-      - @group = @article.group
+      - topic = @id2topic[item.topic_id]
+      - next unless topic
+      - @group = topic.group
       - @comments = nil
       - unless item.post_ids.blank?
-        - @comments = @article.comments.find_all_by_id(item.post_ids)
-      = render :partial => 'my/article', :object => @article, :locals => {:comments => @comments}
+        - @comments = topic.comments.find_all_by_id(item.post_ids)
+      = render :partial => 'my/topic', :object => topic, :locals => {:comments => @comments}
       /
         = item.score
         = item.read

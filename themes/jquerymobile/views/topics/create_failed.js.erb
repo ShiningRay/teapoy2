@@ -1,0 +1,4 @@
+$.toast('<%=j @message%>');
+<% topic.errors.each do |e| %>
+$.toast('<%=j e.message%>');
+<% end %>

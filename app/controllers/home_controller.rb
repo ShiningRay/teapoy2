@@ -5,7 +5,7 @@ class HomeController < ApplicationController
 
   caches_action :index, :cache_path => {:revision => $revision, :only_path => true}
   def send_user
-    return redirect_to(hottest_all_articles_path) if in_mobile_view?
+    return redirect_to(hottest_all_topics_path) if in_mobile_view?
     return redirect_to(:controller => 'my', :action => 'latest') if logged_in?
   end
   protected :send_user
@@ -19,15 +19,15 @@ class HomeController < ApplicationController
   end
 
   def hottest
-    @items = Inbox.guest.includes(:article => [:user, :top_post, :group]).order('score desc').page(params[:page])
-    @articles = @items.collect{|i|i.article}
-    @articles.compact!
+    @items = Inbox.guest.includes(:topic => [:user, :top_post, :group]).order('score desc').page(params[:page])
+    topics = @items.collect{|i|i.topic}
+    topics.compact!
     render :latest
   end
 
   def latest
-    @items = Inbox.guest.joins(:article).includes(:article => [:user, :top_post, :group]).order('articles.created_at desc').page(params[:page])
-    @articles = @items.collect{|i|i.article}
-    @articles.compact!
+    @items = Inbox.guest.joins(:topic).includes(:topic => [:user, :top_post, :group]).order('topics.created_at desc').page(params[:page])
+    topics = @items.collect{|i|i.topic}
+    topics.compact!
   end
 end

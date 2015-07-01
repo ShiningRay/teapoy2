@@ -28,15 +28,15 @@ Teapoy::Application.routes.draw do
   resource :weixin
 
   themes_for_rails
-  get 'new_index' => "home#test_new_index"
+  get 'new_index' => 'home#test_new_index'
   get 'home/:action' => 'home'
-  get 'all(/page/:page)' => 'articles#index', :group_id => 'all'
+  get 'all(/page/:page)' => 'topics#index', :group_id => 'all'
   get 'register/:action' => 'register'
-  get 'scores' => 'articles#scores'
+  get 'scores' => 'topics#scores'
   resources :subscriptions
   get '/tags/edit' => 'tags#edit'
   resources :tags
-  get '/search' => 'articles#search', :group_id => 'all'
+  get '/search' => 'topics#search', :group_id => 'all'
 
   resources :badges, :only => [:index, :show]
   # resources :collections do
@@ -94,8 +94,8 @@ Teapoy::Application.routes.draw do
     end
   end
 
-  #match 'scores' => 'articles#scores'
-  #match 'votes' => 'articles#votes'
+  #match 'scores' => 'topics#scores'
+  #match 'votes' => 'topics#votes'
 
   resources :salaries do
     member do
@@ -108,7 +108,7 @@ Teapoy::Application.routes.draw do
     end
   end
 
-  match 'invite_to_group'=> "users#invite_to_group", :via => :post, :as => :invite_to_group
+  match 'invite_to_group'=> 'users#invite_to_group', :via => :post, :as => :invite_to_group
   # match 'register/check'=> "register#check"
   # get 'my/index' => 'my#inbox'
   # get 'my/:action(.:format)' => 'my'
@@ -178,14 +178,15 @@ Teapoy::Application.routes.draw do
   # Note: This route will make all actions in every controller accessible via GET requests.
   #match 'my/(:action(.:format))', :to => 'my'
   #match ':group_id/:year/(:month/(:day))', :to => 'groups#archive', :constraints => {:year => /\d{4}/, :month => /\d{1,2}/, :day => /\d{1,2}/ }
-  #match ':group_id/:id(.:format)', :to => 'articles#show', :as => :article
+  #match ':group_id/:id(.:format)', :to => 'topics#show', :as => :topic
   #match ':id', :to => 'groups#show', :as => :group
   #root :to => 'tags#show', :id => '搞笑'
   get ':group_id/archives/:id' => 'archives#show'
-  root :to => 'articles#index', :group_id => 'all'
+  root :to => 'topics#index', :group_id => 'all'
   #root :to => 'home#index'
   # get ':controller(/:action(/:id(.:format)))'
-  get '/articles/:article_id/comments(.:format)' => 'comments#index'
-  post '/articles/comments(.:format)' => 'comments#create'
+  get '/topics/:article_id/comments(.:format)' => 'comments#index'
+  post '/topics/comments(.:format)' => 'comments#create'
+  resources :topics
 end
-Dir[Rails.root.join("config/routes/*.rb")].sort.each{|r| require_dependency(r)}
+Dir[Rails.root.join('config/routes/*.rb')].sort.each{|r| require_dependency(r)}

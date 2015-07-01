@@ -42,23 +42,23 @@ Teapoy::Application.routes.draw do
       post 'cancel_dislike'
     end
 
-    resources :articles, :module => 'users', :only => :index do
+    resources :topics, :module => 'users', :only => :index do
       collection do
         get :hottest
-        get "hottest(/:limit/(page/:page))" => "articles#index", :order => 'hottest'
-        get "page/:page" => 'articles#index', :order => 'latest'
-        get 'latest' => 'articles#index'
+        get 'hottest(/:limit/(page/:page))' => 'topics#index', :order => 'hottest'
+        get 'page/:page' => 'topics#index', :order => 'latest'
+        get 'latest' => 'topics#index'
       end
     end
 
     resources :groups do
       resources :reputation_logs
-      resources :articles, :module => 'users', :only => :index do
+      resources :topics, :module => 'users', :only => :index do
         collection do
           get :hottest
-          get "page/:page" => 'articles#index', :order => 'latest'
-          get 'latest(/page/:page)' => 'articles#index', :order => 'latest'
-          get 'hottest(/:limit(/page/:page))' => 'articles#index', :order => 'hottest'
+          get 'page/:page' => 'topics#index', :order => 'latest'
+          get 'latest(/page/:page)' => 'topics#index', :order => 'latest'
+          get 'hottest(/:limit(/page/:page))' => 'topics#index', :order => 'hottest'
         end
       end
     end

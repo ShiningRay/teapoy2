@@ -35,7 +35,7 @@
   };
   coffeescript_helpers = "var __slice = Array.prototype.slice;\nvar __hasProp = Object.prototype.hasOwnProperty;\nvar __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };\nvar __extends = function(child, parent) {\n  for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; }\n  function ctor() { this.constructor = child; }\n  ctor.prototype = parent.prototype; child.prototype = new ctor; child.__super__ = parent.prototype;\n  return child; };\nvar __indexOf = Array.prototype.indexOf || function(item) {\n  for (var i = 0, l = this.length; i < l; i++) {\n    if (this[i] === item) return i;\n  } return -1; };".replace(/\n/g, '');
   elements = {
-    regular: 'a abbr address article aside audio b bdi bdo blockquote body button\
+    regular: 'a abbr address topic aside audio b bdi bdo blockquote body button\
  canvas caption cite code colgroup datalist dd del details dfn div dl dt em\
  fieldset figcaption figure footer form h1 h2 h3 h4 h5 h6 head header hgroup\
  html i iframe ins kbd label legend li map mark menu meter nav noscript object\

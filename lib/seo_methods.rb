@@ -30,8 +30,8 @@ module SeoMethods
     append_keywords @group.options[:seo_keywords], @group.name
   end
 
-  def seo_for_article(article=@article)
-# =>     prepend_title "\##{article.id}"
+  def seo_for_article(article=topic)
+# =>     prepend_title "\##{topic.id}"
     seo_for_group(article.group)
     seo_for_user(article.user) unless article.anonymous?
     append_keywords article.created_at.strftime("%Y年,%m月,%d日")

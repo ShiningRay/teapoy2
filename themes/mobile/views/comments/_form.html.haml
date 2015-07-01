@@ -1,13 +1,13 @@
-- @parent ||= @article.top_post
+- @parent ||= topic.top_post
 #comment_form
-  - @group ||= @article.group
+  - @group ||= topic.group
   -#%div
     -#=current_user.name
     -#= link_to 'Not me?', logout_path
-  - if @group.options.only_member_can_reply and logged_in? and !current_user.is_member_of?(@article.group)
-    = submit_to '加入小组发表评论', join_group_path(@article.group)
+  - if @group.options.only_member_can_reply and logged_in? and !current_user.is_member_of?(topic.group)
+    = submit_to '加入小组发表评论', join_group_path(topic.group)
   - else
-    = simple_form_for(@post || [@article, @article.comments.new], :url => group_article_comments_path(@group, @article), :html => {:multipart => true}) do |f|
+    = simple_form_for(@post || [topic, topic.comments.new], :url => group_topic_comments_path(@group, topic), :html => {:multipart => true}) do |f|
       - if logged_in? or @group.options.guest_can_reply
         = current_user.login if logged_in?
       - else
@@ -23,7 +23,7 @@
       = f.input :content, :as => :text, :input_html => {:rows => 4}, :hint => link_to('回帖格式', '/faq/comment-format')
       = f.input :anonymous, as: :boolean  if logged_in?
       = f.input :picture, :as => :file, :label => '上传文件'
-      -if logged_in? && !(current_user.has_rewarded(@article) || current_user.own_article?(@article))
+      -if logged_in? && !(current_user.has_rewarded(topic) || current_user.own_topic?(topic))
         %label.reward
           打赏积分(每个帖子只能打赏一次)：
         %input(type='text' name='reward')

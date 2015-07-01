@@ -1,6 +1,6 @@
 <%= reply.actors.collect{|u| u.name.blank? ? u.login : u.name }.join(' ')%>
-<%-if article -%>
-  在主题《<%= article_title(article)%>》 中回复了你, 请点击 <%= notification_url(notification)%>
+<%-if topic -%>
+  在主题《<%= topic_title(topic)%>》 中回复了你, 请点击 <%= notification_url(notification)%>
 <%-else -%>
 原帖已经被删除
 <%- end -%>

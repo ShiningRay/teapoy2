@@ -1,4 +1,4 @@
 #searchr
-  %form#searchr-form{:action => [:search, @group, :articles]}
+  %form#searchr-form{:action => [:search, @group, :topics]}
     %input#searchr-input{:type=>"text", :autocomplete=>"off", :value => params[:term], :name => 'term',:placeholder=>"搜索帖子"}
     %input#searchr-submit{:value => "搜索",:type=>"submit"}

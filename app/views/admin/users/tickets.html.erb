@@ -9,7 +9,7 @@
   </thead>
 <% @tickets.each do |t| %>
   <tr>
-    <td>#<%= t.article_id %></td>
+    <td>#<%= t.topic_id %></td>
     <% if t.ticket_type %>
     <td><%= t.ticket_type.name  %></td>
     <td><%= t.correct ? '正确' : '错误' unless t.correct.nil?%></td>

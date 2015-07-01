@@ -12,8 +12,8 @@
       <li id="following"><% link_to followings_user_path(user) do %>
       <span class="follow">关注</span><span class="stats_count numeric"><%= user.friends.count %></span>
       <% end %></li>
-      <li id="updates"><div class="list"><% link_to user_articles_path(user) do %>
-          <span class="function">文章</span><span class="stats_count numeric"><%= user.articles.public.signed.count %></span>
+      <li id="updates"><div class="list"><% link_to user_topics_path(user) do %>
+          <span class="function">文章</span><span class="stats_count numeric"><%= user.topics.public.signed.count %></span>
       <% end %>
       </div>
       </li>
@@ -54,7 +54,7 @@
 <br />
 <%= link_to '修改昵称', :controller => 'my', :action => 'rename' %>
 <br />
-<%= link_to '管理我发表的文章', :controller => 'my', :action => 'articles' %>
+<%= link_to '管理我发表的文章', :controller => 'my', :action => 'topics' %>
 <br />
 <br />
 <%= link_to '我围观的文章', :controller => 'my', :action => 'favorites'   %>
@@ -70,7 +70,7 @@
 
 <% end %>
 
-<!--发表了<%# user.stat.signed_articles if user.user_stat%>个文章-->
+<!--发表了<%# user.stat.signed_topics if user.user_stat%>个文章-->
 <div>
 <% user.badges.each do |b| %>
 <%=image_tag b.icon.tiny.url, :title => b.title,:alt=>b.name%>

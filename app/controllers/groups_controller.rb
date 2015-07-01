@@ -1,7 +1,7 @@
 # encoding: utf-8
 class GroupsController < ApplicationController
   rescue_from  User::NotAuthorized ,:with => :group_is_secret
-  before_filter :login_required #, :only => [:new, :create, :join, :quit,:allow_join,:reject_join,:judge_articles,:edit]
+  before_filter :login_required #, :only => [:new, :create, :join, :quit,:allow_join,:reject_join,:judge_topics,:edit]
   #theme :select_theme
   #load_and_authorize_resource
   caches_page :sitemap_index
@@ -52,7 +52,7 @@ class GroupsController < ApplicationController
 
   def show
     @list_view = true
-    return redirect_to( '/groups/all/articles' )if params[:id] == 'all'
+    return redirect_to( '/groups/all/topics' )if params[:id] == 'all'
     @group = Group.wrap!(params[:id])
 
     authorize @group
@@ -190,10 +190,10 @@ class GroupsController < ApplicationController
   end
 protected
   def render(*args)
-    if @articles && ! @articles.empty? && logged_in?
-      #current_user.ratings_for @articles
+    if topics && ! topics.empty? && logged_in?
+      #current_user.ratings_for @topics
       current_user.roles
-      Article.send(:preload_associations, @articles, ['score'])
+      Topic.send(:preload_associations, topics, ['score'])
     end
     super(*args)
   end

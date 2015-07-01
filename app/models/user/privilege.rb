@@ -35,7 +35,7 @@ module User::Privilege
     own_group?(group)
   end
 
-  def can_delete?(article)
+  def can_delete?(topic)
 
   end
 
@@ -45,8 +45,8 @@ module User::Privilege
 
   def own?(obj)
     case obj
-    when Article
-      own_article?(obj)
+    when Topic
+      own_topic?(obj)
     when Group
       own_group?(obj)
     else
@@ -64,7 +64,7 @@ module User::Privilege
 
   def can_reply_to?(post)
     post = Post.wrap(post)
-    return false if post.article.closed?
+    return false if post.topic.closed?
     group = post.group
     rep = reputation_in(group)
     level = group.prefered_reply_level

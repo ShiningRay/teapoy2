@@ -36,9 +36,9 @@
         = link_to('全部', '/all')
         - if @group and not @group.new_record?
           =  '/'
-          = link_to(@group.name, articles_path(@group))
-          - if @article and not @article.new_record?
-            - y,m,d = @article.created_at.year,@article.created_at.month,@article.created_at.day
+          = link_to(@group.name, topics_path(@group))
+          - if topic and not topic.new_record?
+            - y,m,d = topic.created_at.year,topic.created_at.month,topic.created_at.day
             =  '/'
             = link_to_unless_current(y, archive_path(:year => y))
             =  '/'
@@ -53,13 +53,13 @@
       %br>
       - if @group and not @group.new_record?
         帖子
-        = @group.public_articles.size
+        = @group.public_topics.size
         = '.'
-        = link_to_unless_current( '最新', latest_group_articles_path(@group))
+        = link_to_unless_current( '最新', latest_group_topics_path(@group))
         = '.'
-        = link_to_unless_current( '最热', hottest_group_articles_path(@group))
+        = link_to_unless_current( '最热', hottest_group_topics_path(@group))
         = '.'
-        = link_to_unless_current("发表", new_article_path(@group)) if logged_in?
+        = link_to_unless_current("发表", new_topic_path(@group)) if logged_in?
         ='|'
         成员
         =# link_to @group.memberships.size, group_memberships_path(@group)
@@ -69,15 +69,15 @@
           - else
             = link_to '加入', join_group_path(@group), :class => "join_group"
       - elsif @user
-      - elsif  ['articles','groups'].include?(controller_name)
+      - elsif  ['Topics','groups'].include?(controller_name)
         = link_to_unless_current( '小组导航', groups_path)
         |
-        = link_to_unless_current( '最新', latest_all_articles_path)
+        = link_to_unless_current( '最新', latest_all_topics_path)
         |
-        = link_to_unless_current( '最热', hottest_all_articles_path)
+        = link_to_unless_current( '最热', hottest_all_topics_path)
         |
         - if logged_in?
-          = link_to_unless_current("发表", new_all_article_path)
+          = link_to_unless_current("发表", new_all_topic_path)
         - else
           = link_to_unless_current('登录', login_path)
       = yield :nav
@@ -85,18 +85,18 @@
 
     = content_for?(:main) ? (yield :main) : yield
     %p
-      - unless controller_name == 'articles' and not @group and not @user
+      - unless controller_name == 'Topics' and not @group and not @user
         = link_to_unless_current( '小组导航', groups_path)
         |
-        = link_to_unless_current( '最新', latest_all_articles_path)
+        = link_to_unless_current( '最新', latest_all_topics_path)
         |
-        = link_to_unless_current( '最热', hottest_all_articles_path)
+        = link_to_unless_current( '最热', hottest_all_topics_path)
         |
-        = link_to("发表", new_all_article_path) if logged_in?
+        = link_to("发表", new_all_topic_path) if logged_in?
     = join_oneline( |
-      link_to('问题反馈', articles_path('feedback')), |
+      link_to('问题反馈', topics_path('feedback')), |
       '|', |
-      link_to('常见问题', articles_path('faq')), |
+      link_to('常见问题', topics_path('faq')), |
       '<br/>', |
       '&lt;极速版', |
       '|', |

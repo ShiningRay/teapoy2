@@ -20,8 +20,8 @@
       - if @group and not @group.new_record?
         =  '/'
         = link_to(@group.name, @group)
-        - if @article and not @article.new_record?
-          - y,m,d = @article.created_at.year,@article.created_at.month,@article.created_at.day
+        - if topic and not topic.new_record?
+          - y,m,d = topic.created_at.year,topic.created_at.month,topic.created_at.day
           =  '/'
           = link_to_unless_current(y, archive_path(:year => y))
           =  '/'
@@ -34,21 +34,21 @@
       = yield :breadcrumbs
     .main-nav><
       - if @group and not @group.new_record?
-        = link_to_unless_current( '最新', latest_group_articles_path(@group))
+        = link_to_unless_current( '最新', latest_group_topics_path(@group))
         = '.'
-        = link_to_unless_current( '最热', hottest_group_articles_path(@group))
+        = link_to_unless_current( '最热', hottest_group_topics_path(@group))
         = '.'
-        = link_to_unless_current("发表", new_article_path(@group)) if logged_in?
+        = link_to_unless_current("发表", new_topic_path(@group)) if logged_in?
       - elsif @user
-      - elsif controller_name == 'articles'
+      - elsif controller_name == 'topics'
         = link_to_unless_current( '小组导航', groups_path)
         |
-        = link_to_unless_current( '最新', latest_all_articles_path)
+        = link_to_unless_current( '最新', latest_all_topics_path)
         |
-        = link_to_unless_current( '最热', hottest_all_articles_path)
+        = link_to_unless_current( '最热', hottest_all_topics_path)
         |
         - if logged_in?
-          = link_to_unless_current("发表", '/articles/new')
+          = link_to_unless_current("发表", '/topics/new')
         - else
           = link_to_unless_current('登录', login_path)
       = yield :nav
@@ -61,22 +61,22 @@
       = content_for?(:main) ? (yield :main) : yield
 
     .footer><
-      - unless controller_name == 'articles' and not @group and not @user
+      - unless controller_name == 'topics' and not @group and not @user
         %p
           = link_to( '小组导航', groups_path)
           |
-          = link_to( '全部最新', latest_all_articles_path)
+          = link_to( '全部最新', latest_all_topics_path)
           |
-          = link_to( '最热', hottest_all_articles_path)
+          = link_to( '最热', hottest_all_topics_path)
           |
-          = link_to("发表", '/articles/new') if logged_in?
+          = link_to("发表", '/topics/new') if logged_in?
       = render 'user_actions' if logged_in?
       %p><
         %a{:href=>'#logo'}>< 回到顶部
         = precede '|' do
-          = link_to '问题反馈', articles_path('feedback')
+          = link_to '问题反馈', topics_path('feedback')
         = precede '|' do
-          = link_to '常见问题', articles_path('faq')
+          = link_to '常见问题', topics_path('faq')
       %p><
         &lt;
         - if Rails.env.production?

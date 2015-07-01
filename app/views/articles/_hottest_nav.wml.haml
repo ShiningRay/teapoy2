@@ -1,6 +1,0 @@
-%p
-  = link_to t('nav.latest'), scoped_path(:order => 'latest')
-  = link_to_unless @limit == 'day', t('articles.day'), scoped_path(:order => 'hottest', :limit => 'day')
-  = link_to_unless @limit == 'week', t('articles.week'), scoped_path(:order => 'hottest', :limit => 'week')
-  = link_to_unless @limit == 'month', t('articles.month'), scoped_path(:order => 'hottest', :limit => 'month')
-  = link_to_unless @limit == 'year', t('articles.year'), scoped_path(:order => 'hottest', :limit => 'year')

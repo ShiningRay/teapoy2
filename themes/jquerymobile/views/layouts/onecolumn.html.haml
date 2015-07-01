@@ -33,7 +33,7 @@
             %li( data-icon="false" )
               = link_to '登录', login_path, data: { rel: 'dialog' }
           %li(data-role='list-divider')
-          -# %li( data-icon="false" data-theme="#{controller_name == 'articles' && action_name == 'recent_hot' && "a"}")= link_to '近期热点', '/all/'
+          -# %li( data-icon="false" data-theme="#{controller_name == 'topics' && action_name == 'recent_hot' && "a"}")= link_to '近期热点', '/all/'
           %li( data-icon="false" data-theme="#{current_page?('/all/latest') && "a"}")
             = link_to '最新帖子', '/all/latest'
           %li(data-role='list-divider')

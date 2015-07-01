@@ -19,5 +19,5 @@
 - if @date < @last
   - tomorrow = @date + 1
   = link_to("#{tomorrow.strftime("%Y-%m-%d")} »", archive_path(:date => tomorrow))
-= render(@articles)
-= paginate @articles
+= render(topics)
+= paginate topics

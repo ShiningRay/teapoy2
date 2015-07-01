@@ -128,7 +128,7 @@ class Reputation < ActiveRecord::Base
       else
         self.value = amount
       end
-      logs.create! :amount => amount,:group_id => (post.group_id || post.article.group_id), :post_id => post.id.to_s, :user_id => user_id, :reason => reason
+      logs.create! :amount => amount,:group_id => (post.group_id || post.topic.group_id), :post_id => post.id.to_s, :user_id => user_id, :reason => reason
       save!
     end
   end

@@ -1,7 +1,7 @@
 # coding: utf-8
 class AttachmentsController < ApplicationController
   before_action :find_group
-  before_action :find_article
+  before_action :find_topic
   before_action :resource, only: %i(show set_price)
 
   def index
@@ -15,7 +15,7 @@ class AttachmentsController < ApplicationController
   def create
     @attachment = Post.new params[:attachment]
   	@attachment[:price] = params[:price]
-    @article.attachments << @attachments
+    topic.attachments << @attachments
   end
 
   def set_price
@@ -29,7 +29,7 @@ class AttachmentsController < ApplicationController
   before_filter :check_owner
   protected
   def check_owner
-  	unless logged_in? and @article.owner == current_user
+  	unless logged_in? and topic.owner == current_user
 	  	render :text => 'You cannot manipulate attachment'
   	end
   end
@@ -38,8 +38,8 @@ class AttachmentsController < ApplicationController
     @group ||= Group.find_by_alias! params[:group_id]
   end
 
-  def find_article
-    @article ||= @group.articles.find params[:article_id]
+  def find_topic
+    topic ||= @group.topics.find params[:topic_id]
   end
 
   def resource

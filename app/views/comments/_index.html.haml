@@ -1,7 +1,7 @@
--if @article
+-if @topic
   %ul.comments
     = render_comments @comments
-  - unless @article.closed?
+  - unless @topic.closed?
     %div#comment-form.reply-form
       = render 'comments/form'
   - else

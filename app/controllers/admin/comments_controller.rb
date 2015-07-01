@@ -6,28 +6,28 @@ class Admin::CommentsController < Admin::BaseController
     @status = params[:status] || 'pending'
     @statuses = Comment::STATUSES
     sql = <<SQL
-SELECT articles . *
-FROM articles
-LEFT JOIN comments ON articles.id = comments.article_id
+SELECT topics . *
+FROM topics
+LEFT JOIN comments ON topics.id = comments.topic_id
 WHERE comments.status = ?
-GROUP BY comments.article_id
+GROUP BY comments.topic_id
 SQL
-    @articles = Article.paginate_by_sql [sql , @status], :page => params[:page]
+    topics = Topic.paginate_by_sql [sql , @status], :page => params[:page]
     @comments = {}
-    @articles.each do |a|
+    topics.each do |a|
       @comments[a.id] = a.comments.find :all, :conditions => {:status => @status}
     end
   end
 
   def new
-    @article = Article.find params[:article_id]
-    @comment = @article.comments.new
+    topic = Topic.find params[:topic_id]
+    @comment = topic.comments.new
     render :layout => false
   end
 
   def create
-    @article = Article.find params[:comment][:article_id]
-    @comment = @article.comments.build params[:comment]
+    topic = Topic.find params[:comment][:topic_id]
+    @comment = topic.comments.build params[:comment]
     @comment.user = current_user
     @comment.ip = request.remote_ip
     @comment.status = 'publish'

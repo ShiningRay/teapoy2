@@ -8,7 +8,7 @@
   %h2
     列表说明：
   = h @list.notes
-= render @articles
+= render topics
 .list-edit
   = link_to '编辑/添加', edit_list_path(@list) if logged_in? and current_user == @list.user
   |

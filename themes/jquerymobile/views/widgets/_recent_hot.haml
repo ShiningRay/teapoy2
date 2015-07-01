@@ -1,18 +1,18 @@
 - cache 'recent_hot', :expires_in => 1.hour do
   #recent_hot
     %h2 当前热点
-    -hottest_artices = Article.where('group_id not in (2, 97,-1) and created_at >= ?', 1.day.ago).before.public_articles.includes(:top_post, :user, :group).order('articles.score desc').limit(5)
-    - (hottest_artices || []).each do |article|
-      -top_post = article.top_post
-      -group = article.group
+    -hottest_artices = Topic.where('group_id not in (2, 97,-1) and created_at >= ?', 1.day.ago).before.public_topics.includes(:top_post, :user, :group).order('topics.score desc').limit(5)
+    - (hottest_artices || []).each do |topic|
+      -top_post = topic.top_post
+      -group = topic.group
       -next if top_post.blank?
       %article.cf{:class => [(top_post and  top_post.score > 0 ? 'pos' : (top_post.score < 0 ? 'neg' : 'zero')) ] }
-        - unless article.title.blank?
-          %h4.title= link_to article.title, article_path(group, article), :rel => 'permalink bookmark'
+        - unless topic.title.blank?
+          %h4.title= link_to topic.title, topic_path(group, topic), :rel => 'permalink bookmark'
         - else
-          %h4.title= link_to truncate(strip_tags(top_post.content),:length=>15), article_path(group, article), :rel => 'permalink bookmark'
+          %h4.title= link_to truncate(strip_tags(top_post.content),:length=>15), topic_path(group, topic), :rel => 'permalink bookmark'
         %p
           %span.score
-            %strong= article.score
-          %span.author= link_to article.user.name_or_login, article.user,:data => {:login => article.user.login},:class=>"user"
-          %span.group= link_to article.group.name, group
+            %strong= topic.score
+          %span.author= link_to topic.user.name_or_login, topic.user,:data => {:login => topic.user.login},:class=>"user"
+          %span.group= link_to topic.group.name, group

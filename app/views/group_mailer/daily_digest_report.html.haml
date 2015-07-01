@@ -2,7 +2,7 @@
   尊敬的
   = @user.name_or_login
   =':'
--  if @articles.size == 0
+-  if topics.size == 0
   %p
     您所管理的“#{@group.name}”小组在#{@date.strftime("%Y-%m-%d")}一篇新文章也没有
 
@@ -10,20 +10,20 @@
 
 - else
   %p
-    您所管理的“#{@group.name}”小组在#{@date.strftime("%y-%m-%d")}有#{ @articles.size }篇文章
+    您所管理的“#{@group.name}”小组在#{@date.strftime("%y-%m-%d")}有#{ topics.size }篇文章
 
-  - if @articles.pending.size > 0
+  - if topics.pending.size > 0
     %p
       其中有
-      = link_to pending_group_articles_url(@group) do
-        #{@articles.pending.size}个新帖子等待审核
+      = link_to pending_group_topics_url(@group) do
+        #{topics.pending.size}个新帖子等待审核
 
   %ul
-    - @articles.each do |article|
+    - topics.each do |topic|
       %li
-        = link_to article_author(article), article.user
+        = link_to topic_author(topic), topic.user
         发表了
-        = link_to article_title(article), [@group, article]
+        = link_to topic_title(topic), [@group, topic]
   - if @new_users_count > 0
     %p
       有#{@new_users_count}新用户加入
@@ -34,7 +34,7 @@
     请及时与组员们互动哦～
 
   %p
-    = link_to articles_url(@group) do
+    = link_to topics_url(@group) do
       请点击小组链接查看&gt;&gt;
   %p
     如果不想再接受此类信息，

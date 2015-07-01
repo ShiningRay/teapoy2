@@ -1,8 +1,0 @@
-- if @items.num_pages == 0
-  目前尚无帖子
-- else
-  = render(@articles.reject{|a| a.nil? || a.top_post.nil? })
-  = paginate @items
-
-  - if @items.num_pages == @items.current_page && @items.num_pages > 0
-    您已看完了

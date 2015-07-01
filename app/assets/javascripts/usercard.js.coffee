@@ -47,7 +47,7 @@ groupcard_tmpl = """
         {{join_or_quit_text}}
       </a>
       |
-      <a href="{{new_article_path}}" target="_blank">
+      <a href="{{new_topic_path}}" target="_blank">
         发表
       </a>
     </div>

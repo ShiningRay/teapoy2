@@ -1,0 +1,43 @@
+- id = topic.id
+- user = topic.original_user
+
+.entry.topic{"data-topic_id" => id, :id => "entity#{id}"}
+  .entry_bar
+    .entry_bar_left{:style => "float:left;height:28px;line-height:28px"}
+      = check_box_tag('id[]', topic.id.to_s, false, :id => 'id' + topic.id.to_s, :class => 'entry-id') if defined?(checkbox)
+      = topic.group.name
+      \##{link_to topic.id, topic_path(topic.group, topic)}
+      = link_to edit_admin_topic_path(topic) do
+        %i.icon-edit>
+        编辑
+      - if topic.status == 'publish'
+        = topic.pos_score
+        \/  #{topic.neg_score}
+      - if !topic.anonymous && topic.user_id and topic.user_id > 0
+        = link_to user.name_or_login, [:admin, user], :title => user.login if user
+    .entry_bar_right{:style => "float:right"}
+      .status-edit
+        - if topic.status == 'publish'
+          %a.btn.disabled{:href => "#"} 通过
+        - else
+          = link_to "通过", set_status_admin_topic_path(topic, :status => 'publish'), :class => 'btn btn-primary'
+        - if topic.status == 'private'
+          %a.btn.disabled{:href => "#"} 删除
+        - else
+          = link_to "删除", set_status_admin_topic_path(topic,  :status => 'private'), :class => 'btn btn-danger'
+    %div{:style => "clear:both"}
+  .entity_text{:style => "clear:both;margin-top:10px"}
+    %h2= link_to topic.title, edit_admin_topic_path(topic) if topic.title
+    = render_posts topic.top_post
+    .other
+      %div{:style => "float: right; color:#666; font-size:12px"}= topic.created_at.strftime("%Y-%m-%d %H:%M:%S")
+      %div{:style => "color:#006600;padding-top:8px"}
+        %i.icon-tags
+        %b
+          标签：
+          %span{:id => "entity_rtags#{topic.id}", :style => "color:#009966"}= topic.tag_line
+      - if topic.comments.count > 0 and topic.status != 'pending'
+        - link_to [:admin, topic, :comments], :class => 'btn comments-toggle' do
+          = topic.comments.count
+          条评论
+  %table{:id => "tickets-#{topic.id}"}

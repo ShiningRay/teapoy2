@@ -3,20 +3,20 @@ Teapoy::Application.routes.draw do
 
   #match '/users(.:format)' => 'users#index', :as => :all_users
   # match ':group_id/users(.:format)' => 'users#index', :as => :group_users, :via => :get
-  # match 'articles' => 'articles#create', :via => :post, :as => :all_articles
-  match 'articles/repost' => 'articles#repost', :as => :repost_form, :via => :get
-  match 'articles/create(.:format)' => 'articles#create', :via => [:post, :patch]
-  post 'articles(.:format)' => 'articles#create', group_id: 'all'
-  # match 'articles/new' => 'articles#new', :as => :new_all_article, :via => :get
-  # match 'articles/:id/dismiss' => 'articles#dismiss', :as => :dismiss_article, :via => :get
-  match 'all/hottest(/:limit)(/page/:page)(.:format)' => 'articles#index',
+  # match 'topics' => 'topics#create', :via => :post, :as => :all_articles
+  match 'topics/repost' => 'topics#repost', :as => :repost_form, :via => :get
+  match 'topics/create(.:format)' => 'topics#create', :via => [:post, :patch]
+  post 'topics(.:format)' => 'topics#create', group_id: 'all'
+  # match 'topics/new' => 'topics#new', :as => :new_all_article, :via => :get
+  # match 'topics/:id/dismiss' => 'topics#dismiss', :as => :dismiss_article, :via => :get
+  match 'all/hottest(/:limit)(/page/:page)(.:format)' => 'topics#index',
         :via => :get, :as => :hottest_all_articles,
         :group_id => 'all', :order => 'hottest'
-  match 'all/latest(/page/:page)(.:format)' => 'articles#index',
+  match 'all/latest(/page/:page)(.:format)' => 'topics#index',
         :via => :get, :as => :latest_all_articles,
         :group_id => 'all', :order => 'latest'
-  get ':group_id/:id' => 'articles#show'
-  get ':group_id' => 'articles#index'
+  get ':group_id/:id' => 'topics#show'
+  get ':group_id' => 'topics#index'
 
   # resources :groups
   # scope ":group_id", :as => '' do
@@ -30,11 +30,11 @@ Teapoy::Application.routes.draw do
 
   #   resources :archives, :only => [:index, :show]
 
-  #   resources :articles, :path => ''  do
+  #   resources :topics, :path => ''  do
   #     collection do
   #       get 'latest_comment(/page/:page)(.:format)', :action => :index, :order => 'latest_comment'
   #       get 'latest(/page/:page)(.:format)', :action => :index, :order => 'latest'
-  #       #match 'hottest(/:limit)' => 'articles#hottest', :via => :get, :as => :hottest
+  #       #match 'hottest(/:limit)' => 'topics#hottest', :via => :get, :as => :hottest
   #       get 'hottest(/:limit)(/page/:page)(.:format)', :action => :index, :order => 'hottest'
   #       get :pending
   #       get :sitemap
@@ -66,20 +66,20 @@ Teapoy::Application.routes.draw do
   #       post 'set_price', :on => :member
   #     end
   #     resources :rewards
-  #     #match 'feed' => 'articles#index', :via => :get, :format => 'xml', :as => :group_feed
+  #     #match 'feed' => 'topics#index', :via => :get, :format => 'xml', :as => :group_feed
   #   end
   # end
 
 
-  # match ':group_id(.:format)' => 'articles#index', :as => :group_articles, :via => :get
-  # match ':group_id/:id(.:format)' => 'articles#show', :as => :group_article, :via => :get
-  # match ':group_id/latest(.:format)' => 'articles#index',
+  # match ':group_id(.:format)' => 'topics#index', :as => :group_articles, :via => :get
+  # match ':group_id/:id(.:format)' => 'topics#show', :as => :group_article, :via => :get
+  # match ':group_id/latest(.:format)' => 'topics#index',
   #       :as => :latest_group_articles, :via => :get,
   #       :order => 'latest'
-  # match ':group_id/hottest(/:limit(.:format))' => 'articles#index',
+  # match ':group_id/hottest(/:limit(.:format))' => 'topics#index',
   #       :as => :hottest_group_articles, :via => :get,
   #       :order => 'hottest'
-  # match ':group_id/pending(.:format)' => 'articles#pending',
+  # match ':group_id/pending(.:format)' => 'topics#pending',
   #       :as => :pending_group_articles  , :via => :get
-  # match 'articles/:id/mark' => 'articles#mark', :via => :post
+  # match 'topics/:id/mark' => 'topics#mark', :via => :post
 end

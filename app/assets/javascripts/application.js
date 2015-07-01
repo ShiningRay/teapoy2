@@ -88,7 +88,7 @@ $(function () {
     if ($(this).val().size === 0) {
       return false;
     }
-    window.location.href = "/users/" + $(this).data("login") + "/articles/archives/" + $(this).val();
+    window.location.href = "/users/" + $(this).data("login") + "/Topics/archives/" + $(this).val();
   });
 });
 
@@ -112,8 +112,8 @@ $(function () {
 });
 
 $(function () {
-  $('.article a[data-method=delete]').bind('ajax:success', function () {
-    sr.article(this).slideUp(function () {
+  $('.topic a[data-method=delete]').bind('ajax:success', function () {
+    sr.topic(this).slideUp(function () {
       $(this).remove();
     });
   });
@@ -214,7 +214,7 @@ $(function () {
 });
 
 $(function () {
-  $(".publish-article").click(function () {
+  $(".publish-topic").click(function () {
     var A = $(this);
     $.ajax({
       type: "get",
@@ -222,20 +222,20 @@ $(function () {
       url: A.attr('href'),
       success: function (data) {
         if (data.status == "publish") {
-          A.parents(".article:first").remove();
+          A.parents(".topic:first").remove();
         }
       }
     });
     return false;
   });
-  $(".move-out-article").click(function () {
+  $(".move-out-topic").click(function () {
     var A = $(this);
     $.ajax({
       type: "get",
       dataType: "json",
       url: A.attr('href'),
       success: function () {
-        A.parents(".article:first").remove();
+        A.parents(".topic:first").remove();
       }
     });
     return false;

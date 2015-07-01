@@ -96,9 +96,9 @@ module ApplicationHelper
     end
     unless opt[:scope]
       if @user
-        opt[:scope] = "users/#{@user.to_param}/articles"
+        opt[:scope] = "users/#{@user.to_param}/topics"
         if @group
-          opt[:scope] = "users/#{@user.to_param}/groups/#{@group.alias}/articles"
+          opt[:scope] = "users/#{@user.to_param}/groups/#{@group.alias}/topics"
         end
       elsif @group
         opt[:scope] = @group.alias

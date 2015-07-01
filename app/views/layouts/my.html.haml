@@ -12,7 +12,7 @@
           = link_to '随便看看', '/all'
         %li{:class => (action_name == 'liked' && 'current')}
           = link_to '小组导航', '/groups'
-        %li= link_to '我的文章', user_articles_path(current_user)
+        %li= link_to '我的文章', user_topics_path(current_user)
         -if current_user
           %li.user-name
             %a.user-name{:href=>"users/#{current_user.login}"}
@@ -39,15 +39,15 @@
   .user-avatar
     =image_tag current_user.avatar.url("small"), :alt => "#{current_user.name_or_login}", :class => 'avatar'
   .arraw-a.arraw
-  .new-article
+  .new-topic
     %ul
       %li.first
-        %a.post{:href=>"/articles/new?type=post",:title=>"文章"}
+        %a.post{:href=>"/Topics/new?type=post",:title=>"文章"}
       %li.second
-        %a.pic{:href=>"/articles/new?type=picture",:title=>"图片"}
+        %a.pic{:href=>"/Topics/new?type=picture",:title=>"图片"}
       %li.third
-        %a.video{:href=>"/articles/new?type=externalvideo",:title=>"视频"}
+        %a.video{:href=>"/Topics/new?type=externalvideo",:title=>"视频"}
       %li.forth
-        %a.poll{:href=>"/articles/new?type=poll",:title=>"投票"}
+        %a.poll{:href=>"/Topics/new?type=poll",:title=>"投票"}
   .open-form
 = render :template => 'layouts/tailake'

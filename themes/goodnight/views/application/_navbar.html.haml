@@ -6,9 +6,9 @@
         = link_to '全部', '/all'
       - if @group and not @group.new_record?
         %li
-          = link_to(@group.name, articles_path(@group))
-        - if @article and not @article.new_record?
-          - y,m,d = @article.created_at.year,@article.created_at.month,@article.created_at.day
+          = link_to(@group.name, topics_path(@group))
+        - if topic and not topic.new_record?
+          - y,m,d = topic.created_at.year,topic.created_at.month,topic.created_at.day
           %li.date
             = link_to_unless_current("#{y}年", archive_path(:year => y))
           %li.date
@@ -17,7 +17,7 @@
             = link_to_unless_current("#{d}日", archive_path(:year => y, :month => m, :day => d))
         = yield :breadcrumbs
       - if logged_in?
-        %li= link_to '发表文章', :controller => '/articles', :action => 'new', :group_id => @group.try(:alias)
+        %li= link_to '发表文章', :controller => '/topics', :action => 'new', :group_id => @group.try(:alias)
     %ul.nav.pull-right
       - unless logged_in?
         %li= link_to t('users.signup'), signup_path

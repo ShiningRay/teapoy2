@@ -1,6 +1,6 @@
 <% content_for :title, '帖子的标签云' %>
 <% cache 'tag_cloud', :expires_in => 12.hour do %>
-<% @tags = @group.public_articles.cached_tag_clouds %>
+<% @tags = @group.public_topics.cached_tag_clouds %>
 <div id="tagcloud">
     <% if ( @msg || flash[:notice] ) %>
         <div id="notice"> <%= ( @msg || flash[:notice] ) %> </div>

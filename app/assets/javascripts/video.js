@@ -16,7 +16,7 @@ function fullscreen(id){
   })
 }
 $(function(){
-  $('.article').on('click', '.flash_link a', function(){
+  $('.topic').on('click', '.flash_link a', function(){
     var e = $(this),
         p = e.parent();
     p.hide();

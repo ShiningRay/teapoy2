@@ -81,7 +81,7 @@ class Salary < ActiveRecord::Base
   end
   def self.make_salary(yesterday)
     User.find_each(:conditions => ["updated_at >= ?", yesterday.beginning_of_day]) do |u|
-      u.make_salary('daily_article', yesterday)
+      u.make_salary('daily_topic', yesterday)
       u.make_salary('daily_comment', yesterday)
       u.make_salary('daily_rating', yesterday)
       u.make_salary('daily_sofa', yesterday)
@@ -98,12 +98,12 @@ class Salary < ActiveRecord::Base
     User.where('id > 0').find_each do |u|
       sa = u.salaries.order('created_at asc').first
       s = u.created_at
-      s = u.articles.first.created_at unless s
+      s = u.topics.first.created_at unless s
       if sa.created_at > s
         s = s.to_date
         e = sa.created_at.to_date
         s.upto(e) do |d|
-          %w(daily_article daily_comment daily_score).each do |i|
+          %w(daily_topic daily_comment daily_score).each do |i|
             u.make_salary(i, d)
           end
           Salary::DailyScore.make(d)

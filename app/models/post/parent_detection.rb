@@ -18,7 +18,7 @@ module Post::ParentDetection
       return if top?
       if parent_id.blank? or parent_id == 0
         if content =~ /(\d+)\s*(l|L|F|f|楼)/
-          self.parent = article.comments.find_by_floor $1
+          self.parent = topic.comments.find_by_floor $1
         end
       end
 
@@ -31,7 +31,7 @@ module Post::ParentDetection
         else
           next
         end
-        p = article.comments.find_by_floor(floor) or next
+        p = topic.comments.find_by_floor(floor) or next
         #vote(:post_id => p.id, :score => s, :user_id => user_id)
         parent.vote(user_id, s)
       end unless content.blank?

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 class UserNotifier < ActionMailer::Base
   default :from => '博聆 <admin@bling0.com>'
-  helper :notifications, :articles
+  helper :notifications, :topics
   layout "mail"
 
   def notify(notification)
@@ -59,11 +59,11 @@ class UserNotifier < ActionMailer::Base
     body :username => user.login, :text => text
   end
 
-  def digest_notification(user, articles, comments)
+  def digest_notification(user, topics, comments)
     recipients user.email
     subject     "您关注的帖子今日有更新"
     sent_on     Time.now
-    body :user => user, :articles => articles, :comments => comments
+    body :user => user, :topics => topics, :comments => comments
   end
 
   def recall_mail(user)
