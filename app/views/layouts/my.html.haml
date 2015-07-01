@@ -42,12 +42,12 @@
   .new-topic
     %ul
       %li.first
-        %a.post{:href=>"/Topics/new?type=post",:title=>"文章"}
+        %a.post{:href=>"/topics/new?type=post",:title=>"文章"}
       %li.second
-        %a.pic{:href=>"/Topics/new?type=picture",:title=>"图片"}
+        %a.pic{:href=>"/topics/new?type=picture",:title=>"图片"}
       %li.third
-        %a.video{:href=>"/Topics/new?type=externalvideo",:title=>"视频"}
+        %a.video{:href=>"/topics/new?type=externalvideo",:title=>"视频"}
       %li.forth
-        %a.poll{:href=>"/Topics/new?type=poll",:title=>"投票"}
+        %a.poll{:href=>"/topics/new?type=poll",:title=>"投票"}
   .open-form
 = render :template => 'layouts/tailake'

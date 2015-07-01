@@ -37,8 +37,8 @@
         - if @group and not @group.new_record?
           =  '/'
           = link_to(@group.name, topics_path(@group))
-          - if topic and not topic.new_record?
-            - y,m,d = topic.created_at.year,topic.created_at.month,topic.created_at.day
+          - if @topic and not @topic.new_record?
+            - y,m,d = @topic.created_at.year, @topic.created_at.month,@topic.created_at.day
             =  '/'
             = link_to_unless_current(y, archive_path(:year => y))
             =  '/'
@@ -69,7 +69,7 @@
           - else
             = link_to '加入', join_group_path(@group), :class => "join_group"
       - elsif @user
-      - elsif  ['Topics','groups'].include?(controller_name)
+      - elsif  ['topics','groups'].include?(controller_name)
         = link_to_unless_current( '小组导航', groups_path)
         |
         = link_to_unless_current( '最新', latest_all_topics_path)
@@ -85,7 +85,7 @@
 
     = content_for?(:main) ? (yield :main) : yield
     %p
-      - unless controller_name == 'Topics' and not @group and not @user
+      - unless controller_name == 'topics' and not @group and not @user
         = link_to_unless_current( '小组导航', groups_path)
         |
         = link_to_unless_current( '最新', latest_all_topics_path)
@@ -102,5 +102,4 @@
       '|', |
       link_to('炫彩版', :host => 'm.bling0.com'), |
       '&gt;', '<br/>',  Time.now.strftime("%m-%d %H:%M:%S")       ) |
-    = link_to '电器城618大促', 'http://r.m.taobao.com/m3?p=mm_10109371_4314397_14584413&c=1670', target: '_blank'
     %img{:src=>img_for_google_analysis,:alt=>""}

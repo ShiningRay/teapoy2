@@ -88,7 +88,7 @@ $(function () {
     if ($(this).val().size === 0) {
       return false;
     }
-    window.location.href = "/users/" + $(this).data("login") + "/Topics/archives/" + $(this).val();
+    window.location.href = "/users/" + $(this).data("login") + "/topics/archives/" + $(this).val();
   });
 });
 
