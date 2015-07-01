@@ -22,6 +22,6 @@
 - if topics.size == 0
   本月没有文章
 - else
-  = paginate topics
-  = render(:partial => topics)
-  = paginate topics
+  = paginate @topics
+  = render(@topics)
+  = paginate @topics
