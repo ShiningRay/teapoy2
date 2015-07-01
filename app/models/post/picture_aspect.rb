@@ -1,9 +1,17 @@
+# picture_aspect.rb
+
 # coding: utf-8
 #require 'paperclip_processors'
-class Picture < Post
-  mount_uploader :picture, PictureUploader, mount_on: :picture_file_name
+module Post::PictureAspect
+  extend ActiveSupport::Concern
+  included do
+    mount_uploader :picture, PictureUploader, mount_on: :picture_file_name
+    field :image_url, type: String
+    # after_post_process :save_image_dimensions
+    field :dimensions, type: Hash, default: {}
+    before_save :update_picture_attributes
+  end
 
-  before_save :update_picture_attributes
 
   def update_picture_attributes
     if picture.present? && picture_changed? && picture.file
@@ -12,19 +20,10 @@ class Picture < Post
     end
   end
 
-  field :image_url, type: String
-
   def image_url=(url)
     self.remote_picture_url = url
     self[:image_url] = url
   end
-
-  def to_s
-    picture.url
-  end
-
-  # after_post_process :save_image_dimensions
-  field :dimensions, type: Hash, default: {}
 
   def dim_size(style=:original)
     d = dimensions[style]

@@ -50,6 +50,25 @@
     %div.body
       - plain_text = post.content.to_s
       - plain_text_size = plain_text.mb_chars.size
+      - if post.picture?
+        - alt = post.content && post.content.mb_chars[0,50] || post.topic.title || ''
+        - title = (post.topic.title || alt[0, 10])
+        - if @list_view
+          - if post.gif?
+            = link_to image_tag(post.picture.thumb.url, :alt => alt), post.picture.url, :class => 'picture', :id => "picture-#{post.id}", :title => title
+          - else
+            = link_to image_tag(post.picture.medium.url, :alt => alt), post.picture.large.url, :class => 'picture', :id => "picture-#{picture.id}", :title => title
+        - else
+          - if post.gif?
+            = image_tag(post.picture.url, :alt => alt)
+          - else
+            = link_to image_tag(post.picture.medium.url, :alt => alt),  |
+                      post.picture.large.url, |
+                      :class => 'picture',  |
+                      :id => "picture-#{post.id}",  |
+                      :title => title
+            =# link_to picture.is_original? ? '给这张图片配上可爱的台词' : '我配的台词更好',draw_picture_path(picture) %>
+
       - if (@list_view && plain_text_size > 300)
         = plain_text.mb_chars[0, 150]
         = link_to "(剩余#{plain_text_size-150}字)", [post.group || post.topic.group, post.topic], :class => 'more'

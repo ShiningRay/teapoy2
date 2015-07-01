@@ -7,6 +7,7 @@ class GroupsController < ApplicationController
   caches_page :sitemap_index
   # caches_page_for_anonymous :index, :show
   before_action :find_group, only: %i(update destroy join quit edit)
+
   def index
     respond_to do |format|
       format.html {
@@ -51,8 +52,7 @@ class GroupsController < ApplicationController
   end
 
   def show
-    @list_view = true
-    return redirect_to( '/groups/all/topics' )if params[:id] == 'all'
+    return redirect_to( "/groups/#{params[:id]}/topics" )
     @group = Group.wrap!(params[:id])
 
     authorize @group
