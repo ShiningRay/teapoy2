@@ -6,8 +6,8 @@
 
 .comments-list
   -if @comments.size > 0 and logged_in? and !params[:read]
-    = cache [:collapse_mobile, current_user.id, topic], :expires_in => 1.minute do
-      - if (read_to = current_user.has_read_topic?(topic)) && read_to > 0
+    = cache [:collapse_mobile, current_user.id, @topic], :expires_in => 1.minute do
+      - if (read_to = current_user.has_read_topic?(@topic)) && read_to > 0
         = "已经折叠了#{read_to}个已读评论"
         - @comments = @comments[read_to..-1]
         %br
@@ -16,7 +16,7 @@
       = render_comments @comments
   - else
     = render_comments @comments
-- unless topic.closed?
+- unless @topic.closed?
   = comment_form
 - else
   禁止评论
