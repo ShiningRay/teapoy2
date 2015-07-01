@@ -4,15 +4,15 @@
   发表新文章
 %p.error=flash[:error]
 
-- topic ||= Topic.new
+- @topic ||= Topic.new
 
-- if topic && topic.top_post && topic.top_post.errors
-  = topic.top_post.errors.each do |e|
+- if @topic && @topic.top_post && @topic.top_post.errors
+  = @topic.top_post.errors.each do |e|
     = e
 
-- topic.created_at ||= Time.now if topic
+- @topic.created_at ||= Time.now if @topic
 = '发帖需审核'
-= simple_form_for(topic, :url => @group ? topics_path(@group) : {:controller => 'topics', :action => 'create'},:html=>{:multipart => true} ) do |f|
+= simple_form_for(@topic, :url => @group ? topics_path(@group) : {:controller => 'topics', :action => 'create'},:html=>{:multipart => true} ) do |f|
 
   - unless @group
     - groups = current_user.publications(Group)

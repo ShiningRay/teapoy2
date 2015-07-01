@@ -1,5 +1,5 @@
 %h4
-  - if @topic.top_post.rewarders.exists?
+  - if @topic.top_post && @topic.top_post.rewarders.exists?
     收到了来自 #{@topic.top_post.rewarders.count}个用户的 #{@topic.top_post.total_rewards} 积分打赏
   - else
     尚无打赏

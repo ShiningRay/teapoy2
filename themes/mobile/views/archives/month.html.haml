@@ -18,9 +18,9 @@
     = @year
     年#{@month}月
   中发表的帖子
-- if topics.size == 0
+- if @topics.size == 0
   本月没有文章
 - else
-  = paginate topics
-  = render(topics)
-  = paginate topics
+  = paginate @topics
+  = render(@topics)
+  = paginate @topics
