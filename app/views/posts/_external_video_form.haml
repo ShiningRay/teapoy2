@@ -1,5 +1,0 @@
--# coding: utf-8
-= form.inputs :id => :externalvideo_fields, :class => 'extra_fields' do
-  = form.input :video_page_link, :label => '视频页面地址', :as => :url, :required => false, :hint => '请贴视频页面的地址，目前支持优酷，土豆，酷6，56和音悦Tai（下面两项可以留空，系统会自动分析页面上的视频和缩略图）', :input_html => {:value => params["topic_top_post_attributes_video_page_link"] || params[:topic].try(:delete, :video_page_link) || '', :size => '30'  }
-  = form.input :video_flash_link, :label => '视频Flash地址', :as => :url, :required => false, :input_html => {:value => params["topic_top_post_attributes_video_flash_link"] || '', :size => '30'  }
-  = form.input :thumb_img_link, :label => '视频缩略图地址', :as => :url, :required => false, :input_html => {:value => params["topic_top_post_attributes_thumb_img_link"] || '', :size => '30'  }

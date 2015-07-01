@@ -37,6 +37,7 @@ class Post
   include RewardAspect
   include DescribedTargetAspect
   include ActionView::Helpers::DateHelper
+  include PictureAspect
 
   harmonize :content
 

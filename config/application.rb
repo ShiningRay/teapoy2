@@ -48,7 +48,9 @@ module Teapoy
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
-    config.i18n.default_locale = :zh
+    config.i18n.default_locale = :'zh-CN'
+    config.i18n.available_locales = ['zh-CN', 'en']
+    config.i18n.fallbacks = [:en]
 
     # JavaScript files you want as :defaults (application.js is always included).
     # config.action_view.javascript_expansions[:defaults] = %w(rails.js plugins.js doT.js floorlink.js jquery.qtip.pack.js)
@@ -78,7 +80,7 @@ module Teapoy
             #topic/charge
         %w( user/registration
             ).map{|i|"#{i}_observer"}
-    
+
     # Haml::Template.options[:format] = :xhtml
     # Haml::Template.options[:encoding] = 'utf-8'
     # config.action_view.sanitized_allowed_tags = %w(p div h1 h2 h3 h4 h5 h6 ol ul li strong em u b i span table thead tbody tfoot th tr td caption img embed a  br cite sub sup ins acronym q)
@@ -92,7 +94,6 @@ module Teapoy
     #config.threadsafe!
     config.assets.paths << "#{Rails.root}/app/assets/fonts"
     config.assets.precompile << /\.(?:svg|eot|woff|ttf)$/
-    I18n.enforce_available_locales = false
 
     config.middleware.insert_before 0, 'Rack::Cors' do
       allow do

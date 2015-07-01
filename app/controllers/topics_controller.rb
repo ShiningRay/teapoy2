@@ -8,6 +8,7 @@ class TopicsController < ApplicationController
   # check_duplicate 'topic/content', only: :create
   rescue_from  ActiveRecord::RecordNotFound, with: :show_404
   rescue_from Mongoid::Errors::DocumentNotFound, with: :show_404
+
   around_filter only: [:edit, :create] do |controller, action|
     Topic.unscoped do
       action.call
@@ -352,6 +353,7 @@ class TopicsController < ApplicationController
     # expires_now if browser.opera?
 
     if stale?(@topic)
+      @posts = @topic.posts.all
       respond_to do |format|
         format.html
         format.json {

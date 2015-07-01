@@ -1,17 +1,85 @@
-﻿-# coding: utf-8
-- plain_text = post.content.to_s
-- plain_text_size = plain_text.mb_chars.size
-- if (@list_view && plain_text_size > 300)
-  = plain_text.mb_chars[0, 150]
-  = link_to "(剩余#{plain_text_size-150}字)", [post.group || post.topic.group, post.topic], :class => 'more'
-- else
-  = post_content post
--#
-  %div.repost-info
-    - if post.meta[:reposted_to]
-      已分享至
-      - post.meta[:reposted_to].each do |group_id, sharer_id|
-        - g = Group.find(group_id)
-        %span.reposted_to{:data => {:group_id => g.id}}= link_to g.name, g
-  - if post.attachment?
-    = post.meta[:price] && post.meta[:price] > 0 && "售价#{post.meta[:price]}积分"
+﻿=# f = post.floor || (post_counter + 1)  %>
+- f = post.floor #post_counter + 1
+- t = post.total_score
+- user = post.user.decorate
+- anon = post.anonymous or post.user_id == 0 or (not user) or user.deleted?
+=#post.floor
+%li.post.cf.post{:id => "post_#{post.id}",
+              :class => [cycle('odd', 'even'), read_status_class(post), user.class_names],
+              :data  => {:user_id => post.anonymous ? '' : post.user_id,
+                          :parent_id => post.parent_id,
+                          :floor  => f,
+                          :date   => post.created_at.strftime('%Y-%m-%d %H:%M:%S')}}
+  -#%a{:name=>"floor-#{post.floor}"}
+  - if post.status == 'deleted'
+    已被删除
+  - else
+    = render 'posts/votecell', {:post => post}
+    = image_tag anon ? '/images/anonymous.png' : user.avatar.url("small"), :alt => "#{user.name_or_login}", :class => 'avatar photo'
+
+    -#%a.report(href="javascript:showReport(#{post.id})" title="") 举报
+
+    %div.name
+      - if anon
+        %span.nickname.anonymous
+          匿名人士
+      - else
+        %span.nickname= link_to h(user.name), user, :target => '_blank',:class=>"user",:data => {:login => user.login}
+        %span.identity= link_to h("@#{user.login}"), user, :target => '_blank',:class=>"user",:data => {:login => user.login}
+
+    -if post.parent_floor.to_i != 0
+      %a.in-reply-to{:href=>"#floor-#{post.parent_floor}"}
+        →
+        ="#{post.parent_floor}L"
+
+    %span.floor=f
+    %div.operator
+      %a.reply{:href=>"javascript:replypost('#{post.id}',#{post.topic_id},#{f})",:data=>{:floor=>"#{post.floor}"}}
+        = typicon 'arrow-back'
+        回复
+      - if logged_in?
+        = link_to repost_form_path(:post_id => post.id), :class => 'repost' do
+          = typicon 'export'
+          = t('posts.repost')
+      - if logged_in? and (current_user == post.user or current_user.is_admin?)
+        =link_to post_path(post), :method => :delete, :remote => true, :data => {:confirm => '确定要删除吗?'} do
+          = typicon 'trash'
+          = t('posts.destroy')
+
+    %span.date=post.created_at.strftime('%Y-%m-%d %H:%M:%S')
+    %div.body
+      - plain_text = post.content.to_s
+      - plain_text_size = plain_text.mb_chars.size
+      - if post.picture?
+        - alt = post.content && post.content.mb_chars[0,50] || post.topic.title || ''
+        - title = (post.topic.title || alt[0, 10])
+        - if @list_view
+          - if post.gif?
+            = link_to image_tag(post.picture.thumb.url, :alt => alt), post.picture.url, :class => 'picture', :id => "picture-#{post.id}", :title => title
+          - else
+            = link_to image_tag(post.picture.medium.url, :alt => alt), post.picture.large.url, :class => 'picture', :id => "picture-#{picture.id}", :title => title
+        - else
+          - if post.gif?
+            = image_tag(post.picture.url, :alt => alt)
+          - else
+            = link_to image_tag(post.picture.medium.url, :alt => alt),  |
+                      post.picture.large.url, |
+                      :class => 'picture',  |
+                      :id => "picture-#{post.id}",  |
+                      :title => title
+            =# link_to picture.is_original? ? '给这张图片配上可爱的台词' : '我配的台词更好',draw_picture_path(picture) %>
+
+      - if (@list_view && plain_text_size > 300)
+        = plain_text.mb_chars[0, 150]
+        = link_to "(剩余#{plain_text_size-150}字)", [post.group || post.topic.group, post.topic], :class => 'more'
+      - else
+        = post_content post
+      -#
+        %div.repost-info
+          - if post.meta[:reposted_to]
+            已分享至
+            - post.meta[:reposted_to].each do |group_id, sharer_id|
+              - g = Group.find(group_id)
+              %span.reposted_to{:data => {:group_id => g.id}}= link_to g.name, g
+        - if post.attachment?
+          = post.meta[:price] && post.meta[:price] > 0 && "售价#{post.meta[:price]}积分"

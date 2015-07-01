@@ -9,7 +9,7 @@
     %div[topic.top_post]
       %h2.entry-title= link_to topic_title(topic), [group, topic], :rel => 'bookmark'
       .entry-content
-        - if topic.top_post && topic.top_post.is_a?(Picture)
+        - if topic.top_post && topic.top_post.picture?
           = link_to [group, topic] do
             = image_tag topic.top_post.picture.thumb.url
       %ul.meta.cf
