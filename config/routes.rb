@@ -184,6 +184,319 @@ Teapoy::Application.routes.draw do
   root :to => 'topics#index', :group_id => 'all'
   #root :to => 'home#index'
   # get ':controller(/:action(/:id(.:format)))'
+  post '/token' => 'users#token'
+  get "syncs/:type/new" => "syncs#new", :as => :sync_new
+  match "syncs/:type/callback" => "syncs#callback", :as => :sync_callback, :via => :get
 
+  namespace :admin do
+    get 'emails/create' => 'emails#create'
+    get 'statistic' =>'statistic#index'
+    get 'statistic/stats' =>'statistic#stats'
+    root :to => 'statistic#stats'
+    #root :to => 'dashboard#index', :as => 'dashboard'
+    get 'topics/comments/:id' => 'topics#comments'
+
+    get '/' => 'statistic#index', :as => 'dashboard'
+
+    resources :users do
+      member do
+        get :publicate_groups
+        get :comments
+        post :suspend
+        post :unsuspend
+        post :activate
+        post :delete_avatar
+        post :delete_comments
+        post :add_credit
+        post :join_group
+        post :quit_group
+      end
+
+      resources :topics
+      resources :transactions
+      resources :inboxes
+      collection do
+        get 'by_state/:by_state' => 'users#index'
+      end
+    end
+    resources :inboxes
+    get 'frontpage' => 'frontpage#index', :as => :frontpage
+    get 'frontpage/:action' => 'frontpage'
+
+    resources :topics do
+      member do
+        post :move
+        post :track
+        post :set_status
+      end
+      collection do
+        post :move
+        post :track
+        post :batch_set_status
+        get 'by_status/:status' => 'topics#index'
+      end
+      get 'comments' => 'topics#comments'
+    end
+
+    resources :groups do
+      member do
+        get :moveup
+        get :movedown
+      end
+      collection do
+        post :merge
+      end
+    end
+    #resources :themes
+    resources :ticket_types
+    resources :announcements
+    resources :badges
+    #resources :invitation_codes, :collection => {:generate => :post}
+    #resources :reports, :member => {:ignore => :post, :remove => :post},
+    #  :collection => {:batch => :post}
+    get 'keywords(/:action)' => 'keywords'
+  end
+
+### users {{{
+  resource :session
+  get '/logout' => 'sessions#destroy', :as => :logout
+  get '/login' => 'sessions#new', :as => :login
+  # get '/register' => 'register#create_account', :as => :register
+  # get '/signup' => 'register#create_account', :as => :signup
+  get '/signup' => 'users#new', as: :signup
+
+  resources :password_resets, :only => [:new, :create, :edit, :update]
+  get '/activate/:activation_code' => 'users#activate', :as => :activate
+  resource :password, module: 'users', only: [:edit, :update]
+
+  resources :users do
+    #resources :read_statuses, :only => [:create]
+    #resources :posts
+    #resources :profiles
+    resources :badges
+
+    resources :reputation_logs
+    resources :reputations
+    resources :friendships do
+      collection do
+        get :followers
+        get :followings
+      end
+    end
+    resources :dislikes, :module => 'users', :only => [:index, :create, :destroy]
+    resource :avatar, :module => 'users', :only => [:edit, :update, :destroy]
+    #resources :friendships
+
+    member do
+      get 'follow'
+      post 'follow'
+      get 'unfollow'
+      post 'unfollow'
+      get 'followers'
+      get 'followings'
+      get 'binding'
+      post 'dislike'
+      get 'dislike'
+      post 'cancel_dislike'
+    end
+
+    resources :topics, :module => 'users', :only => :index do
+      collection do
+        get :hottest
+        get 'hottest(/:limit/(page/:page))' => 'topics#index', :order => 'hottest'
+        get 'page/:page' => 'topics#index', :order => 'latest'
+        get 'latest' => 'topics#index'
+      end
+    end
+
+    resources :groups do
+      resources :reputation_logs
+      resources :topics, :module => 'users', :only => :index do
+        collection do
+          get :hottest
+          get 'page/:page' => 'topics#index', :order => 'latest'
+          get 'latest(/page/:page)' => 'topics#index', :order => 'latest'
+          get 'hottest(/:limit(/page/:page))' => 'topics#index', :order => 'hottest'
+        end
+      end
+    end
+  end
+### }}}
+
+### groups {{{
+  post '/groups/:group_id/reject_join/:user_id' => 'groups#reject_join', :as => :reject_join_group
+  post '/groups/:group_id/allow_join/:user_id' => 'groups#allow_join', :as => :allow_join_group
+
+
+  get '/groups/:group_id/articles(.:format)' => 'topics#index'
+  get '/groups/:group_id/articles/new(.:format)' => 'topics#new'
+  get '/groups/:group_id/articles/:id(.:format)' => 'topics#show'
+  get '/groups/:group_id/articles/:topic_id/comments(.:format)' => 'comments#index'
+  post '/groups/:group_id/articles/:topic_id/comments(.:format)' => 'posts#create'
+  get '/groups/:group_id/topics/:topic_id/comments(.:format)' => 'comments#index'
+  post '/groups/:group_id/topics/:topic_id/comments(.:format)' => 'posts#create'
+  resources :groups do
+    member do
+      post :join
+      post :quit
+      post :invite
+      get :judge_articles
+    end
+
+    collection do
+      get :search
+    end
+
+    resources :topics do
+      collection do
+        get 'latest_comment(/page/:page)(.:format)', :action => :index, :order => 'latest_comment'
+        get 'latest(/page/:page)(.:format)', :action => :index, :order => 'latest', :as => 'latest'
+        #match 'hottest(/:limit)' => 'topics#hottest', :via => :get, :as => :hottest
+        get 'hottest(/:limit)(/page/:page)(.:format)', :action => :index, :order => 'hottest', :as => 'hottest'
+        get :pending
+        get :sitemap
+        get :feed, :format => :xml
+        get :search
+      end
+
+      member do
+        post :subscribe
+        get :subscribe
+        post :unsubscribe
+        get :unsubscribe
+        post :move
+        get :move_out
+        get :delete
+        get :publish
+        post :unpublish
+        get :links
+
+      end
+
+      resources :posts do
+        member do
+          get :up
+          get :dn
+        end
+      end
+      resources :attachments do
+        post 'set_price', :on => :member
+      end
+      resources :rewards
+      #match 'feed' => 'topics#index', :via => :get, :format => 'xml', :as => :group_feed
+    end
+
+    resources :archives, :only => [:index, :show]
+
+    resources :tickets do
+      collection do
+        get :submit
+      end
+    end
+
+    resources :memberships
+    resources :users
+
+  end
+### }}}
+
+### topics {{{
+
+  #match '/users(.:format)' => 'users#index', :as => :all_users
+  # match ':group_id/users(.:format)' => 'users#index', :as => :group_users, :via => :get
+  # match 'topics' => 'topics#create', :via => :post, :as => :all_articles
+  # match 'topics/new' => 'topics#new', :as => :new_all_article, :via => :get
+  # match 'topics/:id/dismiss' => 'topics#dismiss', :as => :dismiss_article, :via => :get
+  match 'all/hottest(/:limit)(/page/:page)(.:format)' => 'topics#index',
+        :via => :get, :as => :hottest_all_articles,
+        :group_id => 'all', :order => 'hottest'
+  match 'all/latest(/page/:page)(.:format)' => 'topics#index',
+        :via => :get, :as => :latest_all_articles,
+        :group_id => 'all', :order => 'latest'
+
+  resources :topics
+  match 'topics/repost' => 'topics#repost', :as => :repost_form, :via => :get
+  match 'topics/create(.:format)' => 'topics#create', :via => [:post, :patch]
+  post 'topics(.:format)' => 'topics#create', group_id: 'all'
+
+  # compat with comments
+  get '/topics/:article_id/comments(.:format)' => 'posts#index'
+  post '/topics/comments(.:format)' => 'posts#create'
+  post '/groups/:group_id/:topic_id/comments(.:format)' => 'posts#create'
+  # compat with old style article path
+  get '/:group_id/archives/:id', to: 'archives#show', constraints: { id: /\d{4}(-\d{1,2}(-\d{1,2})?)?/ }
+  post '/:group_id/:topic_id/comments(.:format)' => 'posts#create'
+
+  get '/:group_id/:topic_id/comments(.:format)' => 'comments#index'
+
+  get '/:group_id/:id(.:format)' => 'topics#show'
+  get '/:group_id(.:format)' => 'topics#index'
+
+  # resources :groups
+  # scope ":group_id", :as => '' do
+  #   resources :tickets do
+  #     collection do
+  #       get :submit
+  #     end
+  #   end
+
+  #   resources :users
+
+  #   resources :archives, :only => [:index, :show]
+
+  #   resources :topics, :path => ''  do
+  #     collection do
+  #       get 'latest_comment(/page/:page)(.:format)', :action => :index, :order => 'latest_comment'
+  #       get 'latest(/page/:page)(.:format)', :action => :index, :order => 'latest'
+  #       #match 'hottest(/:limit)' => 'topics#hottest', :via => :get, :as => :hottest
+  #       get 'hottest(/:limit)(/page/:page)(.:format)', :action => :index, :order => 'hottest'
+  #       get :pending
+  #       get :sitemap
+  #       get :feed, :format => :xml
+  #       get :search
+  #     end
+
+  #     member do
+  #       post :subscribe
+  #       get :subscribe
+  #       post :unsubscribe
+  #       get :unsubscribe
+  #       post :move
+  #       get :move_out
+  #       get :delete
+  #       get :publish
+  #       post :unpublish
+  #       get :links
+
+  #     end
+
+  #     resources :comments do
+  #       member do
+  #         get :up
+  #         get :dn
+  #       end
+  #     end
+  #     resources :attachments do
+  #       post 'set_price', :on => :member
+  #     end
+  #     resources :rewards
+  #     #match 'feed' => 'topics#index', :via => :get, :format => 'xml', :as => :group_feed
+  #   end
+  # end
+
+
+  # match ':group_id(.:format)' => 'topics#index', :as => :group_articles, :via => :get
+  # match ':group_id/:id(.:format)' => 'topics#show', :as => :group_article, :via => :get
+  # match ':group_id/latest(.:format)' => 'topics#index',
+  #       :as => :latest_group_articles, :via => :get,
+  #       :order => 'latest'
+  # match ':group_id/hottest(/:limit(.:format))' => 'topics#index',
+  #       :as => :hottest_group_articles, :via => :get,
+  #       :order => 'hottest'
+  # match ':group_id/pending(.:format)' => 'topics#pending',
+  #       :as => :pending_group_articles  , :via => :get
+  # match 'topics/:id/mark' => 'topics#mark', :via => :post
+
+### }}}
 end
-Dir[Rails.root.join('config/routes/*.rb')].sort.each{|r| require_dependency(r)}
+# Dir[Rails.root.join('config/routes/*.rb')].sort.each{|r| require_dependency(r)}

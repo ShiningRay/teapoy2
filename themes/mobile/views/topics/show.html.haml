@@ -2,7 +2,7 @@
 
 - group = @group || @topic.group
 
-- if topic
+- if @topic
   - @comments = @topic.comments
   - @list_view = true if logged_in? && current_user.has_read_topic?(@topic) && params[:read].nil?
   = render @topic
