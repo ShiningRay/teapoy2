@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   #super_caches_page :show
   include RegistrationAspect
   # caches_page_for_anonymous :index
-  
+
   def index
     @user = current_user
     if params[:group_id]
@@ -27,7 +27,7 @@ class UsersController < ApplicationController
       str = "%#{params[:search]}%"
       @users =  User.where("name LIKE ? or login LIKE ? ",str,str).page(params[:page])
     else
-      redirect_to :controller => :my
+      redirect_to '/'
     end
   end
 

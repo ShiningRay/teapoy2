@@ -189,15 +189,6 @@ class GroupsController < ApplicationController
     end
   end
 protected
-  def render(*args)
-    if topics && ! topics.empty? && logged_in?
-      #current_user.ratings_for @topics
-      current_user.roles
-      Topic.send(:preload_associations, topics, ['score'])
-    end
-    super(*args)
-  end
-
   def group_is_secret
     flash[:notice] =  "这个是私秘小组"
     render :action=>"forbidden",:controller=>"groups"

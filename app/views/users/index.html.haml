@@ -15,7 +15,7 @@
   %table.user_lists
     - for user in @users
       %tr
-        %td.user_avatar= link_to(image_tag(user.avatar(:thumb)),user)
+        %td.user_avatar= link_to(image_tag(user.avatar.thumb),user)
         %td.user_name= link_to user.name_or_login, user_path(user)
         - if @group
           %td
