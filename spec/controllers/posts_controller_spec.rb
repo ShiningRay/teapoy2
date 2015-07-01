@@ -18,18 +18,37 @@ require 'rails_helper'
 # Message expectations are only used when there is no simpler way to specify
 # that an instance is receiving a specific message.
 
-describe CommentsController, type: :controller do
+describe PostsController, type: :controller do
   let(:group) { create :group }
   let(:topic) { create :topic, group: group }
 
-  describe 'GET #index' do
-    before do
-       @posts = create_list :post, 3, topic: topic
-    end
-    it 'returns posts' do
-      get :index, topic_id: topic.id, group_id: group.id
+  # describe 'GET #index' do
+  #   before do
+  #      @posts = create_list :post, 3, topic: topic
+  #   end
+  #   it 'returns posts' do
+  #     get :index, topic_id: topic.id, group_id: group.id
 
-      expect(assigns(:comments)).to match(@posts)
+  #     expect(assigns(:posts)).to match(@posts)
+  #   end
+  # end
+
+  describe 'POST #create' do
+    context 'when user logged in' do
+      before do
+        login_user
+      end
+
+      it 'creates post' do
+        expect{
+          post :create, post: { content: 'testtest' }, topic_id: topic.id, group_id: group.id
+        }.to change{topic.posts.count}
+
+      end
+      it 'increments posts floor' do
+        post :create, post: { content: 'testtest' }, topic_id: topic.id, group_id: group.id
+        expect(assigns(:post).floor).to eq(1)
+      end
     end
   end
 end
