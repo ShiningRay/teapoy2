@@ -3,7 +3,7 @@
 
 - if @limit
   - content_for :title, sprintf("浏览%s中最热的帖子", t("topics.#{@limit}"))
-- if topics.num_pages == 0
+- if @topics.num_pages == 0
   - if @limit
     .empty-list
       = t("topics.#{@limit}")
@@ -16,9 +16,9 @@
         目前尚无帖子
 - else
   .topic-list.hfeed
-    = render(:partial => topics.reject{|a|a.top_post.nil?})
+    = render(:partial => @topics.reject{|a|a.top_post.nil?})
   = paginate topics
-  - if @limit && @next_limit && topics.num_pages == topics.current_page && topics.num_pages > 0
+  - if @limit && @next_limit && @topics.num_pages == @topics.current_page && @topics.num_pages > 0
     .empty-list
       您已看完了
       = t("topics.#{@limit}")

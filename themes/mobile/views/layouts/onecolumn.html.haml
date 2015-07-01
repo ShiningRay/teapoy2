@@ -20,8 +20,8 @@
       - if @group and not @group.new_record?
         =  '/'
         = link_to(@group.name, @group)
-        - if topic and not topic.new_record?
-          - y,m,d = topic.created_at.year,topic.created_at.month,topic.created_at.day
+        - if @topic and not @topic.new_record?
+          - y,m,d = @topic.created_at.year,topic.created_at.month,@topic.created_at.day
           =  '/'
           = link_to_unless_current(y, archive_path(:year => y))
           =  '/'

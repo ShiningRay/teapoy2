@@ -1,6 +1,17 @@
 # coding: utf-8
 module GroupsHelper
   #include TagsHelper
+  def latest_group_topics_path(group)
+    "/groups/#{group.alias}/topics"
+  end
+
+  def latest_all_topics_path
+    "/"
+  end
+
+  def hottest_all_topics_path
+    "/all/hottest"
+  end
 
   def url_for_group group
     group = Group.find(group) unless group.is_a? Group

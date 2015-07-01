@@ -12,7 +12,7 @@
     目前尚无帖子
 - else
   = render(:partial => '/topics/topic', :collection => @topics.reject{|a|a.top_post.nil?})
-  = paginate topics
+  = paginate @topics
 
   - if @limit && @next_limit && @topics.num_pages == @topics.current_page && @topics.num_pages > 0
     您已看完了
