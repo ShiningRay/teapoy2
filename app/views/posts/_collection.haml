@@ -1,9 +1,0 @@
--# coding: utf-8
-= render_post_content collection
-
-%ol
-  - collection.each do |item|
-    - if item.top?
-      %li= link_to topic_title(item.topic), [item.group, item.topic]
-    - else
-      %li= render_posts item

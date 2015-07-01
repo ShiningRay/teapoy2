@@ -1,10 +1,9 @@
 - plain_text = post.content.to_s
 - plain_text_size = plain_text.mb_chars.size
-- if @list_view && plain_text_size > 500
-  = plain_text.mb_chars[0, 150]
-  = link_to "(剩余#{plain_text_size-150}字)", topic_path(post.group||post.topic.group, post.topic,:read=>"full"), :class => 'more'
-- else
-  - if post.floor == 0
-    = post_content post
-  - else
-    = h post.content
+= link_to("查看大图#{post.dim_size(:large)}", post.picture.large.url)
+%br/
+= link_to("中图#{post.dim_size(:medium)}",post.picture.medium.url)
+%br/
+= link_to("小图#{post.dim_size(:small)}",post.picture.small.url)
+%br/
+= post_content post

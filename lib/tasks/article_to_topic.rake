@@ -8,18 +8,17 @@ namespace :migration do
     db[:posts].update({'$rename' => {'article_id' => 'topic_id'}})
     db[:inboxes].update({'$rename' => {'article_id' => 'topic_id'}})
 <<js
-
   db.articles.renameCollection('topics');
   db.posts.dropIndex({"article_id" : 1, "floor" : 1 });
-db.posts.update({}, {'$rename':{'article_id': 'topic_id'}}, {multi: true});
-db.posts.ensureIndex({"topic_id" : 1, "floor" : 1 }, {background: true, unique: true});
-db.inboxes.dropIndex({"user_id" : 1, "article_id" : -1 });
-db.inboxes.dropIndex({"article_id" : 1 });
-db.inboxes.update({}, {'$rename':{'article_id': 'topic_id'}}, {multi: true});
-db.inboxes.ensureIndex({"user_id" : 1, "topic_id" : -1 });
-db.inboxes.ensureIndex({"topic_id" : 1 });
-db.notifications.update({subject_type: 'Article'}, {$set: {subject_type: 'Topic'}}, {multi: true});
-db.sequences.update({seq_name: "article__id"}, {$set: {seq_name: 'topic__id'}});
+  db.posts.update({}, {'$rename':{'article_id': 'topic_id'}}, {multi: true});
+  db.posts.ensureIndex({"topic_id" : 1, "floor" : 1 }, {background: true, unique: true});
+  db.inboxes.dropIndex({"user_id" : 1, "article_id" : -1 });
+  db.inboxes.dropIndex({"article_id" : 1 });
+  db.inboxes.update({}, {'$rename':{'article_id': 'topic_id'}}, {multi: true});
+  db.inboxes.ensureIndex({"user_id" : 1, "topic_id" : -1 });
+  db.inboxes.ensureIndex({"topic_id" : 1 });
+  db.notifications.update({subject_type: 'Article'}, {$set: {subject_type: 'Topic'}}, {multi: true});
+  db.sequences.update({seq_name: "article__id"}, {$set: {seq_name: 'topic__id'}});
 js
   end
 
@@ -52,6 +51,6 @@ js
       p['content'] = p.delete('choice')
       db[:posts].find('_id' => post['_id']).update(post)
     end
-
+    db[:posts].find.update_all('$unset' => {"_type" => ""})
   end
 end
