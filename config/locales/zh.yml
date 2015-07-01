@@ -1,6 +1,19 @@
 ---
 zh:
   activerecord:
+    models:
+      group: 小组
+      post: 帖子
+      topic: 主题
+      story: 故事
+      story_comment: 留言
+      user: 用户
+      guestbook: 留言板
+      article: 文章
+      message: 消息
+      notification: 通知
+      tag: 标签
+
     attributes:
       group:
         alias: 代号
@@ -20,8 +33,20 @@ zh:
       story:
         content: 正文
         anonymous: 匿名
+        email: 邮箱
+        picture: 图片
+        author: 作者
       story_comment:
-        content: 内文
+        content: 内容
+        author: 作者
+      topic:
+        title: 标题
+        anonymous: 匿名
+      guestbook:
+        name: 名字
+        owner: 主人
+
+
     errors:
       messages:
         record_invalid: "验证失败: %{errors}"
@@ -93,69 +118,6 @@ zh:
     must_login: 必须登录才能回帖
     must_login_or_signup_to_reply: "请%{login}或%{signup}后留言"
     reply_successfully: " 评论成功"
-  date:
-    abbr_day_names:
-      - 周一
-      - 周二
-      - 周三
-      - 周四
-      - 周五
-      - 周六
-      - 周日
-    abbr_month_names:
-      - ~
-      - 一月
-      - 二月
-      - 三月
-      - 四月
-      - 五月
-      - 六月
-      - 七月
-      - 八月
-      - 九月
-      - 十月
-      - 十一月
-      - 十二月
-    day_names:
-      - 周一
-      - 周二
-      - 周三
-      - 周四
-      - 周五
-      - 周六
-      - 周日
-    month_names:
-      - ~
-      - 一月
-      - 二月
-      - 三月
-      - 四月
-      - 五月
-      - 六月
-      - 七月
-      - 八月
-      - 九月
-      - 十月
-      - 十一月
-      - 十二月
-    order:
-      - year
-      - month
-      - day
-  datetime:
-    distance_in_words:
-      about_x_hours: "约%{count}小时前"
-      about_x_months: "约%{count}个月"
-      about_x_years: "%{count}年左右"
-      almost_x_years: "近%{count}年"
-      half_a_minute: 半分钟
-      less_than_x_minutes: "%{count}分钟内"
-      less_than_x_seconds: "%{count}秒钟内"
-      over_x_years: "超过%{count}年"
-      x_days: "%{count}天前"
-      x_minutes: "%{count}分钟"
-      x_months: "%{count}个月前"
-      x_seconds: "%{count}秒钟"
   groups:
     back_to: "返回小组“%{group}”"
     create: 创建新小组

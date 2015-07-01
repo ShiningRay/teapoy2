@@ -70,6 +70,17 @@ RSpec.describe StoriesController, type: :controller do
         }, guestbook_id: guestbook.id
         expect(assigns(:story)).to be_anonymous
       end
+      context 'and given email is registered' do
+        before { @user = create :active_user, email: 'test@test.com' }
+
+        it 'requires login' do
+          post :create, story: {
+            content: 'testtest',
+            email: 'test@test.com'
+          }, guestbook_id: guestbook.id
+          expect(response).to be_redirect
+        end
+      end
     end
   end
 

@@ -24,7 +24,12 @@ class StoriesController < ApplicationController
 
   def create
     @story = @guestbook.stories.new(story_params)
-    @story.author = current_user if logged_in?
+    if logged_in?
+      @story.author = current_user
+    elsif User.where(email: @story.email).exists?
+      flash[:error] = '您提供的邮箱已被注册，请登录'
+      return redirect_to(new_session_path)
+    end
     @story.save
     respond_with(@story, location: [guestbook, :stories])
   end
