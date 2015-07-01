@@ -12,5 +12,6 @@ process 'puma' do
   #   stop_command 'kill -9 {PID}'
   #   check :memory, below: 500.megabytes, times: 3
   # end
+  check :memory, below: 600.megabytes, times: 3
 end
 end
