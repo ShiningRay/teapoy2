@@ -12,7 +12,7 @@
     - unless logged_in?
       您目前是游客身份，请
       = link_to '登录', login_path
-    = simple_form_for((@post || @topic.comments.new), url: group_topic_comments_path(@group, @topic, format: :js), html:{multipart: true, remote: true}) do |f|
+    = simple_form_for((@post || @topic.posts.new), url: group_topic_posts_path(@group, @topic, format: :js), html:{multipart: true, remote: true}) do |f|
 
       = f.input :parent_id, as: :hidden
       #faceTitle
