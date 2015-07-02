@@ -14,13 +14,13 @@
     = @user.login
     的文章
 #check_body
-  - if not topics or topics.empty?
+  - if not @topics or @topics.empty?
     %p No Articles
   - else
     = render 'admin/topics/selection' unless params[:id]
     #entities
       - @checkbox = true
-      = render topics
+      = render@ topics
   - end # end if
-  = paginate topics
+  = paginate @topics
   #status
