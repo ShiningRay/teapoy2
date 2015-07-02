@@ -90,7 +90,6 @@ class PostsController < ApplicationController
       p = post_params
       return render :text => '数据错误，如果您用的是手机，请访问手机版博聆 http://m.bling0.com' if p.blank?
       if !p[:picture].blank?
-        p[:type] = 'Picture'
         transform_binary(p, :picture)
       else
         p.delete :picture
@@ -117,19 +116,14 @@ class PostsController < ApplicationController
       end
       #comment.content = ActionController::Base.helpers.sanitize comment.content
       post.content ||= ''
-      post.content.strip!
       post.anonymous ||= false
 
       if logged_in?
         # FIXME: move subscribe to observer
         # current_user.subscribe(@topic)
         post.user_id = current_user.id
-        post.anonymous = true if group.options.force_comments_anonymous?
-      else
-        post.anonymous = true
       end
       topic.posts << post
-      # binding.pry
 
       begin
         if !params[:reward].blank?

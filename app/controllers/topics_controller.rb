@@ -94,17 +94,10 @@ class TopicsController < ApplicationController
       scope = scope.latest_created
     end
 
-    if params[:after]
-      scope = scope.where(:id.gt => params[:id]).sort(id: -1)
-    end
-
-    if params[:before]
-      scope = scope.where(:id.lt => params[:id]).sort(id: 1)
-    end
+    scope = scope.where(:id.gt => params[:id]).sort(id: -1) if params[:after]
+    scope = scope.where(:id.lt => params[:id]).sort(id: 1) if params[:before]
 
     @topics = scope.includes(:group).page(params[:page])
-    @show_group = !@group
-    @list_view = true
 
     if stale?(@topics)
       respond_to do |format|

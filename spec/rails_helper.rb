@@ -99,4 +99,15 @@ RSpec.configure do |config|
 
   config.include ActiveSupport::Testing::TimeHelpers
   config.include AuthenticationHelper
+
+  config.around(:each) do |example|
+    if example.metadata[:type] == :feature
+      WebMock.allow_net_connect!
+      # VCR.turned_off { example_method.run }
+      example.run
+      WebMock.disable_net_connect!
+    else
+      example.run
+    end
+  end
 end

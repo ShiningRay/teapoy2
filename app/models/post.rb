@@ -56,7 +56,7 @@ class Post
   #attr_protected :floor, :neg, :pos, :score, :status, :meta
   #attr_readonly :user_id
   #validates_with DuplicateEliminator, fields: [:content]
-
+  before_validation {|post| post.content.strip!}
   def top?
     floor == 0 || parent_id.blank?
   end
@@ -98,15 +98,6 @@ class Post
 
 
   class << self
-    def new_with_cast(*a, &b)
-      if (h = a.first).is_a? Hash and (type = h.delete(:type) || h.delete('type')) and (klass = type.constantize) != self
-        raise "wtF hax!!"  unless klass < self  # klass should be a descendant of us
-        return klass.new(*a, &b)
-      end
-      new_without_cast(*a, &b)
-    end
-
-    alias_method_chain :new, :cast
 
     def wrap(id)
       case id
