@@ -63,7 +63,7 @@ $(document).bind 'pageinit', ->
       pswpElement, PhotoSwipeUI_Default, pictures, options)
     gallery.init()
     return false
-  $('.ui-content').on 'vclick', '.comment .body', ->
+  $('.ui-content').on 'vclick', '.post .body', ->
     $(this).siblings('.reply').click()
 
 

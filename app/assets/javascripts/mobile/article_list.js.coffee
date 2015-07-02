@@ -16,4 +16,4 @@ $(document).bind 'pageshow', ->
 # infinitive scrolling
 $(document).bind 'scrollstop', ->
   if $(window).scrollTop() + $(window).height() >= $(document).height() - 100
-    $('a[rel=next]').click()
+    $('.ui-page-active').find('a[rel=next]').click()

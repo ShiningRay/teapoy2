@@ -17,6 +17,10 @@
     .body
       - plain_text = post.content.to_s
       - plain_text_size = plain_text.mb_chars.size
+      - if post.picture?
+        - dim = post.dimensions['original'] || [0,0]
+        = link_to image_tag(post.picture.small), post.picture.large.url, class: 'picture', data: {width: dim[0].to_i, height: dim[1].to_i}, title: post.topic.topic_title
+
       - if action_name == 'index' && plain_text_size > 500
         = plain_text.mb_chars[0, 150]
         = link_to "(剩余#{plain_text_size-150}字)", topic_path(post.group||post.topic.group, post.topic,:read=>"full"), :class => 'more'
