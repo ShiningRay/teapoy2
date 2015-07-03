@@ -17,7 +17,7 @@ if $('#post_content').size() > 0
   post_content_editor = new Simditor
     textarea: $('#post_content'),
     toolbar: [
-      'title','bold','italic','underline','strikethrough','color','|'
+      'bold','italic','underline','strikethrough','color','|'
       'ol','ul','blockquote','link','hr','|'
     ]
   $('#post_content').data('editor', post_content_editor)

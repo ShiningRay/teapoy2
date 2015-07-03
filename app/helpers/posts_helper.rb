@@ -63,7 +63,7 @@ module PostsHelper
   end
 
   def markdown
-    @markdown ||= Redcarpet::Markdown.new(Redcarpet::Render::HTML, filter_html: true, strikethrough: true)
+    @markdown ||= Redcarpet::Markdown.new(Redcarpet::Render::HTML, filter_html: true, strikethrough: true, hard_wrap: true)
   end
 
   def post_content(post=@post)

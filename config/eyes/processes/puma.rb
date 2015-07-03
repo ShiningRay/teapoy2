@@ -4,7 +4,7 @@ process 'puma' do
   start_command "bundle exec puma -C #{CURRENT_PATH}/config/puma/#{RAILS_ENV}.rb -e #{RAILS_ENV} -d"
   # stop_command "bundle exec pumactl stop"
   stop_signals [:QUIT, 2.seconds, :TERM, 1.seconds, :KILL]
-  restart_command "kill -USR2 {PID}"
+  restart_command "kill -USR1 {PID}"
   start_timeout 100.seconds
   restart_grace 30.seconds
   # monitor_children do
