@@ -4,8 +4,6 @@ require File.expand_path('../boot', __FILE__)
 require 'rails/all'
 # If you have a Gemfile, require the gems listed there, including any gems
 # you've limited to :test, :development, or :production.UA-576087-6
-ENV['GOOGLE_ACCOUNT_ID'] = 'UA-576087-6'
-ENV['SITE_NAME'] = '博聆网'
 GC::Profiler.enable
 
 $revision = ''

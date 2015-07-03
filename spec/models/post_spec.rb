@@ -1,10 +1,23 @@
 # coding: utf-8
 require 'rails_helper'
 
-describe Post do
+describe Post, type: :model do
   let(:author) { create :user }
   let(:topic) { create :topic, user: author }
   subject(:post) { topic.top_post }
+
+  describe Post::RatableAspect do
+    describe '#rated?' do
+      let!(:user) { create :active_user }
+      let(:post) { topic.top_post }
+      before do
+        Rating.create post_id: post.id.to_s, user_id: user.id, score: 1
+      end
+      it 'tests if user rated the posts' do
+        expect(post.rated_by?(user)).to be true
+      end
+    end
+  end
 
   describe '::MentionsDetection' do
     it "detects @ login" do

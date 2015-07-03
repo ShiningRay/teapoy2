@@ -51,4 +51,37 @@ describe PostsController, type: :controller do
       end
     end
   end
+
+  describe 'POST #up' do
+    context 'when user logged in' do
+      before do
+        login_user
+        @topic = create :topic
+      end
+
+      it 'increments pos score' do
+        expect{
+          post :up, id: topic.top_post.id
+        }.to change{ Rating.count }
+        expect(topic.top_post.reload.pos).to eq(1)
+      end
+    end
+  end
+
+  describe 'POST #dn' do
+    context 'when user logged in' do
+      before do
+        login_user
+        @topic = create :topic
+      end
+
+      it 'increments neg score' do
+        expect {
+          post :dn, id: topic.top_post.id
+        }.to change(Rating, :count)
+        expect(topic.top_post.reload.neg).to eq(1)
+      end
+    end
+  end
+
 end

@@ -8,7 +8,6 @@
 //= require 'ajaxlogin'
 //= require "jquery/jquery.cookie"
 //= require "jquery/countdown"
-//= require "jquery/face"
 //= require "jquery/insertAtCaret"
 // require "jquery/lazyload"
 // usage: log('inside coolFunc', this, arguments);

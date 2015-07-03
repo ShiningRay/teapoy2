@@ -45,6 +45,9 @@ zh-CN:
       guestbook:
         name: 名字
         owner: 主人
+      topic:
+        title: 标题
+        content: 内容
 
 
     errors:

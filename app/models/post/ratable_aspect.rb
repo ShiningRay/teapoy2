@@ -36,8 +36,8 @@ module Post::RatableAspect
 
   def rated_by? user
     uid = user.is_a?(User) ? user.id : user
-    return true if uid == author_id
-    Rating.select(:id).where(user_id: uid, post_id: id)
+    return true if uid == user_id
+    Rating.where(user_id: uid, post_id: id.to_s).exists?
   end
 
   def vote user_id, s

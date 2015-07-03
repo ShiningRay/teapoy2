@@ -32,6 +32,10 @@ zh-CN:
     #     password: 'No special characters, please.'
     labels:
       user:
+      topic:
+        new:
+          title: 标题
+          content: 内容
 
     hints:
       user:

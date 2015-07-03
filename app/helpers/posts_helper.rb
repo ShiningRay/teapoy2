@@ -62,16 +62,23 @@ module PostsHelper
     end
   end
 
+  def markdown
+    @markdown ||= Redcarpet::Markdown.new(Redcarpet::Render::HTML, filter_html: true, strikethrough: true)
+  end
+
   def post_content(post=@post)
-    raw(Rails.cache.fetch([post, :content, request.format.to_s]) do
-      convert_mention(case post.format
-        when :plain
-          auto_link(simple_format(emojify(h(post.content).to_str)), :urls)
-        when :simple
-          simple_format(post.content)
-        when :markdown
-          RDiscount.new(sanitize post.content).to_html.html_safe
-        end)
+    # raw(Rails.cache.fetch([post, :content, request.format.to_s]) do
+    #   convert_mention(case post.format
+    #     when :plain
+    #       auto_link(simple_format(emojify(h(post.content).to_str)), :urls)
+    #     when :simple
+    #       simple_format(post.content)
+    #     when :markdown
+    #       RDiscount.new(sanitize post.content).to_html.html_safe
+    #     end)
+    # end)
+    raw(Rails.cache.fetch([post, :content]) do
+      markdown.render(post.content)
     end)
   end
 
@@ -85,7 +92,7 @@ module PostsHelper
         page = Topic.find_by_id(name)
         group = page.group if page
       else
-        page = group.topics.find_by_cached_slug(name)
+        page = group.topics.find_by_slug(name)
       end
       if page
         link_to (title.blank? ? topic_title(page) : title), topic_path(group, page)

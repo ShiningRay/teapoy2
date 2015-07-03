@@ -50,6 +50,7 @@ class Topic
   index({group_id: 1, status: 1, slug: 1}, {background: true})
   index({created_at: -1, group_id: 1, status: 1}, {background: true})
   t_belongs_to :user, class_name: 'User'
+  validates :title, presence: true
 
   # before_create {
   #   self[:posts_count] = 1 if top_post

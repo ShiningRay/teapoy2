@@ -15,7 +15,6 @@
       = f.input :picture, :as => :file, :label => '图片'
       = f.input :swf, :as => :file, :label => 'Flash' if logged_in? && current_user.is_admin?
       = f.input :video_page_link, :label => '视频地址', :as => :url, :required => false, :hint => '请贴视频页面的地址，目前只支持优酷，土豆以及音悦Tai', :input_html => {:value => params[:topic].try(:delete, :video_page_link) || ''  }
-      #faceTitle
       = f.input :content, :as => :text, :label => '正文', :required => false
       =# f.input :created_at, :label => '时间', :as => :datetime, :default => Time.now if current_user.is_admin?
       = f.input :uncommentable, :label => '禁止评论', :as => :boolean, :default => false

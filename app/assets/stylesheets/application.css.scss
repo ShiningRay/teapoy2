@@ -9,6 +9,7 @@
  *= require 'notifications'
  *= require 'jquery.atwho'
  *= require select2
+ *= require simditor
  * require "xmas"
  * require "countdown"
 */
@@ -328,8 +329,6 @@ ul#notifications_list{
   margin-bottom:5px;
   padding-bottom:10px;
 }
-#faceTitle{height:22px; width:36px; background:url("/images/face.gif") no-repeat center center transparent;cursor:pointer;}
-#faceContent{width:364px; position:absolute;border:1px solid #aaa;border-top:none;z-index:9999; text-align:center;padding:3px;padding-bottom:6px;background:#fff;} #faceContent a img{float:left;cursor:pointer;margin:1px 1px; border:#cacaca 1px solid}  #faceContent a:hover img{border:1px solid #f51d69}
   #invite-info{
     margin: auto auto 20px;
     overflow: visible !important;

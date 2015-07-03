@@ -15,9 +15,8 @@
     = simple_form_for((@post || @topic.posts.new), url: group_topic_posts_path(@group, @topic, format: :js), html:{multipart: true, remote: true}) do |f|
 
       = f.input :parent_id, as: :hidden
-      #faceTitle
-      = f.input :content, as: :text, input_html: {rows: 2, placeholder: "按 Ctrl+Enter 快速发表"}
-      = f.button :submit, '回复', button_html: {class: 'btn btn-primary', data:{disable_with: '...'}}
+      = f.input :content, as: :text, placeholder: "按 Ctrl+Enter 快速发表"
+      = f.button :submit, '回复', button_html: {data:{disable_with: '...'}}
       - if logged_in?
         - if current_user.own_topic?(@topic) and @topic.anonymous?
           = f.input :anonymous, as: :boolean, input_html: {checked: "checked" }
@@ -31,3 +30,5 @@
             %input(type='text' name='reward')
 - else
   = render 'comments/login_to_reply'
+
+

@@ -1,2 +1,6 @@
 $('ul.posts').append('<%= j render(@post) %>');
 $('#post_content').val('');
+var editor = $('#post_content').data('editor')
+if(editor){
+	editor.setValue('');
+}

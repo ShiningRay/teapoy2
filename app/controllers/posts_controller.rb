@@ -294,6 +294,7 @@ class PostsController < ApplicationController
     #current_user.spend_credit(10, "vote down \##{@post.topic.id} #{@post.floor > 0 && @post.floor}") if logged_in?
     vote(@post, -1)
   end
+
   protected
   def vote(post, score)
     unless logged_in?

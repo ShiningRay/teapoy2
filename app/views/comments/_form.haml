@@ -15,7 +15,6 @@
     = simple_form_for((@post || @topic.comments.new), url: group_topic_comments_path(@group, @topic, format: :js), html:{multipart: true, remote: true}) do |f|
 
       = f.input :parent_id, as: :hidden
-      #faceTitle
       = f.input :content, as: :text, input_html: {rows: 2, placeholder: "按 Ctrl+Enter 快速发表"}
       = f.button :submit, '回复', button_html: {class: 'btn btn-primary', data:{disable_with: '...'}}
       - if logged_in?

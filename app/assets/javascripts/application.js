@@ -24,6 +24,9 @@
 //= require 'notification'
 //= require 'poll'
 //= require 'jquery/jquery.url'
+//= require simditor
+//= require to-markdown
+//= require editor
 //= require bootstrap-sprockets
 
 if (soundManager) {

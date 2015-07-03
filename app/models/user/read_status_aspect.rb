@@ -74,7 +74,7 @@ module User::ReadStatusAspect
 
   def mark_topic_as_read(topic, floor=0)
     aid = topic
-    topic = Topic.find(topic)
+    topic = Topic.find(topic) unless topic.is_a?(Topic)
     return Rails.logger.info { "Cannot find topic #{aid}" } unless topic
     mark_read(topic, floor)
     notifications.by_scope(:reply).by_subject(topic).read!

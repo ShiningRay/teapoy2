@@ -52,5 +52,8 @@ end
 
 guard 'rails' do
   watch('Gemfile.lock')
+  watch(%r{^config/locales/.*})
+  watch('config/application.rb')
+  watch(%r{^config/environments/.*})
   # watch(%r{^(config|lib)/.*})
 end

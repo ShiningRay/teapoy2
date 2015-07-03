@@ -16,6 +16,7 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-icanhaz'
   gem 'rails-assets-photoswipe'
   gem 'rails-assets-waypoints'
+  gem 'rails-assets-to-markdown'
 end
   gem 'bootstrap-sass'
   gem "font-awesome-rails"
@@ -29,6 +30,7 @@ end
   gem 'coffee-rails'
   gem 'uglifier'
   gem 'select2-rails'
+  gem 'simditor'
   gem "non-stupid-digest-assets"
 # }}}
 # compatible with rails 3
@@ -52,7 +54,7 @@ gem 'mongoid-observers'
 # gem "mongoid-paperclip", :require => "mongoid_paperclip"
 gem 'carrierwave'
 gem 'carrierwave-mongoid'
-gem 'carrierwave-qiniu', github: 'ShiningRay/carrierwave-qiniu', branch: 'preserve-slash-in-path '
+gem 'carrierwave-qiniu', github: 'ShiningRay/carrierwave-qiniu', branch: 'preserve-slash-in-path'
 
 #gem "friendly_id", "~> 3.2.1"
 gem 'tenacity', github: 'jwg2s/tenacity', branch: 'develop'
@@ -73,14 +75,12 @@ gem 'acts-as-taggable-on'
 
 
 # views {{{
-gem 'rdiscount', :platforms => [:ruby]
-gem 'maruku', :platforms => [:jruby, :mingw]
+gem 'redcarpet'
 gem "kaminari"
 gem 'haml'
 gem 'haml-rails'
 gem 'themes_for_rails', github: "ShiningRay/themes_for_rails"
 gem 'responders'
-# gem 'inherited_resources', :git => 'git://github.com/josevalim/inherited_resources.git'
 gem 'bootstrap-kaminari-views'
 # }}}
 
@@ -91,7 +91,6 @@ gem 'rails-i18n', '~> 4.0.0'
 # Gems used only for assets and not required
 # in production environments by default.
   #gem 'therubyracer', platforms: :ruby
-#gem 'turbo-sprockets-rails3'
 
 # gem "oauth"
 # gem "oauth-plugin"
