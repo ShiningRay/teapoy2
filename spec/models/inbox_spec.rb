@@ -34,7 +34,7 @@ describe Inbox do
 		allow_any_instance_of(Group).to receive(:preferred_topics_need_approval?).and_return(false)
 	end
 
-	describe "\#deliver_repost" do
+	describe '#deliver_repost' do
   	let(:group){create(:group)}
   	let(:reposter){create(:user)}
   	let(:dest_group){create(:group)}

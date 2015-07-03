@@ -24,7 +24,7 @@ module Post::RepostAspect
     title = nil if title.blank?
     #group_ids.map do |gid|
     art= Topic.new  group_id: group_id,
-                      title: title,
+                      title: title || "Repost",
                       anonymous: anonymous
 
     art.user_id = sharer_id

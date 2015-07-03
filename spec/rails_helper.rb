@@ -33,6 +33,11 @@ Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 ActiveRecord::Migration.maintain_test_schema!
 Capybara.javascript_driver = :webkit
 
+Capybara.configure do |config|
+  config.match = :prefer_exact
+  config.ignore_hidden_elements = false
+end
+
 class ActionController::Caching::Sweeper
   def expire_fragment(*args)
 

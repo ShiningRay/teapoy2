@@ -1,3 +1,9 @@
+@mixin accessible-invisible {
+  position: absolute !important;
+  clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+  clip: rect(1px, 1px, 1px, 1px);
+}
+
 .ie6, .ie7 {
   .post {
     .floor, .date {
@@ -185,9 +191,7 @@ li.post {
 
   .post_content {
     label {
-      display:none;
-      visibility:hidden;
-      width: 500px;
+      @include accessible-invisible;
     }
 
     textarea {

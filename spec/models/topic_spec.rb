@@ -36,4 +36,8 @@ describe Topic do
       topic.publish!
     end
   end
+
+  describe '#content' do
+    its(:content) { should == topic.top_post.content }
+  end
 end

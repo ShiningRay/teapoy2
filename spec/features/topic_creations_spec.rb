@@ -8,7 +8,7 @@ RSpec.feature 'TopicCreations', type: :feature do
     visit new_group_topic_path(group.alias)
 
     fill_in 'topic_title', with: 'test'
-    fill_in 'topic_content', with: 'ShiningRay'
+    fill_in '内容', with: 'ShiningRay'
     attach_file 'topic_picture', Rails.root.join('spec/fixtures/2345.jpg')
 
     click_button '发布'

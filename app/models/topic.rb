@@ -100,7 +100,7 @@ class Topic
     text.to_url.gsub(/[.\?~!\[\]\/()\*<>:#]/, '_')
   end
 
-  attr_accessor :uncommentable, :content
+  attr_accessor :uncommentable
 
   def uncommentable=(b)
     self.comment_status = ([0, '0', 'false', false].include?(b) ? 'open' : 'closed')

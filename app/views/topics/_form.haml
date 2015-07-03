@@ -1,11 +1,5 @@
 - top_post = @topic.try(:top_post)
 %p.error=flash[:error]
-- if top_post && top_post.errors
-  - @topic.top_post.errors[:base].each do |error|
-    %p.error=error
--# if @topic && @topic.top_post && @topic.top_post.errors
-=# @topic.top_post.errors
-- @topic.created_at ||= Time.now if @topic
 #new_topic_form
   = simple_form_for(@group ? [@group, @topic] : @topic, html: {multipart: true} ) do |f|
     = f.input :status, as: :hidden if @topic.new_record? and logged_in? and (current_user.is_admin? or (@group && current_user.own_group?( @group)))

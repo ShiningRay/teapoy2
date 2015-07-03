@@ -8,11 +8,13 @@ describe Notification::MentionObserver do
     Topic.new group_id: create(:group).id,
             user_id: author.id,
             status: 'publish',
+            title: Forgery::LoremIpsum.title,
             top_post_attributes: {
               user_id: author.id,
               content: "@#{mentioned_user.login}",
               floor: 0
             }
+
   }
 
   before {Mongoid.observers.enable Notification::MentionObserver}

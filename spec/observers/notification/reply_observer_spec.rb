@@ -15,7 +15,9 @@ describe Notification::ReplyObserver do
     topic = Topic.new group_id: create(:group).id,
                           top_post_attributes: {
                             content: Forgery::LoremIpsum.paragraph
-                          }
+                          },
+                          title: Forgery::LoremIpsum.title
+
     topic.user_id = original_poster.id
     topic.status = 'publish'
     topic.save!

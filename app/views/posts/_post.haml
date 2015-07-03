@@ -1,7 +1,7 @@
 ﻿=# f = post.floor || (post_counter + 1)  %>
 - f = post.floor #post_counter + 1
 - t = post.total_score
-- user = post.user.decorate
+- user = post.user.try :decorate
 - anon = post.anonymous or post.user_id == 0 or (not user) or user.deleted?
 =#post.floor
 %li.post.cf.post{:id => "post_#{post.id}",
