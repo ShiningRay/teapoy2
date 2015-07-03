@@ -78,7 +78,7 @@ module PostsHelper
     #     end)
     # end)
     raw(Rails.cache.fetch([post, :content]) do
-      markdown.render(post.content)
+      markdown.render(post.content.to_s)
     end)
   end
 
