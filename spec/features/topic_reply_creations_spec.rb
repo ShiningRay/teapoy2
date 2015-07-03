@@ -17,7 +17,7 @@ RSpec.feature 'TopicReplyCreations', js: true, type: :feature do
     attach_file 'post_picture', Rails.root.join('spec/fixtures/2345.jpg')
 
     click_button '回复'
-
+    # save_and_open_screenshot
     expect(page).to have_content(user.name)
     post = Post.last
     expect(page).to have_css("\#post_#{post.id}", text: post_content)

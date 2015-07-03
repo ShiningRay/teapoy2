@@ -11,6 +11,7 @@ module User::RatingAspect
     # has_many :liked_posts, :through => :ratings, :source => :post, :conditions => 'ratings.score > 0'
     # has_many :disliked_posts, :through => :ratings, :source => :post, :conditions => 'ratings.score < 0'
   end
+
   # Rate score for post
   def rate score, post
     ratings.create :score => (score.is_a?(Integer) ? score : Rating.score_for(score)), :post_id => Post.wrap(post).id
