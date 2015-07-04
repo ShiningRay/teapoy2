@@ -1,4 +1,5 @@
 <% id = dom_id @post %>
-$('#<%= id %> .up').buttonMarkup({theme: 'b'}).text('<%= @post.pos %>');
-$('#<%= id %> .down').text('<%= @post.neg %>');
+$('#<%= id %> .ui-block-a').replaceWith('<%= j rating_link(@post, :up) %>');
+$('#<%= id %> .ui-block-b').replaceWith('<%= j rating_link(@post, :dn) %>');
+$('#<%= id %> a[data-role=button]').buttonMarkup();
 $.toast('+1');
