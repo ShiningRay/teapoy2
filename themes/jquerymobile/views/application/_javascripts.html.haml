@@ -3,17 +3,23 @@
 -# remote_jquery and local_jquery helpers use minified jquery unless Rails.env is development
 
 = javascript_include_tag "mobile"
+- if Rails.env.production?
+  = javascript_include_tag 'https://leancloud.cn/scripts/lib/av-0.4.6.min.js'
+  :javascript
+    AV.initialize("uxv3vgi3tlzj834kxnocmuw0svp1vojic7arrfhxwwib9lp9", "797rjp5exlt5nj0ysmzu4hb5eugtpn3ow5w50ama22wqdv4s");
 
-= javascript_include_tag 'https://leancloud.cn/scripts/lib/av-0.4.6.min.js'
-:javascript
-  AV.initialize("uxv3vgi3tlzj834kxnocmuw0svp1vojic7arrfhxwwib9lp9", "797rjp5exlt5nj0ysmzu4hb5eugtpn3ow5w50ama22wqdv4s");
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?dc5d276d4fdcfdbbdca01899a196f203";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
 
-  var _hmt = _hmt || [];
-  (function() {
-    var hm = document.createElement("script");
-    hm.src = "//hm.baidu.com/hm.js?dc5d276d4fdcfdbbdca01899a196f203";
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(hm, s);
-  })();
+    $(document).on('pagecreate', function(event){
+      if (_hmt) {
+        _hmt.push(['_trackPageview', event.toPage]);
+      }
+    });
 
 = yield :javascripts

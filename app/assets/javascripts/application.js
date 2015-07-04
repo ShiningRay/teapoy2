@@ -27,6 +27,8 @@
 //= require bootstrap-sprockets
 //= require turbolinks
 //= require turbolinks.redirect
+//= require nprogress
+//= require nprogress-turbolinks
 
 if (soundManager) {
   soundManager.url = '/';
@@ -130,4 +132,3 @@ $(document).on('click', '.need-login', function () {
   sr.showLogin();
   return false;
 });
-
