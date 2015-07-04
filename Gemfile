@@ -18,6 +18,7 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-waypoints'
   gem 'rails-assets-to-markdown'
 end
+  gem 'timeago-rails'
   gem 'bootstrap-sass'
   gem "font-awesome-rails"
   gem 'autoprefixer-rails'
