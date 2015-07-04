@@ -1,4 +1,6 @@
 // turbolinks-baidu-tongji.js
 $(document).on('pagecreate', function(event){
-	_hmt.push(['_trackPageview', event.toPage]);
+  if (_hmt) {
+    _hmt.push(['_trackPageview', event.toPage]);
+  }
 });
