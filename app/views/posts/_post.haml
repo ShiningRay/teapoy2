@@ -47,7 +47,7 @@
           = typicon 'trash'
           = t('posts.destroy')
 
-    %time.date.relativetime{datetime: post.created_at}=post.created_at.strftime('%Y-%m-%d %H:%M:%S')
+    %time.date.relativetime.timeago{datetime: post.created_at.iso8601}=post.created_at.strftime('%Y-%m-%d %H:%M:%S')
     %div.body
       - plain_text = post.content.to_s
       - plain_text_size = plain_text.mb_chars.size
