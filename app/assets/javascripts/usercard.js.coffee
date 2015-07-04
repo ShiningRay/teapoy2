@@ -1,4 +1,5 @@
 #= require "jquery/poshytip"
+#= require "jquery/outerhtml"
 #= require 'icanhaz'
 
 usercard_tmpl = """

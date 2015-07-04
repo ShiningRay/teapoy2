@@ -583,6 +583,10 @@ GEM
       hitimes
     turbolinks (2.5.3)
       coffee-rails
+    turbolinks-redirect (0.0.1)
+      jquery-rails
+      railties
+      turbolinks
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uglifier (2.7.1)
@@ -732,6 +736,7 @@ DEPENDENCIES
   themes_for_rails!
   timecop
   turbolinks
+  turbolinks-redirect
   uglifier
   webmock
   weibo_2

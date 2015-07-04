@@ -46,19 +46,6 @@ $(function () {
 });
 
 $(function () {
-  $('.poshytip').poshytip({
-    className: 'tip-green',
-    offsetX: -7,
-    offsetY: 16,
-    content: function () {
-      var result = "";
-      result = $(this).data("poshytiptext");
-      return result;
-    }
-  });
-});
-
-$(function () {
   $('#select_date_for_group').change(function () {
     if ($(this).val().size === 0) {
       return false;
@@ -79,6 +66,7 @@ $("body").on("change", "select#user_login", function () {
     show_comment_of(me, me.val());
   }
 });
+
 
 $(function () {
   if (typeof current_user != 'undefined') {
@@ -140,28 +128,4 @@ $(function () {
     sr.showLogin();
     return false;
   });
-});
-
-$(function () {
-  $('.auto-select').focus(function () {
-    $(this).select();
-  });
-  $(".auto-select").mouseup(function (e) {
-    e.preventDefault();
-  });
-});
-
-$(function () {
-  var Date1 = new Date();
-  var Date2 = new Date("00:00:00 1/23/2012");
-  var gotime = Date2.getTime() - Date1.getTime();
-  if (gotime > 0) {
-    $("#new-year-countdown").show();
-    var seconds = parseInt(gotime / 1000);
-    $('#defaultCountdown').countdown({
-      until: seconds,
-      format: 'DHMS',
-      layout: '<div id="t7_timer">' + '<div id="t7_vals">' + '<div id="t7_d" class="t7_numbs">{dnnn}</div>' + '<div id="t7_h" class="t7_numbs">{hnn}</div>' + '<div id="t7_m" class="t7_numbs">{mnn}</div>' + '<div id="t7_s" class="t7_numbs">{snn}</div>' + '</div>' + '<div id="t7_labels">' + '<div id="t7_dl" class="t7_labs">days</div>' + '<div id="t7_hl" class="t7_labs">hours</div>' + '<div id="t7_ml" class="t7_labs">mins</div>' + '<div id="t7_sl" class="t7_labs">secs</div>' + '</div>' + '</div>'
-    });
-  }
 });

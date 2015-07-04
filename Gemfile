@@ -12,6 +12,7 @@ gem 'rails', '~> 4.1.0'
 # FrontEnd {{{
   gem 'turbolinks'
   gem 'jquery-turbolinks'
+  gem 'turbolinks-redirect'
   gem 'remotipart', '~> 1.2'
 source 'https://rails-assets.org' do
   gem 'rails-assets-icanhaz'

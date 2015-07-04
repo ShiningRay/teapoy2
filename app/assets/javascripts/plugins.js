@@ -1,6 +1,7 @@
 //= require jquery.atwho
 //= require select2
 //= require "jquery/colorbox"
+//= require "jquery/outerhtml"
 //= require 'jquery/poshytip'
 //= require "jquery/ba-throttle-debounce"
 //= require "jquery/scrollTo"
