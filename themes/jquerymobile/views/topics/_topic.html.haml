@@ -16,7 +16,7 @@
           = image_tag user.avatar.thumb
           = user.name_or_login
     %span.user-action-time><
-      %span.relativetime><= time_ago_in_words(topic.created_at)
+      %time.timeago.relativetime{datetime: topic.created_at.iso8601}><= topic.created_at
     - if logged_in? && current_user.own_topic?(topic)
       =# link_to '删除', topic_path(group, topic, :_method => :delete)
     - if logged_in? && current_user == topic.group.owner && topic.status == 'pending'

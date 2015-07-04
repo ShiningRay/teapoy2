@@ -32,9 +32,8 @@
 //= require bootstrap-sprockets
 
 $(function() {
-
   $('.relativetime').timeago();
-})
+});
 
 
 if (soundManager) {

@@ -12,7 +12,7 @@
     - s = post.score.to_i
     - if s != 0
       %span.score{:class => s > 0 ? 'pos' : 'neg'}= s > 0 ? "+#{s}" : s
-    %span.time= time_ago_in_words post.created_at if post.created_at
+    %time.timeago.time{datetime: post.created_at.iso8601}= post.created_at
     = link_to '回复', new_group_topic_post_path(post.group||post.topic.group,post.topic, :parent_id=>post.floor), data: {rel: 'dialog'}, class: "reply"
     .body
       - plain_text = post.content.to_s
