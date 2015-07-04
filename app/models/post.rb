@@ -9,7 +9,7 @@ class Post
   belongs_to :group
   belongs_to :topic, touch: true, counter_cache: true, inverse_of: :posts
   t_belongs_to :user#, class_name: 'User', foreign_key: :user_id
-
+  has_many :attachments
   field :content, type: String
 
   field :parent_floor, type: Integer
@@ -59,10 +59,6 @@ class Post
   before_validation {|post| post.content.strip!}
   def top?
     floor == 0 || parent_id.blank?
-  end
-
-  def attachment?
-    floor.to_i < 0
   end
 
   def comment?
