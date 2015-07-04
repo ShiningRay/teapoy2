@@ -7,8 +7,6 @@
 //= require jquery
 //= require jquery.turbolinks
 //= require jquery_ujs
-//= require turbolinks
-//= require turbolinks.redirect
 //= require jquery.remotipart
 //= require "plugins"
 //= require "sr"
@@ -27,19 +25,23 @@
 //= require to-markdown
 //= require editor
 //= require bootstrap-sprockets
+//= require turbolinks
+//= require turbolinks.redirect
 
 if (soundManager) {
   soundManager.url = '/';
   soundManager.preferFlash = false;
 }
 
-$(function () {
-  $('body').on("click", 'a.picture', function () {
-    $(this).colorbox({
-      open: true
-    });
-    return false;
+$(document).on("click", 'a.picture', function () {
+  $(this).colorbox({
+    open: true
   });
+  return false;
+});
+
+$(function () {
+
   if (document.body.clientWidth >= 768) {
     $('#bs-navbar').collapse('show');
   }
@@ -60,7 +62,7 @@ $(function () {
   });
 });
 
-$("body").on("change", "select#user_login", function () {
+$(document).on("change", "select#user_login", function () {
   var me = $(this);
   if (me.val() !== "") {
     show_comment_of(me, me.val());
@@ -123,9 +125,9 @@ function showAnimation(containerId, actionValue) {
   });
 }
 
-$(function () {
-  $('body').on('click', '.need-login', function () {
-    sr.showLogin();
-    return false;
-  });
+
+$(document).on('click', '.need-login', function () {
+  sr.showLogin();
+  return false;
 });
+

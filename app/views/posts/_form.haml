@@ -16,7 +16,7 @@
 
       = f.input :parent_id, as: :hidden
       = f.input :content, as: :text, placeholder: "按 Ctrl+Enter 快速发表"
-      = f.button :submit, '回复', button_html: {data:{disable_with: '...'}}
+      = f.button :submit, '回复', data:{disable_with: '...'}
       - if logged_in?
         - if current_user.own_topic?(@topic) and @topic.anonymous?
           = f.input :anonymous, as: :boolean, input_html: {checked: "checked" }
