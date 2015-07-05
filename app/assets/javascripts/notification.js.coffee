@@ -1,4 +1,4 @@
-#= require 'jquery/poshytip'
+#= require 'qtip2'
 #= require 'vendor/soundmanager2-nodebug-jsmin'
 #= require 'jquery/ba-throttle-debounce'
 
@@ -51,15 +51,18 @@ $ ->
     )
   #showNotifications = ->
   $('.unread_notifications_count').bind('refresh', fetchNotificationsCount)
-  $('.unread_notifications_count a').poshytip
-    className: 'tip-twitter notifications-tip'
-    alignTo: 'target'
-    alignX: 'center'
-    allowTipHover: yes
-    content: (updateCallback) ->
+  $('.unread_notifications_count a').qtip
+    style:
+      classes: 'qtip-tipsy'
+    position:
+      at: 'bottom center'
+      my: 'top center'
+    hide:
+      fixed: true
+    content: (event, api) ->
       $.get '/notifications', (data) ->
-        updateCallback(data)
-
+        api.set('content.text', data)
+      "Loading..."
   # setInterval(fetchNotificationsCount, 30000)
 
   # $.waypoints.settings.scrollThrottle = 30

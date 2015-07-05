@@ -2,6 +2,7 @@
 #= require 'jquery/scrollTo'
 #= require 'jquery/autoresize'
 #= require "jquery/ba-throttle-debounce"
+#= require qtip2
 # old comment handler
 #console.debug(xhr)
 #.hide().slideDown(500);
@@ -69,28 +70,21 @@ $ ->
       axis: "y"
 
     false
-  ).poshytip
-    className: "tip-green"
-    offsetX: -7
-    offsetY: 16
-    liveEvents: true
-    content: ->
-      target = $(this).attr("href").replace("#", "")
-      $("." + target, $(this).parents("ul.comments:first")).html()
+  ).qtip
+    content: (event, api) ->
+      e = $(event.target)
+      target = e.attr("href").replace("#", "")
+      $("." + target, e.parents("ul.comments:first")).html()
 
-  $(".comment .reply").poshytip
-    liveEvents: true
-    className: "tip-green"
-    offsetX: -7
-    offsetY: 16
-    content: ->
+  $(".comment .reply").qtip
+    content: (event, api) ->
       result = ""
-      commented = $(this).parents("ul.comments:first")
-      .find(".comment[data-parent_id=#{$(this).data('floor')}]")
+      e = $(event.target)
+      commented = e.parents("ul.comments:first")
+      .find(".comment[data-parent_id=#{e.data('floor')}]")
       if commented.length
         commented.each ->
-          result += $(this).html()
-
+          result += e.html()
       else
         result = "暂时没有针对这条评论的回复"
       result

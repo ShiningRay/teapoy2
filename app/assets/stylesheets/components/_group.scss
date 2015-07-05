@@ -501,29 +501,3 @@ body#tailake {
     }
   }
 }
-.groupcard,.usercard{
-  .icon{
-    height:64px;
-    width:64px;
-    float: left;
-  }
-  .detail{
-    padding-left:10px;
-    width:150px;
-    float:left;
-    word-break : break-all;
-    word-wrap : break-word;
-    .name{
-      float:left;
-      width:150px;
-      clear:right;
-    }
-    .description{
-      float:left;
-    }
-  }
-  .join{
-    padding-top:10px;
-    clear:both;
-  }
-}
