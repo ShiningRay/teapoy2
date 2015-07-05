@@ -119,4 +119,3 @@ $(document).on('click', '.need-login', function () {
   sr.showLogin();
   return false;
 });
-
