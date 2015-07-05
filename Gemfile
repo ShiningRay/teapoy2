@@ -8,8 +8,9 @@ else
 end
 gem 'dotenv-rails'
 
-gem 'rails', '~> 4.1.0'
+gem 'rails', '~> 4.2.0'
 # FrontEnd {{{
+  gem 'remotipart'
 source 'https://rails-assets.org' do
   gem 'rails-assets-icanhaz'
   gem 'rails-assets-photoswipe'
