@@ -73,8 +73,6 @@ $(document).on("change", "select#user_login", function () {
 
 
 $(function () {
-
-$(function () {
   var myDate = new Date();
   var hour = myDate.getHours();
   var slide_start = 1;
