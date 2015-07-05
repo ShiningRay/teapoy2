@@ -5,7 +5,8 @@
 #= require jquery.mobile
 #= require photoswipe
 #= require 'photoswipe/photoswipe-ui-default'
-
+#= require timeago
+#= require locales/timeago.zh-cn.js
 #= require_tree ./mobile
 
 pictures = []
@@ -65,6 +66,8 @@ $(document).bind 'pageinit', ->
     return false
   $('.ui-content').on 'vclick', '.post .body', ->
     $(this).siblings('.reply').click()
+
+  $('.ui-content').timeago()
 
 
 # $(document).on 'pagecreate', ''

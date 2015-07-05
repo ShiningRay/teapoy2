@@ -4,6 +4,7 @@ $(window).one('pagechange', function(){
 		$('.comments-list').append('<%= j render(@post) %>');
 	}
 	$.scrollTo(id);
+	$('.ui-content').timeago('refresh');
 });
 
 $('[data-role=dialog]').dialog( "close" );

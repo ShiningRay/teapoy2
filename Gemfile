@@ -19,6 +19,7 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-to-markdown'
   gem 'rails-assets-qtip2'
 end
+  gem 'timeago-rails'
   gem 'bootstrap-sass'
   gem "font-awesome-rails"
   gem 'autoprefixer-rails'

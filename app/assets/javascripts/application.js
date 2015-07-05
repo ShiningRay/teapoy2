@@ -27,7 +27,14 @@
 //= require simditor
 //= require to-markdown
 //= require editor
+//= require timeago
+//= require locales/timeago.zh-cn.js
 //= require bootstrap-sprockets
+
+$(function() {
+  $('.relativetime').timeago();
+});
+
 
 if (soundManager) {
   soundManager.url = '/';
