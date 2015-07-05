@@ -10,8 +10,6 @@ gem 'dotenv-rails'
 
 gem 'rails', '~> 4.1.0'
 # FrontEnd {{{
-  gem 'turbolinks'
-  gem 'remotipart', '~> 1.2'
 source 'https://rails-assets.org' do
   gem 'rails-assets-icanhaz'
   gem 'rails-assets-photoswipe'
@@ -20,6 +18,10 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-qtip2'
 end
   gem 'timeago-rails'
+  gem 'jquery-turbolinks'
+  gem 'turbolinks-redirect'
+  gem 'nprogress-rails'
+  gem 'remotipart', '~> 1.2'
   gem 'bootstrap-sass'
   gem "font-awesome-rails"
   gem 'autoprefixer-rails'

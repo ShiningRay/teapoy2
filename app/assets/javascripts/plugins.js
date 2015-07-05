@@ -1,6 +1,7 @@
 //= require jquery.atwho
 //= require select2
 //= require "jquery/colorbox"
+//= require "jquery/outerhtml"
 //= require "jquery/ba-throttle-debounce"
 //= require "jquery/scrollTo"
 //= require 'jquery/slides.min.jquery'
@@ -37,12 +38,10 @@ window.log = function(){
 
 
 // Ctrl-Enter to submit form
-$(function(){
-	$("body").on('keypress', "textarea", function(event){
-		if( (event.ctrlKey || event.metaKey) && event.which == 13 || event.which == 10){
-			$(this.form).submit();
-		}
-	});
+$(document).on('keypress', "textarea", function(event){
+  if( (event.ctrlKey || event.metaKey) && event.which == 13 || event.which == 10){
+    $(this.form).submit();
+  }
 });
 
 
@@ -102,35 +101,3 @@ jQuery.fn.absolutize = function(placeholder)
       $(this).animate({height: $(this).data('originalSize').height});
     }).absolutize(true);
   });*/
-
-(function($){
-  $.fn.extend({
-    outerHtml: function(){
-    var tmp_node = $("<div></div>").append( $(this).clone() );
-    var markup = tmp_node.html();
-    // Don't forget to clean up or we will leak memory.
-    tmp_node.remove();
-    return markup;
-    }
-  });
-})(jQuery);
-
-// Enable omni form
-$(function(){
-
-  $('.extra_fields input, .extra_fields textarea').attr('disabled', 'disabled');
-  $('#topic_top_post_attributes_type_input input[type=radio]').change(function(){
-    var e = $(this);
-    if(e.val() === ''){
-      return;
-    }
-    $('.current_extra_fields').removeClass('current_extra_fields');
-    var i = $('#'+e.val().toLowerCase()+'_fields').addClass('current_extra_fields');
-    $('input,textarea', i).removeAttr('disabled');
-    //console.debug(this);
-    //console.debug(e)
-  });
-  $('#topic_top_post_attributes_type_input input[type=radio]:checked').change();
-});
-
-//$("#post_content").Face({left : "30" , top : "1" });

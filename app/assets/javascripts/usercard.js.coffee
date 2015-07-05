@@ -1,3 +1,4 @@
+#= require "jquery/outerhtml"
 #= require 'icanhaz'
 #= require qtip2
 usercard_tmpl = """
