@@ -437,8 +437,17 @@ GEM
       bundler (>= 1.3.0, < 2.0)
       railties (= 4.1.10)
       sprockets-rails (~> 2.0)
+    rails-assets-eventEmitter (4.2.11)
+    rails-assets-eventie (1.0.6)
     rails-assets-icanhaz (0.10.3)
+    rails-assets-imagesloaded (3.1.8)
+      rails-assets-eventEmitter (~> 4.0)
+      rails-assets-eventie (>= 1.0.4, < 2)
+    rails-assets-jquery (2.1.4)
     rails-assets-photoswipe (4.0.8)
+    rails-assets-qtip2 (2.2.1)
+      rails-assets-imagesloaded (>= 3.0.0)
+      rails-assets-jquery (>= 1.6.0)
     rails-assets-to-markdown (1.1.3)
     rails-assets-waypoints (3.1.1)
     rails-i18n (4.0.4)
@@ -698,6 +707,7 @@ DEPENDENCIES
   rails (~> 4.1.0)
   rails-assets-icanhaz!
   rails-assets-photoswipe!
+  rails-assets-qtip2!
   rails-assets-to-markdown!
   rails-assets-waypoints!
   rails-i18n (~> 4.0.0)

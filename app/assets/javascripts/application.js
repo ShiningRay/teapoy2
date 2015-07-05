@@ -68,19 +68,6 @@ $(function () {
 });
 
 $(function () {
-  $('.poshytip').poshytip({
-    className: 'tip-green',
-    offsetX: -7,
-    offsetY: 16,
-    content: function () {
-      var result = "";
-      result = $(this).data("poshytiptext");
-      return result;
-    }
-  });
-});
-
-$(function () {
   $('#select_date_for_group').change(function () {
     if ($(this).val().size === 0) {
       return false;
@@ -99,18 +86,6 @@ $("body").on("change", "select#user_login", function () {
   var me = $(this);
   if (me.val() !== "") {
     show_comment_of(me, me.val());
-  }
-});
-
-$(function () {
-  if (typeof current_user != 'undefined') {
-    $('body .my-groups').poshytip({
-      className: 'tip-twitter',
-      alignTo: 'target',
-      alignX: 'center',
-      bgImageFrameSize: 11,
-      content: $('.my-groups-list')
-    });
   }
 });
 

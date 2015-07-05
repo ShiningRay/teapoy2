@@ -17,6 +17,7 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-photoswipe'
   gem 'rails-assets-waypoints'
   gem 'rails-assets-to-markdown'
+  gem 'rails-assets-qtip2'
 end
   gem 'bootstrap-sass'
   gem "font-awesome-rails"
