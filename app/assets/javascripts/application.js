@@ -62,6 +62,9 @@ $(function () {
     }
     window.location.href = "/users/" + $(this).data("login") + "/topics/archives/" + $(this).val();
   });
+  if (document.body.clientWidth >= 768) {
+    $('#bs-navbar').collapse('show');
+  }
 });
 
 $(document).on("change", "select#user_login", function () {
