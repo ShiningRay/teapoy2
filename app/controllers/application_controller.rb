@@ -5,7 +5,7 @@
 
 class ApplicationController < ActionController::Base
   #self.responder = ApplicationResponder
-  etag { logged_in? && current_user.id }
+  etag { [$revision, logged_in? && current_user.id] }
   include Pundit
 
   respond_to :html, :js, :json, :mobile, :wml
