@@ -99,14 +99,12 @@ class TopicsController < ApplicationController
 
     @topics = scope.includes(:group).page(params[:page])
 
-    if stale?(@topics)
-      respond_to do |format|
-        format.html
-        format.json do
-          render json: @topics, callback: params[:callback]
-        end
-        format.wml
+    respond_to do |format|
+      format.html
+      format.json do
+        render json: @topics, callback: params[:callback]
       end
+      format.wml
     end
   end
 
@@ -345,16 +343,15 @@ class TopicsController < ApplicationController
     authorize @topic
     # expires_now if browser.opera?
 
-    if stale?(@topic)
-      @posts = @topic.posts.all
-      respond_to do |format|
-        format.html
-        format.json {
-          render json: @topic
-        }
-      end
-      MarkingReadWorker.perform_async(current_user.id, topic.id, topic.comments.size-1) if logged_in?
+
+    @posts = @topic.posts.all
+    respond_to do |format|
+      format.html
+      format.json {
+        render json: @topic
+      }
     end
+    MarkingReadWorker.perform_async(current_user.id, topic.id, topic.comments.size-1) if logged_in?
   end
 
   def mark
