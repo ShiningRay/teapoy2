@@ -9,27 +9,19 @@
 #console.debug(xhr)
 #      alignTo: 'target',
 window.replyComment = (comment_id, topic_id, reply_to_floor) ->
-  topic = $("#comments_topic_" + topic_id)
-  editorTextPosition = -1
-  commentArea = $("#post_content")
-  editorPositionFunc = ->
-    editorTextPosition = $(this).textPosition()
+  floor = $("#post_parent_id").val()
+  nickname = $.trim($("#post_#{comment_id} .nickname").text())
+  replyTextArea = $("#post_content").data('editor')
+  orig_text = replyTextArea.getValue()
 
-  commentArea.mouseup(editorPositionFunc).keyup editorPositionFunc
-  editorTextPosition = commentArea.textPosition()  if editorTextPosition is -1
-  floor = $("#post_parent_id", topic).val()
   if parseInt(floor) > 0
-    content = "  @#{$.trim($("#post_#{comment_id} .nickname").text())} "
-    pos = commentArea.val().length
-    commentArea.textPosition pos, content
-    commentArea.focus()
+    content = "@#{nickname} "
   else
-    $("#post_parent_id", topic).val reply_to_floor
-    nickname = $.trim($("#post_#{comment_id} .nickname").text())
-    nv = "回复#{reply_to_floor}L #{nickname}: "
-    orig_text = commentArea.val()
-    commentArea.val(nv + orig_text).focus().setCursorPosition nv.length
+    $("#post_parent_id").val reply_to_floor
+    content = "回复#{reply_to_floor}L #{nickname}: "
 
+  replyTextArea.setValue(content + orig_text)
+  replyTextArea.focus()
 #查看某人对帖子的评论
 window.show_comment_of = (me, user_login) ->
   target = "user-" + user_login
