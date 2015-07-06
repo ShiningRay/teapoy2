@@ -10,7 +10,6 @@ gem 'dotenv-rails'
 
 gem 'rails', '~> 4.2.0'
 # FrontEnd {{{
-  gem 'remotipart'
 source 'https://rails-assets.org' do
   gem 'rails-assets-icanhaz'
   gem 'rails-assets-photoswipe'
@@ -20,7 +19,8 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-ichord--simditor-dropzone'
   gem 'rails-assets-throttle-debounce'
 end
-  gem 'timeago-rails'
+  gem 'jquery-rails'
+  gem 'turbolinks'
   gem 'jquery-turbolinks'
   gem 'turbolinks-redirect'
   gem 'nprogress-rails'
@@ -28,7 +28,6 @@ end
   gem 'bootstrap-sass'
   gem "font-awesome-rails"
   gem 'autoprefixer-rails'
-  gem 'jquery-rails'
   gem "jquery_mobile_rails"
   gem 'jquery-atwho-rails', :github => 'ShiningRay/jquery-atwho-rails'
   gem 'lazy_high_charts'
@@ -37,6 +36,7 @@ end
   gem 'coffee-rails'
   gem 'uglifier'
   gem 'select2-rails'
+  gem 'timeago-rails'
   gem 'simditor'
   gem "non-stupid-digest-assets"
 # }}}

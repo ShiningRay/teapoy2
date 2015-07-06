@@ -61,7 +61,7 @@ GIT
       thor
 
 GEM
-  remote: https://rubygems.org/
+  remote: https://ruby.taobao.org/
   remote: https://rails-assets.org/
   specs:
     aasm (4.2.0)
@@ -472,10 +472,10 @@ GEM
       rails-assets-eventie (>= 1.0.4, < 2)
     rails-assets-jquery (2.1.4)
     rails-assets-photoswipe (4.0.8)
-    rails-assets-to-markdown (1.2.1)
     rails-assets-qtip2 (2.2.1)
       rails-assets-imagesloaded (>= 3.0.0)
       rails-assets-jquery (>= 1.6.0)
+    rails-assets-to-markdown (1.2.1)
     rails-assets-simditor (2.1.15)
       rails-assets-jquery (~> 2.1.4)
       rails-assets-simple-hotkeys (~> 1.0.3)
@@ -630,10 +630,10 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (1.4.1)
-    timecop (0.7.4)
     timeago-rails (0.1.5)
       jquery-rails
       rails (>= 3.2.8)
+    timecop (0.7.4)
     timers (4.0.1)
       hitimes
     turbolinks (2.5.3)
@@ -776,7 +776,7 @@ DEPENDENCIES
   rb-inotify
   redcarpet
   redis-objects
-  remotipart
+  remotipart (~> 1.2)
   responders
   rspec
   rspec-activemodel-mocks
@@ -798,6 +798,7 @@ DEPENDENCIES
   themes_for_rails!
   timeago-rails
   timecop
+  turbolinks
   turbolinks-redirect
   uglifier
   webmock
