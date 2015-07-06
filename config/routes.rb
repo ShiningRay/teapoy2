@@ -16,6 +16,8 @@ Teapoy::Application.routes.draw do
     end
   end
 
+  post '/upload', to: 'attachments#upload'
+
   resources :conversations, only: %w(index show new create destroy) do
     resources :messages
   end

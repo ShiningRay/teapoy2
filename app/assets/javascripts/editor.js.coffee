@@ -4,11 +4,11 @@ $ ->
       textarea: $('#topic_content'),
       toolbar: [
         'title','bold','italic','underline','strikethrough','color','|'
-        'ol','ul','blockquote','link','hr','|'
+        'ol','ul','blockquote','link','image','hr','|'
       ]
-      # pasteImage: true
-      # defaultImage: '<%= image_path "upload-loading.png" %>'
-      # upload: {url: '/upload'}
+      pasteImage: true
+      upload:
+        url: '/upload'
 
     $('form#new_topic').submit ->
       $('#topic_content').val(toMarkdown($('#topic_content').val(), { gfm: true }))

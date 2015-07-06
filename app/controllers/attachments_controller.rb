@@ -1,15 +1,32 @@
 # coding: utf-8
 class AttachmentsController < ApplicationController
-  before_action :find_group
-  before_action :find_topic
+  before_action :find_group, except: :upload
+  before_action :find_topic, except: :upload
   before_action :resource, only: %i(show set_price)
-
+  before_action :login_required, only: :upload
+  # before_filter :check_owner, only: :show
   def index
 
   end
 
   def show
 
+  end
+
+  def upload
+    @attachment = Attachment.new uploader_id: current_user.id, file: params[:upload_file]
+
+    if @attachment.save
+      render json: {
+        success: true,
+        file_path: @attachment.file.url
+      }
+    else
+      render json: {
+        success: false,
+        msg: @attachment.errors.full_messages
+      }, status: :unprocessible_entity
+    end
   end
 
   def create
@@ -26,7 +43,7 @@ class AttachmentsController < ApplicationController
     end
   end
 
-  before_filter :check_owner
+
   protected
   def check_owner
   	unless logged_in? and topic.owner == current_user

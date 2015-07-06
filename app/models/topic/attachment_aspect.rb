@@ -3,7 +3,7 @@ module Topic::AttachmentAspect
 	extend ActiveSupport::Concern
 
 	def attachments
-		top_posts.attachments
+		top_post.attachments
 	end
 
 end

@@ -5,7 +5,6 @@ class AttachmentUploader < CarrierWave::Uploader::Base
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
   include CarrierWave::MiniMagick
-  include CarrierWave::Compatibility::Paperclip
 
   version :thumb do
     process resize_to_fill: [64, 64]
@@ -32,17 +31,10 @@ class AttachmentUploader < CarrierWave::Uploader::Base
 
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
-  # def store_dir
-  #   # "system/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
-  # end
+  def store_dir
+    "system/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+  end
   #
-  def paperclip_path
-    "system/:attachment/#{oid}/:style/:basename.:extension"
-  end
-
-  def oid
-    model.id.to_s.sub(/^0+/, '')
-  end
 
   process :store_dimensions
 
@@ -77,9 +69,9 @@ class AttachmentUploader < CarrierWave::Uploader::Base
 
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
-  def extension_white_list
-    %w(jpg jpeg gif png)
-  end
+  # def extension_white_list
+  #   %w(jpg jpeg gif png)
+  # end
 
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.

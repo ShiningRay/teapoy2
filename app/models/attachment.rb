@@ -1,6 +1,7 @@
 # coding: utf-8
 class Attachment
   include Mongoid::Document
+  include Mongoid::Timestamps
   belongs_to :post
   mount_uploader :file, AttachmentUploader
   field :content_type, type: String
@@ -8,6 +9,8 @@ class Attachment
   field :original_url, type: String
   field :checksum, type: String
   field :dimensions, type: Hash, default: {}
+  field :uploader_id, type: Integer
+  index({post_id: 1})
 
   before_save :update_picture_attributes
 
