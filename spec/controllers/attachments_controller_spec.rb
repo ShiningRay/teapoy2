@@ -24,6 +24,7 @@ describe AttachmentsController do
     before do
       login_user
     end
+
     it 'creates attachment' do
       expect {
         post :upload, upload_file: fixture_file_upload('2345.jpg', 'image/jpeg')

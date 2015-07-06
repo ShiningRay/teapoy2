@@ -16,6 +16,8 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-waypoints'
   gem 'rails-assets-to-markdown'
   gem 'rails-assets-qtip2'
+  gem 'rails-assets-ichord--simditor-dropzone'
+  gem 'rails-assets-throttle-debounce'
 end
   gem 'timeago-rails'
   gem 'jquery-turbolinks'

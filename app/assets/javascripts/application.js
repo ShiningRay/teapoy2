@@ -22,6 +22,7 @@
 //= require 'poll'
 //= require 'jquery/jquery.url'
 //= require simditor
+//= require simditor-dropzone
 //= require to-markdown
 //= require editor
 //= require timeago
