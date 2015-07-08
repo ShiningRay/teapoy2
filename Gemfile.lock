@@ -207,6 +207,9 @@ GEM
     default_value_for (3.0.1)
       activerecord (>= 3.2.0, < 5.0)
     diff-lcs (1.2.5)
+    disposable (0.0.9)
+      representable (~> 2.0)
+      uber
     docile (1.1.5)
     dotenv (2.0.1)
     dotenv-rails (2.0.1)
@@ -498,7 +501,16 @@ GEM
     redis-objects (1.2.0)
       redis (>= 3.0.2)
     ref (1.0.5)
+    reform (1.2.6)
+      activemodel
+      disposable (~> 0.0.5)
+      representable (~> 2.1.0)
+      uber (~> 0.0.11)
     remotipart (1.2.1)
+    representable (2.1.8)
+      multi_json
+      nokogiri
+      uber (~> 0.0.7)
     request_store (1.1.0)
     responders (1.1.2)
       railties (>= 3.2, < 4.2)
@@ -623,6 +635,7 @@ GEM
       turbolinks
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
+    uber (0.0.13)
     uglifier (2.7.1)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
@@ -754,6 +767,7 @@ DEPENDENCIES
   rb-inotify
   redcarpet
   redis-objects
+  reform
   remotipart (~> 1.2)
   responders
   rspec

@@ -49,3 +49,4 @@ class Attachment
     @gif ||= (self[:file] =~ /\.gif\z/i)
   end
 end
+

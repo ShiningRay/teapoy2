@@ -1,8 +1,7 @@
 $('ul.posts').append('<%= j render(@post) %>');
 $('#post_content').val('');
 $('#post_parent_id').val('');
-var editor = $('#post_content').data('editor')
-if(editor){
-	editor.setValue('');
-}
+var editor = $('#post_content').data('editor');
+if(editor) editor.setValue('');
 $('.relativetime').timeago('refresh');
+$('.attachment_ids').remove();

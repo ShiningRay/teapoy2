@@ -123,6 +123,7 @@ class PostsController < ApplicationController
         # current_user.subscribe(@topic)
         post.user_id = current_user.id
       end
+
       topic.posts << post
 
       begin
@@ -339,8 +340,7 @@ class PostsController < ApplicationController
     @group ||= Group.wrap params[:group_id]
   end
 
-
   def post_params
-    params.require(:post).permit(:content, :picture, :anonymous)
+    params.require(:post).permit(:content, :picture, :anonymous, :attachment_ids => [])
   end
 end

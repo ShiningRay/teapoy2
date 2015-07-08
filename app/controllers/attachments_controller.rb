@@ -19,7 +19,8 @@ class AttachmentsController < ApplicationController
     if @attachment.save
       render json: {
         success: true,
-        file_path: @attachment.file.url
+        file_path: @attachment.file.url,
+        id: @attachment.id.to_s
       }
     else
       render json: {

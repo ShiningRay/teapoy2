@@ -12,7 +12,6 @@
 
     = f.input :title
     = f.input :content, as: :text
-    = f.input :picture, :as => :file, :label => '图片附件'
     = f.input :uncommentable, label: '禁止评论', as: :boolean, default: false
     = f.input :anonymous, as: :boolean, label: '匿名发表（花费20积分）' if logged_in?
     -# = f.simple_fields_for :attachments, id: :picture_attachment_fields do |attachment_form|

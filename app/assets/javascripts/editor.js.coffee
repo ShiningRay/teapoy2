@@ -34,6 +34,10 @@ $ ->
       if (event.ctrlKey or event.metaKey) and event.which is 13 or event.which is 10
         $('form#new_post').submit()
         return false
+    post_content_editor.uploader.on 'uploadsuccess', (e, file, result) ->
+      $('form#new_post').append("<input type='hidden' class='attachment_ids' name='post[attachment_ids][]' value='#{result.id}'>")
+
+
     post_content_editor.body.on 'dragover',
       $.debounce 250, true, ->
         post_content_editor.focus()

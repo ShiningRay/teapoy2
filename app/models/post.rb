@@ -69,10 +69,24 @@ class Post
     false
   end
 
-  def move_to(group)
-    raise CannotMovePost if reposted_to?(group)
+
+
+  def attachment_ids_with_save_for_associate=(new_ids)
+    if new_record?
+      @attachment_ids = new_ids
+    else
+      self.attachment_ids_without_save_for_associate=new_ids
+    end
   end
 
+  alias_method_chain :attachment_ids=, :save_for_associate
+
+  after_create :create_association_for_attachments
+  def create_association_for_attachments
+    if @attachment_ids.present?
+      self.attachment_ids_without_save_for_associate = @attachment_ids
+    end
+  end
   alias_method :original_user, :user
 
   def user
