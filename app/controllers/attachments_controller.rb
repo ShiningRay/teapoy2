@@ -30,8 +30,8 @@ class AttachmentsController < ApplicationController
   end
 
   def create
-    @attachment = Post.new params[:attachment]
-  	@attachment[:price] = params[:price]
+    @attachment = Attachment.new params[:attachment]
+  	# @attachment[:price] = params[:price]
     topic.attachments << @attachments
   end
 

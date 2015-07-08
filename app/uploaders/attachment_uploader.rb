@@ -4,27 +4,35 @@ class AttachmentUploader < CarrierWave::Uploader::Base
 
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
-  include CarrierWave::MiniMagick
+  # include CarrierWave::MiniMagick
 
-  version :thumb do
-    process resize_to_fill: [64, 64]
+  # version :thumb do
+  #   process resize_to_fill: [64, 64]
+  # end
+
+  # version :small do
+  #   process resize_to_fit: [256, 256]
+  # end
+
+  # version :longsmall do
+  #   process resize_to_fit: [200, 1000]
+  # end
+
+  # version :medium do
+  #   process resize_to_fit: [320, 320]
+  # end
+
+  # version :large do
+  #   process resize_to_fit: [1024, 1024]
+  # end
+  def qiniu_async_ops
+    commands = []
+    %W(small thumb medium longsmall large).each do |style|
+      commands << "http://#{self.qiniu_bucket_domain}/#{self.store_dir}/#{self.filename}-#{style}"
+    end
+    commands
   end
 
-  version :small do
-    process resize_to_fit: [256, 256]
-  end
-
-  version :longsmall do
-    process resize_to_fit: [200, 1000]
-  end
-
-  version :medium do
-    process resize_to_fit: [320, 320]
-  end
-
-  version :large do
-    process resize_to_fit: [1024, 1024]
-  end
   # Choose what kind of storage to use for this uploader:
   # storage :file
   # storage :fog
