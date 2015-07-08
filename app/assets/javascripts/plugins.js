@@ -2,7 +2,6 @@
 //= require select2
 //= require "jquery/colorbox"
 //= require "jquery/outerhtml"
-//= require "jquery/ba-throttle-debounce"
 //= require "jquery/scrollTo"
 //= require 'jquery/slides.min.jquery'
 //= require 'ajaxlogin'

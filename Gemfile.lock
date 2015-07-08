@@ -193,6 +193,10 @@ GEM
     columnize (0.9.0)
     composite_primary_keys (7.0.13)
       activerecord (~> 4.1.7)
+    concurrent-ruby (0.8.0)
+      ref (~> 1.0, >= 1.0.5)
+    concurrent-ruby-ext (0.8.0)
+      concurrent-ruby (~> 0.8.0)
     connection_pool (2.2.0)
     crack (0.4.2)
       safe_yaml (~> 1.0.0)
@@ -493,6 +497,7 @@ GEM
       redis (~> 3.0, >= 3.0.4)
     redis-objects (1.2.0)
       redis (>= 3.0.2)
+    ref (1.0.5)
     remotipart (1.2.1)
     request_store (1.1.0)
     responders (1.1.2)
@@ -672,6 +677,8 @@ DEPENDENCIES
   carrierwave-qiniu!
   coffee-rails
   composite_primary_keys
+  concurrent-ruby
+  concurrent-ruby-ext
   connection_pool
   daemons (~> 1.1.8)
   dalli

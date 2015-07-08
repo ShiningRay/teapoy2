@@ -1,7 +1,7 @@
 # @charset "utf-8";
 #= require 'jquery/scrollTo'
 #= require 'jquery/autoresize'
-#= require "jquery/ba-throttle-debounce"
+#= require "throttle-debounce"
 #= require qtip2
 # old comment handler
 #console.debug(xhr)

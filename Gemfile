@@ -209,3 +209,5 @@ gem 'mini_magick'
 gem 'annotate', '~> 2.6.6'
 gem 'spring-commands-rspec', group: :development
 gem 'simplecov', :require => false, :group => :test
+gem 'concurrent-ruby', require: false
+gem 'concurrent-ruby-ext', require: false
