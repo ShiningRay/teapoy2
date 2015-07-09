@@ -38,8 +38,13 @@ $ ->
         return false
     post_content_editor.uploader.on 'uploadsuccess', (e, file, result) ->
       $('form#new_post').append("<input type='hidden' class='attachment_ids' name='post[attachment_ids][]' value='#{result.id}'>")
-
-
+    .on 'beforeupload', ->
+      btn = $('form#new_post input[name=commit]')
+      btn.data('original_text', btn.val())
+      btn.prop('disabled', true).val('上传中...')
+    .on 'uploadcomplete', ->
+      btn = $('form#new_post input[name=commit]')
+      btn.prop('disabled', false).val(btn.data('original_text'))
     post_content_editor.body.on 'dragover',
       $.debounce 250, true, ->
         post_content_editor.focus()
