@@ -553,7 +553,9 @@ class TopicsController < ApplicationController
   private
 
   def topic_params
-    params.require(:topic).permit(:group_id, :title, :content, {top_post_attributes: [:type, :content, :picture, :image_url]}, :status, :picture, :video_page_link, :swf, :question_content, :uncommentable, :anonymous)
+    params.require(:topic).permit(:group_id, :title, :content,
+      {top_post_attributes: [:type, :content, :picture, :image_url]},
+      :status, :picture, :uncommentable, :anonymous, :attachment_ids => [])
   end
 
   def find_group

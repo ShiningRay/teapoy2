@@ -73,7 +73,7 @@ class Post
 
   def attachment_ids_with_save_for_associate=(new_ids)
     if new_record?
-      @attachment_ids = new_ids
+      @attachment_ids = Attachment.where(:id.in => new_ids).where(post_id: nil).pluck(:id)
     else
       self.attachment_ids_without_save_for_associate=new_ids
     end

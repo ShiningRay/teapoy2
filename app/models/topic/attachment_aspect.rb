@@ -5,5 +5,7 @@ module Topic::AttachmentAspect
 	def attachments
 		top_post.attachments
 	end
-
+  def attachment_ids=(new_ids)
+    @attachment_ids = new_ids
+  end
 end

@@ -3,5 +3,7 @@
 
 FactoryGirl.define do
   factory :attachment do
+    file { File.open(Rails.root.join('spec/fixtures/2345.jpg'), 'rb') }
+
   end
 end

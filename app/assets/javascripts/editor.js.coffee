@@ -15,6 +15,8 @@ $ ->
         topic_content_editor.focus()
     $('form#new_topic').submit ->
       $('#topic_content').val(toMarkdown($('#topic_content').val(), { gfm: true }))
+    topic_content_editor.uploader.on 'uploadsuccess', (e, file, result) ->
+      $('form#new_topic').append("<input type='hidden' class='attachment_ids' name='topic[attachment_ids][]' value='#{result.id}'>")
 
 
   if $('#post_content').size() > 0
