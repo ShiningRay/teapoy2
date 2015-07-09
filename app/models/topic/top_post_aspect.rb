@@ -62,7 +62,7 @@ module Topic::TopPostAspect
       top_post.user_id ||= self[:user_id]
       top_post.created_at ||= created_at
       top_post.topic_id = self.id
-      top_post.attachment_ids = @attachment_ids
+      top_post.attachment_ids = @attachment_ids if @attachment_ids.present?
       top_post.save! if persisted? and top_post.new_record?
       top_post
     end

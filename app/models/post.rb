@@ -9,7 +9,7 @@ class Post
   belongs_to :group
   belongs_to :topic, touch: true, counter_cache: true, inverse_of: :posts
   t_belongs_to :user#, class_name: 'User', foreign_key: :user_id
-  has_many :attachments
+
   field :content, type: String
 
   field :parent_floor, type: Integer
@@ -38,6 +38,7 @@ class Post
   include DescribedTargetAspect
   include ActionView::Helpers::DateHelper
   include PictureAspect
+  include AttachmentsAspect
 
   harmonize :content
 
@@ -70,23 +71,6 @@ class Post
   end
 
 
-
-  def attachment_ids_with_save_for_associate=(new_ids)
-    if new_record?
-      @attachment_ids = Attachment.where(:id.in => new_ids).where(post_id: nil).pluck(:id)
-    else
-      self.attachment_ids_without_save_for_associate=new_ids
-    end
-  end
-
-  alias_method_chain :attachment_ids=, :save_for_associate
-
-  after_create :create_association_for_attachments
-  def create_association_for_attachments
-    if @attachment_ids.present?
-      self.attachment_ids_without_save_for_associate = @attachment_ids
-    end
-  end
   alias_method :original_user, :user
 
   def user

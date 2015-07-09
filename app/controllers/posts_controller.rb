@@ -89,10 +89,11 @@ class PostsController < ApplicationController
       return login_required unless logged_in? or @group.preferred_guest_can_reply?
       p = post_params
       return render :text => '数据错误，如果您用的是手机，请访问手机版博聆 http://m.bling0.com' if p.blank?
-      if !p[:picture].blank?
-        transform_binary(p, :picture)
-      else
-        p.delete :picture
+
+      if picture = p.delete(:picture)
+        @attachment = Attachment.create file: picture, uploader_id: current_user.id
+        p[:content] << "![#{attachment[:file]}](#{attachment.file.url})"
+        p[:attachment_ids] = [@attachment.id.to_s]
       end
 
       @post = post = Post.new(p)

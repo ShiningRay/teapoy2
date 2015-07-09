@@ -43,8 +43,17 @@ describe PostsController, type: :controller do
         expect{
           post :create, post: { content: 'testtest' }, topic_id: topic.id, group_id: group.id
         }.to change{topic.posts.count}
-
       end
+
+      it 'creates post with picture attachment via picture field' do
+        expect{
+          post :create, post: {
+            content: 'testtest',
+            picture: fixture_file_upload('2345.jpg', 'image/jpeg')
+          }, topic_id: topic.id, group_id: group.id
+        }.to change{[topic.posts.count, Attachment.count]}
+      end
+
       it 'increments posts floor' do
         post :create, post: { content: 'testtest' }, topic_id: topic.id, group_id: group.id
         expect(assigns(:post).floor).to eq(1)

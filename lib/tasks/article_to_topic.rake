@@ -64,12 +64,14 @@ js
                             :secret_key => qiniu[:secret_key]
     bucket = qiniu[:bucket]
     db = Mongoid::Sessions.default
+
     pool = Concurrent::ThreadPoolExecutor.new(
        min_threads: 15,
        max_threads: 15,
        max_queue: 100,
        fallback_policy: :caller_runs
     )
+
     Post.where(:picture_file_name.exists => true).each do |post|
       pool.post do
         puts "id: #{post.id} #{post.topic_id}"
