@@ -1,5 +1,5 @@
 #= require waypoints/jquery.waypoints.js
-#= require 'jquery/ba-throttle-debounce'
+#= require 'throttle-debounce'
 #= require 'views/new_topic'
 #= require 'views/topic'
 #= require 'views/notifications'

@@ -53,4 +53,25 @@ describe Post, type: :model do
       expect(post2.floor).to eq(2)
     end
   end
+
+  describe '.attachment_ids' do
+    context 'when creating post' do
+      before {
+        @p = Post.new user: author, content: 'test'
+        @attachment = create :attachment, uploader_id: author.id
+      }
+      it 'associates attachments after saved' do
+        @p.attachment_ids = [@attachment.id.to_s]
+        @p.save
+        expect(@p.attachments).to match([@attachment])
+      end
+
+      it 'does not associate the attachments which are already associated' do
+        attachment2 = create :attachment, post: post, uploader_id: author.id
+        @p.attachment_ids = [@attachment.id.to_s, attachment2.id.to_s]
+        @p.save
+        expect(@p.attachments).to match([@attachment])
+      end
+    end
+  end
 end

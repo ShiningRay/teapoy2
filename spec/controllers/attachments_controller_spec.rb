@@ -20,21 +20,32 @@ require 'rails_helper'
 # that an instance is receiving a specific message.
 
 describe AttachmentsController do
+  describe 'POST #upload' do
+    before do
+      login_user
+    end
+
+    it 'creates attachment' do
+      expect {
+        post :upload, upload_file: fixture_file_upload('2345.jpg', 'image/jpeg')
+      }.to change(Attachment, :count)
+    end
+  end
 
   # This should return the minimal set of attributes required to create a valid
   # Attachment. As you add validations to Attachment, be sure to
   # update the return value of this method accordingly.
-  def valid_attributes
-    {}
-  end
+  # def valid_attributes
+  #   {}
+  # end
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # AttachmentsController. Be sure to keep this updated too.
-  def valid_session
-    {}
-  end
-  # 
+  # def valid_session
+  #   {}
+  # end
+  #
   # describe "GET index" do
   #   it "assigns all attachments as @attachments" do
   #     attachment = Attachment.create! valid_attributes

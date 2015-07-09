@@ -1,6 +1,6 @@
 #= require 'qtip2'
 #= require 'vendor/soundmanager2-nodebug-jsmin'
-#= require 'jquery/ba-throttle-debounce'
+#= require 'throttle-debounce'
 
 $ ->
   return unless sr.isLoggedIn() # 未登录的用户不用刷新通知信息

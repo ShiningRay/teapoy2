@@ -16,6 +16,8 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-waypoints'
   gem 'rails-assets-to-markdown'
   gem 'rails-assets-qtip2'
+  gem 'rails-assets-ichord--simditor-dropzone'
+  gem 'rails-assets-throttle-debounce'
 end
   gem 'timeago-rails'
   gem 'jquery-turbolinks'
@@ -207,3 +209,6 @@ gem 'mini_magick'
 gem 'annotate', '~> 2.6.6'
 gem 'spring-commands-rspec', group: :development
 gem 'simplecov', :require => false, :group => :test
+gem 'concurrent-ruby', require: false
+gem 'concurrent-ruby-ext', require: false
+gem 'reform'

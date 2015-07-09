@@ -7,6 +7,8 @@ RSpec.feature 'TopicReplyCreations', js: true, type: :feature do
   before {
     page.driver.allow_url("ajax.aspnetcdn.com")
     page.driver.allow_url("libs.baidu.com")
+    page.driver.allow_url("log.hm.baidu.com")
+    page.driver.allow_url("hm.baidu.com")
     sign_in user
   }
   scenario 'user replies to topic' do

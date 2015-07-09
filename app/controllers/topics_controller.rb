@@ -66,7 +66,7 @@ class TopicsController < ApplicationController
         find_group
         return render text: '', status: :not_found unless @group
         raise User::NotAuthorized if @group and @group.private and (not logged_in? or !current_user.is_member_of?(@group))
-        return render template:"/groups/pending" if @group.status == "pending"
+        return render template: "/groups/pending" if @group.status == "pending"
         scope = @group.public_topics.where(status: 'publish')
       end
     end
@@ -167,25 +167,18 @@ class TopicsController < ApplicationController
       status = topic.delete(:status)
       # for mobile devices simple form
       if p = topic.delete(:picture)
-        if !p.blank? and top_post[:type].blank? or top_post[:type] == 'Post'
-          top_post[:type] = 'Picture'
-          top_post[:picture] = p
-          transform_binary(top_post, :picture)
-          top_post.delete :video_page_link
-        end
-      end
-
-      if vl = topic.delete(:video_page_link)
-        vl.strip!
-        if !vl.blank? and (top_post[:type].blank? or top_post[:type] == 'Post')
-          top_post[:type] = 'ExternalVideo'
-          top_post[:video_page_link] = vl
+        if !p.blank?
+          @attachment = Attachment.create file: p, uploader_id: current_user.id
+          # transform_binary(top_post, :picture)
+          topic[:attachment_ids] = [@attachment.id.to_s]
+          topic[:content] << "![#{@attachment[:file]}](#{@attachment.file.url})"
         end
       end
 
       if c = topic.delete(:content)
         top_post[:content] = c if top_post[:content].blank?
       end
+
       if (top_post[:type].blank? || top_post[:type] == 'Post')
         if !topic[:title].blank? and top_post[:content].blank?
           top_post[:content] = topic.delete(:title)
@@ -195,6 +188,7 @@ class TopicsController < ApplicationController
       end
 
       topic[:top_post_attributes].permit!
+
 
       begin
         @topic = Topic.new( topic )
@@ -221,7 +215,6 @@ class TopicsController < ApplicationController
         @topic.status = status || 'publish'
       else
         @topic.status = @group.preferred_topics_need_approval? ? 'pending' : 'publish'
-
 
         if @group.options.only_member_can_post and !current_user.is_member_of?(@group)
           error_return.call('只有小组成员才能在这里发贴')
@@ -553,7 +546,9 @@ class TopicsController < ApplicationController
   private
 
   def topic_params
-    params.require(:topic).permit(:group_id, :title, :content, {top_post_attributes: [:type, :content, :picture, :image_url]}, :status, :picture, :video_page_link, :swf, :question_content, :uncommentable, :anonymous)
+    params.require(:topic).permit(:group_id, :title, :content,
+      {top_post_attributes: [:type, :content, :picture, :image_url]},
+      :status, :picture, :uncommentable, :anonymous, :attachment_ids => [])
   end
 
   def find_group

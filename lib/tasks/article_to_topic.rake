@@ -53,4 +53,43 @@ js
     end
     db[:posts].find.update_all('$unset' => {"_type" => ""})
   end
+
+  desc 'move picture field to attachment'
+  task :move_picture_to_attachment => :environment do
+    require 'qiniu'
+    require 'concurrent/executors'
+
+    qiniu = Rails.application.secrets.qiniu.with_indifferent_access
+    Qiniu.establish_connection! :access_key => qiniu[:access_key],
+                            :secret_key => qiniu[:secret_key]
+    bucket = qiniu[:bucket]
+    db = Mongoid::Sessions.default
+
+    pool = Concurrent::ThreadPoolExecutor.new(
+       min_threads: 15,
+       max_threads: 15,
+       max_queue: 100,
+       fallback_policy: :caller_runs
+    )
+
+    Post.where(:picture_file_name.exists => true).each do |post|
+      pool.post do
+        puts "id: #{post.id} #{post.topic_id}"
+        next unless post.picture?
+        attachment = post.attachments.new content_type: post[:picture_content_type], dimensions: post[:dimensions]
+
+        attachment[:file] = post[:picture_file_name]
+
+        code, result, response_headers = Qiniu::Storage.move(
+          bucket, bucket, post.picture.path,
+          attachment.file.path
+        )
+
+        attachment.save!
+        content = "#{post.content}\n\n![#{post[:picture_file_name]}](#{attachment.file.url})"
+        post.remove_picture!
+        db[:posts].find('_id' => post.id).update('$set' => {picture_file_name: nil, content: content})
+      end
+    end
+  end
 end

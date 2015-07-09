@@ -38,6 +38,7 @@ class Post
   include DescribedTargetAspect
   include ActionView::Helpers::DateHelper
   include PictureAspect
+  include AttachmentsAspect
 
   harmonize :content
 
@@ -61,10 +62,6 @@ class Post
     floor == 0 || parent_id.blank?
   end
 
-  def attachment?
-    floor.to_i < 0
-  end
-
   def comment?
     floor.to_i > 0
   end
@@ -73,9 +70,6 @@ class Post
     false
   end
 
-  def move_to(group)
-    raise CannotMovePost if reposted_to?(group)
-  end
 
   alias_method :original_user, :user
 

@@ -90,8 +90,7 @@ module Teapoy
 
     #config.middleware.use Weixin::Middleware, "94dj43l3Zus9qh9i73I9dhf028873x", '/weixin'
     #config.threadsafe!
-    config.assets.paths << "#{Rails.root}/app/assets/fonts"
-    config.assets.precompile << /\.(?:svg|eot|woff|ttf)$/
+
 
     config.middleware.insert_before 0, 'Rack::Cors' do
       allow do

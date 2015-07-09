@@ -55,5 +55,6 @@ guard 'rails' do
   watch(%r{^config/locales/.*})
   watch('config/application.rb')
   watch(%r{^config/environments/.*})
+  watch(%r{^config/initializers/.*})
   # watch(%r{^(config|lib)/.*})
 end

@@ -15,3 +15,5 @@ Rails.application.config.assets.precompile +=  %w(tip-twitter.css screen.css
     dist/*.js
     dist/*.css
 )
+Rails.application.config.assets.paths << "#{Rails.root}/app/assets/fonts"
+Rails.application.config.assets.precompile << /\.(?:svg|eot|woff|ttf)$/
