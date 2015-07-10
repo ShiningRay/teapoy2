@@ -41,6 +41,9 @@ class Guestbook < ActiveRecord::Base
         s.created_at = topic.created_at
         s.updated_at = topic.updated_at
 
+        s.save!
+        s.liker_ids = topic.top_post.ratings.map(&:user_id)
+
         if topic.top_post.picture?
           puts topic.top_post.picture.url
           s[:picture] = topic.top_post[:picture_file_name]
@@ -51,9 +54,6 @@ class Guestbook < ActiveRecord::Base
           Qiniu.copy bucket, topic.top_post.picture.medium.path, bucket, s.picture.medium.path
           Qiniu.copy bucket, topic.top_post.picture.large.path, bucket, s.picture.large.path
         end
-
-        s.save!
-        s.liker_ids = topic.top_post.ratings.map(&:user_id)
 
         topic.comments.each do |p|
           s.comments.create content: p.content, author: p.user, created_at: p.created_at, updated_at: p.updated_at
