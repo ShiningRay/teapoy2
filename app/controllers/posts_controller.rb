@@ -92,7 +92,7 @@ class PostsController < ApplicationController
 
       if picture = p.delete(:picture)
         @attachment = Attachment.create file: picture, uploader_id: current_user.id
-        p[:content] << "![#{attachment[:file]}](#{attachment.file.url})"
+        p[:content] << "![#{@attachment[:file]}](#{@attachment.file.url})"
         p[:attachment_ids] = [@attachment.id.to_s]
       end
 

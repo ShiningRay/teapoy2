@@ -16,7 +16,7 @@ RSpec.feature 'TopicReplyCreations', js: true, type: :feature do
     post_content = 'It is a reply'
     # fill_in 'post_content', with: post_content
     find(:css,  '.simditor-body').set(post_content)
-    attach_file 'post_picture', Rails.root.join('spec/fixtures/2345.jpg')
+    # attach_file 'post_picture', Rails.root.join('spec/fixtures/2345.jpg')
 
     click_button '回复'
     # save_and_open_screenshot
@@ -24,7 +24,7 @@ RSpec.feature 'TopicReplyCreations', js: true, type: :feature do
     post = Post.last
     expect(page).to have_css("\#post_#{post.id}", text: post_content)
     expect(post.user).to eq(user)
-    expect(post).to be_picture
+    # expect(post).to be_picture
     expect(post.content).to eq(post_content)
 
     # 10s 后跳转首页

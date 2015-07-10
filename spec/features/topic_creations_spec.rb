@@ -9,13 +9,13 @@ RSpec.feature 'TopicCreations', type: :feature do
 
     fill_in 'topic_title', with: 'test'
     fill_in '内容', with: 'ShiningRay'
-    attach_file 'topic_picture', Rails.root.join('spec/fixtures/2345.jpg')
+    # attach_file 'topic_picture', Rails.root.join('spec/fixtures/2345.jpg')
 
     click_button '发布'
 
     expect(page).to have_content('test')
     expect(page).to have_content('ShiningRay')
-    expect(page).to have_xpath("//img[contains(@src, '2345.jpg')]")
+    # expect(page).to have_xpath("//img[contains(@src, '2345.jpg')]")
     # 10s 后跳转首页
     # sleep 11
     # expect(current_path).to eq('/')

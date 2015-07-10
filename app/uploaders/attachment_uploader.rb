@@ -49,6 +49,7 @@ class AttachmentUploader < CarrierWave::Uploader::Base
   private
 
   def store_dimensions
+
     if file && model
       width, height = ::MiniMagick::Image.open(file.file)[:dimensions]
       model.dimensions[:original] = [width, height]
