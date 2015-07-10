@@ -44,12 +44,12 @@ class Guestbook < ActiveRecord::Base
         if topic.top_post.picture?
           puts topic.top_post.picture.url
           s[:picture] = topic.top_post[:picture_file_name]
-          Qiniu.copy bucket, topic.top_post.picture.url, bucket, s.picture.url
-          Qiniu.copy bucket, topic.top_post.picture.thumb.url, bucket, s.picture.thumb.url
-          Qiniu.copy bucket, topic.top_post.picture.small.url, bucket, s.picture.small.url
-          Qiniu.copy bucket, topic.top_post.picture.longsmall.url, bucket, s.picture.longsmall.url
-          Qiniu.copy bucket, topic.top_post.picture.medium.url, bucket, s.picture.medium.url
-          Qiniu.copy bucket, topic.top_post.picture.large.url, bucket, s.picture.large.url
+          Qiniu.copy bucket, topic.top_post.picture.path, bucket, s.picture.path
+          Qiniu.copy bucket, topic.top_post.picture.thumb.path, bucket, s.picture.thumb.path
+          Qiniu.copy bucket, topic.top_post.picture.small.path, bucket, s.picture.small.path
+          Qiniu.copy bucket, topic.top_post.picture.longsmall.path, bucket, s.picture.longsmall.path
+          Qiniu.copy bucket, topic.top_post.picture.medium.path, bucket, s.picture.medium.path
+          Qiniu.copy bucket, topic.top_post.picture.large.path, bucket, s.picture.large.path
         end
 
         s.save!
