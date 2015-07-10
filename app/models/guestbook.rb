@@ -1,6 +1,6 @@
 class Guestbook < ActiveRecord::Base
   belongs_to :owner, class_name: 'User'
-  has_many :stories
+  has_many :stories, dependent: :destroy
   validates :name, :owner, presence: true
   validates :name, uniqueness: true
 
@@ -44,12 +44,12 @@ class Guestbook < ActiveRecord::Base
         if topic.top_post.picture?
           puts topic.top_post.picture.url
           s[:picture] = topic.top_post[:picture_file_name]
-          Qiniu.copy bucket, bucket, topic.top_post.picture.url, s.picture.url
-          Qiniu.copy bucket, bucket, topic.top_post.picture.thumb.url, s.picture.thumb.url
-          Qiniu.copy bucket, bucket, topic.top_post.picture.small.url, s.picture.small.url
-          Qiniu.copy bucket, bucket, topic.top_post.picture.longsmall.url, s.picture.longsmall.url
-          Qiniu.copy bucket, bucket, topic.top_post.picture.medium.url, s.picture.medium.url
-          Qiniu.copy bucket, bucket, topic.top_post.picture.large.url, s.picture.large.url
+          Qiniu.copy bucket, topic.top_post.picture.url, bucket, s.picture.url
+          Qiniu.copy bucket, topic.top_post.picture.thumb.url, bucket, s.picture.thumb.url
+          Qiniu.copy bucket, topic.top_post.picture.small.url, bucket, s.picture.small.url
+          Qiniu.copy bucket, topic.top_post.picture.longsmall.url, bucket, s.picture.longsmall.url
+          Qiniu.copy bucket, topic.top_post.picture.medium.url, bucket, s.picture.medium.url
+          Qiniu.copy bucket, topic.top_post.picture.large.url, bucket, s.picture.large.url
         end
 
         s.save!

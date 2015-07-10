@@ -6,7 +6,7 @@
     = simple_format story.content
     - if story.picture?
       = link_to story.picture.large.url do
-        = story.picture.small.url
+        = image_tag story.picture.small.url
 
   .like
     .likers

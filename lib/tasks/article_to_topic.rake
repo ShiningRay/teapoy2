@@ -81,8 +81,8 @@ js
         attachment[:file] = post[:picture_file_name]
 
         code, result, response_headers = Qiniu::Storage.move(
-          bucket, bucket, post.picture.path,
-          attachment.file.path
+          bucket, post.picture.path,
+          bucket, attachment.file.path
         )
 
         attachment.save!
