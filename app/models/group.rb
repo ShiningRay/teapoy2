@@ -25,7 +25,7 @@ class Group #< ActiveRecord::Base
   # paginates_per 30
   # acts_as_taggable
   # attr_readonly :alias
-  has_many :topics
+  has_many :topics, dependent: :destroy
   #has_many :public_topics, class_name: 'Topic', conditions: {status: 'publish'}
   def public_topics
     topics.public_topics

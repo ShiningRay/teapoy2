@@ -25,7 +25,7 @@ class Guestbook < ActiveRecord::Base
     group.public_topics.each do |topic|
       next unless topic.top_post
 
-      poll.post do
+      pool.post do
         puts topic.id
         puts topic.title
         s = Story.new guestbook: book

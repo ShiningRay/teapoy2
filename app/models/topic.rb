@@ -45,7 +45,7 @@ class Topic
   check_spam :title
   STATUSES = %w(draft publish private pending spam deleted future)
   include Topic::StatusAspect
-  has_many :posts
+  has_many :posts, dependent: :destroy
   belongs_to :group
   index({group_id: 1, status: 1, slug: 1}, {background: true})
   index({created_at: -1, group_id: 1, status: 1}, {background: true})
@@ -101,6 +101,7 @@ class Topic
   end
 
   attr_accessor :uncommentable
+  after_destroy { Subscription.by_publication(self).delete_all }
 
   def uncommentable=(b)
     self.comment_status = ([0, '0', 'false', false].include?(b) ? 'open' : 'closed')
