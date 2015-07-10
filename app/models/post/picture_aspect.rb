@@ -5,7 +5,7 @@
 module Post::PictureAspect
   extend ActiveSupport::Concern
   included do
-    mount_uploader :picture, PictureUploader, mount_on: :picture_file_name
+    mount_uploader :picture, OldPictureUploader, mount_on: :picture_file_name
     field :image_url, type: String
     # after_post_process :save_image_dimensions
     field :dimensions, type: Hash, default: {}

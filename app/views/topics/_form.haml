@@ -27,8 +27,3 @@
       - else
         = link_to '绑定新浪微博后同步发送', '/syncs/sina/new'
     = f.button :submit, @topic.new_record? ? '发布' : '修改', button_html: {data:{disable_with: '...'}, class: 'btn btn-primary'}
-- content_for :javascripts do
-  :javascript
-    $(function(){
-      $('#topic_group_id').select2({width: '300px'})
-    })

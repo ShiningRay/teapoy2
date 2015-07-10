@@ -1,10 +1,11 @@
 # encoding: utf-8
 
-class PictureUploader < CarrierWave::Uploader::Base
+class OldPictureUploader < CarrierWave::Uploader::Base
 
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
   include CarrierWave::MiniMagick
+  include CarrierWave::Compatibility::Paperclip
 
   version :thumb do
     process resize_to_fill: [64, 64]
@@ -35,6 +36,14 @@ class PictureUploader < CarrierWave::Uploader::Base
   #   # "system/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   # end
   #
+  def paperclip_path
+    "system/:attachment/#{oid}/:style/:basename.:extension"
+  end
+
+  def oid
+    model.id.to_s.sub(/^0+/, '')
+  end
+
   # process :store_dimensions
 
   private
