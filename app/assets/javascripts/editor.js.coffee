@@ -17,6 +17,10 @@ $ ->
       $('#topic_content').val(toMarkdown($('#topic_content').val(), { gfm: true }))
     topic_content_editor.uploader.on 'uploadsuccess', (e, file, result) ->
       $('form#new_topic').append("<input type='hidden' class='attachment_ids' name='topic[attachment_ids][]' value='#{result.id}'>")
+    $('#topic_title').focus().on 'keypress', (e) ->
+      if e.which is 13 or e.which is 10
+        topic_content_editor.focus() if $.trim($(this).val()).length > 0
+        return false
 
 
   if $('#post_content').size() > 0

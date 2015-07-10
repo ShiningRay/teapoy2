@@ -18,7 +18,7 @@ describe Attachment do
         config.enable_processing = false
       end
     end
-    subject { Attachment.create file: file}
+    subject { Attachment.create file: file }
     its(:dimensions) { should_not be_blank }
   end
 end
