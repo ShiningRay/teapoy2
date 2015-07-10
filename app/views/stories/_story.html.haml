@@ -2,7 +2,12 @@
 %div[story.to_model]
   .author= story.author_link
   .published_at= link_to story.created_at, [story.guestbook, story]
-  .content= simple_format story.content
+  .content
+    = simple_format story.content
+    - if story.picture?
+      = link_to story.picture.large.url do
+        = story.picture.small.url
+
   .like
     .likers
       - story.likers.each do |u|
