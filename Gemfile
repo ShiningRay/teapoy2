@@ -8,7 +8,7 @@ else
 end
 gem 'dotenv-rails'
 
-gem 'rails', '~> 4.1.0'
+gem 'rails', '~> 4.2.0'
 # FrontEnd {{{
 source 'https://rails-assets.org' do
   gem 'rails-assets-icanhaz'
@@ -19,7 +19,8 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-ichord--simditor-dropzone'
   gem 'rails-assets-throttle-debounce'
 end
-  gem 'timeago-rails'
+  gem 'jquery-rails'
+  gem 'turbolinks'
   gem 'jquery-turbolinks'
   gem 'turbolinks-redirect'
   gem 'nprogress-rails'
@@ -27,7 +28,6 @@ end
   gem 'bootstrap-sass'
   gem "font-awesome-rails"
   gem 'autoprefixer-rails'
-  gem 'jquery-rails'
   gem "jquery_mobile_rails"
   gem 'jquery-atwho-rails', :github => 'ShiningRay/jquery-atwho-rails'
   gem 'lazy_high_charts'
@@ -36,6 +36,7 @@ end
   gem 'coffee-rails'
   gem 'uglifier'
   gem 'select2-rails'
+  gem 'timeago-rails'
   gem 'simditor'
   gem "non-stupid-digest-assets"
 # }}}
@@ -150,6 +151,7 @@ group :development, :test do
   gem 'guard-rails'
   gem 'rb-inotify', platforms: :ruby, require: false
   gem 'rb-fsevent', platforms: :ruby, require: false
+  gem 'spring'
   #gem 'rb-fchange', platforms: [:mswin, :mingw], require: false
   # gem 'ruby_gntp'
 end
@@ -172,6 +174,7 @@ group :development do
   gem 'rack-livereload'
   gem 'rack-mini-profiler', require: false
   gem 'xray-rails'
+  gem 'spring-commands-rspec'
 end
 
 group :test do
@@ -208,7 +211,7 @@ gem 'eye', github: 'kostya/eye', require: false
 gem 'foreman', require: false
 gem 'mini_magick'
 gem 'annotate', '~> 2.6.6'
-gem 'spring-commands-rspec', group: :development
+
 gem 'simplecov', :require => false, :group => :test
 gem 'concurrent-ruby', require: false
 gem 'concurrent-ruby-ext', require: false
