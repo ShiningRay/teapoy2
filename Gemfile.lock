@@ -209,9 +209,6 @@ GEM
     default_value_for (3.0.1)
       activerecord (>= 3.2.0, < 5.0)
     diff-lcs (1.2.5)
-    disposable (0.1.7)
-      representable (>= 2.2.3, <= 2.3.0)
-      uber
     docile (1.1.5)
     dotenv (2.0.1)
     dotenv-rails (2.0.1)
@@ -318,9 +315,6 @@ GEM
       celluloid (~> 0.16.0)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
-    lotus-utils (0.5.1)
-    lotus-validations (0.3.2)
-      lotus-utils (~> 0.4)
     lumberjack (1.0.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
@@ -506,14 +500,7 @@ GEM
     redis-objects (1.2.0)
       redis (>= 3.0.2)
     ref (1.0.5)
-    reform (2.0.0)
-      disposable (~> 0.1.7)
-      uber (~> 0.0.11)
     remotipart (1.2.1)
-    representable (2.2.3)
-      multi_json
-      nokogiri
-      uber (~> 0.0.7)
     request_store (1.1.0)
     responders (1.1.2)
       railties (>= 3.2, < 4.2)
@@ -638,7 +625,6 @@ GEM
       turbolinks
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
-    uber (0.0.13)
     uglifier (2.7.1)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
@@ -727,7 +713,6 @@ DEPENDENCIES
   json
   kaminari
   lazy_high_charts
-  lotus-validations
   mailman
   mini_magick
   mongoid (~> 4.0.0)
@@ -772,7 +757,6 @@ DEPENDENCIES
   rb-inotify
   redcarpet
   redis-objects
-  reform (~> 2.0.0)
   remotipart (~> 1.2)
   responders
   rspec
