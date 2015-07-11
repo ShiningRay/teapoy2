@@ -61,7 +61,7 @@ GIT
       thor
 
 GEM
-  remote: https://ruby.taobao.org/
+  remote: https://rubygems.org/
   remote: https://rails-assets.org/
   specs:
     aasm (4.2.0)
@@ -172,11 +172,11 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
-    capybara-webkit (1.6.0)
     capybara-user_agent (0.0.3)
-      capybara (~> 2.0, >= 2.0.2)
       capybara (>= 2.3.0, < 2.5.0)
+      capybara (~> 2.0, >= 2.0.2)
       json
+    capybara-webkit (1.6.0)
     carrierwave (0.10.0)
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
@@ -475,7 +475,6 @@ GEM
     rails-assets-qtip2 (2.2.1)
       rails-assets-imagesloaded (>= 3.0.0)
       rails-assets-jquery (>= 1.6.0)
-    rails-assets-to-markdown (1.2.1)
     rails-assets-simditor (2.1.15)
       rails-assets-jquery (~> 2.1.4)
       rails-assets-simple-hotkeys (~> 1.0.3)
@@ -490,6 +489,7 @@ GEM
       rails-assets-jquery (~> 2.0)
       rails-assets-simple-module (~> 2.0.5)
     rails-assets-throttle-debounce (0.1.1)
+    rails-assets-to-markdown (1.2.1)
     rails-assets-waypoints (3.1.1)
     rails-deprecated_sanitizer (1.0.3)
       activesupport (>= 4.2.0.alpha)
