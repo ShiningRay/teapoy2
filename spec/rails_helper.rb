@@ -11,6 +11,7 @@ require 'factory_girl'
 require "authlogic/test_case"
 require 'webmock/rspec'
 require "pundit/rspec"
+require 'capybara/user_agent'
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -44,6 +45,7 @@ class ActionController::Caching::Sweeper
   end
 end
 
+
 RSpec.configure do |config|
   # == Mock Framework
   #
@@ -58,6 +60,8 @@ RSpec.configure do |config|
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
+
+  config.include Capybara::UserAgent::DSL
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false

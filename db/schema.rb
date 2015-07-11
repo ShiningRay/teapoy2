@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150630151626) do
+ActiveRecord::Schema.define(version: 20150711041707) do
 
   create_table "admin_users", force: true do |t|
     t.string   "first_name",       default: "",    null: false
@@ -665,6 +665,7 @@ ActiveRecord::Schema.define(version: 20150630151626) do
     t.integer  "top_post_id"
     t.integer  "score",                     default: 0
     t.integer  "posts_count",               default: 0
+    t.integer  "views",                     default: 0,         null: false
   end
 
   add_index "topics", ["group_id", "status", "created_at"], name: "created_at", using: :btree

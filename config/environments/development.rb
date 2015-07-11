@@ -45,9 +45,10 @@ Teapoy::Application.configure do
   config.log_level = :debug
   config.middleware.insert_after(ActionDispatch::Static, Rack::LiveReload)
 
-  # BetterErrors.editor = :sublime
+
   if defined? BetterErrors
-    BetterErrors.editor = "atm://open?url=file://%{file}&line=%{line}"
+    BetterErrors.editor = :sublime
+    # BetterErrors.editor = "atm://open?url=file://%{file}&line=%{line}"
   end
   some_paths = %w"/assets
   /system/
@@ -68,4 +69,5 @@ Teapoy::Application.configure do
     Rack::MiniProfiler.config.start_hidden = !ENV['show_profiler']
   end
   config.i18n.fallbacks = true
+  config.reload_plugins = true
 end

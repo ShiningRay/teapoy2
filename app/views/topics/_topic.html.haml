@@ -52,6 +52,7 @@
               = link_to group.name, group_topics_path(group),:data => {:alias => group.alias},:class => 'group'
               = link_to [group,topic], :rel => 'permalink' do
                 %time.relativetime.timeago{:datetime => topic.created_at.iso8601, :title => topic.created_at.to_s}= topic.created_at
+
   - if defined?(comments) and not comments.blank?
     - @comments = comments
     = render 'comments/index'

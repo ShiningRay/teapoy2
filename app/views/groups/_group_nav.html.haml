@@ -4,3 +4,10 @@
   .group_text
     .group_title.clearfix
       .group_titlel= link_to @group.name, @group
+
+    .group_topic_count
+      文章数
+      = @group.public_topics.count
+    .group_owner
+      版主
+      = link_to @group.owner.name_or_login, @group.owner
