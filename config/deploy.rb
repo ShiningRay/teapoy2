@@ -17,7 +17,7 @@ set :unicorn_rack_env, "production"
 
 # RVM {{{
 set :rvm_type, :system
-set :rvm_ruby_version, 'ruby-2.1.5'
+set :rvm_ruby_version, 'ruby-2.2.2'
 # before 'deploy:setup', 'rvm:install_rvm'
 # before 'deploy:setup', 'rvm:install_ruby'
 # }}}
