@@ -154,74 +154,11 @@ class TopicsController < ApplicationController
 
     if request.post? and topic # it is a request and has params, a good request.
       #topic[:content] = ActionController::Base.helpers.sanitize topic[:content]
-      topic[:content].strip! if topic.include?(:content) # trim the white space in the end or beginning
-      topic[:title].strip! if topic.include?(:title)
-      topic[:anonymous] = false if topic[:anonymous].blank?
-      topic[:uncommentable] = false if topic[:uncommentable].blank?
-      topic.delete :title if topic[:title].blank?
-      #topic[:ip] = request.remote_ip
-      #topic.delete(:picture) unless logged_in?
-      topic[:top_post_attributes] ||= {}
-      top_post = topic[:top_post_attributes]
-      top_post[:content].strip! if top_post.include?(:content)
-      status = topic.delete(:status)
-      # for mobile devices simple form
-      if p = topic.delete(:picture)
-        if !p.blank?
-          @attachment = Attachment.create file: p, uploader_id: current_user.id
-          # transform_binary(top_post, :picture)
-          topic[:attachment_ids] = [@attachment.id.to_s]
-          topic[:content] << "![#{@attachment[:file]}](#{@attachment.file.url})"
-        end
-      end
-
-      if c = topic.delete(:content)
-        top_post[:content] = c if top_post[:content].blank?
-      end
-
-      if (top_post[:type].blank? || top_post[:type] == 'Post')
-        if !topic[:title].blank? and top_post[:content].blank?
-          top_post[:content] = topic.delete(:title)
-        end
-        k = top_post.keys.collect{|i|i.to_s} - ['content']
-        k.each {|k1| top_post.delete(k1)}
-      end
-
-      topic[:top_post_attributes].permit!
+      @topic_form = TopicForm.new(current_user, @group.topics.new)
 
 
-      begin
-        @topic = Topic.new( topic )
-      rescue ActiveRecord::UnknownAttributeError
-        @topic = Topic.new
-        topic.top_post = Post.new
-        error_return.call('发现不明数据，您是不是选错了文章类型了呢？')
-      end
-      @post = @topic.top_post
-
-      if logged_in?
-        @topic.user_id = current_user.id
-        @post.user_id = current_user.id
-        current_user.spend_credit(20, 'anonymous') if @topic.anonymous?
-      else
-        @topic.user_id = 0
-        @topic.anonymous = true
-      end
-
-      @topic.group_id = @group.id if not @topic.group_id or @topic.group_id == 0
-      @topic.group_id = 1 if @topic.group_id == 0
-      @topic.comment_status ||= 'open'
-      if !status.blank? and logged_in? and current_user.own_group?( @group) or current_user.is_admin?
-        @topic.status = status || 'publish'
-      else
-        @topic.status = @group.preferred_topics_need_approval? ? 'pending' : 'publish'
-
-        if @group.options.only_member_can_post and !current_user.is_member_of?(@group)
-          error_return.call('只有小组成员才能在这里发贴')
-        end
-      end
-      error_return.call('未激活用户暂时不能发帖') unless current_user.active? or @group.preferred_guest_can_post?
-      if @topic.save
+      if @topic_form.validate(topic_params) && @topic_form.save
+        @topic = @topic_form.topic
         current_user.subscribe @topic if logged_in?
         respond_to do |format|
           format.any(:html, :wml) {

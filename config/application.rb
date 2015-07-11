@@ -29,7 +29,8 @@ module Teapoy
         #{config.root}/lib
         #{config.root}/app/helpers
         #{config.root}/app/posts
-        #{config.root}/app/observers)
+        #{config.root}/app/observers
+        #{config.root}/app/forms)
     # config.paths['config/routes'] += Dir[Rails.root.join("config/routes/*.rb")].sort
     config.paths['config/routes'] = Dir[Rails.root.join('config/routes/*.rb')].sort
     # Only load the plugins named here, in the order given (default is alphabetical).
