@@ -5,3 +5,6 @@ var editor = $('#post_content').data('editor');
 if(editor) editor.setValue('');
 $('.relativetime').timeago('refresh');
 $('.attachment_ids').remove();
+if (_hmt) {
+    _hmt.push(['_trackEvent', 'topics', 'reply', <%= @post.topic_id %>]);
+};

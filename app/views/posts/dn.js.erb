@@ -3,3 +3,7 @@
 $('#<%= id %> .midcol').addClass('dislikes').removeClass('likes unvoted');
 $('#<%= id %> .up').text("<%= post.pos %>");
 $('#<%= id %> .down').text('<%= @post.neg %>');
+
+if (_hmt) {
+    _hmt.push(['_trackEvent', 'posts', 'rate', <%= @post.id %>, 'up']);
+};

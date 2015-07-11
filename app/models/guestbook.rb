@@ -46,19 +46,22 @@ class Guestbook < ActiveRecord::Base
 
         if topic.top_post.picture?
           puts topic.top_post.picture.url
-          s[:picture] = topic.top_post[:picture_file_name]
-          Qiniu.copy bucket, topic.top_post.picture.path, bucket, s.picture.path
-          Qiniu.copy bucket, topic.top_post.picture.thumb.path, bucket, s.picture.thumb.path
-          Qiniu.copy bucket, topic.top_post.picture.small.path, bucket, s.picture.small.path
-          Qiniu.copy bucket, topic.top_post.picture.longsmall.path, bucket, s.picture.longsmall.path
-          Qiniu.copy bucket, topic.top_post.picture.medium.path, bucket, s.picture.medium.path
-          Qiniu.copy bucket, topic.top_post.picture.large.path, bucket, s.picture.large.path
+          p = s[:picture] = topic.top_post[:picture_file_name]
+          i = s.id
+          Qiniu.copy bucket, topic.top_post.picture.path, bucket, "uploads/story/picture/#{i}/#{p}"
+          Qiniu.copy bucket, topic.top_post.picture.thumb.path, bucket, "uploads/story/picture/#{i}/thumb_#{p}"
+          Qiniu.copy bucket, topic.top_post.picture.small.path, bucket, "uploads/story/picture/#{i}/small_#{p}"
+          Qiniu.copy bucket, topic.top_post.picture.longsmall.path, bucket, "uploads/story/picture/#{i}/longsmall_#{p}"
+          Qiniu.copy bucket, topic.top_post.picture.medium.path, bucket, "uploads/story/picture/#{i}/medium_#{p}"
+          Qiniu.copy bucket, topic.top_post.picture.large.path, bucket, "uploads/story/picture/#{i}/large_#{p}"
         end
 
         topic.comments.each do |p|
           s.comments.create content: p.content, author: p.user, created_at: p.created_at, updated_at: p.updated_at
         end
       end
+      pool.shutdown
+      pool.wait_for_termination
     end
   end
 end
