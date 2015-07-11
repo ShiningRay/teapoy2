@@ -792,6 +792,7 @@ DEPENDENCIES
   simple_form
   simplecov
   sinatra (>= 1.3.0)
+  spring
   spring-commands-rspec
   stringex
   tenacity!
