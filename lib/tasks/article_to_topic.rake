@@ -76,7 +76,7 @@ js
       pool.post do
         puts "id: #{post.id} #{post.topic_id}"
         next unless post.picture?
-        attachment = post.attachments.new content_type: post[:picture_content_type], dimensions: post[:dimensions]
+        attachment = post.attachments.new content_type: post[:picture_content_type], dimensions: post[:dimensions], uploader_id: post.user_id
 
         attachment[:file] = post[:picture_file_name]
 
@@ -114,7 +114,9 @@ js
   task :export_topics => :environment do
     db = Mongoid::Sessions.default
     conn = ActiveRecord::Base.connection
+
     db[:topics].find.each do |topic|
+      puts 'truncate topics;'
       puts "insert into topics set id='#{topic['_id']}', title=#{conn.quote topic['title']},
       user_id=#{topic['user_id']}, group_id=#{topic['group_id']}, created_at=#{conn.quote topic['created_at']},
       updated_at=#{conn.quote topic['updated_at']}, comment_status=#{conn.quote topic['comment_status']||'open'},
@@ -124,9 +126,10 @@ js
   end
 
   desc 'migrate post'
-  task :migrate_posts => :environment do
+  task :export_posts => :environment do
     db = Mongoid::Sessions.default
     conn = ActiveRecord::Base.connection
+    puts 'truncate posts;'
     # start = 0
     # loop do
     #   rows = conn.select_all("select * from topics where id > #{start} order by id asc limit 1000").each_entry do |topic|
@@ -145,18 +148,38 @@ js
     #     end
     #   end
     # end
-    db[:posts].find.sort(:topic_id => 1, :floor => 1).limit(1).each do |post|
+    db[:posts].find({topic_id: {'$ne' => nil}}).sort(:topic_id => 1, :floor => 1).each do |post|
       puts <<-sql
       insert into posts set topic_id=#{conn.quote post['topic_id']},content=#{conn.quote post['content']},
-      created_at=#{conn.quote post['created_at']}, updated_at=#{conn.quote post['updated_at']},
+      created_at=#{conn.quote post['created_at']}, updated_at=#{conn.quote post['updated_at']||post['created_at']||Time.now},
       user_id=#{conn.quote post['user_id']}, group_id=#{conn.quote post['group_id']},
       parent_floor=#{conn.quote post['parent_floor']}, floor=#{conn.quote post['floor']},
-      anonymous=#{conn.quote post['anonymous'] || false}, mentioned=#{conn.quote post['mentioned'].join(',')},
+      anonymous=#{conn.quote post['anonymous'] || false}, mentioned=#{conn.quote Array(post['mentioned']).join(',')},
       pos=#{conn.quote post['pos']}, neg=#{conn.quote post['neg']}, score=#{conn.quote post['score']},
       status=#{conn.quote post['status'] || ''}, ip=#{conn.quote post['ip']||0};
       set @id = last_insert_id();
       update ratings set post_id=@id where post_id=#{conn.quote post['_id'].to_s};
+      update rewards set post_id=@id where post_id=#{conn.quote post['_id'].to_s};
+      update attachments set post_id=@id where post_id=#{conn.quote post['_id'].to_s};
       sql
+    end
+  end
+
+  desc 'migrate attachments'
+  task :export_attachments => :environment do
+    db = Mongoid::Sessions.default
+    conn = ActiveRecord::Base.connection
+    puts 'truncate attachments;'
+    db[:attachments].find.each do |a|
+      sql = <<-sql
+      insert into attachments set post_id = #{conn.quote a['post_id'].to_s}, uploader_id = #{conn.quote a['uploader_id']||0}, file=#{conn.quote a['file']},
+      sql
+      if a['dimensions'] && a['dimensions']['original']
+        d = a['dimensions']['original']
+        sql << "width=#{d[0]||0}, height=#{d[1]||0},"
+      end
+      sql << "content_type=#{conn.quote a['content_type']}, file_size=#{conn.quote a['file_size']};"
+      puts sql
     end
   end
 
@@ -165,11 +188,12 @@ js
     conn = ActiveRecord::Base.connection
     start = 0
     loop do
-      res = conn.select_all("select id, topic_id, parent_floor, floor from posts where parent_id is null and floor <> 0 limit 1000")
-      break if res.size == 0
+      res = conn.select_all("select id, topic_id, parent_floor, floor from posts where id > #{start} and parent_id is null and floor is not null limit 1000")
+      break if res.length == 0
       res.each_entry do |post|
         puts "#{post['topic_id']} #{post['id']} #{post['floor']}"
         conn.execute "update posts set parent_id=#{post['id']} where topic_id=#{post['topic_id']} and parent_floor=#{post['floor']}"
+        start = post['id']
       end
     end
   end
@@ -177,14 +201,23 @@ js
   desc 'reassign top_post_id'
   task reassign_top_post: :environment do
     conn = ActiveRecord::Base.connection
-
+    start = 0
     loop do
-      res = conn.select_all("select id, topic_id from posts where floor = 0 order id asc limit 1000")
-      break if res.size == 0
+      res = conn.select_all("select id, topic_id from posts where id > #{start} and floor = 0 order by id asc limit 1000")
+      break if res.length == 0
       res.each_entry do |post|
-        puts "#{post.topic_id} -> #{post.id}"
-        conn.execute "update topics set top_post_id=#{post.id} where id=#{post.topic_id}"
+        puts "#{post['topic_id']} -> #{post['id']}"
+        conn.execute "update topics set top_post_id=#{post['id']} where id=#{post['topic_id']}"
+        start = post['id']
       end
     end
   end
+
+  desc 'update topic posts_count cache'
+  task resync_posts_count: :environment do
+    ActiveRecord::Base.connection.execute <<-sql
+    update `topics` inner join (select topic_id, count(*) as cnt from posts group by topic_id) as counts on topics.id = counts.topic_id set topics.posts_count = counts.cnt;
+    sql
+  end
+
 end

@@ -4,6 +4,9 @@ class Group < ActiveRecord::Base
   #acts_as_nested_set
   include AntiSpam
   has_one :options, class_name: 'GroupOption'#, autobuild: true
+  def options
+    super || build_options
+  end
   accepts_nested_attributes_for :options
   #acts_as_publisher
   # paginates_per 30
@@ -36,7 +39,7 @@ class Group < ActiveRecord::Base
   #scope :open_groups, -> { where(status: "open") }
   scope :hide_groups, -> { where(hide: true) }
   scope :not_pending, -> { where.not(:status => 'pending') }
-  scope :not_show_in_list, -> { where(hide: true).or(private: true) }
+  scope :not_show_in_list, -> { where(hide: true) }
   scope :latest, -> { order(:created_at => :desc) }
 
   harmonize :name, :description

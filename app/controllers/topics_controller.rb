@@ -61,7 +61,7 @@ class TopicsController < ApplicationController
     if params[:group_id]
       if params[:group_id] == 'all' or params[:group_id] == 'topics' and @group.blank?
         gids = Group.not_show_in_list.collect{|g|g.id}
-        scope = Topic.unscoped.where(status: 'publish').where(:group_id.nin => gids)
+        scope = Topic.unscoped.where(status: 'publish').where.not(:group_id => gids)
       else
         find_group
         return render text: '', status: :not_found unless @group

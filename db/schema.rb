@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150712062714) do
+ActiveRecord::Schema.define(version: 20150712101921) do
 
   create_table "admin_users", force: :cascade do |t|
     t.string   "first_name",       limit: 255, default: "",    null: false
@@ -73,6 +73,21 @@ ActiveRecord::Schema.define(version: 20150712062714) do
     t.integer  "parent_id",  limit: 4
     t.datetime "deleted_at"
   end
+
+  create_table "attachments", force: :cascade do |t|
+    t.integer "uploader_id",  limit: 4,   default: 0, null: false
+    t.string  "post_id",      limit: 32
+    t.string  "file",         limit: 255
+    t.string  "content_type", limit: 20
+    t.integer "file_size",    limit: 4
+    t.integer "width",        limit: 4,   default: 0, null: false
+    t.integer "height",       limit: 4,   default: 0, null: false
+    t.string  "original_url", limit: 255
+    t.string  "checksum",     limit: 32
+  end
+
+  add_index "attachments", ["post_id"], name: "index_attachments_on_post_id", using: :btree
+  add_index "attachments", ["uploader_id"], name: "index_attachments_on_uploader_id", using: :btree
 
   create_table "badges", force: :cascade do |t|
     t.string   "name",              limit: 255, null: false

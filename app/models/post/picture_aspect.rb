@@ -6,9 +6,10 @@ module Post::PictureAspect
   extend ActiveSupport::Concern
   included do
     mount_uploader :picture, OldPictureUploader, mount_on: :picture_file_name
-    field :image_url, type: String
+    attr_accessor :image_url, :dimensions
+    # field :image_url, type: String
     # after_post_process :save_image_dimensions
-    field :dimensions, type: Hash, default: {}
+    # field :dimensions, type: Hash, default: {}
     before_save :update_picture_attributes
   end
 
@@ -22,7 +23,6 @@ module Post::PictureAspect
 
   def image_url=(url)
     self.remote_picture_url = url
-    self[:image_url] = url
   end
 
   def dim_size(style=:original)

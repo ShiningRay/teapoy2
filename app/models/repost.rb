@@ -1,6 +1,7 @@
  # coding: utf-8
-class Repost < Post
-  acts_as_top_post_only
+class Repost
+  include Mongoid::Document
+  # acts_as_top_post_only
   class Index
     include Mongoid::Document
     include Tenacity

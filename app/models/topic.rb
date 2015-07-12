@@ -4,6 +4,7 @@
 # The topic model
 # @author ShiningRay
 class Topic < ActiveRecord::Base
+  # TODO: refactor 'KEY' into 'DateRangeNames'
   KEYS = %w(day week month year all)
 
   DateRanges = {
@@ -42,7 +43,7 @@ class Topic < ActiveRecord::Base
   # }
 
   def comments
-    posts.where(:floor.gt => 0).order(floor: :asc)
+    posts.where{floor > 0}.order(floor: :asc)
   end
 
   #attr_protected :score, :user_id, :status, :slug, :posts_count
@@ -75,10 +76,10 @@ class Topic < ActiveRecord::Base
   scope :by_date, ->(d) { where(:created_at.gte => d.beginning_of_day, :created_at.lte => d.end_of_day) }
   scope :anonymous, -> { where(anonymous: true) }
   scope :signed, -> { where(anonymous: false) }
-  scope :latest, -> { order_by(created_at: 'desc') }
-  scope :latest_created, -> { order_by(created_at: 'desc') }
-  scope :latest_updated, -> { order_by(updated_at: 'desc') }
-  scope :hottest, -> { order_by(score: 'desc') }
+  scope :latest, -> { order(created_at: :desc) }
+  scope :latest_created, -> { order(created_at: :desc) }
+  scope :latest_updated, -> { order(updated_at: :desc) }
+  scope :hottest, -> { order(score: :desc) }
   scope :before, -> { where(:created_at.lt => Time.now) }
 
   def normalize_friendly_id(text)

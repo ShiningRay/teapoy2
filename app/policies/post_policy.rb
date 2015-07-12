@@ -7,6 +7,19 @@ class PostPolicy < TopicPolicy
 
   def create?
     topic.comment_status == 'open'
+    # # TODO: refactor and enable below code
+    # unless logged_in? #or @group.preferred_guest_can_reply?
+
+    # # TODO: refactor and enable below code
+    # if group.options.only_member_can_reply?
+    #   unless logged_in?
+    #     return_with_text.call("请登录")
+    #   else
+    #     if current_user.state != 'active'
+    #       return_with_text.call(I18n.t('users.must_activate'))
+    #     end
+    #   end
+    # end
   end
 
   def update?
