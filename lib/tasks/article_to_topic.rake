@@ -220,4 +220,14 @@ js
     sql
   end
 
+  desc 'migrate user profile'
+  task :migrate_user_profiles => :environment do
+    mongo = Mongoid::Sessions.default
+
+    mongo[:user_profiles].find.each do |p|
+      puts p.delete('_id')
+      puts p['user_id']
+      UserProfile.create! p
+    end
+  end
 end

@@ -24,9 +24,12 @@ class TopicForm
   # push data into model
   def push
     @topic.title = title.strip
-    @topic.top_post.content = content.strip
     @topic.user = @user
-    @topic.anonymous = anonymous
+    @topic.top_post.user = @user
+    @topic.top_post.content = content.strip
+    @topic.anonymous = anonymous || false
+    @topic.top_post.anonymous = @topic.anonymous
+    @topic.posts_count = 1
     @topic.group_id ||= 1
     @topic.status = 'publish'
     # @topic.uncommentable = uncommentable

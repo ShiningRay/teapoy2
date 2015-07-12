@@ -12,8 +12,7 @@
 
 
 class Rating < ActiveRecord::Base
-  include Tenacity
-  t_belongs_to :post#, touch: true
+  belongs_to :post#, touch: true
   belongs_to :user
 
   scope :pos, -> { where('ratings.score > 0') }
@@ -39,7 +38,6 @@ class Rating < ActiveRecord::Base
     transaction do
       # post.lock!
       r = Rating.where(post_id: post_id, user_id: user_id).lock(true).first
-      query = {}
       pos_change = 0
       neg_change = 0
       score_change = 0
@@ -47,17 +45,10 @@ class Rating < ActiveRecord::Base
         if r.score != score
           if r.score > 0
             pos_change = -1
-            query['$pull'] = {pos_voter_ids: user_id}
-            # post.dec(:pos, 1)
-            # post.pull(:pos_voter_ids, user_id)
           else
             neg_change = -1
-            query['$pull'] = {neg_voter_ids: user_id}
-            # post.dec(:neg, 1)
-            # post.pull(:neg_voter_ids, user_id)
           end
           score_change = -r.score
-          # post.dec(:score, r.score)
           r.score = score
           r.save!
         else
@@ -72,20 +63,11 @@ class Rating < ActiveRecord::Base
       if score > 0
         pos_change += 1
         score_change += 1
-        query['$addToSet'] = {pos_voter_ids: user_id}
-        # post.inc( :pos, 1)
-        # post.inc( :score, 1)
-        # post.add_to_set(:pos_voter_ids, user_id)
       else
         neg_change += 1
         score_change -= 1
-        # post.inc( :neg, 1)
-        # post.dec( :score, 1)
-        # post.add_to_set(:neg_voter_ids, user_id)
-        query['$addToSet'] = {neg_voter_ids: user_id}
       end
-      query['$inc'] = {pos: pos_change, neg: neg_change, score: score_change}
-      Post.collection.find(_id: post.id).update(query)
+      Post.where(id: post.id).update_all("pos = pos + #{pos_change}, neg = neg + #{neg_change}, score = score + #{score_change}")
     end
   rescue ActiveRecord::RecordNotUnique
     return false
@@ -124,7 +106,7 @@ class Rating < ActiveRecord::Base
     end
   end
 
-  after_commit( on: :create ) { Inbox::ScoreObserver.delay.deliver(id) }
+  # after_commit( on: :create ) { Inbox::ScoreObserver.delay.deliver(id) }
 
   # validate :cannot_rate_to_self
   # def cannot_rate_to_self

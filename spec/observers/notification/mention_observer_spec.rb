@@ -17,7 +17,7 @@ describe Notification::MentionObserver do
 
   }
 
-  before {Mongoid.observers.enable Notification::MentionObserver}
+  before {ActiveRecord::Base.observers.enable Notification::MentionObserver}
 
   it 'sends notification to mentioned user after topic save' do
     expect{
@@ -26,9 +26,10 @@ describe Notification::MentionObserver do
   end
 
   it 'sends notification to mentioned user after reply save' do
+    topic.top_post.content = 'No mention'
+    topic.save!
+    topic.top_post.save!
     expect do
-      topic.top_post.content = 'No mention'
-      topic.save!
       post = Post.new
       post.user_id = create(:user).id
       post.content = "@#{mentioned_user.login}"

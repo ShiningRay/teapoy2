@@ -11,13 +11,13 @@ module Topic::Navigation
   # find the next entry in specific group
   # and some group may also include subgroup's entries
   def next_in_group
-    Topic.public_topics.where(:group_id => group_id, :created_at.gt => created_at).latest.first
+    group.public_topics.after(created_at).oldest.first
   end
 
   # find the previous entry in specific group
   # and some group may also include subgroup's entries
   def prev_in_group
-    Topic.public_topics.where(:group_id => group_id, :created_at.lt => created_at).latest.first
+    group.public_topics.before(created_at).latest.first
   end
 
   def self.included(base)

@@ -49,10 +49,11 @@ class Subscription < ActiveRecord::Base
     when Class
       typename = type.name
     end
-    t = quote_value(Time.now, :updated_at)
-    subscriptions = Subscription.where(publication_type: typename)
-    s = rec && rec.respond_to?(:user_id) ? subscriptions.where('subscriber_id != ?', rec.user_id) : subscriptions
-    s.update_all("`updated_at` = #{t} , `unread_count`=`unread_count`+1")#(:updated_at => Time.now)
+    logger.debug "Warning: Skip subscription notification #{__FILE__} #{__LINE__}"
+    # t = connection.quote(Time.now, :updated_at)
+    # subscriptions = Subscription.where(publication_type: typename)
+    # s = rec && rec.respond_to?(:user_id) ? subscriptions.where('subscriber_id != ?', rec.user_id) : subscriptions
+    # s.update_all("`updated_at` = #{t} , `unread_count`=`unread_count`+1")#(:updated_at => Time.now)
     #subscriptions.each do |s|
     #  s.increment! :unread_count
     #end

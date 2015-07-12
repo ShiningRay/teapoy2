@@ -36,7 +36,8 @@ class Topic < ActiveRecord::Base
   # index({group_id: 1, status: 1, slug: 1}, {background: true})
   # index({created_at: -1, group_id: 1, status: 1}, {background: true})
   belongs_to :user, class_name: 'User'
-  validates :title, presence: true
+  validates :title, :user, presence: true
+
 
   # before_create {
   #   self[:posts_count] = 1 if top_post
@@ -72,15 +73,17 @@ class Topic < ActiveRecord::Base
     top_post.rewards
   end
 
-  scope :by_period, ->(s, e) { where(:created_at.gte => s, :created_at.lt => e) }
-  scope :by_date, ->(d) { where(:created_at.gte => d.beginning_of_day, :created_at.lte => d.end_of_day) }
+  scope :by_period, ->(s, e) { where('created_at between ? and ?', s, e) }
+  scope :by_date, ->(d) { by_period(d.beginning_of_day, d.end_of_day) }
   scope :anonymous, -> { where(anonymous: true) }
   scope :signed, -> { where(anonymous: false) }
   scope :latest, -> { order(created_at: :desc) }
+  scope :oldest, -> { order(created_at: :asc) }
   scope :latest_created, -> { order(created_at: :desc) }
   scope :latest_updated, -> { order(updated_at: :desc) }
   scope :hottest, -> { order(score: :desc) }
-  scope :before, -> { where(:created_at.lt => Time.now) }
+  scope :before, -> (time=Time.now) { where{created_at < time} }
+  scope :after, -> (time=Time.now) { where{created_at > time} }
 
   def normalize_friendly_id(text)
     text.to_url.gsub(/[.\?~!\[\]\/()\*<>:#]/, '_')

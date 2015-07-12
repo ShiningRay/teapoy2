@@ -1,5 +1,5 @@
 # coding: utf-8
-class Notification::ReplyObserver < Mongoid::Observer
+class Notification::ReplyObserver < ActiveRecord::Observer
   observe :post
   def after_numbered(reply)
     return if reply.top? or reply.parent.blank?

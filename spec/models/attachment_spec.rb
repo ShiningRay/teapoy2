@@ -6,7 +6,7 @@ require 'rails_helper'
 describe Attachment do
   let(:file) { File.open Rails.root.join('spec/fixtures/2345.jpg'), 'rb'}
 
-  describe '.dimensions' do
+  describe '.width .height' do
     before do
       CarrierWave.configure do |config|
         config.enable_processing = true
@@ -19,6 +19,7 @@ describe Attachment do
       end
     end
     subject { Attachment.create file: file }
-    its(:dimensions) { should_not be_blank }
+    its(:width) { should_not be_blank }
+    its(:height) { should_not be_blank }
   end
 end

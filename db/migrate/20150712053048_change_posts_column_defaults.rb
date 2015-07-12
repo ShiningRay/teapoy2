@@ -2,7 +2,7 @@ class ChangePostsColumnDefaults < ActiveRecord::Migration
   def change
     change_column :posts, :topic_id, :integer, null: false, default: 0
     change_column :posts, :user_id, :integer, null: false, default: 0
-    change_column :posts, :content, :text, null: false
+    change_column :posts, :content, :text, null: false, default: ''
     change_column :posts, :created_at, :datetime, null: false
     change_column :posts, :updated_at, :datetime, null: false
     change_column :posts, :ip, :integer, null: false, default: 0

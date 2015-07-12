@@ -84,7 +84,7 @@ class TopicsController < ApplicationController
         ago = l.ago.to_i
         @expires_in = pre
         ago -= ago % pre
-        scope = scope.where(:created_at.gt => Time.at(ago))
+        scope = scope.after(Time.at(ago))
       end
     elsif params[:order] == "latest_comment"
       @order = "latest_comment"

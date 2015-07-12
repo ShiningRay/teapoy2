@@ -11,7 +11,7 @@ module Post::FloorSequence
 
     before_validation :number_floor, :if => 'topic && !floor'     # if floor is already calced, then return
     # counter_cache :topic, field: 'posts_count'
-    after_save {
+    after_create {
       notify_observers(:after_numbered)
     }
   end

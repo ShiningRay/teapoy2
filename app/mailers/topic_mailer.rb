@@ -10,9 +10,7 @@ class TopicMailer < ActionMailer::Base
     return unless @user.preferred_want_receive_notification_email
     today = Date.today
     @date = yesterday = today - 1
-    topics = group.public_topics.where(
-        :created_at.gte => yesterday,
-        :created_at.lte => today)
+    topics = group.public_topics.by_date(@date)
     mail(:to => @user.email, :subject => "[#{topics.size}]#{yesterday.strftime('%Y-%m-%d')}#{group.name}小组情况报告") do |format|
       format.html
       format.text

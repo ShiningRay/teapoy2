@@ -39,6 +39,13 @@ Capybara.configure do |config|
   config.ignore_hidden_elements = false
 end
 
+Capybara::Webkit.configure do |config|
+  config.allow_url("ajax.aspnetcdn.com")
+  config.allow_url("libs.baidu.com")
+  config.allow_url("log.hm.baidu.com")
+  config.allow_url("hm.baidu.com")
+end
+
 class ActionController::Caching::Sweeper
   def expire_fragment(*args)
 

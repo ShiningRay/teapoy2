@@ -58,6 +58,7 @@ describe 'Mention Detection' do
                                :content => '@test'})
     topic.user_id = author.id
     topic.save!
+
     expect(topic.top_post.mentioned).to include(user.id)
   end
 end

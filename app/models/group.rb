@@ -13,10 +13,8 @@ class Group < ActiveRecord::Base
   # acts_as_taggable
   # attr_readonly :alias
   has_many :topics, dependent: :destroy
-  #has_many :public_topics, class_name: 'Topic', conditions: {status: 'publish'}
-  def public_topics
-    topics.public_topics
-  end
+  has_many :public_topics, -> { where(status: 'publish') }, class_name: 'Topic'
+
   #has_many :pending_topics, class_name: 'Topic', conditions: {status: 'pending'}
   def pending_topics
     topics.pending

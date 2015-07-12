@@ -3,7 +3,7 @@ class Post < ActiveRecord::Base
   include Validators
 
   belongs_to :group
-  belongs_to :topic, touch: true, counter_cache: true, inverse_of: :posts
+  belongs_to :topic, touch: true, counter_cache: true
   belongs_to :user#, class_name: 'User', foreign_key: :user_id
 
   # field :content, type: String
@@ -33,7 +33,6 @@ class Post < ActiveRecord::Base
   include RewardAspect
   include DescribedTargetAspect
   include ActionView::Helpers::DateHelper
-  include PictureAspect
   include AttachmentsAspect
 
   harmonize :content
@@ -45,7 +44,7 @@ class Post < ActiveRecord::Base
   scope :on_date, ->(date) { where(:created_at.gte => date.beginning_of_day, :created_at.lt => date.end_of_day)}
   scope :by_date, ->(date) { where(:created_at.gte => date.beginning_of_day, :created_at.lt => date.end_of_day)}
   scope :top, -> { where(floor: 0) }
-  scope :latest, -> { order_by(:created_at.desc)}
+  scope :latest, -> { order(:created_at => :desc)}
   scope :today, -> { on_date(Date.today) }
   scope :anonymous, -> { where(anonymous: true) }
   scope :signed, -> { where(anonymous: false) }
@@ -53,7 +52,7 @@ class Post < ActiveRecord::Base
   #attr_protected :floor, :neg, :pos, :score, :status, :meta
   #attr_readonly :user_id
   #validates_with DuplicateEliminator, fields: [:content]
-  before_validation {|post| post.content.strip!}
+  before_validation {|post| post.content.strip! if post.content.present?}
 
   def top?
     floor == 0 || parent_id.blank?
