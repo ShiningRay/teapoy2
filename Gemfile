@@ -190,6 +190,7 @@ end
 group :test do
   gem 'capybara'
   gem 'capybara-webkit'
+  gem 'selenium-webdriver'
   gem 'capybara-user_agent'
   gem 'database_cleaner'
   gem 'factory_girl'

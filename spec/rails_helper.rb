@@ -121,8 +121,9 @@ RSpec.configure do |config|
       WebMock.allow_net_connect!
       # VCR.turned_off { example_method.run }
       example.run
-      WebMock.disable_net_connect!
+      # we don't redisable net connect for webmock here because selenium-webdriver will do some cleanup job after example finished
     else
+      WebMock.disable_net_connect!
       example.run
     end
   end
