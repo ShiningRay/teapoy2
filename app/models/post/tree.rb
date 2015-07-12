@@ -2,7 +2,8 @@
 module Post::Tree
   extend ActiveSupport::Concern
   included do
-    include Mongoid::Tree
+    # include Mongoid::Tree
+    has_ancestry
     validates_with FloorParentValidator
     before_destroy :nullify_children
     # skip_callback :destroy, :before, :apply_orphan_strategy

@@ -1,23 +1,19 @@
 # encoding: utf-8
-class Post
-  include ::Post::Validators
-  include Mongoid::Document
-  include Mongoid::Timestamps
-  # include Mongoid::Paperclip
-  include Tenacity
+class Post < ActiveRecord::Base
+  include Validators
 
   belongs_to :group
   belongs_to :topic, touch: true, counter_cache: true, inverse_of: :posts
-  t_belongs_to :user#, class_name: 'User', foreign_key: :user_id
+  belongs_to :user#, class_name: 'User', foreign_key: :user_id
 
-  field :content, type: String
+  # field :content, type: String
 
-  field :parent_floor, type: Integer
-  field :neg, type: Integer, default: 0
-  field :pos, type: Integer, default: 0
-  field :score, type: Integer, default: 0
-  field :anonymous, type: Boolean, default: false
-  field :status, type: String
+  # field :parent_floor, type: Integer
+  # field :neg, type: Integer, default: 0
+  # field :pos, type: Integer, default: 0
+  # field :score, type: Integer, default: 0
+  # field :anonymous, type: Boolean, default: false
+  # field :status, type: String
   #attr_accessible %i(id floor neg pos score status meta _type parent_id parent_ids)
 
   attr_accessor :type
@@ -58,6 +54,7 @@ class Post
   #attr_readonly :user_id
   #validates_with DuplicateEliminator, fields: [:content]
   before_validation {|post| post.content.strip!}
+
   def top?
     floor == 0 || parent_id.blank?
   end
@@ -74,7 +71,7 @@ class Post
   alias_method :original_user, :user
 
   def user
-    anonymous ? User.find(0) : original_user
+    anonymous ? User.guest : original_user
   end
 
   def user_id

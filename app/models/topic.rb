@@ -3,12 +3,7 @@
 # Public
 # The topic model
 # @author ShiningRay
-class Topic
-  include Mongoid::Document
-  include Mongoid::Timestamps
-  include Mongoid::ActsAsSoftDelete
-  include Tenacity
-
+class Topic < ActiveRecord::Base
   KEYS = %w(day week month year all)
 
   DateRanges = {
@@ -18,16 +13,6 @@ class Topic
       'month' => 1.month,
       'year' => 1.year
   }
-
-  auto_increment :_id
-  field :tag_line, type: String
-  field :comment_status, type: String
-  field :anonymous, type: Boolean
-  field :title, type: String
-  field :top_post_id, type: Integer
-  field :slug, type: String # cached slug
-  field :score, type: Integer
-  field :posts_count, type: Integer, default: 0
 
   default_scope -> { includes(:top_post) }
 
@@ -47,9 +32,9 @@ class Topic
   include Topic::StatusAspect
   has_many :posts, dependent: :destroy
   belongs_to :group
-  index({group_id: 1, status: 1, slug: 1}, {background: true})
-  index({created_at: -1, group_id: 1, status: 1}, {background: true})
-  t_belongs_to :user, class_name: 'User'
+  # index({group_id: 1, status: 1, slug: 1}, {background: true})
+  # index({created_at: -1, group_id: 1, status: 1}, {background: true})
+  belongs_to :user, class_name: 'User'
   validates :title, presence: true
 
   # before_create {
@@ -57,7 +42,7 @@ class Topic
   # }
 
   def comments
-    posts.where(:floor.gt => 0).order_by(floor: :asc)
+    posts.where(:floor.gt => 0).order(floor: :asc)
   end
 
   #attr_protected :score, :user_id, :status, :slug, :posts_count

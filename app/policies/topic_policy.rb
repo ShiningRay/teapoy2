@@ -20,7 +20,6 @@ class TopicPolicy < GroupPolicy
     end
   end
 
-
   # TODO:
 
   def create?

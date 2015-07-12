@@ -1,7 +1,7 @@
 module Topic::StatusAspect
   extend ActiveSupport::Concern
   included do
-    field :status, type: String, default: 'pending'
+    # field :status, type: String, default: 'pending'
     scope :by_status, ->(status) { where(status: status)}
     scope :public_topics, -> { where(:status.in => %w(publish public)) }
     scope :pending, -> {where(status: 'pending')}

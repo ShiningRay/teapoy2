@@ -92,4 +92,99 @@ js
       end
     end
   end
+
+  desc 'export groups'
+
+  task :export_groups => :environment do
+    db = Mongoid::Sessions.default
+    conn = ActiveRecord::Base.connection
+    db[:groups].find.each do |group|
+      puts "insert into groups set id='#{group['_id']}', name=#{conn.quote group['name']},
+      alias=#{conn.quote group['alias']}, description=#{conn.quote group['description']},
+      owner_id='#{group['owner_id']}', icon_file_name=#{conn.quote group['icon_file_name']},
+      icon_content_type=#{conn.quote group['icon_content_type']}, icon_updated_at=#{conn.quote group['icon_updated_at']},
+      icon_file_size=#{group['icon_file_size']}, `private`=#{conn.quote group['private']},
+      feature=#{conn.quote group['feature']}, theme=#{conn.quote group['theme']},
+      status=#{conn.quote group['status']}, hide=#{conn.quote group['hide']},
+      domain=#{conn.quote group['domain']}
+      "
+    end
+  end
+  desc 'export topics'
+  task :export_topics => :environment do
+    db = Mongoid::Sessions.default
+    conn = ActiveRecord::Base.connection
+    db[:topics].find.each do |topic|
+      puts "insert into topics set id='#{topic['_id']}', title=#{conn.quote topic['title']},
+      user_id=#{topic['user_id']}, group_id=#{topic['group_id']}, created_at=#{conn.quote topic['created_at']},
+      updated_at=#{conn.quote topic['updated_at']}, comment_status=#{conn.quote topic['comment_status']||'open'},
+      anonymous=#{conn.quote topic['anonymous']}, tag_line=#{conn.quote topic['tag_line']},
+      status=#{conn.quote topic['status']};"
+    end
+  end
+
+  desc 'migrate post'
+  task :migrate_posts => :environment do
+    db = Mongoid::Sessions.default
+    conn = ActiveRecord::Base.connection
+    # start = 0
+    # loop do
+    #   rows = conn.select_all("select * from topics where id > #{start} order by id asc limit 1000").each_entry do |topic|
+    #     idmap = {}
+    #     db[:posts].find(topic_id: id).sort(floor: 1).each do |post|
+    #       puts <<-sql
+    #       insert into posts set topic_id=#{conn.quote post['topic_id']},content=#{conn.quote post['content']},
+    #       created_at=#{conn.quote post['created_at']}, updated_at=#{conn.quote post['updated_at']},
+    #       user_id=#{conn.quote post['user_id']}, group_id=#{conn.quote post['group_id']},
+    #       parent_floor=#{conn.quote post['parent_floor']}, floor=#{conn.quote post['floor']},
+    #       anonymous=#{conn.quote post['anonymous'] || false}, mentioned=#{conn.quote post['mentioned'].join(',')},
+    #       pos=#{conn.quote post['pos']}, neg=#{conn.quote post['neg']}, score=#{conn.quote post['score']},
+    #       status=#{conn.quote post['status'] || ''}
+    #
+    #       sql
+    #     end
+    #   end
+    # end
+    db[:posts].find.sort(:topic_id => 1, :floor => 1).limit(1).each do |post|
+      puts <<-sql
+      insert into posts set topic_id=#{conn.quote post['topic_id']},content=#{conn.quote post['content']},
+      created_at=#{conn.quote post['created_at']}, updated_at=#{conn.quote post['updated_at']},
+      user_id=#{conn.quote post['user_id']}, group_id=#{conn.quote post['group_id']},
+      parent_floor=#{conn.quote post['parent_floor']}, floor=#{conn.quote post['floor']},
+      anonymous=#{conn.quote post['anonymous'] || false}, mentioned=#{conn.quote post['mentioned'].join(',')},
+      pos=#{conn.quote post['pos']}, neg=#{conn.quote post['neg']}, score=#{conn.quote post['score']},
+      status=#{conn.quote post['status'] || ''}, ip=#{conn.quote post['ip']||0};
+      set @id = last_insert_id();
+      update ratings set post_id=@id where post_id=#{conn.quote post['_id'].to_s};
+      sql
+    end
+  end
+
+  desc 'reassign parents'
+  task reassign_posts_parent: :environment do
+    conn = ActiveRecord::Base.connection
+    start = 0
+    loop do
+      res = conn.select_all("select id, topic_id, parent_floor, floor from posts where parent_id is null and floor <> 0 limit 1000")
+      break if res.size == 0
+      res.each_entry do |post|
+        puts "#{post['topic_id']} #{post['id']} #{post['floor']}"
+        conn.execute "update posts set parent_id=#{post['id']} where topic_id=#{post['topic_id']} and parent_floor=#{post['floor']}"
+      end
+    end
+  end
+
+  desc 'reassign top_post_id'
+  task reassign_top_post: :environment do
+    conn = ActiveRecord::Base.connection
+
+    loop do
+      res = conn.select_all("select id, topic_id from posts where floor = 0 order id asc limit 1000")
+      break if res.size == 0
+      res.each_entry do |post|
+        puts "#{post.topic_id} -> #{post.id}"
+        conn.execute "update topics set top_post_id=#{post.id} where id=#{post.topic_id}"
+      end
+    end
+  end
 end

@@ -49,7 +49,17 @@ gem 'rack-cors', :require => 'rack/cors'
 
 # database & models {{{
 gem 'mysql2', platforms: [:ruby, :mingw]#, github: 'brianmario/mysql2'
+
+# activerecord related
+gem 'squeel'
 gem 'composite_primary_keys'
+gem 'annotate', '~> 2.6.6', group: :development
+gem 'ancestry'
+gem "default_value_for", "~> 3.0.0"
+gem "acts_as_list"
+gem 'acts-as-taggable-on'
+
+# mongoid related
 gem 'mongoid', '~> 4.0.0'
 gem 'mongoid_auto_increment'
 gem 'mongoid-tree', require: 'mongoid/tree', github: 'ShiningRay/mongoid-tree'
@@ -71,12 +81,12 @@ gem "newrelic_moped"
 gem "newrelic-redis"
 #gem "thinking-sphinx", '~> 1.3.11', require: 'thinking_sphinx'
 # gem "acts_as_audited"
-gem "default_value_for", "~> 3.0.0"
-gem "acts_as_list"
+
+
 #gem "acts_as_audited"
 #gem 'httparty'
-gem 'ancestry'
-gem 'acts-as-taggable-on'
+
+
 # }}}
 # controller
 
@@ -210,7 +220,7 @@ gem 'pundit'
 gem 'eye', github: 'kostya/eye', require: false
 gem 'foreman', require: false
 gem 'mini_magick'
-gem 'annotate', '~> 2.6.6'
+
 
 gem 'simplecov', :require => false, :group => :test
 gem 'concurrent-ruby', require: false
