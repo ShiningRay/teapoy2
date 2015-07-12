@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150712101921) do
+ActiveRecord::Schema.define(version: 20150712162640) do
 
   create_table "admin_users", force: :cascade do |t|
     t.string   "first_name",       limit: 255, default: "",    null: false
@@ -423,7 +423,7 @@ ActiveRecord::Schema.define(version: 20150712101921) do
     t.string   "status",         limit: 255,   default: "",    null: false
     t.string   "ancestry",       limit: 255,   default: "",    null: false
     t.integer  "ancestry_depth", limit: 4,     default: 0,     null: false
-    t.integer  "parent_floor",   limit: 4,     default: 0
+    t.integer  "parent_floor",   limit: 4
     t.string   "mentioned",      limit: 255
   end
 
@@ -722,6 +722,17 @@ ActiveRecord::Schema.define(version: 20150712101921) do
 
   add_index "transactions", ["balance_id", "created_at"], name: "index_transactions_on_balance_id_and_created_at", using: :btree
   add_index "transactions", ["deal_type", "deal_id"], name: "index_transactions_on_deal_type_and_deal_id", using: :btree
+
+  create_table "user_profiles", force: :cascade do |t|
+    t.integer "user_id",                         limit: 4,                  null: false
+    t.string  "sex",                             limit: 255, default: ""
+    t.date    "birthday"
+    t.string  "hometown",                        limit: 255
+    t.string  "bio",                             limit: 255
+    t.boolean "want_receive_notification_email",             default: true, null: false
+  end
+
+  add_index "user_profiles", ["user_id"], name: "index_user_profiles_on_user_id", unique: true, using: :btree
 
   create_table "user_stats", force: :cascade do |t|
     t.integer "user_id",            limit: 4,             null: false
