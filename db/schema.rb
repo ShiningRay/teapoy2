@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150712162640) do
+ActiveRecord::Schema.define(version: 20150713092952) do
 
   create_table "admin_users", force: :cascade do |t|
     t.string   "first_name",       limit: 255, default: "",    null: false
@@ -252,6 +252,21 @@ ActiveRecord::Schema.define(version: 20150712162640) do
 
   add_index "guestbooks", ["name"], name: "index_guestbooks_on_name", unique: true, using: :btree
   add_index "guestbooks", ["owner_id"], name: "index_guestbooks_on_owner_id", using: :btree
+
+  create_table "identities", force: :cascade do |t|
+    t.string "provider", limit: 15,  null: false
+    t.string "uid",      limit: 255, null: false
+    t.string "nickname", limit: 50
+  end
+
+  add_index "identities", ["provider", "uid"], name: "index_identities_on_provider_and_uid", unique: true, using: :btree
+
+  create_table "identity_followerships", force: :cascade do |t|
+    t.string "uid",          limit: 255, null: false
+    t.string "follower_uid", limit: 255, null: false
+  end
+
+  add_index "identity_followerships", ["uid", "follower_uid"], name: "index_identity_followerships_on_uid_and_follower_uid", unique: true, using: :btree
 
   create_table "inboxes", force: :cascade do |t|
     t.integer  "group_id",   limit: 4
@@ -744,15 +759,18 @@ ActiveRecord::Schema.define(version: 20150712162640) do
   end
 
   create_table "user_tokens", force: :cascade do |t|
-    t.integer  "user_id",      limit: 4
-    t.string   "client_name",  limit: 255
-    t.string   "token_key",    limit: 255
-    t.string   "token_secret", limit: 255
+    t.string   "provider",     limit: 20
     t.datetime "expires_at"
+    t.string   "access_token", limit: 255
+    t.string   "secret",       limit: 255
     t.string   "uid",          limit: 255
+    t.string   "nickname",     limit: 50
+    t.integer  "identity_id",  limit: 4
+    t.integer  "user_id",      limit: 4,   null: false
   end
 
-  add_index "user_tokens", ["client_name", "token_key", "token_secret"], name: "key", unique: true, using: :btree
+  add_index "user_tokens", ["provider", "uid"], name: "index_user_tokens_on_provider_and_uid", using: :btree
+  add_index "user_tokens", ["user_id", "provider"], name: "index_user_tokens_on_user_id_and_provider", unique: true, using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "login",                     limit: 255,                     null: false
