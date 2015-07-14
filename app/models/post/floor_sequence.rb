@@ -18,11 +18,11 @@ module Post::FloorSequence
 
   # get next floor number and save to floor field
   def number_floor
-    self.floor = topic.posts.maximum(:floor) + 1
+    self.floor = topic.posts.maximum(:floor).to_i + 1
     logger.debug "use floor #{floor}"
   end
 
-  def save(*args)
+  # def save(*args)
     # unless super
     #   # don't
     #   topic.inc(:posts_count => -1)
@@ -30,7 +30,7 @@ module Post::FloorSequence
     # else
     #   true
     # end
-    super
+    # super
   # rescue
   #   d = e.details
   #   if d['code'] == 11000 and d['err'] =~ /duplicate/
@@ -41,7 +41,7 @@ module Post::FloorSequence
   #   else
   #     raise e
   #   end
-  end
+  # end
 
   module ClassMethods
 

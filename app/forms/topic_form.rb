@@ -29,7 +29,7 @@ class TopicForm
     @topic.top_post.content = content.strip
     @topic.anonymous = anonymous || false
     @topic.top_post.anonymous = @topic.anonymous
-    @topic.posts_count = 1
+    # @topic.posts_count = 1
     @topic.group_id ||= 1
     @topic.status = 'publish'
     # @topic.uncommentable = uncommentable
@@ -52,6 +52,8 @@ class TopicForm
   def save
     push
     @topic.save
+    # @topic.top_post.topic_id = @topic.id
+    # @topic.make_top_post
     @topic.top_post.attachment_ids = @attachment_ids unless @attachment_ids.blank?
     true
   end

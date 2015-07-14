@@ -4,10 +4,10 @@ module Topic::TopPostAspect
   extend ActiveSupport::Concern
   included do
     #has_one :top_post, -> { where(floor: 0)}, class_name: 'Post', autosave: true, inverse_of: :topic
-    belongs_to :top_post, class_name: 'Post', autosave: true, inverse_of: :topic
+    belongs_to :top_post, class_name: 'Post', inverse_of: :topic
 
     accepts_nested_attributes_for :top_post
-    after_save :make_top_post
+    after_create :make_top_post
   end
 
   module ClassMethods
@@ -40,21 +40,12 @@ module Topic::TopPostAspect
       score || top_post.try(:score)
     end
 
-    def make_top_post(to_save = false)
+    def make_top_post
 
       unless top_post
-        p = posts.where(floor: 0).first
-        if p
-          self.top_post = p
-          save!
-        else
-          build_top_post content: @content, user_id: user_id
-          self.posts_count = 1
-          self.save!
-        end
-        #save!
+        build_top_post content: @content, user_id: user_id
       end
-
+      self.posts_count = 1
       top_post.group_id = group_id
       top_post.floor = 0
       top_post.parent_id = nil
@@ -65,7 +56,7 @@ module Topic::TopPostAspect
       top_post.created_at ||= created_at
       top_post.topic_id = self.id
       top_post.attachment_ids = @attachment_ids if @attachment_ids.present?
-      top_post.save! if persisted? and top_post.new_record?
+      top_post.save!
       top_post
     end
   #end
