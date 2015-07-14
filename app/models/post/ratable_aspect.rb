@@ -2,9 +2,9 @@
 module Post::RatableAspect
   extend ActiveSupport::Concern
   included do
-    t_has_many :ratings, dependent: :delete_all, foreign_key: 'post_id'
-    field :pos_voter_ids, type: Array, default: []
-    field :neg_voter_ids, type: Array, default: []
+    has_many :ratings, dependent: :delete_all, foreign_key: 'post_id'
+    # field :pos_voter_ids, type: Array, default: []
+    # field :neg_voter_ids, type: Array, default: []
     after_destroy { ratings.delete_all }
   end
 

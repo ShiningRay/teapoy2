@@ -29,6 +29,7 @@ describe TopicForm, type: :model do
 
     expect(topic.title).to eq('Test')
     expect(topic.user).to eq(user)
+    expect(topic.posts.count).to eq(1)
     expect(topic.top_post).to be_valid
     expect(topic.top_post.user).to eq(user)
     expect(topic.top_post.content).to eq('Form')

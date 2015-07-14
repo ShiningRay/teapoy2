@@ -2,7 +2,7 @@ require 'rails_helper'
 require 'sidekiq/testing/inline'
 
 describe Notification::ReplyObserver do
-  before { Mongoid.observers.enable Notification::ReplyObserver }
+  before { Post.observers.enable Notification::ReplyObserver }
   before do
     mail = double('Mail', :deliver => true)
     allow_any_instance_of(User).to receive(:preferred_want_receive_notification_email?).and_return(false)
@@ -11,18 +11,7 @@ describe Notification::ReplyObserver do
 
   let(:original_poster) { create(:user) }
   let(:replier) { create(:user) }
-  let(:topic) {
-    topic = Topic.new group_id: create(:group).id,
-                          top_post_attributes: {
-                            content: Forgery::LoremIpsum.paragraph
-                          },
-                          title: Forgery::LoremIpsum.title
-
-    topic.user_id = original_poster.id
-    topic.status = 'publish'
-    topic.save!
-    topic
-  }
+  let(:topic) { create :topic, user: original_poster }
   let(:original_post) { topic.top_post }
 
   subject(:reply) {

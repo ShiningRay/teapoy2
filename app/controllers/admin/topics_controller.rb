@@ -28,7 +28,7 @@ class Admin::TopicsController < Admin::BaseController
     end
     @statuses = Topic::STATUSES.collect(&:to_s)
     scope = apply_scopes(Topic).page(params[:page]).where(cond)
-		@topics = scope.order_by(id: params[:status] == 'pending' ? :asc : :desc)
+		@topics = scope.order(id: params[:status] == 'pending' ? :asc : :desc)
 
     if params[:id] and @topics.size > 0
       @group = @topics[0].group

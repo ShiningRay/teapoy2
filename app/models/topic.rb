@@ -3,12 +3,8 @@
 # Public
 # The topic model
 # @author ShiningRay
-class Topic
-  include Mongoid::Document
-  include Mongoid::Timestamps
-  include Mongoid::ActsAsSoftDelete
-  include Tenacity
-
+class Topic < ActiveRecord::Base
+  # TODO: refactor 'KEY' into 'DateRangeNames'
   KEYS = %w(day week month year all)
 
   DateRanges = {
@@ -18,16 +14,6 @@ class Topic
       'month' => 1.month,
       'year' => 1.year
   }
-
-  auto_increment :_id
-  field :tag_line, type: String
-  field :comment_status, type: String
-  field :anonymous, type: Boolean
-  field :title, type: String
-  field :top_post_id, type: Integer
-  field :slug, type: String # cached slug
-  field :score, type: Integer
-  field :posts_count, type: Integer, default: 0
 
   default_scope -> { includes(:top_post) }
 
@@ -47,17 +33,18 @@ class Topic
   include Topic::StatusAspect
   has_many :posts, dependent: :destroy
   belongs_to :group
-  index({group_id: 1, status: 1, slug: 1}, {background: true})
-  index({created_at: -1, group_id: 1, status: 1}, {background: true})
-  t_belongs_to :user, class_name: 'User'
-  validates :title, presence: true
+  # index({group_id: 1, status: 1, slug: 1}, {background: true})
+  # index({created_at: -1, group_id: 1, status: 1}, {background: true})
+  belongs_to :user, class_name: 'User'
+  validates :title, :user, presence: true
+
 
   # before_create {
   #   self[:posts_count] = 1 if top_post
   # }
 
   def comments
-    posts.where(:floor.gt => 0).order_by(floor: :asc)
+    posts.where{floor > 0}.order(floor: :asc)
   end
 
   #attr_protected :score, :user_id, :status, :slug, :posts_count
@@ -86,15 +73,17 @@ class Topic
     top_post.rewards
   end
 
-  scope :by_period, ->(s, e) { where(:created_at.gte => s, :created_at.lt => e) }
-  scope :by_date, ->(d) { where(:created_at.gte => d.beginning_of_day, :created_at.lte => d.end_of_day) }
+  scope :by_period, ->(s, e) { where('created_at between ? and ?', s, e) }
+  scope :by_date, ->(d) { by_period(d.beginning_of_day, d.end_of_day) }
   scope :anonymous, -> { where(anonymous: true) }
   scope :signed, -> { where(anonymous: false) }
-  scope :latest, -> { order_by(created_at: 'desc') }
-  scope :latest_created, -> { order_by(created_at: 'desc') }
-  scope :latest_updated, -> { order_by(updated_at: 'desc') }
-  scope :hottest, -> { order_by(score: 'desc') }
-  scope :before, -> { where(:created_at.lt => Time.now) }
+  scope :latest, -> { order(created_at: :desc) }
+  scope :oldest, -> { order(created_at: :asc) }
+  scope :latest_created, -> { order(created_at: :desc) }
+  scope :latest_updated, -> { order(updated_at: :desc) }
+  scope :hottest, -> { order(score: :desc) }
+  scope :before, -> (time=Time.now) { where{created_at < time} }
+  scope :after, -> (time=Time.now) { where{created_at > time} }
 
   def normalize_friendly_id(text)
     text.to_url.gsub(/[.\?~!\[\]\/()\*<>:#]/, '_')

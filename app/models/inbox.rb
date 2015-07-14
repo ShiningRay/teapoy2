@@ -4,15 +4,27 @@
 # Inbox
 class Inbox
   include Mongoid::Document
-  include Tenacity
   #include Mongoid::Timestamps
-  t_belongs_to :group
-  t_belongs_to :user
-  belongs_to :topic
+
+  def group
+    Group.find group_id
+  end
+
+  def user
+    User.find user_id
+  end
+
+  def topic
+    Topic.find topic_id
+  end
   field :score,      type: Integer, default: 0
   field :read,       type: Boolean, default: false
-  #field :post_ids,   type: Array,   default: []
-  has_and_belongs_to_many :posts, inverse_of: nil
+  field :post_ids,   type: Array,   default: []
+  #t_has_and_belongs_to_many :posts, inverse_of: nil
+  def posts
+    Post.where(id: post_ids)
+  end
+
   field :repost_ids, type: Array,   default: []
   field :is_repost,  type: Boolean, default: false
   field :created_at, type: DateTime, default: -> { Time.now }

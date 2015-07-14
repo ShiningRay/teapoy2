@@ -2,7 +2,8 @@
 module Post::Tree
   extend ActiveSupport::Concern
   included do
-    include Mongoid::Tree
+    # include Mongoid::Tree
+    # has_ancestry
     validates_with FloorParentValidator
     before_destroy :nullify_children
     # skip_callback :destroy, :before, :apply_orphan_strategy
@@ -18,9 +19,19 @@ module Post::Tree
     validates :parent_id, presence: true, unless: ->(rec) { !topic || rec.floor == 0 }
   end
 
+  def nullify_children
+
+  end
+
   def parent=(p)
-    self.parent_floor = p.floor
-    super(p)
+    self.parent_floor = p.try :floor
+    self.parent_id = p.try :id
+    @parent = p
+    # super(p)
+  end
+
+  def parent
+    @parent ||= Post.where(id: parent_id).first
   end
 
   class FloorParentValidator < ActiveModel::Validator

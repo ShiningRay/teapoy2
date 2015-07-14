@@ -39,6 +39,13 @@ Capybara.configure do |config|
   config.ignore_hidden_elements = false
 end
 
+Capybara::Webkit.configure do |config|
+  config.allow_url("ajax.aspnetcdn.com")
+  config.allow_url("libs.baidu.com")
+  config.allow_url("log.hm.baidu.com")
+  config.allow_url("hm.baidu.com")
+end
+
 class ActionController::Caching::Sweeper
   def expire_fragment(*args)
 
@@ -114,8 +121,9 @@ RSpec.configure do |config|
       WebMock.allow_net_connect!
       # VCR.turned_off { example_method.run }
       example.run
-      WebMock.disable_net_connect!
+      # we don't redisable net connect for webmock here because selenium-webdriver will do some cleanup job after example finished
     else
+      WebMock.disable_net_connect!
       example.run
     end
   end

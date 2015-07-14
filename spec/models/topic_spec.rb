@@ -6,12 +6,36 @@ describe Topic do
   subject(:topic) { create :topic, group: group }
   describe '.next_in_group .prev_in_group' do
 
-    let!(:one) { create :topic, group: group, status: 'publish', created_at: 1.minute.ago }
+    let!(:one) { create :topic, group: group, status: 'publish', created_at: 1.hour.ago }
     let!(:two) { create :topic, group: group, status: 'publish' }
     it "navigates to correct record" do
       #topic = Topic.find
+      # binding.pry
       expect(one.next_in_group).to eq(two)
       expect(two.prev_in_group).to eq(one)
+    end
+  end
+
+  describe '.after' do
+    before do
+      @first = create :topic, group: group, created_at: 1.day.ago
+      @second = create :topic, group: group, created_at: 1.hour.ago
+      @third = create :topic, group: group, created_at: 1.minute.ago
+    end
+    it 'selects records after specified time' do
+      expect(Topic.after(@second.created_at).first).to eq(@third)
+    end
+  end
+
+  describe '.before' do
+    before do
+      @first = create :topic, group: group, created_at: 1.day.ago
+      @second = create :topic, group: group, created_at: 1.hour.ago
+      @third = create :topic, group: group, created_at: 1.minute.ago
+    end
+
+    it 'selects records before specified time' do
+      expect(Topic.before(@second.created_at).first).to eq(@first)
     end
   end
 

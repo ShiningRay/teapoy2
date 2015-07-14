@@ -1,3 +1,6 @@
+<% if @post.new_record? %>
+alert("发表失败：<%= @post.errors.full_messages %>");
+<% else %>
 $('ul.posts').append('<%= j render(@post) %>');
 $('#post_content').val('');
 $('#post_parent_id').val('');
@@ -8,3 +11,4 @@ $('.attachment_ids').remove();
 if (_hmt) {
     _hmt.push(['_trackEvent', 'topics', 'reply', <%= @post.topic_id %>]);
 };
+<% end %>

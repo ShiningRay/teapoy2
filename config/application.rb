@@ -68,7 +68,7 @@ module Teapoy
     #observers_root = Rails.root.join('app/observers').to_s
     # inbox/deliver
     config.mongoid.observers = %w(
-            notification/mention
+
             notification/reply
             reputation/rating
             reputation/post
@@ -77,7 +77,9 @@ module Teapoy
     ).map{|i|"#{i}_observer"}
     config.active_record.observers =
             #topic/charge
-        %w( user/registration
+        %w(
+            notification/mention
+            user/registration
             ).map{|i|"#{i}_observer"}
 
     # Haml::Template.options[:format] = :xhtml

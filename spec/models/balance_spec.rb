@@ -17,6 +17,6 @@ describe Balance do
   let(:user) {create(:user)}
   it "should not have minus credit" do
     user.balance.credit = -10
-    expect{user.balance.save!}.to raise_error
+    expect { user.balance.save! }.to raise_error(ActiveRecord::RecordInvalid)
   end
 end

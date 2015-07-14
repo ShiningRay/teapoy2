@@ -7,7 +7,7 @@ describe TopicsController, :type => :controller do
 
   describe 'GET index' do
     context 'there is a published topic: ' do
-      let(:topic){create :topic, group: group, user: author, slug: 'test', status: 'publish'}
+      let(:topic){create :topic, group: group, user: author, status: 'publish'}
       it 'should show speicific topic' do
         get :show, :group_id => group.alias, :id => topic.id
         expect(response).to be_success

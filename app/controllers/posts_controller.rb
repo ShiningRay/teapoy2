@@ -86,7 +86,7 @@ class PostsController < ApplicationController
     if topic #when creating topic's comments
       #    @topic = Topic.find params[:comment] unless @topic
       @group = group = topic.group
-      return login_required unless logged_in? or @group.preferred_guest_can_reply?
+      return login_required unless logged_in? #or @group.preferred_guest_can_reply?
       p = post_params
       return render :text => '数据错误，如果您用的是手机，请访问手机版博聆 http://m.bling0.com' if p.blank?
 
@@ -103,15 +103,6 @@ class PostsController < ApplicationController
       @post.group_id = group.id
       @post.translate_instruct = true if browser.mobile?
 
-      if group.options.only_member_can_reply?
-        unless logged_in?
-          return_with_text.call("请登录")
-        else
-          if current_user.state != 'active'
-            return_with_text.call(I18n.t('users.must_activate'))
-          end
-        end
-      end
       if topic.comment_status == 'closed'
         return_with_text.call(I18n.t('topics.cannot_reply_to_closed_topic'))
       end

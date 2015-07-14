@@ -17,7 +17,7 @@ class Story < ActiveRecord::Base
   }
   mount_uploader :picture, PictureUploader
 
-  def self.migrate_from_topic(topic_id, guestbook_id)
+  def self.migrate_from_topic(topic_id, guestbook_id, bucket)
     if topic_id.is_a?(Topic)
       topic = topic_id
       topic_id = topic.id
@@ -35,7 +35,7 @@ class Story < ActiveRecord::Base
 
     puts topic.id
     puts topic.title
-    s = Story.new guestbook: book
+    s = Story.new guestbook: guestbook
     s.author = topic.user
     s.content = ''
 

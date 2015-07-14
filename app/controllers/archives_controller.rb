@@ -70,8 +70,8 @@ class ArchivesController < ApplicationController
     else
       return show_404
     end
-    @first = @scope.min(:created_at).try(:to_date)
-    @last = @scope.max(:created_at).try(:to_date)
+    @first = @scope.minimum(:created_at).try(:to_date)
+    @last = @scope.maximum(:created_at).try(:to_date)
     return show_404 unless @first && @last
   end
   before_filter :find_border

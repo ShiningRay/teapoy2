@@ -13,8 +13,7 @@
 #
 
 class ReadStatus < ActiveRecord::Base
-  include Tenacity
   self.primary_key = 'id'
   belongs_to :user
-  t_belongs_to :topic
+  belongs_to :topic
 end

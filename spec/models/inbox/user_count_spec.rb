@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Inbox::UserCount do
+describe Inbox::UserCount, broken: true do
   describe '.create_or_inc' do
     it 'increments a non-exists user_id to count 1' do
       Inbox::UserCount.create_or_inc(1)

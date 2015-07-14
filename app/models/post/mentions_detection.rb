@@ -4,18 +4,27 @@ module Post::MentionsDetection
 
   included do
     before_create :find_mention
-    field :mentioned, type: Array
+    # field :mentioned, type: Array
     #has_and_belongs_to_many :mentioned_users,
   end
 
   MENTION_REGEXP = /(?:@|\uFF20)([a-zA-Z0-9_-]*)([^\s@\uFF20]*)/
+
+  def mentioned
+    @mentioned ||= super.split(/,/)
+  end
+
+  def mentioned=(ids)
+    @mentioned = ids
+    super(ids.join(','))
+  end
 
   def find_mention
     #cnt = 0
     mentioned_users = Set.new
 
     self.content.gsub! MENTION_REGEXP do |match|
-      
+
       u = User.wrap($1) unless $1.blank?
       other = $2
 

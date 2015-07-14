@@ -49,6 +49,8 @@ module Topic::TopPostAspect
           save!
         else
           build_top_post content: @content, user_id: user_id
+          self.posts_count = 1
+          self.save!
         end
         #save!
       end
@@ -57,9 +59,9 @@ module Topic::TopPostAspect
       top_post.floor = 0
       top_post.parent_id = nil
       top_post.parent_floor = nil
-      top_post.parent_ids = []
+      # top_post.parent_ids = []
       top_post.anonymous ||= anonymous
-      top_post.user_id ||= self[:user_id]
+      top_post.user_id ||= self.user_id
       top_post.created_at ||= created_at
       top_post.topic_id = self.id
       top_post.attachment_ids = @attachment_ids if @attachment_ids.present?

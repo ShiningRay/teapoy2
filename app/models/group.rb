@@ -1,65 +1,44 @@
 # -*- coding: utf-8 -*-
 
-class Group #< ActiveRecord::Base
-  include Mongoid::Document
-  include Mongoid::Timestamps
-  include Mongoid::Taggable
-  disable_tags_index!
-  include Tenacity
-
+class Group < ActiveRecord::Base
   #acts_as_nested_set
   include AntiSpam
-  auto_increment :_id
-  field :alias, type: String
-  field :name, type: String
-  field :description, type: String
-  field :private, type: Boolean, default: false
-  field :feature, type: Boolean, default: false
-  field :hide, type: Boolean, default: false
-  field :domain, type: String
-  field :status, type: String
-  field :theme, type: String
-  embeds_one :options, class_name: 'GroupOptions', autobuild: true
+  has_one :options, class_name: 'GroupOption'#, autobuild: true
+  def options
+    super || build_options
+  end
   accepts_nested_attributes_for :options
   #acts_as_publisher
   # paginates_per 30
   # acts_as_taggable
   # attr_readonly :alias
   has_many :topics, dependent: :destroy
-  #has_many :public_topics, class_name: 'Topic', conditions: {status: 'publish'}
-  def public_topics
-    topics.public_topics
-  end
+  has_many :public_topics, -> { where(status: 'publish') }, class_name: 'Topic'
+
   #has_many :pending_topics, class_name: 'Topic', conditions: {status: 'pending'}
   def pending_topics
     topics.pending
   end
 
-  t_belongs_to :owner, class_name: 'User', foreign_key: :owner_id
+  belongs_to :owner, class_name: 'User', foreign_key: :owner_id
   has_many :posts
-  #has_many :memberships
-  field :member_ids, type: Array, default: []
-  #has_many :members, class_name: 'User', select: "memberships.group_id, memberships.role as membership_role, users.*", through: :memberships, source: :user
-  #has_many :pending_members, class_name: 'User', through: :memberships, source: :user, conditions: "memberships.role = 'pending'"
-  #validates_
-  def members
-    @members ||= User.where(id: member_ids).to_a
-  end
-  validates_uniqueness_of :name
-  validates_presence_of :name
+  has_many :memberships
+  # field :member_ids, type: Array, default: []
+  # has_many :members, class_name: 'User', select: "memberships.group_id, memberships.role as membership_role, users.*", through: :memberships, source: :user
+  has_many :members, class_name: 'User', through: :memberships, source: :user
+  has_many :pending_members, -> { where "memberships.role = 'pending'" }, class_name: 'User', through: :memberships, source: :user
+  validates :name, uniqueness: true, presence: true
   validates_format_of :alias, with: /\A[a-zA-Z_][a-zA-Z0-9_]{2,}\z/, allow_nil: false, allow_blank: false
   validates_uniqueness_of :alias
-  index({name: 1}, {unique: true})
-  index({alias: 1}, {unique: true})
   mount_uploader :icon, AvatarUploader, mount_on: :icon_file_name
 
   scope :public_groups, -> { where(private: false) }
   scope :private_groups, -> { where(private: true) }
   #scope :open_groups, -> { where(status: "open") }
   scope :hide_groups, -> { where(hide: true) }
-  scope :not_pending, -> { where(:status.ne => 'pending') }
-  scope :not_show_in_list, -> { where(hide: true).or(private: true) }
-  scope :latest, -> { order_by(:created_at.desc) }
+  scope :not_pending, -> { where.not(:status => 'pending') }
+  scope :not_show_in_list, -> { where(hide: true) }
+  scope :latest, -> { order(:created_at => :desc) }
 
   harmonize :name, :description
 
@@ -172,7 +151,7 @@ class Group #< ActiveRecord::Base
   end
 
   def self.find_all_by_id(ids)
-    where(:id.in => ids).all
+    where(:id => ids).all
   end
 
   def self.find_by_id(id)

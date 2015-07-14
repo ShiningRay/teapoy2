@@ -38,9 +38,9 @@ FactoryGirl.define do
   	password { Forgery('basic').password }
   	password_confirmation { password }
     state 'pending'
-    sequence(:email) {|n| "test#{n}@test.com"}
-    sequence(:login) {|n| "test#{n}"}
-    sequence(:name) {|n| "test#{n}"}
+    email { Forgery(:internet).email_address }
+    login { Forgery(:internet).user_name }
+    name { Forgery(:basic).text }
     persistence_token { Forgery('basic').text }
 
     trait :active do

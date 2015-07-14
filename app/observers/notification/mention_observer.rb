@@ -1,5 +1,5 @@
 # encoding: utf-8
-class Notification::MentionObserver < Mongoid::Observer
+class Notification::MentionObserver < ActiveRecord::Observer
   observe :topic, :post
 
   def after_publish(topic)

@@ -26,10 +26,10 @@ class Guestbook < ActiveRecord::Base
       next unless topic.top_post
 
       pool.post do
-        Story.migrate_from_topic(topic, book)
+        Story.migrate_from_topic(topic, book, bucket)
       end
-      pool.shutdown
-      pool.wait_for_termination
     end
+    pool.shutdown
+    pool.wait_for_termination
   end
 end
