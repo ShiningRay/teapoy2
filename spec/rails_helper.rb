@@ -80,15 +80,20 @@ RSpec.configure do |config|
     Rails.application.routes.default_url_options[:host] = 'www.bling0.com'
   end
 
-  config.before(:example) do
-    ActiveRecord::Base.observers.disable :all
-    Mongoid.observers.disable :all
-    # observers = Array(example.metadata[:observer] || example.metadata[:observers]).flatten
-    observers = []
-    # turn on observers as needed
-    ActiveRecord::Base.observers.enable( *observers ) if observers.size > 0
-    ActiveRecord::Base.observers.enable described_class if described_class.is_a?(ActiveRecord::Observer)
-    Mongoid.observers.enable described_class if described_class.is_a?(Mongoid::Observer)
+  config.before(:example) do |example|
+    if example.metadata[:type] == :feature
+      ActiveRecord::Base.observers.enable :all
+      Mongoid.observers.enable :all
+    else
+      ActiveRecord::Base.observers.disable :all
+      Mongoid.observers.disable :all
+      # observers = Array(example.metadata[:observer] || example.metadata[:observers]).flatten
+      observers = []
+      # turn on observers as needed
+      ActiveRecord::Base.observers.enable( *observers ) if observers.size > 0
+      ActiveRecord::Base.observers.enable described_class if described_class.is_a?(ActiveRecord::Observer)
+      Mongoid.observers.enable described_class if described_class.is_a?(Mongoid::Observer)
+    end
   end
 
 

@@ -1,24 +1,24 @@
 # 用户绑定的SNS账号的信息，包括关注和粉丝
-class Identity
-  include Mongoid::Document
-  include Mongoid::Timestamps
-  field :provider, type: String
-  field :uid
-  field :data, type: Hash
-  field :nickname
+class Identity < ActiveRecord::Base
+  # field :provider, type: String
+  # field :uid
+  # field :data, type: Hash
+  # field :nickname
   has_one :user_token
-  has_and_belongs_to_many :followers, class_name: 'Identity'#, foreign_key: 'uid'
-  has_and_belongs_to_many :followings, class_name: 'Identity'#, foreign_key: 'uid'
-  index({uid: 1, provider: 1}, {unique: true})
+  has_many :followerships, class_name: 'IdentityFollowership', primary_key: 'uid', foreign_key: 'uid'
+  has_many :followers, class_name: 'Identity', through: :followerships, source: :follower
+  # has_many :followings, class_name: 'Identity'
+  # index({uid: 1, provider: 1}, {unique: true})
 
   before_save do
-    self.uid = self.uid.to_i if uid =~ /\d+/
+    self.uid = self.uid.to_i if uid =~ /\A\d+\z/
   end
 
   after_create do
     # delay.grab_info
   end
 
+  # maybe refactor info
   def grab_info
     self.data = user_token.client.users.show uid: uid
   end
