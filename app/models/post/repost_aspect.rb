@@ -4,7 +4,7 @@ module Post::RepostAspect
   included do
     # field :repost_indexes, type: Hash
     #has_many :repost_indexes, class_name: 'Repost::Index', foreign_key: :original_id
-    has_and_belongs_to_many :reposts, index: true
+    # has_and_belongs_to_many :reposts, index: true
   end
 
 
