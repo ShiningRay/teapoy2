@@ -1,28 +1,28 @@
 #!/usr/bin/env puma
-app_path = "/home/deploy"
+APP_PATH = "/home/deploy"
 
-
+CURRENT = "#{APP_PATH}/current"
 
 # The directory to operate out of.
 #
 # The default is the current directory.
 #
-directory "#{app_path}/current"
+directory "#{APP_PATH}/current"
 
 environment 'production'
 
 daemonize
 
-pidfile "#{app_path}/current/tmp/pids/puma.pid"
+pidfile "#{APP_PATH}/current/tmp/pids/puma.pid"
 
-state_path "#{app_path}/current/tmp/pids/puma.state"
+state_path "#{APP_PATH}/current/tmp/pids/puma.state"
 
 # Redirect STDOUT and STDERR to files specified. The 3rd parameter
 # ("append") specifies whether the output is appended, the default is
 # "false".
 #
 # stdout_redirect '/u/apps/lolcat/log/stdout', '/u/apps/lolcat/log/stderr'
-# stdout_redirect '/u/apps/lolcat/log/stdout', '/u/apps/lolcat/log/stderr', true
+stdout_redirect "#{CURRENT}/log/puma_access.log", "#{CURRENT}/log/puma_error.log", true
 
 # Disable request logging.
 #
@@ -43,7 +43,7 @@ threads 4, 32
 # The default is "tcp://0.0.0.0:9292".
 #
 # bind 'tcp://0.0.0.0:9292'
-bind "unix://#{app_path}/current/tmp/sockets/puma.sock"
+bind "unix://#{APP_PATH}/current/tmp/sockets/puma.sock"
 
 prune_bundler
 
