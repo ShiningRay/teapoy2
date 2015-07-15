@@ -29,6 +29,6 @@ every :day, :at => '2:30am' do
   # runner 'Inbox.remove_outdated'
 end
 
-every :sunday, :at => '3:00am' do
-  command "mysqldump teapoy -F --master-data --ignore-table=teapoy.sessions | gzip > $HOME/teapoy-`hostname`-`date +%Y%m%d`.sql.gz"
-end
+# every :sunday, :at => '3:00am' do
+#   command "mysqldump teapoy -F --master-data --ignore-table=teapoy.sessions | gzip > $HOME/teapoy-`hostname`-`date +%Y%m%d`.sql.gz"
+# end
