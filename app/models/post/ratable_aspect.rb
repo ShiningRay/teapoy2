@@ -5,7 +5,6 @@ module Post::RatableAspect
     has_many :ratings, dependent: :delete_all, foreign_key: 'post_id'
     # field :pos_voter_ids, type: Array, default: []
     # field :neg_voter_ids, type: Array, default: []
-    after_destroy { ratings.delete_all }
   end
 
   module ClassMethods
