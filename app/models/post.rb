@@ -24,7 +24,7 @@ class Post < ActiveRecord::Base
   include Tree
   include CallbacksAspect
   include FloorSequence
-  include RepostAspect # add back later
+  # include RepostAspect # add back later
   include AntiSpam
   include ParentDetection
   include MentionsDetection
