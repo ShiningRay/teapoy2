@@ -3,7 +3,7 @@ module Post::RewardAspect
   included do
     has_many :rewards, foreign_key: :post_id
     #field :total_rewards, type: Integer
-    has_and_belongs_to_many :rewarders, class: 'User', :through => :rewards
+    has_and_belongs_to_many :rewarders, class_name: 'User', :through => :rewards
   end
 
   def total_rewards
