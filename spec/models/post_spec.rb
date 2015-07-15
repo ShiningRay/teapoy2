@@ -1,5 +1,6 @@
 # coding: utf-8
 require 'rails_helper'
+# require 'concurrent'
 
 describe Post, type: :model do
   let(:author) { create :user }
@@ -51,6 +52,29 @@ describe Post, type: :model do
       expect(post.floor).to eq(1)
       post2 = create(:post, topic: topic, parent_id: post.id)
       expect(post2.floor).to eq(2)
+    end
+
+    it 'retries next floor when floor clashed' do
+      # p1 = Concurrent::Promise.new{ build_post.save! }
+      # p2 = Concurrent::Promise.new{ build_post.save! }
+      # expect(Concurrent::Promise.all?(p1, p2)).to be true
+      p1 = build_post
+      p2 = build_post
+      p1.valid?
+      p2.valid?
+      p1.save!
+      p2.save!
+      expect(p1.floor).to be_present
+      expect(p2.floor).to be_present
+    end
+
+    def build_post
+      post = Post.new
+      post.content = Forgery::LoremIpsum.paragraph
+      post.user = create(:user)
+      post.topic = topic
+      post.parent = topic.top_post
+      post
     end
   end
 
