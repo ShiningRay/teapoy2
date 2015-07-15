@@ -20,6 +20,7 @@ class ApplicationController < ActionController::Base
   #include SuperCache
   #check_authorization
   rescue_from ActionController::UnknownFormat, with: :show_404
+  rescue_from Pundit::NotAuthorizedError, with: :show_403
 
   def render *args
     #set_theme(params[:theme] || cookies[:theme] || @group.try(:theme))
@@ -45,6 +46,10 @@ class ApplicationController < ActionController::Base
   # Handle public-facing errors by rendering the "error" liquid template
   def show_404 target=''
     show_error "Page \"#{target}\" Not Found", :not_found
+  end
+
+  def show_403
+    show_error 'Access Forbidden', 403
   end
 
   def show_notice(content)
