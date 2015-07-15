@@ -31,7 +31,7 @@ class Topic < ActiveRecord::Base
   check_spam :title
   STATUSES = %w(draft publish private pending spam deleted future)
   include Topic::StatusAspect
-  has_many :posts, dependent: :destroy
+  has_many :posts, -> { order(floor: :asc) }, dependent: :destroy
   belongs_to :group
   # index({group_id: 1, status: 1, slug: 1}, {background: true})
   # index({created_at: -1, group_id: 1, status: 1}, {background: true})
