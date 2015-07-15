@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150713092952) do
+ActiveRecord::Schema.define(version: 20150715043522) do
 
   create_table "admin_users", force: :cascade do |t|
     t.string   "first_name",       limit: 255, default: "",    null: false
@@ -76,7 +76,7 @@ ActiveRecord::Schema.define(version: 20150713092952) do
 
   create_table "attachments", force: :cascade do |t|
     t.integer "uploader_id",  limit: 4,   default: 0, null: false
-    t.string  "post_id",      limit: 32
+    t.integer "post_id",      limit: 4,               null: false
     t.string  "file",         limit: 255
     t.string  "content_type", limit: 20
     t.integer "file_size",    limit: 4
@@ -446,6 +446,7 @@ ActiveRecord::Schema.define(version: 20150713092952) do
   add_index "posts", ["group_id", "topic_id", "floor"], name: "pk", unique: true, using: :btree
   add_index "posts", ["parent_id"], name: "index_posts_on_reshare_and_parent_id", using: :btree
   add_index "posts", ["topic_id", "floor"], name: "article_id", unique: true, using: :btree
+  add_index "posts", ["topic_id", "parent_floor"], name: "index_posts_on_topic_id_and_parent_floor", using: :btree
 
   create_table "preferences", force: :cascade do |t|
     t.string   "name",       limit: 255, null: false
@@ -475,10 +476,10 @@ ActiveRecord::Schema.define(version: 20150713092952) do
   end
 
   create_table "ratings", force: :cascade do |t|
-    t.string   "post_id",    limit: 24, default: "0", null: false
-    t.integer  "user_id",    limit: 4,  default: 0,   null: false
-    t.integer  "score",      limit: 4,  default: 0,   null: false
-    t.datetime "created_at",                          null: false
+    t.integer  "post_id",    limit: 4, default: 0, null: false
+    t.integer  "user_id",    limit: 4, default: 0, null: false
+    t.integer  "score",      limit: 4, default: 0, null: false
+    t.datetime "created_at",                       null: false
   end
 
   add_index "ratings", ["created_at"], name: "created_at", using: :btree
@@ -544,13 +545,13 @@ ActiveRecord::Schema.define(version: 20150713092952) do
   add_index "reputations", ["group_id", "user_id"], name: "index_reputations_on_group_id_and_user_id", unique: true, using: :btree
 
   create_table "rewards", force: :cascade do |t|
-    t.integer  "rewarder_id", limit: 4,                  null: false
-    t.string   "post_id",     limit: 24
-    t.integer  "winner_id",   limit: 4,                  null: false
+    t.integer  "rewarder_id", limit: 4,                 null: false
+    t.integer  "post_id",     limit: 4,                 null: false
+    t.integer  "winner_id",   limit: 4,                 null: false
     t.integer  "amount",      limit: 4
-    t.boolean  "anonymous",              default: false
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
+    t.boolean  "anonymous",             default: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
   end
 
   add_index "rewards", ["rewarder_id", "post_id"], name: "index_rewards_on_rewarder_id_and_post_id", unique: true, using: :btree
