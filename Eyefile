@@ -13,4 +13,4 @@ end
 
 ROLES = ENV['ROLES'].split(',')
 
-Eye.load("#{ROOT}/config/eyes/#{RAILS_ENV}.rb")
+Eye.load("#{CURRENT_PATH}/config/eyes/#{RAILS_ENV}.rb")

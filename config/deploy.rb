@@ -47,7 +47,8 @@ set :linked_dirs, %w{.eye bin log tmp/pids tmp/cache tmp/sockets vendor/bundle p
 namespace :eye do
   task :load do
     on roles(:all) do
-      within release_path do
+      within shared_path do
+        execute 'ln', '-sf', File.join(release_path, 'Eyefile'), 'Eyefile'
         execute 'bundle', 'exec', 'leye', 'load'
       end
     end

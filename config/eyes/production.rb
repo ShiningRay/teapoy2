@@ -1,6 +1,6 @@
 
 Eye.config do
-  logger "#{ROOT}/log/eye.log"
+  logger "#{CURRENT_PATH}/log/eye.log"
 end
 
 Eye.application 'teapoy_production' do
@@ -10,7 +10,7 @@ Eye.application 'teapoy_production' do
   # check :cpu, every: 10.seconds, below: 100, times: 3 # global check for all processes
   check :memory, below: 500.megabytes, times: 3
 
-  Dir["#{ROOT}/config/eyes/processes/*.rb"].each do |f|
+  Dir["#{CURRENT_PATH}/config/eyes/processes/*.rb"].each do |f|
     puts "loading #{f}"
     eval(IO.read(f))
   end

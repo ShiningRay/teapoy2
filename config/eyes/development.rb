@@ -1,11 +1,11 @@
 
 Eye.config do
-  logger "#{ROOT}/log/eye.log"
+  logger "#{CURRENT_PATH}/log/eye.log"
 end
 
 Eye.application 'teapoy_dev' do
   env 'RAILS_ENV' => RAILS_ENV
-  working_dir ROOT
+  working_dir CURRENT_PATH
   trigger :flapping, times: 10, within: 1.minute, retry_in: 10.minutes
   # check :cpu, every: 10.seconds, below: 100, times: 3 # global check for all processes
 
