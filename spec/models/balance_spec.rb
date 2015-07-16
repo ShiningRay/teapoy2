@@ -10,6 +10,10 @@
 #  created_at :datetime
 #  updated_at :datetime
 #
+# Indexes
+#
+#  index_balances_on_user_id  (user_id) UNIQUE
+#
 
 require 'rails_helper'
 

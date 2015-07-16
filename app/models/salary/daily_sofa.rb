@@ -12,6 +12,10 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
+# Indexes
+#
+#  salary  (type,created_on)
+#
 
 class Salary::DailySofa < Salary::CountWithMaximum
   self.unit_cost = 1

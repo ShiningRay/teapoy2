@@ -69,17 +69,17 @@ module Teapoy
     # inbox/deliver
     config.mongoid.observers = %w(
 
-            notification/reply
-            reputation/rating
-            reputation/post
-            topic/sync_social
-            subscription/topic
     ).map{|i|"#{i}_observer"}
     config.active_record.observers =
             #topic/charge
         %w(
+            subscription/topic
+            reputation/rating
+            reputation/post
+            notification/reply
             notification/mention
             user/registration
+            topic/sync_social
             ).map{|i|"#{i}_observer"}
 
     # Haml::Template.options[:format] = :xhtml

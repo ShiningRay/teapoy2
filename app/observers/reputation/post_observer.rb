@@ -1,5 +1,5 @@
 # coding: utf-8
-class Reputation::PostObserver < Mongoid::Observer
+class Reputation::PostObserver < ActiveRecord::Observer
   observe :post
 
   def after_destroy(post)

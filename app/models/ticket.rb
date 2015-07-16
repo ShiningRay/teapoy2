@@ -5,12 +5,18 @@
 #
 #  id             :integer          not null, primary key
 #  user_id        :integer          not null
-#  topic_id     :integer          not null
+#  topic_id       :integer          not null
 #  ticket_type_id :integer
 #  correct        :boolean
 #  created_at     :datetime
 #  updated_at     :datetime
 #  viewed_at      :datetime
+#
+# Indexes
+#
+#  article_id                             (topic_id)
+#  full_idx                               (user_id,topic_id,ticket_type_id,correct)
+#  index_tickets_on_user_id_and_topic_id  (user_id,topic_id) UNIQUE
 #
 
 class Ticket < ActiveRecord::Base

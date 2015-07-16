@@ -1,5 +1,5 @@
 # coding: utf-8
-class Inbox::DeliverObserver < Mongoid::Observer
+class Inbox::DeliverObserver < ActiveRecord::Observer
   observe :post
 
   def after_publish(post)

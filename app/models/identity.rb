@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: identities
+#
+#  id       :integer          not null, primary key
+#  provider :string(15)       not null
+#  uid      :string(255)      not null
+#  nickname :string(50)
+#
+# Indexes
+#
+#  index_identities_on_provider_and_uid  (provider,uid) UNIQUE
+#
+
 # 用户绑定的SNS账号的信息，包括关注和粉丝
 class Identity < ActiveRecord::Base
   # field :provider, type: String

@@ -12,6 +12,10 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
+# Indexes
+#
+#  salary  (type,created_on)
+#
 
 # rating other's post
 class Salary::DailyRating < Salary::CountWithMaximum

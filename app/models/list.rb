@@ -7,7 +7,7 @@
 #  name       :string(255)      not null
 #  user_id    :integer          not null
 #  private    :boolean          default(FALSE), not null
-#  notes      :text
+#  notes      :text(65535)
 #  created_at :datetime
 #  updated_at :datetime
 #

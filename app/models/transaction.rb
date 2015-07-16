@@ -11,6 +11,11 @@
 #  deal_type  :string(255)
 #  deal_id    :integer
 #
+# Indexes
+#
+#  index_transactions_on_balance_id_and_created_at  (balance_id,created_at)
+#  index_transactions_on_deal_type_and_deal_id      (deal_type,deal_id)
+#
 
 class Transaction < ActiveRecord::Base
   belongs_to :balance

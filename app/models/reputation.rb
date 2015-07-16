@@ -10,6 +10,10 @@
 #  state    :string(255)      default("neutral")
 #  hide     :boolean          default(FALSE)
 #
+# Indexes
+#
+#  index_reputations_on_group_id_and_user_id  (group_id,user_id) UNIQUE
+#
 
 class Reputation < ActiveRecord::Base
   class_attribute :levels, :level_order

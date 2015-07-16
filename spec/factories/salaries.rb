@@ -11,6 +11,10 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
+# Indexes
+#
+#  salary  (type,created_on)
+#
 
 FactoryGirl.define do
   factory :salary do

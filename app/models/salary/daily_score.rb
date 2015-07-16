@@ -12,6 +12,10 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
+# Indexes
+#
+#  salary  (type,created_on)
+#
 
 # other's rating my post
 class Salary::DailyScore < Salary

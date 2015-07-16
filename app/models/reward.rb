@@ -5,12 +5,16 @@
 #
 #  id          :integer          not null, primary key
 #  rewarder_id :integer          not null
-#  post_id     :string(24)
+#  post_id     :integer          not null
 #  winner_id   :integer          not null
 #  amount      :integer
 #  anonymous   :boolean          default(FALSE)
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#
+# Indexes
+#
+#  index_rewards_on_rewarder_id_and_post_id  (rewarder_id,post_id) UNIQUE
 #
 
 class Reward < ActiveRecord::Base

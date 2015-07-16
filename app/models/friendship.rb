@@ -8,6 +8,10 @@
 #  friend_id  :integer          not null
 #  created_at :datetime
 #
+# Indexes
+#
+#  index_friendships_on_user_id_and_friend_id  (user_id,friend_id) UNIQUE
+#
 
 class Friendship < ActiveRecord::Base
   belongs_to :user

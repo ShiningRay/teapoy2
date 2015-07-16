@@ -12,6 +12,10 @@
 #  icon_file_size    :integer
 #  icon_updated_at   :datetime
 #
+# Indexes
+#
+#  index_badges_on_name  (name) UNIQUE
+#
 
 class Badge < ActiveRecord::Base
   has_and_belongs_to_many :users

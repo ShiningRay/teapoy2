@@ -1,5 +1,5 @@
 # coding: utf-8
-class Reputation::RatingObserver < Mongoid::Observer
+class Reputation::RatingObserver < ActiveRecord::Observer
   observe :rating
 
   def after_create(rating)

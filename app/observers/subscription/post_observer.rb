@@ -1,4 +1,4 @@
-class Subscription::PostObserver < Mongoid::Observer
+class Subscription::PostObserver < ActiveRecord::Observer
   # observe :post
   # def after_create(topic)
   #   Subscription.notify(Group, topic)

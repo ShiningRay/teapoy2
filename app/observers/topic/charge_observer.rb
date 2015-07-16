@@ -4,7 +4,7 @@
 # if the user is not the owner of that group,
 # the user should spent some amount of credits
 # and the group owner gains half of that amount of credits
-class Topic::ChargeObserver < Mongoid::Observer
+class Topic::ChargeObserver < ActiveRecord::Observer
 	observe :topic
 	def before_save(topic)
 		if topic and topic.group and \

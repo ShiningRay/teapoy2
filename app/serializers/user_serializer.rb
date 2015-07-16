@@ -29,6 +29,14 @@
 #  perishable_token          :string(255)      default(""), not null
 #  avatar_fingerprint        :string(255)
 #
+# Indexes
+#
+#  email                            (email) UNIQUE
+#  index_users_on_perishable_token  (perishable_token)
+#  index_users_on_state             (state)
+#  login                            (login) UNIQUE
+#  remember_token                   (remember_token)
+#
 
 class UserSerializer < ActiveModel::Serializer
   attributes :id, :login, :name, :created_at, :avatar, :user_url, :avatar_url#, :message_url

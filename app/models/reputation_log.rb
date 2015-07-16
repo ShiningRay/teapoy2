@@ -14,6 +14,13 @@
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #
+# Indexes
+#
+#  index_reputation_logs_on_created_on            (created_on)
+#  index_reputation_logs_on_group_id_and_user_id  (group_id,user_id)
+#  index_reputation_logs_on_post_id               (post_id)
+#  index_reputation_logs_on_reputation_id         (reputation_id)
+#
 
 class ReputationLog < ActiveRecord::Base
   include Tenacity

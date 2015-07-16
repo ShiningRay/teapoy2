@@ -11,6 +11,11 @@
 #  consumed_at  :datetime
 #  updated_at   :datetime
 #
+# Indexes
+#
+#  index_invitation_codes_on_applicant_id  (applicant_id)
+#  index_invitation_codes_on_code          (code) UNIQUE
+#
 
 require 'digest/md5'
 class InvitationCode < ActiveRecord::Base

@@ -4,7 +4,7 @@
 # Table name: announcements
 #
 #  id         :integer          not null, primary key
-#  content    :text
+#  content    :text(65535)
 #  created_at :datetime
 #  updated_at :datetime
 #

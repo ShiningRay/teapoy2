@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: identities
+#
+#  id       :integer          not null, primary key
+#  provider :string(15)       not null
+#  uid      :string(255)      not null
+#  nickname :string(50)
+#
+# Indexes
+#
+#  index_identities_on_provider_and_uid  (provider,uid) UNIQUE
+#
+
 FactoryGirl.define do
   factory :identity do |f|
     provider 'sina'

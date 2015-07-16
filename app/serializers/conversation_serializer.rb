@@ -10,6 +10,10 @@
 #  created_at     :datetime
 #  updated_at     :datetime
 #
+# Indexes
+#
+#  index_conversations_on_owner_id_and_target_id  (owner_id,target_id) UNIQUE
+#
 
 class ConversationSerializer < ActiveModel::Serializer
   attributes :id, :owner_id, :target_id, :messages_count

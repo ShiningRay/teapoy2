@@ -5,7 +5,11 @@
 #
 #  id    :integer          not null, primary key
 #  key   :string(255)      not null
-#  value :text             not null
+#  value :text(65535)      not null
+#
+# Indexes
+#
+#  index_settings_on_key  (key) UNIQUE
 #
 
 require 'rails_helper'

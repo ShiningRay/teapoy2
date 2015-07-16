@@ -5,7 +5,7 @@
 #
 #  id      :integer          not null, primary key
 #  user_id :integer
-#  value   :text
+#  value   :text(65535)
 #
 
 class Profile < ActiveRecord::Base

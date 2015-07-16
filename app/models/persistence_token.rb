@@ -6,9 +6,15 @@
 #  user_id    :integer
 #  token      :string(255)
 #  agent      :string(255)
-#  ip         :integer          default(0), not null
+#  ip         :decimal(12, )    default(0), not null
 #  created_at :datetime
 #  updated_at :datetime
+#
+# Indexes
+#
+#  index_persistence_tokens_on_token       (token) UNIQUE
+#  index_persistence_tokens_on_updated_at  (updated_at)
+#  index_persistence_tokens_on_user_id     (user_id)
 #
 
 class PersistenceToken < ActiveRecord::Base

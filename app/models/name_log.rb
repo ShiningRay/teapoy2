@@ -8,6 +8,10 @@
 #  user_id    :integer
 #  created_at :datetime
 #
+# Indexes
+#
+#  index_name_logs_on_user_id  (user_id)
+#
 
 class NameLog < ActiveRecord::Base
   belongs_to :user

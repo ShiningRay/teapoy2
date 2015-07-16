@@ -7,6 +7,10 @@
 #  user_id :integer          not null
 #  date    :date             not null
 #
+# Indexes
+#
+#  index_code_logs_on_user_id_and_date  (user_id,date) UNIQUE
+#
 
 class CodeLog < ActiveRecord::Base
   def self.ensure_only(user)
