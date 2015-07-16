@@ -17,7 +17,7 @@
           %h2
             =link_to tag.name, tag_path(tag.name)
   .grouplist
-    - groups = @groups || Group.tagged_with("官方推荐").order_by(feature: :desc, score: :desc).page(params[:page])
+    - groups = @groups || Group.tagged_with("官方推荐").order(feature: :desc, score: :desc).page(params[:page])
     - groups.each do |group|
       - content_for :keywords, ",#{group.name}"
       .groupitem

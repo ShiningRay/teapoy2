@@ -40,7 +40,7 @@ class Group < ActiveRecord::Base
   accepts_nested_attributes_for :options
   #acts_as_publisher
   # paginates_per 30
-  # acts_as_taggable
+  acts_as_taggable
   # attr_readonly :alias
   has_many :topics, dependent: :destroy
   has_many :public_topics, -> { where(status: 'publish') }, class_name: 'Topic'

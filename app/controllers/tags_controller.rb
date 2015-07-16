@@ -3,7 +3,7 @@ class TagsController < ApplicationController
 
   def show
     @tag = params[:id]
-    @groups = Group.tagged_with(params[:id]).public_groups.not_pending.order_by(:feature => :desc).page(params[:page])
+    @groups = Group.tagged_with(params[:id]).public_groups.not_pending.order(:feature => :desc).page(params[:page])
     respond_to do |format|
       format.any(:html, :wml) {
         render :template=>'groups/index'
