@@ -25,8 +25,14 @@ set :rvm_ruby_version, 'ruby-2.2.2'
 
 # NEWRELIC {{{
 set :newrelic_appname, "Teapoy"
-set :newrelic_revision, `hg log -r . --template '{rev}\n'`
-set :newrelic_changelog, `hg log -r . --template '{desc}\n'`
+case fetch(:scm)
+when :hg
+  set :newrelic_revision, `hg log -r . --template '{rev}\n'`
+  set :newrelic_changelog, `hg log -r . --template '{desc}\n'`
+when :git
+  set :newrelic_revision, `git rev-parse --short HEAD`
+  set :newrelic_changelog, `git log --format=%B -n 1`
+end
 after "deploy:updated", "newrelic:notice_deployment"
 # }}}
 
