@@ -8,8 +8,8 @@ FactoryGirl.define do
   end
 
   factory :topic, parent: :empty_topic do
-    top_post { create(:post, user: user, floor: 0, group: group) }
-    content {  Forgery::LoremIpsum.paragraph }
+    content{ Forgery::LoremIpsum.paragraph }
+
     after(:create){ |topic|
       topic.make_top_post
       topic.posts_count = 1

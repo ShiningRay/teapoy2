@@ -156,9 +156,10 @@ class TopicsController < ApplicationController
       #topic[:content] = ActionController::Base.helpers.sanitize topic[:content]
       @topic_form = TopicForm.new(current_user, @group.topics.new)
 
+      @topic = @topic_form.topic
 
       if @topic_form.validate(topic_params) && @topic_form.save
-        @topic = @topic_form.topic
+
         current_user.subscribe @topic if logged_in?
         respond_to do |format|
           format.any(:html, :wml) {
@@ -176,7 +177,7 @@ class TopicsController < ApplicationController
           format.js
         end
       else
-        error_return.call(@topic.errors.full_messages)
+        error_return.call(@topic_form.topic.errors.full_messages)
       end
     else #it is a bad request.
       flash[:notice]= "文章发表失败"

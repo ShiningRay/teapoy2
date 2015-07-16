@@ -81,7 +81,8 @@ describe Post, type: :model do
   describe '.attachment_ids' do
     context 'when creating post' do
       before {
-        @p = Post.new user: author, content: 'test'
+        @topic = create :topic
+        @p = Post.new user: author, topic: @topic, content: 'test'
         @attachment = create :attachment, uploader_id: author.id
       }
       it 'associates attachments after saved' do

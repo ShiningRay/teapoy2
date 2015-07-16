@@ -55,6 +55,7 @@ describe 'Mention Detection' do
     topic = Topic.new( :group_id => group.id,
                            :title => 'test',
                            :top_post_attributes => {
+                              :floor => 0,
                                :content => '@test'})
     topic.user_id = author.id
     topic.save!

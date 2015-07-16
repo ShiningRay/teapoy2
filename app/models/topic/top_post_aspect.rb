@@ -43,8 +43,9 @@ module Topic::TopPostAspect
     def make_top_post
 
       unless top_post
-        build_top_post content: @content, user_id: user_id
+        build_top_post user_id: user_id
       end
+      top_post.content = @content if @content.present?
       self.posts_count = 1
       top_post.group_id = group_id
       top_post.floor = 0

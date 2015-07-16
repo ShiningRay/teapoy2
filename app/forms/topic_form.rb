@@ -27,6 +27,7 @@ class TopicForm
     @topic.user = @user
     @topic.top_post.user = @user
     @topic.top_post.content = content.strip
+    @topic.top_post.floor = 0
     @topic.anonymous = anonymous || false
     @topic.top_post.anonymous = @topic.anonymous
     # @topic.posts_count = 1
