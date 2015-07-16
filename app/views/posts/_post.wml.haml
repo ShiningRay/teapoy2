@@ -1,9 +1,6 @@
 - plain_text = post.content.to_s
 - plain_text_size = plain_text.mb_chars.size
-= link_to("查看大图#{post.dim_size(:large)}", post.picture.large.url)
-%br/
-= link_to("中图#{post.dim_size(:medium)}",post.picture.medium.url)
-%br/
-= link_to("小图#{post.dim_size(:small)}",post.picture.small.url)
+
+= link_to("中图",post.picture.medium.url)
 %br/
 = post_content post
