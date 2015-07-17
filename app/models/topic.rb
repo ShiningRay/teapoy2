@@ -59,8 +59,6 @@ class Topic < ActiveRecord::Base
   include Topic::StatusAspect
   has_many :posts, -> { order(floor: :asc) }, dependent: :destroy
   belongs_to :group
-  # index({group_id: 1, status: 1, slug: 1}, {background: true})
-  # index({created_at: -1, group_id: 1, status: 1}, {background: true})
   belongs_to :user, class_name: 'User'
   validates :title, :user, presence: true
 
@@ -75,7 +73,6 @@ class Topic < ActiveRecord::Base
 
   #attr_protected :score, :user_id, :status, :slug, :posts_count
   #validates_length_of    :content, minimum: 5, message: "对不起，您的内容太短了点……"
-  #default_scope -> { where(status: %w(publish feature)) }
   attr_accessor :sync_to_sina
 
   def sync_to_sina=(val)

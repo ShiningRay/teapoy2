@@ -333,6 +333,6 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:content, :picture, :anonymous, :attachment_ids => [])
+    params.require(:post).permit(:content, :picture, :anonymous, :parent_floor, :attachment_ids => [])
   end
 end

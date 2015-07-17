@@ -17,9 +17,8 @@
 
 class Reputation < ActiveRecord::Base
   class_attribute :levels, :level_order
-  include Tenacity
   belongs_to :user
-  t_belongs_to :group
+  belongs_to :group
   has_many :logs, :class_name => 'ReputationLog'
 
   scope :by_group, ->(group){where(group_id: group.id)}

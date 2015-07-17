@@ -9,7 +9,7 @@
 #console.debug(xhr)
 #      alignTo: 'target',
 window.replyComment = (comment_id, topic_id, reply_to_floor) ->
-  floor = $("#post_parent_id").val()
+  floor = $("#post_parent_floor").val()
   nickname = $.trim($("#post_#{comment_id} .nickname").text())
   replyTextArea = $("#post_content").data('editor')
   orig_text = replyTextArea.getValue()
@@ -17,7 +17,7 @@ window.replyComment = (comment_id, topic_id, reply_to_floor) ->
   if parseInt(floor) > 0
     content = "@#{nickname} "
   else
-    $("#post_parent_id").val reply_to_floor
+    $("#post_parent_floor").val reply_to_floor
     content = "回复#{reply_to_floor}L #{nickname}: "
 
   replyTextArea.setValue(content + orig_text)

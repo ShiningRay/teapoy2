@@ -37,16 +37,7 @@ class Post < ActiveRecord::Base
 
   belongs_to :group
   belongs_to :topic, touch: true, counter_cache: true
-  belongs_to :user#, class_name: 'User', foreign_key: :user_id
-
-  # field :content, type: String
-
-  # field :parent_floor, type: Integer
-  # field :neg, type: Integer, default: 0
-  # field :pos, type: Integer, default: 0
-  # field :score, type: Integer, default: 0
-  # field :anonymous, type: Boolean, default: false
-  # field :status, type: String
+  belongs_to :user
   #attr_accessible %i(id floor neg pos score status meta _type parent_id parent_ids)
 
   attr_accessor :type

@@ -42,14 +42,6 @@ GIT
       rails (>= 3.0.0)
 
 GIT
-  remote: git://github.com/jwg2s/tenacity.git
-  revision: 752c66d4242149ff21d771c5fefeefdd7f38bc4d
-  branch: develop
-  specs:
-    tenacity (0.6.0)
-      activesupport (>= 3.2)
-
-GIT
   remote: git://github.com/kostya/eye.git
   revision: a78d3e56a5d5559db943126af04683ef78b5a5b0
   specs:
@@ -812,7 +804,6 @@ DEPENDENCIES
   spring-commands-rspec
   squeel
   stringex
-  tenacity!
   themes_for_rails!
   timeago-rails
   timecop

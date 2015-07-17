@@ -23,11 +23,9 @@
 #
 
 class ReputationLog < ActiveRecord::Base
-  include Tenacity
+
   belongs_to :user
   belongs_to :group
   belongs_to :reputation
-  t_belongs_to :post
-
-
+  belongs_to :post
 end

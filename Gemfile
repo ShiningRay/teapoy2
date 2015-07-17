@@ -74,7 +74,6 @@ gem 'carrierwave-mongoid'
 gem 'carrierwave-qiniu', github: 'ShiningRay/carrierwave-qiniu', branch: 'preserve-slash-in-path'
 
 #gem "friendly_id", "~> 3.2.1"
-gem 'tenacity', github: 'jwg2s/tenacity', branch: 'develop'
 gem 'stringex'
 gem "newrelic_rpm"
 gem "newrelic_moped"
