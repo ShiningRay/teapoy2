@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150715043522) do
+ActiveRecord::Schema.define(version: 20150717050424) do
 
   create_table "admin_users", force: :cascade do |t|
     t.string   "first_name",       limit: 255, default: "",    null: false
@@ -721,10 +721,13 @@ ActiveRecord::Schema.define(version: 20150715043522) do
     t.integer  "score",          limit: 4,   default: 0
     t.integer  "posts_count",    limit: 4,   default: 0
     t.integer  "views",          limit: 4,   default: 0,         null: false
+    t.datetime "last_posted_at",                                 null: false
+    t.integer  "last_poster_id", limit: 4
   end
 
   add_index "topics", ["group_id", "status", "created_at"], name: "created_at", using: :btree
   add_index "topics", ["group_id", "status", "updated_at"], name: "index_topics_on_group_id_and_status_and_updated_at", using: :btree
+  add_index "topics", ["last_posted_at"], name: "index_topics_on_last_posted_at", using: :btree
   add_index "topics", ["status", "group_id", "id"], name: "status", using: :btree
 
   create_table "transactions", force: :cascade do |t|

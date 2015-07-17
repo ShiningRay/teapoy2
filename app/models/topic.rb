@@ -17,14 +17,16 @@
 #  score          :integer          default(0)
 #  posts_count    :integer          default(0)
 #  views          :integer          default(0), not null
+#  last_posted_at :datetime         not null
+#  last_poster_id :integer
 #
 # Indexes
 #
 #  created_at                                          (group_id,status,created_at)
 #  index_topics_on_group_id_and_status_and_updated_at  (group_id,status,updated_at)
+#  index_topics_on_last_posted_at                      (last_posted_at)
 #  status                                              (status,group_id,id)
 #
-
 
 # Public
 # The topic model
@@ -57,10 +59,14 @@ class Topic < ActiveRecord::Base
   check_spam :title
   STATUSES = %w(draft publish private pending spam deleted future)
   include Topic::StatusAspect
-  has_many :posts, -> { order(floor: :asc) }, dependent: :destroy
+  include LastPostAspect
+
+  has_many :posts, -> { order(floor: :asc) }, dependent: :destroy#, after_add: -> (topic, post) { topic.last_posted_at = post.created_at ; topic.last_poster_id = post.user_id }, after_remove: :reset_last_post_info
+
   belongs_to :group
   belongs_to :user, class_name: 'User'
   validates :title, :user, presence: true
+
 
 
   # before_create {
@@ -104,6 +110,7 @@ class Topic < ActiveRecord::Base
   scope :oldest, -> { order(created_at: :asc) }
   scope :latest_created, -> { order(created_at: :desc) }
   scope :latest_updated, -> { order(updated_at: :desc) }
+  scope :latest_replied, -> { order(:last_posted_at => :desc)}
   scope :hottest, -> { order(score: :desc) }
   scope :before, -> (time=Time.now) { where{created_at < time} }
   scope :after, -> (time=Time.now) { where{created_at > time} }

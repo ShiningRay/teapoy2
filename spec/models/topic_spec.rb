@@ -17,11 +17,14 @@
 #  score          :integer          default(0)
 #  posts_count    :integer          default(0)
 #  views          :integer          default(0), not null
+#  last_posted_at :datetime         not null
+#  last_poster_id :integer
 #
 # Indexes
 #
 #  created_at                                          (group_id,status,created_at)
 #  index_topics_on_group_id_and_status_and_updated_at  (group_id,status,updated_at)
+#  index_topics_on_last_posted_at                      (last_posted_at)
 #  status                                              (status,group_id,id)
 #
 
@@ -89,5 +92,26 @@ describe Topic do
 
   describe '#content' do
     its(:content) { should == topic.top_post.content }
+  end
+
+  describe 'LastPostAspect' do
+    let(:user) { create :active_user }
+    let(:topic) { create :topic_with_posts }
+    it 'sets last poster after created new post' do
+      p = topic.posts.create content: 'testing'
+      topic.reload
+      p.reload
+      expect(topic.last_poster_id).to eq(p.user_id)
+      expect(topic.last_posted_at).to eq(p.created_at)
+    end
+
+    it 'resets last poster after remove post' do
+
+      topic.posts.last.destroy
+      topic.reload
+      p = topic.posts.last
+      expect(topic.last_posted_at).to eq(p.created_at)
+      expect(topic.last_poster_id).to eq(p.user_id)
+    end
   end
 end

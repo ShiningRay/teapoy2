@@ -22,7 +22,6 @@
           = f.input :anonymous, as: :boolean, input_html: {checked: "checked" }
         -else
           = f.input :anonymous, as: :boolean
-        = f.input :picture, as: :file, label: '图片' if logged_in?
       - if logged_in?
         - unless (current_user.has_rewarded(@topic.top_post) || current_user.own_topic?(@topic))
           %label.reward

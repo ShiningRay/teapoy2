@@ -86,12 +86,12 @@ class TopicsController < ApplicationController
         ago -= ago % pre
         scope = scope.after(Time.at(ago))
       end
-    elsif params[:order] == "latest_comment"
-      @order = "latest_comment"
-      scope = scope.latest_updated
-    else
-      params[:order] = 'latest'
+    elsif params[:order] == "latest"
+      @order = "latest"
       scope = scope.latest_created
+    else
+      params[:order] = 'latest_replied'
+      scope = scope.latest_replied
     end
 
     scope = scope.where(:id.gt => params[:id]).sort(id: -1) if params[:after]

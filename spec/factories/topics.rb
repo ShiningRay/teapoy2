@@ -16,11 +16,14 @@
 #  score          :integer          default(0)
 #  posts_count    :integer          default(0)
 #  views          :integer          default(0), not null
+#  last_posted_at :datetime         not null
+#  last_poster_id :integer
 #
 # Indexes
 #
 #  created_at                                          (group_id,status,created_at)
 #  index_topics_on_group_id_and_status_and_updated_at  (group_id,status,updated_at)
+#  index_topics_on_last_posted_at                      (last_posted_at)
 #  status                                              (status,group_id,id)
 #
 
@@ -41,5 +44,14 @@ FactoryGirl.define do
       topic.posts_count = 1
       topic.save
     }
+  end
+
+  factory :topic_with_posts, parent: :topic do
+    transient do
+      posts_count 5
+    end
+    after(:create) do |topic, evaluator|
+      create_list(:post, evaluator.posts_count, topic: topic)
+    end
   end
 end

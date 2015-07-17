@@ -77,6 +77,14 @@ class Post < ActiveRecord::Base
   #attr_readonly :user_id
   #validates_with DuplicateEliminator, fields: [:content]
   before_validation {|post| post.content.strip! if post.content.present?}
+  after_destroy {
+    topic.reset_last_post_info
+  }
+  after_create {
+    topic.last_posted_at = created_at
+    topic.last_poster_id = user_id
+    topic.save
+  }
 
   def top?
     floor == 0 || parent_id.blank?

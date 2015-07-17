@@ -1,6 +1,11 @@
 # coding: utf-8
 module ReferenceAspect
   extend ActiveSupport::Concern
+  included do
+    has_many :references
+    has_many :referenced_topics, :through => :references
+    belongs_to :sources
+  end
 
   module ClassMethods
     def detect_references
@@ -13,9 +18,5 @@ module ReferenceAspect
     end
   end
 
-  included do
-    has_many :references
-    has_many :referenced_topics, :through => :references
-    belongs_to :sources
-  end
+
 end
