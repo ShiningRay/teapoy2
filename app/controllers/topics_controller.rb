@@ -97,7 +97,7 @@ class TopicsController < ApplicationController
     scope = scope.where(:id.gt => params[:id]).sort(id: -1) if params[:after]
     scope = scope.where(:id.lt => params[:id]).sort(id: 1) if params[:before]
 
-    @topics = scope.includes(:group).page(params[:page])
+    @topics = scope.includes(:group, :user).page(params[:page])
 
     respond_to do |format|
       format.html

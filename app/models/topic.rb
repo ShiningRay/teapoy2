@@ -43,8 +43,6 @@ class Topic < ActiveRecord::Base
       'year' => 1.year
   }
 
-  default_scope -> { includes(:top_post) }
-
   class CannotReplyToClosedTopic < StandardError
   end
 
@@ -62,20 +60,14 @@ class Topic < ActiveRecord::Base
   include LastPostAspect
 
   has_many :posts, -> { order(floor: :asc) }, dependent: :destroy#, after_add: -> (topic, post) { topic.last_posted_at = post.created_at ; topic.last_poster_id = post.user_id }, after_remove: :reset_last_post_info
-
+  has_many :comments, -> { where{floor > 0}.order(floor: :asc) }, class_name: 'Post'
   belongs_to :group
   belongs_to :user, class_name: 'User'
   validates :title, :user, presence: true
 
-
-
   # before_create {
   #   self[:posts_count] = 1 if top_post
   # }
-
-  def comments
-    posts.where{floor > 0}.order(floor: :asc)
-  end
 
   #attr_protected :score, :user_id, :status, :slug, :posts_count
   #validates_length_of    :content, minimum: 5, message: "对不起，您的内容太短了点……"
@@ -95,7 +87,7 @@ class Topic < ActiveRecord::Base
   end
 
   def comments_count
-    posts.count - 1
+    posts.size - 1
   end
 
   def rewards
