@@ -81,9 +81,11 @@ class Post < ActiveRecord::Base
     topic.reset_last_post_info
   }
   after_create {
-    topic.last_posted_at = created_at
-    topic.last_poster_id = user_id
-    topic.save
+    if topic
+      topic.last_posted_at = created_at
+      topic.last_poster_id = user_id
+      topic.save
+    end
   }
 
   def top?
