@@ -37,13 +37,7 @@ FactoryGirl.define do
   end
 
   factory :topic, parent: :empty_topic do
-    content{ Forgery::LoremIpsum.paragraph }
-
-    after(:create){ |topic|
-      topic.make_top_post
-      topic.posts_count = 1
-      topic.save
-    }
+    content { Forgery::LoremIpsum.paragraph }
   end
 
   factory :topic_with_posts, parent: :topic do

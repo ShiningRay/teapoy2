@@ -17,7 +17,8 @@ RSpec.feature 'TopicReplyCreations', js: true, type: :feature do
 
     sleep 2 # wait for ajax to finish
 
-    post = Post.last
+    post = topic.posts.last
+
     expect(post.user).to eq(user)
     # expect(post).to be_picture
     expect(post.content).to eq(post_content)

@@ -3,6 +3,7 @@ namespace 'cleanup' do
   task :topics => :environment do
     Topic.where(group_id: nil).update_all(group_id: 1)
     Topic.where('not exists(select * from groups where id=topics.group_id)').find_each do |topic|
+      puts topic
       topic.destroy
     end
   end

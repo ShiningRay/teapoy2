@@ -98,7 +98,7 @@ describe Topic do
     let(:user) { create :active_user }
     let(:topic) { create :topic_with_posts }
     it 'sets last poster after created new post' do
-      p = topic.posts.create content: 'testing'
+      p = topic.posts.create content: 'testing', user: user, parent_floor: 0
       topic.reload
       p.reload
       expect(topic.last_poster_id).to eq(p.user_id)

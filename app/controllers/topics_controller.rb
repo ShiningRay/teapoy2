@@ -44,7 +44,7 @@ class TopicsController < ApplicationController
   def pending
     find_group
     return render text: "只有小组长才可以审帖" unless current_user.own_group?(@group)
-    topics = @group.pending_topics.includes(:top_post).page(params[:page])
+    topics = @group.pending_topics.page(params[:page])
     respond_with topics
   end
 
@@ -114,13 +114,12 @@ class TopicsController < ApplicationController
     return render template:"/groups/pending" if @group && @group.status == "pending"
     @group ||=  Group.find 1
     @topic = Topic.new
-    @topic.top_post = Post.new
     # @topic.attachments = [Post.new]
     @topic.title = params[:title]
     @topic.status = 'publish'
     @topic.group_id ||= 1
-    @topic.top_post.group_id ||= 1
     @topic.attachments.build
+    @topic.top_post
   end
 
   def create

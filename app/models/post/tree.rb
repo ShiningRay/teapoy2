@@ -1,4 +1,6 @@
 # coding: utf-8
+# 始终以 parent_floor 为准
+#
 module Post::Tree
   extend ActiveSupport::Concern
   included do
@@ -10,13 +12,16 @@ module Post::Tree
 
     before_validation do
       # 如果文章存在并且没有指定 parent_id，则使用 top_post 作为 parent
-      if topic and parent_id.blank? and floor != 0
-        self.parent_id ||= topic.top_post_id
+      if topic and parent_id.blank?
+        if parent_floor
+          self.parent_id ||= topic.posts.where(floor: parent_floor).pluck(:id).first
+        else
+          self.parent_id||= topic.top_post_id
+        end
       end
-      # 更新父级的 floor
-      self.parent_floor = parent.floor if parent_floor.blank? and parent
+
     end
-    validates :parent_id, presence: true, unless: ->(rec) { !topic || rec.floor == 0 }
+    validates :parent_floor, presence: true, unless: ->(rec) { !topic || rec.floor == 0 }
   end
 
   def nullify_children

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150717050424) do
+ActiveRecord::Schema.define(version: 20150718130429) do
 
   create_table "admin_users", force: :cascade do |t|
     t.string   "first_name",       limit: 255, default: "",    null: false
@@ -76,7 +76,7 @@ ActiveRecord::Schema.define(version: 20150717050424) do
 
   create_table "attachments", force: :cascade do |t|
     t.integer "uploader_id",  limit: 4,   default: 0, null: false
-    t.integer "post_id",      limit: 4,               null: false
+    t.integer "post_id",      limit: 4
     t.string  "file",         limit: 255
     t.string  "content_type", limit: 20
     t.integer "file_size",    limit: 4
@@ -438,7 +438,7 @@ ActiveRecord::Schema.define(version: 20150717050424) do
     t.string   "status",         limit: 255,   default: "",    null: false
     t.string   "ancestry",       limit: 255,   default: "",    null: false
     t.integer  "ancestry_depth", limit: 4,     default: 0,     null: false
-    t.integer  "parent_floor",   limit: 4
+    t.integer  "parent_floor",   limit: 4,     default: 0
     t.string   "mentioned",      limit: 255
   end
 

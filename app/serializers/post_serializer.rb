@@ -19,7 +19,7 @@
 #  status         :string(255)      default(""), not null
 #  ancestry       :string(255)      default(""), not null
 #  ancestry_depth :integer          default(0), not null
-#  parent_floor   :integer
+#  parent_floor   :integer          default(0)
 #  mentioned      :string(255)
 #
 # Indexes

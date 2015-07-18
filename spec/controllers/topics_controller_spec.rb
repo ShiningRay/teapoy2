@@ -52,7 +52,6 @@ describe TopicsController, :type => :controller do
         expect(assigns(:topic)).to be_valid
         expect(assigns(:topic).top_post).to be_valid
         expect(assigns(:topic).top_post.topic_id).to eq(assigns(:topic).id)
-        expect(assigns(:topic).posts_count).to eq(1)
         expect(assigns(:topic).top_post.attachments).not_to be_blank
       end
     end

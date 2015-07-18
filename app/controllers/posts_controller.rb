@@ -97,8 +97,7 @@ class PostsController < ApplicationController
       end
 
       @post = post = Post.new(p)
-      @parent = (topic.posts.find_by_floor p[:parent_id].to_i) || topic.top_post
-      @post.parent_id = @parent.id
+      @post.parent_floor ||= 0
 
       @post.group_id = group.id
       @post.translate_instruct = true if browser.mobile?
