@@ -7,31 +7,33 @@ describe TopicsController, :type => :controller do
 
   describe 'GET index' do
     context 'there is a published topic: ' do
-      let(:topic){create :topic, group: group, user: author, status: 'publish'}
-      it 'should show speicific topic' do
+      let(:topic) {
+        create :topic, group: group, user: author, status: 'publish'
+      }
+      it 'shows speicific topic' do
         get :show, :group_id => group.alias, :id => topic.id
         expect(response).to be_success
         expect(assigns(:topic)).to eq(topic)
       end
     end
 
-    context 'there is a private topic:' do
-      let(:topic) { create :topic, group: group, user: author, status: 'private' }
+    # context 'there is a private topic:' do
+    #   let(:topic) { create :topic, group: group, user: author, status: 'private' }
 
-      context 'the viewing user is author' do
-        before :each do
-          login_user author
-        end
-        it 'shows this topic' do
-          get :show, {group_id: group.alias, id: topic.id}
-          expect(response).to be_success
-        end
-      end
+    #   context 'the viewing user is author' do
+    #     before :each do
+    #       login_user author
+    #     end
+    #     it 'shows this topic' do
+    #       get :show, {group_id: group.alias, id: topic.id}
+    #       expect(response).to be_success
+    #     end
+    #   end
 
-      it 'does not show this topic' do
+    #   it 'does not show this topic' do
 
-      end
-    end
+    #   end
+    # end
 
     context 'no corresponding topic' do
       it 'shows 404 page' do
@@ -43,6 +45,12 @@ describe TopicsController, :type => :controller do
     context 'no corresponding group' do
       it 'shows 404 page' do
         get :show, {group_id: 'notexists', id: 404}
+        expect(response.status).to eq(404)
+      end
+
+      it 'shows 404 page even id exists' do
+        topic = create :topic
+        get :show, {group_id: 'notexists', id: topic.id}
         expect(response.status).to eq(404)
       end
     end

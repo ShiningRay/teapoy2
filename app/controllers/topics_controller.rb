@@ -264,11 +264,13 @@ class TopicsController < ApplicationController
   end
 
   def show
-    if params[:group_id] == 'topics'
+    if params[:group_id] == 'topics' || params[:group_id] == 'all' || params[:group_id].blank?
       @topic = Topic.find params[:id]
       @group = topic.group unless @group
       return redirect_to topic_path(@group, topic, format: params[:format]) unless request.format == :json
     end
+
+
 
     return show_404 unless @topic
     authorize @topic
@@ -491,7 +493,7 @@ class TopicsController < ApplicationController
 
   def find_group
     if params[:group_id] and params[:group_id] != 'all'
-      @group = Group.find_by_alias(params[:group_id])
+      @group = Group.find_by!(alias: params[:group_id])
       @scope = @group.topics if @group
     end
   end
