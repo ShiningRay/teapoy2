@@ -18,7 +18,6 @@ describe Post::FloorSequence, type: :model do
   end
 
   it 'retries next floor when floor clashed' do
-
     p1 = build_post
     p2 = build_post
     p1.valid?

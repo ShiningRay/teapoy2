@@ -1,6 +1,8 @@
 # coding: utf-8
 class PostsController < ApplicationController
   before_filter :check_owner, :only => [:edit, :update, :destroy]
+  before_filter :login_required, :only => [:new, :create, :edit, :update, :destroy, :up, :dn]
+
   before_action :resource, only: %i(edit update destroy)
   def check_owner
     if logged_in? && ((resource.user_id.blank? ? current_user.own_group?(resource.group) : (current_user == resource.user))|| current_user.is_admin?)
@@ -267,19 +269,9 @@ class PostsController < ApplicationController
 
   protected
   def vote(post, score)
-    unless logged_in?
-      if request.xhr?
-        return render :text => ''
-      else
-        return redirect_to login_path
-      end
-    end
-
-    if logged_in?
-      current_user.vote post, score
-      current_user.mark_topic_as_read(post.topic)
-      post.reload
-    end
+    current_user.vote post, score
+    current_user.mark_topic_as_read(post.topic)
+    post.reload
 
     respond_to do |format|
       format.html {

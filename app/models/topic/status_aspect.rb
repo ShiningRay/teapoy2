@@ -17,4 +17,26 @@ module Topic::StatusAspect
       end
     end
   end
+
+  def published?
+    status == 'publish'
+  end
+
+  def pending?
+    status == 'pending'
+  end
+
+  def draft?
+    status == 'draft'
+  end
+
+  def private?
+    status == 'private'
+  end
+
+  def publish!
+    self.status = 'publish'
+    save!
+  end
+
 end

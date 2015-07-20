@@ -32,6 +32,20 @@ describe TopicsController, :type => :controller do
 
       end
     end
+
+    context 'no corresponding topic' do
+      it 'shows 404 page' do
+        get :show, {group_id: group.alias, id: 404}
+        expect(response.status).to eq(404)
+      end
+    end
+
+    context 'no corresponding group' do
+      it 'shows 404 page' do
+        get :show, {group_id: 'notexists', id: 404}
+        expect(response.status).to eq(404)
+      end
+    end
   end
 
   describe 'POST create' do

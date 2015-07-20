@@ -44,7 +44,7 @@
             = typicon 'export'
             = t('posts.repost')
         - if logged_in? and (current_user == post.user or current_user.is_admin?)
-          =link_to post_path(post), :method => :delete, :remote => true, :data => {:confirm => '确定要删除吗?'} do
+          =link_to [post.topic.group, post.topic, post], :method => :delete, :remote => true, :data => {:confirm => '确定要删除吗?'} do
             = typicon 'trash'
             = t('posts.destroy')
 
@@ -58,12 +58,3 @@
           = link_to "(剩余#{plain_text_size-150}字)", [post.group || post.topic.group, post.topic], :class => 'more'
         - else
           = post_content post
-        -#
-          %div.repost-info
-            - if post.meta[:reposted_to]
-              已分享至
-              - post.meta[:reposted_to].each do |group_id, sharer_id|
-                - g = Group.find(group_id)
-                %span.reposted_to{:data => {:group_id => g.id}}= link_to g.name, g
-          - if post.attachment?
-            = post.meta[:price] && post.meta[:price] > 0 && "售价#{post.meta[:price]}积分"

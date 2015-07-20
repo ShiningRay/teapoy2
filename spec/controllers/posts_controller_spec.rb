@@ -74,6 +74,24 @@ describe PostsController, type: :controller do
         }.to change{ Rating.count }
         expect(topic.top_post.reload.pos).to eq(1)
       end
+      context 'when post not exists' do
+        it 'shows 404' do
+          post :up, id: '404'
+          expect(response.status).to eq(404)
+        end
+      end
+    end
+
+    context 'when user not logged in' do
+      it 'shows 403 on js request' do
+        post :up, id: topic.top_post.id, format: :js
+        expect(response.status).to eq(403)
+      end
+
+      it 'redirected to login' do
+        post :up, id: topic.top_post.id
+        expect(response).to redirect_to(login_path)
+      end
     end
   end
 
@@ -89,6 +107,24 @@ describe PostsController, type: :controller do
           post :dn, id: topic.top_post.id
         }.to change(Rating, :count)
         expect(topic.top_post.reload.neg).to eq(1)
+      end
+      context 'when post not exists' do
+        it 'shows 404' do
+          post :dn, id: '404'
+          expect(response.status).to eq(404)
+        end
+      end
+    end
+
+    context 'when user not logged in' do
+      it 'shows 403 on js request' do
+        post :dn, id: topic.top_post.id, format: :js
+        expect(response.status).to eq(403)
+      end
+
+      it 'redirected to login' do
+        post :dn, id: topic.top_post.id
+        expect(response).to redirect_to(login_path)
       end
     end
   end

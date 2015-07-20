@@ -63,16 +63,18 @@ Teapoy::Application.routes.draw do
     end
   end
 
-  resources :posts do
-    member do
-      post :repost
-      get :up
-      get :dn
-      post :reply
-      get :children
-      post :repost
-    end
-  end
+  post '/posts/:id/up', to: 'posts#up', as: :up_post
+  post '/posts/:id/dn', to: 'posts#dn', as: :dn_post
+  # resources :posts do
+  #   member do
+  #     post :repost
+  #     get :up
+  #     get :dn
+  #     post :reply
+  #     get :children
+  #     post :repost
+  #   end
+  # end
 
   #resources :invitation_codes
   #resources :badges

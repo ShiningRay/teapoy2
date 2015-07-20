@@ -6,7 +6,6 @@ class TopicsController < ApplicationController
 
   rescue_from User::NotAuthorized ,with: :group_is_secret
   # check_duplicate 'topic/content', only: :create
-  rescue_from  ActiveRecord::RecordNotFound, with: :show_404
   rescue_from Mongoid::Errors::DocumentNotFound, with: :show_404
 
   around_filter only: [:edit, :create] do |controller, action|
@@ -58,15 +57,16 @@ class TopicsController < ApplicationController
   # filter
   # page
   def index
+    # TODO: refactor groups finding
     if params[:group_id]
       if params[:group_id] == 'all' or params[:group_id] == 'topics' and @group.blank?
         gids = Group.not_show_in_list.collect{|g|g.id}
         scope = Topic.unscoped.where(status: 'publish').where.not(:group_id => gids)
       else
         find_group
-        return render text: '', status: :not_found unless @group
+        return show_404 unless @group
         raise User::NotAuthorized if @group and @group.private and (not logged_in? or !current_user.is_member_of?(@group))
-        return render template: "/groups/pending" if @group.status == "pending"
+        return render template: "/groups/pending" if @group.status == "pending" # raise error and rescue from to render error pages
         scope = @group.public_topics.where(status: 'publish')
       end
     end
@@ -270,6 +270,7 @@ class TopicsController < ApplicationController
       return redirect_to topic_path(@group, topic, format: params[:format]) unless request.format == :json
     end
 
+    return show_404 unless @topic
     authorize @topic
     # expires_now if browser.opera?
 

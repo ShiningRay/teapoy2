@@ -14,7 +14,6 @@ class TagsController < ApplicationController
   def tags
     respond_to do |format|
       format.html
-      format.mobile
       format.js {
         @tags = @group.public_topics.cached_tag_clouds
         render :json => @tags

@@ -15,7 +15,7 @@ class ListsController < ApplicationController
     end
     respond_to do |format|
       format.html # index.html.erb
-      format.mobile
+      format.html.phone
       format.xml  { render :xml => @lists }
     end
   end
@@ -29,7 +29,7 @@ class ListsController < ApplicationController
     @keywords = "博聆网 一个有人情味的社区 轻论坛 #{@list.name}"
     respond_to do |format|
       format.html # show.html.erb
-      format.mobile
+      format.html.phone
       format.xml  { render :xml => @list }
     end
   end
@@ -41,7 +41,7 @@ class ListsController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.mobile
+      format.html.phone
       format.xml  { render :xml => @list }
     end
   end
@@ -60,7 +60,6 @@ class ListsController < ApplicationController
       if @list.save
         flash[:notice] = 'List was successfully created.'
         format.html { redirect_to(@list) }
-        format.mobile { redirect_to(@list) }
         format.xml  { render :xml => @list, :status => :created, :location => @list }
       else
         format.html { render :new }
@@ -79,11 +78,9 @@ class ListsController < ApplicationController
       if @list.update_attributes(params[:list])
         flash[:notice] = 'List was successfully updated.'
         format.html { redirect_to(@list) }
-        format.mobile { redirect_to(@list) }
         format.xml  { head :ok }
       else
         format.html { render :edit }
-        format.mobile  { render :edit }
         format.xml  { render :xml => @list.errors, :status => :unprocessable_entity }
       end
     end
@@ -99,7 +96,6 @@ class ListsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to(lists_url) }
-      format.mobile { redirect_to(lists_url) }
       format.xml  { head :ok }
     end
   end

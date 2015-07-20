@@ -9,7 +9,7 @@ class InvitationCodesController < ApplicationController
     @today_code = CodeLog.ensure_only(current_user)
     respond_to do |format|
       format.html # index.html.erb
-      format.mobile
+      format.html.phone # index.html.erb
       format.xml  { render :xml => @invitation_codes }
     end
   end
@@ -20,7 +20,7 @@ class InvitationCodesController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.mobile
+      format.html.phone
       format.xml  { render :xml => @invitation_code }
     end
   end
@@ -43,7 +43,7 @@ class InvitationCodesController < ApplicationController
     @invitation_codes = InvitationCode.generate current_user.id, n
     respond_to do |format|
       format.html { render :text => @invitation_codes.collect{|i|i.code}.join(',') }
-      format.mobile { render :text => @invitation_codes.collect{|i|i.code}.join(',') }
+      format.html.mobile { render :text => @invitation_codes.collect{|i|i.code}.join(',') }
       format.js do
         render :json => @invitation_codes.collect{|i|i.code}
       end

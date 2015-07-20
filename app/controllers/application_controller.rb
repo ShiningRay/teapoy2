@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
 
   include Pundit
 
-  respond_to :html, :js, :json, :mobile, :wml
+  respond_to :html, :js, :json, :wml
   protect_from_forgery
   include AuthenticatedSystem
   include AnonymousCache
@@ -21,6 +21,7 @@ class ApplicationController < ActionController::Base
   #check_authorization
   rescue_from ActionController::UnknownFormat, with: :show_404
   rescue_from Pundit::NotAuthorizedError, with: :show_403
+  rescue_from ActiveRecord::RecordNotFound, with: :show_404
 
   def render *args
     #set_theme(params[:theme] || cookies[:theme] || @group.try(:theme))
@@ -44,7 +45,7 @@ class ApplicationController < ActionController::Base
     render :template => "common/rss.xml.builder", :layout => false, :content_type => 'text/xml'
   end
   # Handle public-facing errors by rendering the "error" liquid template
-  def show_404 target=''
+  def show_404 error='', target=''
     show_error "Page \"#{target}\" Not Found", :not_found
   end
 

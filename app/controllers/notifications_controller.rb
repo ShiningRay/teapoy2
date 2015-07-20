@@ -141,7 +141,6 @@ class NotificationsController < ApplicationController
     @unread_notification_count = current_user.notifications.unread.count
     respond_to do |format|
       format.html { redirect_to(notifications_url) }
-      format.mobile { redirect_to(notifications_url) }
       format.wml { redirect_to(notifications_url) }
       format.js
     end
@@ -153,7 +152,6 @@ class NotificationsController < ApplicationController
     @unread_notification_count = current_user.notifications.unread.count
     respond_to do |format|
       format.html { redirect_to(notifications_url) }
-      format.mobile { redirect_to(notifications_url) }
       format.wml { redirect_to(notifications_url) }
       format.js
     end

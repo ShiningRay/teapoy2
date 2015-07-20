@@ -69,7 +69,7 @@ module AuthenticatedSystem
     # simply close itself.
     def access_denied
       respond_to do |format|
-        format.any(:html, :mobile, :wml) do
+        format.any(:html, :wml) do
           #store_location
           redirect_to login_path
         end
@@ -79,6 +79,10 @@ module AuthenticatedSystem
         # for a workaround.)
         format.any(:json, :xml) do
           request_http_basic_authentication 'Web Password'
+        end
+
+        format.js do
+          render text: 'alert("please login first;")', status: 403
         end
       end
     end
