@@ -29,20 +29,20 @@ module Post::FloorSequence
     logger.debug "use floor #{floor}"
   end
 
-  # def create_or_update
-  #   times = 0
-  #   super
-  # rescue ActiveRecord::RecordNotUnique => e
-  #   if times > 10
-  #     raise e
-  #   else
-  #     logger.info("clash floor on #{self.floor} in #{self.topic_id} ")
-  #     self.floor += 1
-  #     times += 1
-  #     # topic.inc(:posts_count => 1)
-  #     retry
-  #   end
-  # end
+  def create_or_update
+    times = 0
+    super
+  rescue ActiveRecord::RecordNotUnique => e
+    if times > 10
+      raise e
+    else
+      logger.info("clash floor on #{self.floor} in #{self.topic_id} ")
+      self.floor += 1
+      times += 1
+      # topic.inc(:posts_count => 1)
+      retry
+    end
+  end
 
   module ClassMethods
 

@@ -213,28 +213,6 @@ class PostsController < ApplicationController
     end
   end
 
-  def repost
-    @post = resource
-    @group = Group.find params[:group_id]
-
-    if current_user.is_member_of?(@group)
-      @post.repost_to current_user.id, @group.id
-    end
-
-    respond_to do |format|
-      format.html{
-        if request.xhr?
-          render :text => 'success'
-        else
-          redirect_to posts_path
-        end
-      }
-      format.js {
-        render :nothing => true, :status => :created
-      }
-    end
-  end
-
   def destroy
     destroy! do |format|
       format.html {
