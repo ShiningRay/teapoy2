@@ -15,4 +15,11 @@
       %span.score{:class => s > 0 ? 'pos' : 'neg'}= s > 0 ? "+#{s}" : s
     %span.time= time_ago_in_words post.created_at if post.created_at
     %a.reply{:href=> new_group_topic_post_path(post.group||post.topic.group, post.topic, :parent_id=>post.floor)} 回复
-    .body= render_posts post
+    .body
+      - plain_text = post.content
+      - plain_text_size = plain_text.mb_chars.size
+      - if @list_view && plain_text_size > 500
+        = plain_text.mb_chars[0, 150]
+        = link_to "(剩余#{plain_text_size-150}字)", topic_path(post.group||post.topic.group, post.topic,:read=>"full"), :class => 'more'
+      - else
+        = post_content post
