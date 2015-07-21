@@ -1,8 +1,18 @@
-- plain_text = post.content
-- plain_text_size = plain_text.mb_chars.size
-- if @list_view && plain_text_size > 500
-  = plain_text.mb_chars[0, 150]
-  = link_to "(剩余#{plain_text_size-150}字)", topic_path(post.group||post.topic.group, post.topic,:read=>"full"), :class => 'more'
-- else
-  = post_content post
+%div[post]{:class => [cycle('even', 'odd'), is_mine_class(post),read_status_class(post)]}
+  - if post.status == 'deleted'
+    已被删除
+  - else
+    %span.floor
+      ="#{post.floor}: "
+    %span.author
+      - if post.anonymous
+        匿名人士
+      - else
+        = link_to post.user.name, user_path(post.user) if post.user
 
+    - s = post.score.to_i
+    - if s != 0
+      %span.score{:class => s > 0 ? 'pos' : 'neg'}= s > 0 ? "+#{s}" : s
+    %span.time= time_ago_in_words post.created_at if post.created_at
+    %a.reply{:href=> new_group_topic_post_path(post.group||post.topic.group, post.topic, :parent_id=>post.floor)} 回复
+    .body= render_posts post
