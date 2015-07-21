@@ -40,10 +40,10 @@
     <%= link_to '更换邮箱地址并重发激活邮件', edit_user_path(user) if user == current_user%>
   <% end %>
   <% if is_current %>
-    <%= link_to '我围观的文章', :controller => 'my', :action => 'favorites'   %>
-    <%= link_to '我关注的好友的文章', :controller => 'my', :action => 'friends'   %>
-    <%= link_to '我关注的好友的评论', :controller => 'my', :action => 'friends_comments' %>
-    <%= link_to '管理我发表的文章', :controller => 'my', :action => 'topics' %>
+    <%# link_to '我围观的文章', :controller => 'my', :action => 'favorites'   %>
+    <%# link_to '我关注的好友的文章', :controller => 'my', :action => 'friends'   %>
+    <%# link_to '我关注的好友的评论', :controller => 'my', :action => 'friends_comments' %>
+    <%# link_to '管理我发表的文章', :controller => 'my', :action => 'topics' %>
     <%= link_to('修改密码', [:edit, user, :password]) %>
     <%= link_to '修改头像', edit_user_path(user)%>
   <% end %>
