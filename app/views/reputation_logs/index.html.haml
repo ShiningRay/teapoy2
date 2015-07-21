@@ -6,7 +6,7 @@
       目前积分是
       = @user.reputation_in(@group).value
       ,距离升级还差
-      = Reputation.num_for_next_lever(@user.reputation_in(@group).value)
+      = Reputation.num_for_next_level(@user.reputation_in(@group).value)
       分
     - if logged_in? and current_user.id == @user.id
       %h2

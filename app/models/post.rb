@@ -127,7 +127,7 @@ class Post < ActiveRecord::Base
       case id
       when Post
         return id
-      when String, BSON::ObjectId, Integer
+      when String, Integer
         find_by_id id
       else
         id.to_post if id.respond_to?(:to_post)

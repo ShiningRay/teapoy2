@@ -19,7 +19,7 @@ class Reputation < ActiveRecord::Base
   class_attribute :levels, :level_order
   belongs_to :user
   belongs_to :group
-  has_many :logs, :class_name => 'ReputationLog'
+  has_many :logs, class_name: 'ReputationLog'
 
   scope :by_group, ->(group){where(group_id: group.id)}
   include Comparable

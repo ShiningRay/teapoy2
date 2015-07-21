@@ -17,13 +17,13 @@
 #
 
 class Rating < ActiveRecord::Base
-  belongs_to :post#, touch: true
+  belongs_to :post
   belongs_to :user
 
   scope :pos, -> { where('ratings.score > 0') }
   scope :neg, -> { where('ratings.score < 0') }
-  validates :user_id, :post_id, presence: true
 
+  validates :user, :post, presence: true
 
   def pos?
     score > 0
@@ -33,33 +33,45 @@ class Rating < ActiveRecord::Base
     score < 0
   end
 
+  # Public
+  #
+  # user [User, Integer]
+  # post [Post, Integer]
+  # score [-1, 1]
   def self.make(user, post, score)
     user = User.wrap(user)
     post = Post.wrap(post)
     user_id = user.id
-    post_id = post.id.to_s
+    post_id = post.id
     return false if post[:user_id] == user_id
 
     transaction do
       # post.lock!
+      ## check ratings record already made by the user to post
       r = Rating.where(post_id: post_id, user_id: user_id).lock(true).first
       pos_change = 0
       neg_change = 0
       score_change = 0
-      if r
-        if r.score != score
+      if r  # user has already rated the post
+        # so just reuse the previous record
+        if r.score != score # the present rating is different to previous record
+          # first revert the previous made change
           if r.score > 0
             pos_change = -1
           else
             neg_change = -1
           end
+          # as well as the total score
           score_change = -r.score
+          # change the previous record's score
           r.score = score
           r.save!
         else
+          # nothing changed
           return false
         end
       else
+        # no previous record has been made, create new record
         create post_id: post_id,
           user_id: user_id,
           score: score
@@ -72,9 +84,13 @@ class Rating < ActiveRecord::Base
         neg_change += 1
         score_change -= 1
       end
+
+      # update the total score fields in post
       Post.where(id: post.id).update_all("pos = pos + #{pos_change}, neg = neg + #{neg_change}, score = score + #{score_change}")
     end
   rescue ActiveRecord::RecordNotUnique
+    # maybe there was a race condition of concurrent rating-making
+    # just ignore the duplication
     return false
   end
 

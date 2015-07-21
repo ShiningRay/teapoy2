@@ -58,6 +58,12 @@ describe PostsController, type: :controller do
         post :create, post: { content: 'testtest' }, topic_id: topic.id, group_id: group.id
         expect(assigns(:post).floor).to eq(1)
       end
+
+      it 'rates up replied post' do
+        expect {
+          post :create, post: { content: 'testtest' }, topic_id: topic.id, group_id: group.id, vote: '1'
+        }.to change(Rating, :count)
+      end
     end
   end
 

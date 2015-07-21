@@ -100,7 +100,7 @@ class PostsController < ApplicationController
 
       @post = post = Post.new(p)
       @post.parent_floor ||= 0
-
+      @parent = topic.posts.find_by floor: @post.parent_floor
       @post.group_id = group.id
       @post.translate_instruct = true if browser.mobile?
 
@@ -175,9 +175,7 @@ class PostsController < ApplicationController
         score = 1 if score > 1
         score = -1 if score < -1
 
-        if @parent && !(r = current_user.has_rated?(@parent)) or r != score
-          current_user.vote @parent, score
-        end
+        current_user.vote @parent, score if @parent
       end
     end
   end
