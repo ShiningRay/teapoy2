@@ -227,3 +227,4 @@ gem 'concurrent-ruby', require: false
 gem 'concurrent-ruby-ext', require: false
 # gem 'reform', '~> 2.0.0'
 # gem 'lotus-validations'
+gem 'exception_notification'

@@ -98,4 +98,12 @@ Teapoy::Application.configure do
   config.cache_store = :dalli_store, *Rails.application.secrets.mem_cache
   #config.session_store :cache_store, :expire_after => 1.day
   #require 'rack/cache'
+  if Rails.application.secrets.exception_recipients
+    config.middleware.use ExceptionNotification::Rack,
+      :email => {
+        :email_prefix => "[Error] ",
+        :sender_address => %{"notifier" <admin@bling0.com>},
+        :exception_recipients => Array(Rails.application.secrets.exception_recipients)
+      }
+  end
 end
