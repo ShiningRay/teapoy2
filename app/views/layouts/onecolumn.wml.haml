@@ -76,7 +76,7 @@
         = link_to_unless_current( '最热', hottest_all_topics_path)
         |
         - if logged_in?
-          = link_to_unless_current("发表", new_all_topic_path)
+          = link_to_unless_current("发表", new_group_topic_path('pool'))
         - else
           = link_to_unless_current('登录', login_path)
       = yield :nav
@@ -91,7 +91,7 @@
         |
         = link_to_unless_current( '最热', hottest_all_topics_path)
         |
-        = link_to("发表", new_all_topic_path) if logged_in?
+        = link_to("发表", new_group_topic_path('pool')) if logged_in?
     = join_oneline( |
       link_to('问题反馈', topics_path('feedback')), |
       '|', |
