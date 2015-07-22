@@ -5,13 +5,12 @@
     %meta{:name => 'author', :content => ''}><
   %card{:title => yield(:title)}><
     - if logged_in?
-      = link_to(current_user.name_or_login, :controller => :my, :action => :latest)
+      = current_user.name_or_login
       = link_to '[+]', edit_user_path(current_user)
       = link_to "小纸条", inbox_messages_path
       - umc =  current_user.unread_messages_count
       - if umc > 0
         = link_to "[#{umc}]", inbox_messages_path
-      = link_to '我的小组', :controller => 'my', :action => 'groups'
       = link_to salaries_path do
         积分
         = current_user.balance.credit rescue nil
