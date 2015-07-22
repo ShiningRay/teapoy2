@@ -1,6 +1,11 @@
 # coding: utf-8
 class MembershipsController < ApplicationController
-  before_action :find_group
 
+  def index
+    @group = Group.wrap params[:group_id]
+    return show_404 unless @group
+    @memberships = @group.memberships.all
+    respond_with @memberships
+  end
 end
 

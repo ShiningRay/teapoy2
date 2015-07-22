@@ -16,4 +16,6 @@ class Membership < ActiveRecord::Base
   belongs_to :group
 
   validates :user_id, uniqueness: {scope: :group_id}
+
+  validates :user, :group, presence: true
 end
