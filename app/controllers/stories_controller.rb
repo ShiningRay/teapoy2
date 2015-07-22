@@ -10,6 +10,7 @@ class StoriesController < ApplicationController
   end
 
   def show
+    @story = @story.decorate
     respond_with(@story)
   end
 
