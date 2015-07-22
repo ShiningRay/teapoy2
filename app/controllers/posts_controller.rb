@@ -50,6 +50,11 @@ class PostsController < ApplicationController
     end
   end
 
+  def show
+
+    respond_with resource
+  end
+
   # POST /comments
   # POST /comments.xml
   def create
