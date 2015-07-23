@@ -78,6 +78,10 @@ class Group < ActiveRecord::Base
     topics.unscoped
   end
 
+  def self.search(keyword)
+    where('name like ? or description like ?', keyword, keyword)
+  end
+
   def self.find_by_alias(a, opt = {})
     where(:alias => a).first
   end

@@ -1,6 +1,6 @@
 - content_for :after_content do
   %p
     = link_to_unless_current '全部', scoped_path(:scope => 'all')
-    - ApplicationController::Channels.each do |tag|
-      = link_to_unless @tag == tag, tag, scoped_path(:scope => "tags/#{tag}")
+    - Tag.each do |tag|
+      = link_to_unless @tag == tag.name, tag.name, scoped_path(:scope => "tags/#{tag.name}")
 = render :template => 'layouts/application'

@@ -33,4 +33,11 @@ require 'rails_helper'
 
 describe Group do
   subject(:group) { create :group }
+
+  describe '.search' do
+    it 'returns which name contains keywords' do
+      group = create :group, name: 'test'
+      expect(Group.search('test')).to match([group])
+    end
+  end
 end

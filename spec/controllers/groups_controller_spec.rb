@@ -12,4 +12,11 @@ describe GroupsController do
   it 'GET show' do
     get :show, id: group.alias
   end
+
+  describe 'GET search' do
+    it 'finds related groups' do
+      get :search, search: 'test'
+      expect(assigns(:groups)).to be_blank
+    end
+  end
 end

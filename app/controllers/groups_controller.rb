@@ -79,9 +79,8 @@ class GroupsController < ApplicationController
   end
 
   def search
-    if params[:search]
-      reg = Regexp.new(params[:search])
-      @groups = Group.where(:name => reg).or(:description => reg).not_pending.page(params[:page])
+    if params[:keyword]
+      @groups = Group.search(params[:keyword]).not_pending.page(params[:page])
       @in_search_page = true
       render :index, :layout => 'onecolumn'
     else
