@@ -219,7 +219,11 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    destroy! do |format|
+    if resource.user_id == current_user.id
+      resource.destroy
+    end
+
+    respond_to do |format|
       format.html {
         render :nothing => true if request.xhr?
       }
