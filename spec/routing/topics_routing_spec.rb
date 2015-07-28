@@ -34,7 +34,6 @@ RSpec.describe TopicsController, type: :routing do
     it "routes to #destroy" do
       expect(:delete => "/topics/1").to route_to("topics#destroy", :id => "1")
     end
-
   end
 
   describe 'routing group topics' do
@@ -53,6 +52,11 @@ RSpec.describe TopicsController, type: :routing do
     it 'routes to #create' do
       expect(post: '/groups/123/topics').to route_to('topics#create', group_id: '123')
     end
+
+    it 'routes to #unsubscribe' do
+      expect(post: '/groups/123/topics/456/unsubscribe').to route_to('topics#unsubscribe', id: '456', group_id: '123')
+    end
+
   end
 
   describe 'routing old article styles' do

@@ -78,4 +78,25 @@ describe TopicsController, :type => :controller do
       end
     end
   end
+
+  describe 'POST subscribe' do
+    before {login_user}
+    let(:topic) { create :topic }
+    it 'creates subscription' do
+      expect {
+        post :subscribe, id: topic.id, group_id: topic.group_id
+      }.to change(Subscription, :count)
+    end
+  end
+
+  describe 'POST unsubscribe' do
+    before {login_user}
+    let(:topic) { create :topic }
+    it 'creates subscription' do
+      current_user.subscribe topic
+      expect {
+        post :unsubscribe, id: topic.id, group_id: topic.group_id
+      }.to change(Subscription, :count).by(-1)
+    end
+  end
 end

@@ -372,16 +372,11 @@ class TopicsController < ApplicationController
 
   def subscribe
     raise User::NotAuthorized unless logged_in?
-    @group = Group.find_by_alias! params[:group_id]
-    topic = @group.topics.find params[:id]
-    current_user.subscribe topic
+    @topic = @group.topics.find params[:id]
+    current_user.subscribe @topic
     respond_to do |format|
       format.html do
-        if request.xhr?
-          render topic
-        else
-          redirect_to topic_path(topic.group, topic)
-        end
+        redirect_to topic_path(topic.group, topic)
       end
       format.js
     end
@@ -389,25 +384,14 @@ class TopicsController < ApplicationController
 
   def unsubscribe
     raise User::NotAuthorized unless logged_in?
-
-    @group = Group.wrap params[:group_id]
-    topic = @group.topics.wrap params[:id]
-    current_user.unsubscribe topic
+    @topic = @group.topics.find params[:id]
+    current_user.unsubscribe @topic
     respond_to do |format|
       format.html do
-        if request.xhr?
-          render topic
-        else
-          redirect_to topic_path(topic.group, topic)
-        end
+        redirect_to topic_path(topic.group, topic)
       end
       format.js
     end
-  end
-
-  # what links here
-  def links
-
   end
 
   def repost
@@ -493,7 +477,11 @@ class TopicsController < ApplicationController
 
   def find_group
     if params[:group_id] and params[:group_id] != 'all'
-      @group = Group.find_by!(alias: params[:group_id])
+      if params[:group_id] =~ /\A\d+\z/
+        @group = Group.find params[:group_id]
+      else
+        @group = Group.find_by!(alias: params[:group_id])
+      end
       @scope = @group.topics if @group
     end
   end

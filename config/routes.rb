@@ -365,16 +365,9 @@ Teapoy::Application.routes.draw do
 
       member do
         post :subscribe
-        get :subscribe
         post :unsubscribe
-        get :unsubscribe
         post :move
-        get :move_out
-        get :delete
-        get :publish
         post :unpublish
-        get :links
-
       end
 
       resources :posts do
