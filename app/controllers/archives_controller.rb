@@ -1,4 +1,4 @@
-archi# coding: utf-8
+# coding: utf-8
 class ArchivesController < ApplicationController
   # caches_page_for_anonymous :index, :show
   def index
