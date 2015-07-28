@@ -262,7 +262,7 @@ Teapoy::Application.routes.draw do
   end
 
 ### users {{{
-  resource :session, only: [:new, :create, :destroy]
+  resource :session, only: [:new, :create, :destroy, :show]
   get '/logout' => 'sessions#destroy', :as => :logout
   get '/login' => 'sessions#new', :as => :login
   # get '/register' => 'register#create_account', :as => :register
