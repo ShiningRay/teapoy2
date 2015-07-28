@@ -1,7 +1,6 @@
 # coding: utf-8
 class MessagesController < ApplicationController
   before_filter :login_required
-  respond_to :html, :mobile, :json,:wml
   before_filter :check_user
 
   has_scope :after, only: :index
@@ -46,7 +45,7 @@ class MessagesController < ApplicationController
   def show
     @message = current_user.messages.find(params[:id])
     respond_to do |format|
-      format.any(:html, :mobile, :wml)
+      format.any(:html, :wml)
     end
   end
 
@@ -84,7 +83,7 @@ class MessagesController < ApplicationController
 
     @in_message.save!
     respond_to do |format|
-      format.any(:html, :mobile, :wml) {
+      format.any(:html, :wml) {
         redirect_to messages_path
       }
       format.js { @message = @out_message }
@@ -114,7 +113,7 @@ class MessagesController < ApplicationController
     @message = Message.find(params[:id])
     @message.destroy
     respond_to do |format|
-      format.any(:html, :mobile, :wml) {
+      format.any(:html, :wml) {
         redirect_to messages_path
       }
     end

@@ -10,7 +10,6 @@ class RegisterController < ApplicationController
 
   #skip_before_filter :check_lock_post
   #before_filter :check_lock_post, :only => :create_account
-  #respond_to :html,:wml,:mobile
 
   def create_account
     if request.post?
@@ -53,7 +52,7 @@ class RegisterController < ApplicationController
       @user = User.new
     end
     respond_to do |format|
-      format.any(:html,:wml,:mobile)
+      format.any(:html,:wml)
     end
   end
 
@@ -77,7 +76,7 @@ class RegisterController < ApplicationController
       end
     end
     respond_to do |format|
-      format.any(:html,:wml,:mobile)
+      format.any(:html,:wml)
     end
   rescue ActiveRecord::RecordNotUnique
     flash[:error] = '唯一ID已存在'
@@ -97,12 +96,12 @@ class RegisterController < ApplicationController
         # pull content
       end unless params[:group_ids].blank?
       respond_to do |format|
-        format.any(:html,:wml,:mobile){redirect_to :action => :complete}
+        format.any(:html,:wml){redirect_to :action => :complete}
       end
     else
       @groups = Group.order('feature desc').limit(5)
       respond_to do |format|
-        format.any(:html,:wml,:mobile)
+        format.any(:html,:wml)
       end
     end
   end

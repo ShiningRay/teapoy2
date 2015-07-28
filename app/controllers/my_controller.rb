@@ -21,7 +21,7 @@ class MyController < ApplicationController
     topics.reject!{|a| a.top_post.nil? }
     @groups =  current_user.publications(Group)
     respond_to do |format|
-      format.any(:html, :mobile, :wml)
+      format.any(:html, :wml)
       format.json {
         render :json => {:num_pages => topics.num_pages, :topics => topics}
       }
@@ -77,7 +77,7 @@ class MyController < ApplicationController
     #current_user.preload_subscribed(@topics)
 
     respond_to do |format|
-      format.any(:html, :mobile, :wml) do
+      format.any(:html, :wml) do
         if request.xhr?
           render :partial => 'my/topic', :collection => topics
         end
@@ -121,7 +121,7 @@ class MyController < ApplicationController
       @id2topic[art.id] = art
     end
     respond_to do |format|
-      format.any :html, :mobile, :wml do
+      format.any :html, :wml do
         render :partial => 'my/topic', :collection => topics if request.xhr?
       end
       format.json do
@@ -137,7 +137,7 @@ class MyController < ApplicationController
     @groups = current_user.publications(Group)
     @in_search_page = true
     respond_to do |format|
-       format.any(:html, :mobile, :wml) {
+       format.any(:html, :wml) {
       #  render :template=>'groups/index'
       }
       format.json { render :json => @groups }

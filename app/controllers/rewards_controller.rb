@@ -1,7 +1,6 @@
 class RewardsController < ApplicationController
   # belongs_to :group, :finder => :wrap
   # belongs_to :topic, :finder => :wrap
-  respond_to :html, :js, :mobile, :wml
   def create
     @group = Group.wrap params[:group_id]
     topic = @group.public_topics.wrap params[:topic_id]

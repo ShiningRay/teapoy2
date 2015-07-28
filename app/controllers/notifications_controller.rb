@@ -4,7 +4,7 @@ class NotificationsController < ApplicationController
   #layout 'users'
   # GET /notifications
   # GET /notifications.xml
-  respond_to :html, :mobile, :wml, :json
+  respond_to :html, :wml, :json
 
   def index
     @notifications = current_user.notifications.latest
@@ -19,7 +19,7 @@ class NotificationsController < ApplicationController
     @user = current_user
 
     respond_to do |format|
-      format.any(:html, :mobile, :wml) {
+      format.any(:html, :wml) {
         render :layout => false if request.xhr?
       }
       format.json {

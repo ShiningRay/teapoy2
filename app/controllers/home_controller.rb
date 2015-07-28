@@ -14,7 +14,7 @@ class HomeController < ApplicationController
       format.html do
         render :layout => false
       end
-      format.any(:mobile, :wml)
+      format.wml
     end
   end
 

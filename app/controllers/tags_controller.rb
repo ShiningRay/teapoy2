@@ -40,7 +40,7 @@ class TagsController < ApplicationController
     topics = parent.public_topics.before.includes(:top_post, :user, :group).order('topics.score desc').page(params[:page])
     topics = topics.where('created_at >= ?', TopicsController::DateRanges[@limit].ago) if @limit != 'all'
     respond_to do |format|
-      format.any(:html, :mobile ){
+      format.html {
         render :template => 'topics/index'
       }
     end
@@ -53,7 +53,7 @@ class TagsController < ApplicationController
     @list_view = true
     topics = Topic.where(:group_id => group_ids).public_topics.before.latest.includes(:top_post, :user, :group).page(params[:page])
     respond_to do |format|
-      format.any(:html, :mobile){
+      format.html {
         render :template => 'topics/index'
       }
     end

@@ -58,7 +58,6 @@ class UsersController < ApplicationController
     end
     respond_to do |format|
       format.html # show.html.erb
-      format.mobile
       format.xml  { render :xml => @users }
     end
   end
@@ -144,7 +143,7 @@ class UsersController < ApplicationController
     @title_name = "关注#{@user.login}的朋友"
     @users = Kaminari.paginate_array(@user.followings).page(params[:page])
       respond_to do |format|
-      format.any(:html, :mobile, :wml) {
+      format.any(:html, :wml) {
         render :index
       }
       format.json {
@@ -157,7 +156,7 @@ class UsersController < ApplicationController
     @title_name = "#{@user.login}关注的好友"
     @users = Kaminari.paginate_array(@user.followers).page(params[:page])
     respond_to do |format|
-      format.any(:html, :mobile, :wml) {
+      format.any(:html, :wml) {
         render :index
       }
     end
@@ -172,7 +171,7 @@ class UsersController < ApplicationController
       #Notification.create :user_id => @user.id, :key => "new_follower.#{current_user.id}", :content => current_user.id rescue nil
     end
     respond_to do |format|
-      format.any(:html, :mobile, :wml)do
+      format.any(:html, :wml)do
         flash[:notice]="您已经关注了#{@user.login}"
         redirect_back_or_default( request.referer || user_path(@user))
       end
@@ -188,7 +187,7 @@ class UsersController < ApplicationController
     current_user.unfollow @user
 
     respond_to do |format|
-      format.any(:html, :mobile, :wml) do
+      format.any(:html, :wml) do
         set_flash :success, object: @user
         redirect_back_or_default( request.referer || user_path(@user))
       end

@@ -29,7 +29,7 @@ class SessionsController < ApplicationController
     @user_session = UserSession.new
     respond_to do |format|
       format.html
-      format.any(:mobile,:wml)
+      format.wml
     end
   end
 
@@ -81,7 +81,7 @@ class SessionsController < ApplicationController
 #      @login       = params[:login]
 #      @remember_me = params[:remember_me]
       respond_to do |format|
-        format.any(:html, :mobile,:wml){
+        format.any(:html, :wml){
           flash[:error] = "错误的用户名/密码组合"
           render :new
         }
@@ -100,7 +100,7 @@ class SessionsController < ApplicationController
     end
     expires_now
     respond_to do |format|
-      format.any( :html, :mobile,:wml){
+      format.any( :html, :wml){
         redirect_to '/all'
       }
       format.json {

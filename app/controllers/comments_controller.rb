@@ -78,7 +78,7 @@ class CommentsController < ApplicationController
                     :title => "#{@group.name}\##{topic.id}中的评论",
                     :pubDate => topic.updated_at
       end
-      format.any(:mobile, :wml) { @comments = @comments.page(params[:page]) }
+      format.wml { @comments = @comments.page(params[:page]) }
     end
     #end
   end

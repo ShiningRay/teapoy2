@@ -27,7 +27,7 @@ module UsersController::RegistrationAspect
     else
         flash[:error]  = "验证码错误"
         respond_to do |format|
-          format.any(:html, :mobile, :wml) do
+          format.any(:html, :wml) do
             render :action => 'new', :layout => 'onecolumn'
           end
           format.json do
@@ -63,7 +63,7 @@ module UsersController::RegistrationAspect
         end
 
         respond_to do |format|
-          format.any(:html, :mobile, :wml) do
+          format.any(:html, :wml) do
             #redirect_to :controller => 'my', :action => 'index'
             return
           end
@@ -80,7 +80,7 @@ module UsersController::RegistrationAspect
       else
         flash[:error]  = "帐号创建失败"
         respond_to do |format|
-          format.any(:html, :mobile, :wml) do
+          format.any(:html, :wml) do
             render :action => 'new', :layout => 'onecolumn'
           end
           format.json do

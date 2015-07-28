@@ -46,7 +46,7 @@ class PostsController < ApplicationController
       end
 
       format.json
-      format.any(:mobile, :wml)
+      format.wml
     end
   end
 
@@ -72,7 +72,7 @@ class PostsController < ApplicationController
 
     return_with_text = Proc.new do |text|
       respond_to do |format|
-        format.any(:html, :mobile, :wml) {
+        format.any(:html, :wml) {
           if request.xhr?
             return render :text => text, :status => :unprocessable_entity
           else
@@ -138,7 +138,7 @@ class PostsController < ApplicationController
       end
 
       respond_to do |format|
-        format.any(:html, :mobile) {
+        format.html {
           if request.xhr? or params[:from_xhr].to_i==1
 #            if comment.status == 'publish'
             if post.persisted?
@@ -204,7 +204,7 @@ class PostsController < ApplicationController
     @post.group_id = topic.group_id
 
     respond_to do |format|
-      format.any(:html, :mobile, :wml)
+      format.any(:html, :wml)
     end
   end
 
@@ -223,7 +223,7 @@ class PostsController < ApplicationController
       format.html {
         render :nothing => true if request.xhr?
       }
-      format.any(:mobile, :wml) {
+      format.wml {
         redirect_to group_topic_path(@post.topic)
       }
       format.js
@@ -284,7 +284,7 @@ class PostsController < ApplicationController
           redirect_back_or_default(request.referer || topic_path(post.group||post.topic.group, post.topic))
         end
       }
-      format.any(:mobile, :wml) { show_notice "您为帖子投了#{score > 0 ? '支持' : '反对'}，现在帖子得分为#{post.score}" }
+      format.wml { show_notice "您为帖子投了#{score > 0 ? '支持' : '反对'}，现在帖子得分为#{post.score}" }
       format.json do
         render :json => {:neg => post.neg, :score => post.score, :pos => post.pos}
       end

@@ -40,7 +40,7 @@ class Users::ArticlesController < TopicsController
     topics.reject!{|a| a.top_post.nil? or a.top_post.status == 'deleted' }
 
     respond_to do |format|
-      format.any(:html,:wml,:mobile){
+      format.any(:html,:wml){
        return render :template=>"/topics/index"
       }
       format.json do

@@ -14,7 +14,7 @@ class GroupsController < ApplicationController
         #@groups = Group.public_groups.not_pending.where(:hide => 0).order('feature desc, score desc').includes(:owner).page(params[:page])
         render :layout => 'onecolumn'
       }
-      format.any(:mobile, :wml) {
+      format.wml {
         #slide第一个，我们做过的那些梦，精彩自拍，水库，当时我就震惊了
         first =  [254,251,1,32]
         #slide第二个 今天吃了什么，音乐直通车,微视频,碎碎念
@@ -71,7 +71,7 @@ class GroupsController < ApplicationController
   def update
     @group = Group.find_by_alias!(params[:id])
     update! do |format|
-      format.any(:html, :mobile, :wml){
+      format.any(:html, :wml){
         flash[:notice] = '更新成功'
         redirect_to edit_group_path(@group)
       }

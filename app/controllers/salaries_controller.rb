@@ -19,7 +19,7 @@ class SalariesController < ApplicationController
       end
     end
     respond_to do |format|
-      format.any(:html, :mobile, :wml) do
+      format.any(:html, :wml) do
         flash[:notice] = "您领取了#{amount}点积分"
         redirect_to salaries_path
       end
@@ -40,7 +40,7 @@ class SalariesController < ApplicationController
       end
     end
     respond_to  do |format|
-      format.any(:html, :mobile, :wml) do
+      format.any(:html, :wml) do
         flash[:notice] = "您领取了#{amount}点积分"
         redirect_to salaries_path
       end

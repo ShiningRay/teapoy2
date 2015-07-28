@@ -291,7 +291,7 @@ class TopicsController < ApplicationController
     MarkingReadWorker.perform_async(current_user.id, topic.id) if logged_in?
     Inbox.where(user_id: current_user.id, topic_id: topic.id).first.try(:read!)
     respond_to do |format|
-      format.any(:html, :mobile, :wml) {
+      format.any(:html, :wml) {
         head :ok
       }
       format.json {
@@ -334,7 +334,7 @@ class TopicsController < ApplicationController
     topic.move_out
     Message.send_message(current_user.id, topic.user_id, "您的帖子被#{@group.name}小组的组长移到了水库中。地址是：#{topic_url(Group.find(1),topic)}")
     respond_to do |format|
-      format.any(:html,:mobile,:wml){
+      format.any(:html, :wml){
         redirect_to pending_topics_path(@group)
       }
       format.json{
@@ -355,7 +355,7 @@ class TopicsController < ApplicationController
             redirect_to group_topics_path(@group)
           end
         }
-        format.any(:mobile, :wml) {
+        format.wml {
           redirect_to group_topics_path(@group)
         }
         format.js
@@ -363,7 +363,7 @@ class TopicsController < ApplicationController
     else
       flash[:error] = '你没有权限删除这篇帖子'
       respond_to do |format|
-        format.any(:html,:mobile,:wml){
+        format.any(:html,:wml){
           redirect_to group_topics_path(@group)
         }
       end
@@ -450,7 +450,7 @@ class TopicsController < ApplicationController
     topic.created_at = Time.now
     topic.save!
     respond_to do |format|
-      format.any(:html,:wml,:mobile){
+      format.any(:html,:wml){
        redirect_to pending_topics_path(@group)
       }
       format.json{

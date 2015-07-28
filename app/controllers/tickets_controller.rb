@@ -136,7 +136,7 @@ class TicketsController < ApplicationController
           session[:submitted] << " #{@ticket.topic_id}"
         end
 
-        format.any :html, :mobile do
+        format.mobile do
           if request.xhr?
             render :text => '$("#new_ticket").replaceWith("投票成功")'
           else
