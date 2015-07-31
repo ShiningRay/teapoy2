@@ -1,7 +1,7 @@
 # encoding: utf-8
 class GroupsController < ApplicationController
   rescue_from  User::NotAuthorized ,:with => :group_is_secret
-  before_filter :login_required #, :only => [:new, :create, :join, :quit,:allow_join,:reject_join,:judge_topics,:edit]
+  before_filter :login_required, :only => [:new, :create, :join, :quit,:allow_join,:reject_join,:judge_topics,:edit]
   #theme :select_theme
   #load_and_authorize_resource
   caches_page :sitemap_index
