@@ -29,7 +29,7 @@
 
 class TopicSerializer < ActiveModel::Serializer
   attributes :id, :title, :anonymous, :status, :tag_line,
-             :created_at, :slug, :score, :comments_count
+             :created_at, :score, :comments_count
   has_one :top_post, :user, :group
   # def as_json(opts={})
   #     except = ['anonymous', 'status', 'ip', 'tag_line', 'top_post_id', 'user_id', 'group_id']
