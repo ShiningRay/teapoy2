@@ -4,7 +4,7 @@
 
 = render @topic
 = render @posts
-
+= render 'posts/form' if logged_in?
 - if logged_in? && current_user.is_admin?
   %form{:action => move_group_topic_url(@group, @topic), :method => :post}
     %label Group ID
