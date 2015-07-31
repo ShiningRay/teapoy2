@@ -2,26 +2,24 @@
 
 - group = @group || @topic.group
 
-- if @topic
-  - @comments = @topic.comments
-  - @list_view = true if logged_in? && current_user.has_read_topic?(@topic) && params[:read].nil?
-  = render @topic
-  - @list_view = false
-
-  .pagination
-    .prev
-      上一篇:
-      = @topic.prev_in_group.nil? ? '无' : link_to(topic_title(@topic.prev_in_group), topic_path(group, @topic.prev_in_group))
-    .next
-      下一篇:
-      = @topic.next_in_group.nil? ? '无' : link_to(topic_title(@topic.next_in_group), topic_path(group, @topic.next_in_group))
-  = render 'rewards_info'
-  = render( 'comments/index')
+= render @topic
+= render @posts
 
 - if logged_in? && current_user.is_admin?
   %form{:action => move_group_topic_url(@group, @topic), :method => :post}
     %label Group ID
     %input(type="text" name="dest_group_id" value="")
     %input(type='submit' value='Move')
-  = link_to 'Delete', delete_group_topic_path(@group, @topic)
+  %form{action: group_topic_path(@group, @topic), method: 'post'}
+    %input(type="hidden" name="_method" value="delete")
+    %input(type="submit" value='Delete')
 
+= render 'rewards_info'
+
+.pagination
+  .prev
+    上一篇:
+    = @topic.prev_in_group.nil? ? '无' : link_to(topic_title(@topic.prev_in_group), topic_path(group, @topic.prev_in_group))
+  .next
+    下一篇:
+    = @topic.next_in_group.nil? ? '无' : link_to(topic_title(@topic.next_in_group), topic_path(group, @topic.next_in_group))

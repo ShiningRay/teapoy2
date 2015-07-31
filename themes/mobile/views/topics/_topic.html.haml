@@ -3,7 +3,6 @@
 %div[topic]><
   - if topic.title?
     %h2.title><= link_to topic.title, topic_path(group, topic)
-  .content><= render_posts post
   -# unless topic.tag_line.blank?
   -#  %p.tags= show_tags(topic, @current_tag)
   .post-signature{:class => topic.anonymous ? '' : 'topic-owner'}><

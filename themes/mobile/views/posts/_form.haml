@@ -1,24 +1,46 @@
-<% form_for(@post, :html => {:class => 'bp'}) do |f| %>
-<%= f.error_messages %>
-<%= f.hidden_field :parent_id %>
-<%= f.label :title, '标题（可选）' %><br/>
-<%= f.text_field :title %>
-<p>
-    <%= f.label :content, '说说你在做什么，想什么' %><br />
-    <%= f.text_area :content %>
-</p>
-<p>
-  <label>
-    <input type="radio" name="anonymous" value="0" checked/>实名
-   </label>
-  <label>
-    <input type="radio" name="anonymous" value="1" />匿名
-   </label>
-  投递到：
-  <% for g in Group.all %>
-  <label><input type="checkbox" name="post_to[]" value="<%= g.id%>"/><%=g.name%></label>
-  <% end %>
-  <%= f.submit 'Create' %>
-</p>
-
-<% end %>
+- @parent ||= @topic.top_post
+#comment_form
+  - @group ||= @topic.group
+  -#%div
+    -#=current_user.name
+    -#= link_to 'Not me?', logout_path
+  - if @group.options.only_member_can_reply and logged_in? and !current_user.is_member_of?(topic.group)
+    = submit_to '加入小组发表评论', join_group_path(@topic.group)
+  - else
+    = simple_form_for(@post || [@topic, @topic.posts.new], :url => group_topic_posts_path(@group, @topic), :html => {:multipart => true}) do |f|
+      - if logged_in? or @group.options.guest_can_reply
+        = current_user.login if logged_in?
+      - else
+        %div
+          %label
+            用户名
+            %input(name="user[login]" type="text")
+        %div
+          %label
+            密　码
+            %input(name="user[password]" type="password")
+      = f.input :parent_id, :as => :hidden
+      = f.input :content, :as => :text, :input_html => {:rows => 4}, :hint => link_to('回帖格式', '/faq/comment-format')
+      = f.input :anonymous, as: :boolean  if logged_in?
+      = f.input :picture, :as => :file, :label => '上传文件'
+      -if logged_in? && !(current_user.has_rewarded(@topic) || current_user.own_topic?(@topic))
+        %label.reward
+          打赏积分(每个帖子只能打赏一次)：
+        %input(type='text' name='reward')
+      - if !logged_in? or (logged_in? and current_user != @parent.user)
+        %div.inline><
+          投票
+          - r = logged_in? && current_user.has_rated?(@parent)
+          %label><
+            顶
+            %input{:name=>"vote", :type=>"radio", :value=>"1", :checked => (r ? (r > 0 && 'checked') : 'checked')}><
+          %label><
+            拍
+            %input{:name=>"vote", :type=>"radio", :value=>"-1", :checked => r && r < 0 && 'checked'}><
+          %label><
+            无
+            %input{:name=>"vote", :type=>"radio", :value=>"0"}><
+          - if r
+            您已投了
+            = r > 0 ? '顶' : '拍'
+      = f.button :submit, '回复', :button_html => {:disable_with => '...'}
