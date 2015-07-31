@@ -15,25 +15,8 @@ class GroupsController < ApplicationController
         render :layout => 'onecolumn'
       }
       format.wml {
-        #slide第一个，我们做过的那些梦，精彩自拍，水库，当时我就震惊了
-        first =  [254,251,1,32]
-        #slide第二个 今天吃了什么，音乐直通车,微视频,碎碎念
-        second = [275,34,66,264]
-        #slide第三个，what a funcking day，上班那些事，情感，狗血生活
-        third = [77,108,222,18]
-        # 晚安，夜半鬼话，学生党，心理测试
-        forth = [107,12,145,265]
-        recommented_groups = first
-        hour = Time.now.hour
-        case hour
-        when 11..14
-          recommented_groups = second
-        when 14..22
-          recommented_groups = third
-        when 22..24
-          recommented_groups = forth
-        end
-        @recommented_groups = Group.where(:id.in => recommented_groups)
+
+        @recommented_groups = Group.where(id: 1).to_a
       }
       format.json {
         @groups = Group.page(params[:page]).order("feature DESC , score DESC").includes(:owner)
