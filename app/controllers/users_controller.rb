@@ -142,6 +142,7 @@ class UsersController < ApplicationController
   def followings
     @title_name = "#{@user.login}关注的好友"
     @users = @user.followings.page(params[:page])
+    current_user.preload_subscribed(@users)
       respond_to do |format|
       format.any(:html, :wml) {
         render :index
@@ -155,6 +156,7 @@ class UsersController < ApplicationController
   def followers
     @title_name = "关注#{@user.login}的朋友"
     @users = @user.followers.page(params[:page])
+    current_user.preload_subscribed(@users)
     respond_to do |format|
       format.any(:html, :wml) {
         render :index

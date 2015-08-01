@@ -2,6 +2,7 @@
 module User::SubscriptionCache::Local
   def has_subscribed?(publication)
     s = local_sub_cache(publication.class.name)
+
     s.include?(publication.id) ? s[publication.id] : (s[publication.id] = super)
   end
 
@@ -12,6 +13,7 @@ module User::SubscriptionCache::Local
 
   def preload_subscribed(publications)
     return if publications.size == 0
+
     name = publications[0].class.name
     store = local_sub_cache(name)
     ids = publications.collect do |p|
@@ -23,7 +25,7 @@ module User::SubscriptionCache::Local
       store[s.publication_id] = true
     end
     store
-    logger.debug(store)
+    logger.debug(@__subscribed)
   end
 
   def subscribe(publication)

@@ -5,7 +5,7 @@ module User::SubscriberAspect
     has_many :subscriptions, foreign_key: :subscriber_id, dependent: :delete_all
     has_many :subscribed_relationships, -> { where(publication_type: 'User') }, class_name: 'Subscription', foreign_key: :publication_id
     # include User::SubscriptionCache::Remote
-    # include User::SubscriptionCache::Local
+    include User::SubscriptionCache::Local
     # include User::SubscriptionCache::TypeCast
   end
 
@@ -23,7 +23,7 @@ module User::SubscriberAspect
   def subscribed_for?( *publication )
     r = {}
     publication.each do |p|
-      r[[p.type, p.id]] = has_subscribed?(p)
+      r[[p.class.name, p.id]] = has_subscribed?(p)
     end
     r
   end
