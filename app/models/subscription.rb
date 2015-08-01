@@ -21,7 +21,7 @@
 
 class Subscription < ActiveRecord::Base
   belongs_to :subscriber, class_name: 'User'
-  # belongs_to :publication, polymorphic: true
+  belongs_to :publication, polymorphic: true
   self.record_timestamps = false
   scope :has_updates, -> { where("updated_at > viewed_at").order("updated_at desc") }
   scope :by_publication, -> (publication) { where(publication_type: publication.class.name, publication_id: publication.id) }

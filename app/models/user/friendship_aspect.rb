@@ -1,7 +1,7 @@
 # coding: utf-8
 module User::FriendshipAspect
-  # extend ActiveSupport::Concern
-  def self.included(base)
+  extend ActiveSupport::Concern
+  # def self.included(base)
 #    base.has_many :friendships
 #    base.has_many :followships, :class_name => 'Friendship', :foreign_key => 'friend_id'
 #    base.has_many :friends,
@@ -15,15 +15,17 @@ module User::FriendshipAspect
 #  has_many :friendships
 #  has_many :friends, :through => :friendships, :source => :user, :foreign_key => 'user_id'
 #  has_many :followers, :through => :friendships, :source => :user, :foreign_key => 'friend_id'
+  # end
+  included do
+    # has_many :followingships, -> { where(type: 'User') }, class_name: 'Subscription', foreign_key: :subscriber_id
+    # has_many :followings, through: :followingships, source: :publication, source_type: 'User'
+    has_many :followings, through: :subscriptions, source: :publication, source_type: 'User'
+    has_many :followers, through: :subscribed_relationships, source: :subscriber
   end
 
-  def followers
-    publications("User")
-  end
-
-  def followings
-    Subscription.by_publication(self).includes(:subscriber).collect{|s| s.subscriber }
-  end
+  # def followings
+  #   Subscription.by_publication(self).includes(:subscriber).collect{|s| s.subscriber }
+  # end
 
   def follow(another_user)
     raise TypeError if another_user.class != User && another_user.class != Fixnum

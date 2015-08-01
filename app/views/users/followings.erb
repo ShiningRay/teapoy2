@@ -2,7 +2,7 @@
 <h2><%= @user.login %>尚未围观任何网友</h2>
 <% else %>
 <h2><%= "#{@user.login}在围观#{@user.friends.count}位网友" %></h2>
-<% for f in @friends %>
-<%=render 'person', :person => f%>
-<% end %>
+
+<%= render partial: 'person', collection: @friends, locals: {:person => f}%>
+
 <% end %>

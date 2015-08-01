@@ -3,6 +3,7 @@ module User::SubscriberAspect
   extend ActiveSupport::Concern
   included do
     has_many :subscriptions, foreign_key: :subscriber_id, dependent: :delete_all
+    has_many :subscribed_relationships, -> { where(publication_type: 'User') }, class_name: 'Subscription', foreign_key: :publication_id
     # include User::SubscriptionCache::Remote
     # include User::SubscriptionCache::Local
     # include User::SubscriptionCache::TypeCast
@@ -17,7 +18,7 @@ module User::SubscriberAspect
     subscriptions.by_publication(publication).exists?
   end
 
-  alias subscribed? has_subscribed? 
+  alias subscribed? has_subscribed?
 
   def subscribed_for?( *publication )
     r = {}

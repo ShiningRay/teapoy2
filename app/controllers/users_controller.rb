@@ -140,8 +140,8 @@ class UsersController < ApplicationController
 =end
 
   def followings
-    @title_name = "关注#{@user.login}的朋友"
-    @users = Kaminari.paginate_array(@user.followings).page(params[:page])
+    @title_name = "#{@user.login}关注的好友"
+    @users = @user.followings.page(params[:page])
       respond_to do |format|
       format.any(:html, :wml) {
         render :index
@@ -153,8 +153,8 @@ class UsersController < ApplicationController
   end
 
   def followers
-    @title_name = "#{@user.login}关注的好友"
-    @users = Kaminari.paginate_array(@user.followers).page(params[:page])
+    @title_name = "关注#{@user.login}的朋友"
+    @users = @user.followers.page(params[:page])
     respond_to do |format|
       format.any(:html, :wml) {
         render :index

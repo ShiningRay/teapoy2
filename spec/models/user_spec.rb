@@ -78,4 +78,22 @@ describe User do
       end
     end
   end
+
+  describe '.followings' do
+    let(:user1) { create :user }
+    let(:user2) { create :user }
+    before { user1.subscribe(user2) }
+    it 'gets followings' do
+      expect(user1.followings).to match([user2])
+    end
+  end
+  describe '.followers' do
+    let(:user1) { create :user }
+    let(:user2) { create :user }
+    before { user1.subscribe(user2) }
+    it 'gets followers' do
+      expect(user2.followers).to match([user1])
+    end
+  end
+
 end

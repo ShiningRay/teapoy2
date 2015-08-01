@@ -36,4 +36,4 @@
               = link_to '让TA加入',allow_join_group_path(@group,user),:method=>:post
           - if user.membership_role == 'subscriber'
             %td.membership= link_to '踢之', reject_join_group_path(@group,user),:method=>:post
-  = paginate @users
+  = paginate @users, :theme => 'twitter-bootstrap-3'
