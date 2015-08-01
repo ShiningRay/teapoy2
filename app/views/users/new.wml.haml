@@ -31,7 +31,7 @@
 
 %anchor
   注册
-  %go{:href=>register_path, :method=>"post"}
+  %go{:href=>users_path, :method=>"post"}
     %postfield{:value=>"✓",:name=>"utf8"}
     %postfield{:value=>"#{form_authenticity_token}",:name=>"authenticity_token"}
     %postfield{:value=>"$login",:name=>"user[login]"}
