@@ -497,7 +497,17 @@ class TopicsController < ApplicationController
 
 
   def find_topic
-    @topic = scope.find params[:id]
+    if params[:id] =~ /\A\d+\z/
+      @topic = scope.find params[:id]
+    else
+      # old slug style
+      db = Mongoid::Sessions.default
+      if t = db[:topics].find(slug: params[:id]).first
+        redirect_to group_topic_path(t['group_id'], t['_id'])
+      else
+        show_404
+      end
+    end
   end
 
   def topic
