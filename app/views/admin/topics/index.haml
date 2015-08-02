@@ -20,7 +20,7 @@
     = render 'admin/topics/selection' unless params[:id]
     #entities
       - @checkbox = true
-      = render@ topics
+      = render @topics
   - end # end if
   = paginate @topics
   #status

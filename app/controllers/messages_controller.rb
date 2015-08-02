@@ -15,7 +15,7 @@ class MessagesController < ApplicationController
     @messages.read!
     respond_to do |format|
       format.html {
-        render layout: false if request.xhr?
+        redirect_to action: :inbox
       }
       format.json
       format.js
