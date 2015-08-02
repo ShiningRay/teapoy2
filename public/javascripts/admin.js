@@ -1,5 +1,5 @@
 /**
- *
+ *= require highcharts/highcharts
  */
 function select_item(sel) {
     $("input:checkbox").each(function(){

@@ -10,6 +10,7 @@
       = stylesheet_link_tag "admin", :media =>"screen"
       = stylesheet_link_tag "/stylesheets/jquery.autocomplete.css", :media =>"screen"
       = javascript_include_tag 'modernizr.min.js'
+      = javascript_include_tag 'admin'
       = csrf_meta_tag
   %body{'data-spy' => "scroll", 'data-target' => ".subnav", 'data-offset' => "50"}
     = render 'admin/navbar'
