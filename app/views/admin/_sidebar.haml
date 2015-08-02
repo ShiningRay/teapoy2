@@ -11,7 +11,7 @@
       %li= link_to '私人', admin_groups_path(:cond=>"private = 1 ")
       %li= link_to '待审', admin_groups_path(:cond=>"status = 'pending' ")
     %ul.group-list
-      - Group.each do |g|
+      - Group.find_each do |g|
         %li[g]{:class => g == @group && 'current'}
           \##{g.id}
           \#{link_to_unless_current g.name, admin_topics_path(:group_id => g.id)}

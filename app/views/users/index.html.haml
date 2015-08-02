@@ -26,10 +26,10 @@
             - if current_user.following?(user)
               = link_to '取消关注', unfollow_user_path(user), :class => "follow"
             - else
-              = link_to '关注TA', follow_user_path(user), :class => "unfollow"
+              = link_to '关注', follow_user_path(user), :class => "unfollow"
 
         %td.new_message
-          = link_to '小纸条TA', new_message_path(:id => user.id)
+          = link_to '小纸条', new_message_path(:id => user.id)
         - if logged_in? && @group && (current_user.id == @group.owner_id || current_user.is_admin?)
           - if user.membership_role == 'pending'
             %td.membership
