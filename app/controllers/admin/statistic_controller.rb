@@ -28,25 +28,22 @@ sql
     end
   end
   def  statistics_info
-    @statistic=Statistics.find(:first,:condition=>["limit= ? ccand created_at >?","24_hours", 24.hours.ago])
+    @statistic = Statistics.find(:first,:condition=>["limit= ? ccand created_at >?","24_hours", 24.hours.ago])
   end
 
   def stats
      @today = Date.today
-     @start = params[:start] ? Date.parse( params[:start]) : (@today << 1)
+     @start = params[:start] ? Date.parse(params[:start]) : (@today << 1)
      @end = params[:end] ? Date.parse(params[:end]) : (@today+1)
      params[:object]||='User'
      case params[:object]
      when "Topic"
-       then  @stats = Post.count :all, :conditions => ["created_at >= ? and created_at <= ? and floor = 0 and (type is NULL or type = 'Picture' or type ='ExternalVideo' )", @start, @end], :group => 'date(created_at)'
+       @stats = Topic.where("created_at >= ? and created_at <= ?", @start, @end).group('date(created_at)').count(:all)
      when 'Post'
-       then
-       @stats = Post.count :all, :conditions => ['created_at >= ? and created_at <= ? and floor != 0 ', @start, @end], :group => 'date(created_at)'
+       @stats = Post.where('created_at >= ? and created_at <= ?', @start, @end).group( 'date(created_at)').count(:all)
      when "TodayArticleUser"
-       then
-       @stats = Salary::DailyArticle.count(:all,:conditions =>["	created_on >= ? and 	created_on <= ?", @start, @end],:group => 'date(created_on) ')
+       @stats = Salary::DailyArticle.where("created_on >= ? and 	created_on <= ?", @start, @end).group('date(created_on)').count(:all)
      when "Notification"
-       then
        conditions = Notification.where(:created_at.gte => @start,:created_at.lte => @end).selector
        temp_results = Notification.collection.group(:keyf => "function(doc) { d = new Date(doc.created_at); return {created_at: d.toLocaleDateString() }; }",
         :initial => { :count => 0 },
@@ -57,10 +54,10 @@ sql
          @stats[result['created_at']] = result["count"]
        end
      when "TodayPostUser"
-       then
+
         @stats = Salary::DailyComment.where(" created_on >= ? and created_on <= ?", @start, @end).group('date(created_on)').count
      when "Todayloginuser"
-       then
+
        @stats = Salary::DailyLogin.where("created_on >= ? and created_on <= ?", @start, @end).group('date(created_on)').count
      else
       @class = Kernel.const_get(params[:object])
@@ -68,10 +65,12 @@ sql
     end
     data_1 = []
     data_2 = []
+
     @stats.to_hash.sort.each do  |datee, count|
       data_1 << datee.to_date.to_s
       data_2 << count.to_i
     end
+
     @chart = LazyHighCharts::HighChart.new(params[:object]) do |f|
       f.xAxis categories: data_1
       f.series type: 'column', data: data_2
