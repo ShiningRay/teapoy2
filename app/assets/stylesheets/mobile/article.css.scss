@@ -1,6 +1,7 @@
 
 .topic {
   margin: 1em 0;
+
   .title {
     font-size: 1.2em;
     margin: 5px;
@@ -30,6 +31,9 @@
     margin: 5px;
     a {
       color: #336699;
+    }
+    img {
+      max-width: 100%;
     }
   }
   .post-signature {
