@@ -8,12 +8,20 @@
   = link_to 'Options', "#options_#{@topic.id}", data: {icon: 'gear', rel: 'popup', iconpos: 'notext'}
 
 %div{:data => {:role => 'content'}}
-  - if @topic
-    - @comments = @topic.comments
-    = render @topic
-    %div{:data => {:role => 'collapsible'}}
-      = render 'rewards_info'
-    = render( 'comments/index')
+  %h3.title
+    = @topic.title
+  / %div{:data => {:role => 'collapsible'}}
+  /   = render 'rewards_info'
+  %ul.comments-list
+    = render @topic.posts
+  - if logged_in?
+    - unless @topic.closed?
+      = link_to '发表评论', new_group_topic_post_path(@group, @topic), data: {:role => 'button', :transition => 'slideup', :rel => 'dialog'} #comment_form
+    - else
+      禁止评论
+  - else
+    = link_to '登录后发表评论', login_path, data: {role: 'button', transition: 'slidedown', rel: 'dialog'}
+
 
 %div{:id => "options_#{@topic.id}", :data => {:role => 'popup', :'position-to' => 'window', :'overlay-theme' => 'b'}}
   %ul{:data => {:role => 'listview'}, :style => 'min-width: 210px;'}

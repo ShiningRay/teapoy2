@@ -33,7 +33,7 @@
       目前尚无帖子
   - else
     .topic-list
-      = render(@topics.reject{|a|a.top_post.nil?})
+      = render @topics
     .load-more
     = paginate @topics
 

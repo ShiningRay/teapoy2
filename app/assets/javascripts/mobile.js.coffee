@@ -68,6 +68,3 @@ $(document).bind 'pageinit', ->
     $(this).siblings('.reply').click()
 
   $('.ui-content').timeago()
-
-
-# $(document).on 'pagecreate', ''

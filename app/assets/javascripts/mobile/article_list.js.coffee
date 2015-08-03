@@ -6,7 +6,7 @@ $(document).bind 'pageshow', ->
     $(this).addClass('loading')
     $.mobile.loading( "show" )
     $.get this.href, (data) =>
-      $(data).find(".topic-list").enhanceWithin().appendTo(".topic-list")
+      $(data).find(".topic-list").enhanceWithin().timeago().appendTo(".topic-list")
 
       this.href = $(data).find('a[rel=next]').attr('href')
       $(this).removeClass('loading')
@@ -17,3 +17,4 @@ $(document).bind 'pageshow', ->
 $(document).bind 'scrollstop', ->
   if $(window).scrollTop() + $(window).height() >= $(document).height() - 100
     $('.ui-page-active').find('a[rel=next]').click()
+

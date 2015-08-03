@@ -1,14 +1,17 @@
 
 .topic {
-  margin: 1em 0;
-
+  margin: .5em 0;
+  padding: 0 0 .5em 0;
+  border-bottom: 1px solid #ddd;
   .title {
-    font-size: 1.2em;
+    font-size: 1em;
     margin: 5px;
     line-height: 1.5em;
+    font-weight: normal;
     a {
        color: #000;
        text-decoration: none;
+       font-weight: normal;
     }
   }
   .in-group {
@@ -38,18 +41,20 @@
   }
   .post-signature {
     text-align: left;
-    padding: 0 0 0px 7px;
+    // padding: 0 0 0px 7px;
     font-size: x-small;
     line-height: 16px;
     color: #999;
     a{
       /* color: #; */
       padding: 0px 4px;
+      font-weight: normal;
     }
     .user {
       text-decoration: none;
       color: #7A7B7C;
       line-height: 16px;
+      font-weight: normal;
       img {
         width: 16px;
         height: 16px;
