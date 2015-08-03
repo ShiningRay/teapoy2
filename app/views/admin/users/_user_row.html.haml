@@ -4,7 +4,7 @@
   %td.login=  user.login
   %td.name=  user.name
   %td.state= user.state
-  %td.avatar= link_to(image_tag(user.avatar(:thumb)),user)
+  %td.avatar= link_to(image_tag(user.avatar.thumb.url),user)
   %td.new_msg
     %a{:href => "/messages/new?id=#{user.id}"} msg
   %td= link_to 'edit', edit_admin_user_path(user)

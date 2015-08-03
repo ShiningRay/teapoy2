@@ -4,7 +4,7 @@
 %table.groups-list(width='100%')
   - @users.each do |user|
     %tr
-      %td= link_to image_tag(user.avatar(:thumb)), user
+      %td= link_to image_tag(user.avatar.thumb.url), user
       %td
         = link_to user.name_or_login, user
     %tr
