@@ -14,15 +14,14 @@
     %ul
       - ActsAsTaggableOn::Tag.order('id asc').each do |tag|
         %li{:class => @tag == tag.name && "current"}
-          %h2
-            =link_to tag.name, tag_path(tag.name)
+          =link_to tag.name, tag_path(tag.name)
   .grouplist
     - groups = @groups || Group.tagged_with("官方推荐").order(feature: :desc, score: :desc).page(params[:page])
     - groups.each do |group|
       - content_for :keywords, ",#{group.name}"
       .groupitem
         = link_to image_tag(group.icon.medium.url, :alt => group.name), group, :class => 'group_link'
-        %h2.group_title
+        .group_title
           =link_to group.name, group
         .group_desc
           =h group.description

@@ -20,6 +20,7 @@
   background-color:#E2F1F8;
   padding-bottom:20px;
   .group_tag{
+    @include clearfix();
     border-bottom: 1px solid #D7D9DB;
     box-shadow: 0 0 1px #DEE0E2 inset;
     margin-bottom: 30px;
@@ -41,7 +42,11 @@
         height: 26px;
         line-height: 26px;
         a{
+          font-size: 20px;
           color: #666666;
+          &:hover {
+            text-decoration: none;
+          }
         }
 
       }
@@ -51,7 +56,8 @@
     }
   }
   .grouplist{
-    padding-left: 40px; padding-right: 25px; width: 900px;
+    padding-left: 40px;
+    padding-right: 25px;
     .groupitem{
       position:relative;
       width: 420px;
@@ -78,7 +84,7 @@
           width: 130px;height: 130px;
         }
     }
-    h2.group_title{
+    .group_title{
       color: #444444;
       font-size: 14px;
       font-weight: normal;
