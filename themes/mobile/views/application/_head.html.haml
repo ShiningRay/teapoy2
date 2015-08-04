@@ -22,12 +22,7 @@
   -# Place favicon.ico and apple-touch-icon.png in the root of your domain and delete these references
   -# %link{ :href => "/favicon.ico", :rel => "shortcut icon" }/
   -# %link{ :href => "/apple-touch-icon.png", :rel => "apple-touch-icon" }/
-
   = render 'stylesheets'
-
-  -# All JavaScript at the bottom, except for Modernizr which enables HTML5 elements & feature detects
-  = javascript_include_tag 'modernizr.min.js'
-
   = csrf_meta_tag
   = yield :head
 

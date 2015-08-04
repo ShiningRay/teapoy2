@@ -2,7 +2,7 @@
 
 - group = @group || @topic.group
 
-= render @topic
+%h2=  @topic.title
 = render @posts
 = render 'posts/form' if logged_in?
 - if logged_in? && current_user.is_admin?

@@ -37,10 +37,6 @@ a{ text-decoration: none; }
     margin: 0;
     padding: 0;
    }
-  a:hover {
-    background: #566D5E;
-    color: #fff;
-  }
 }
 
 
@@ -86,95 +82,94 @@ a{ text-decoration: none; }
   a.current {
     color:yellow;
   }
-  a:hover{
-    background: #666699;
-  }
 }
 /* Footer */
 .footer .version a{ color:#004299;}
 
 .topic {
-    .title {
-        font-size: 1em;
-        padding: 0 7px;
-        margin: 5px 0 5px 0;
-        line-height: 1em;
-        a{
-          color: #000;
-          }
-        a:hover {
-            color:#fff;
-            background:#000;
-          }
-    }
-    .content {
-      line-height: 1em;
-      padding: 5px 0px 3px 7px;
-      margin-bottom: 5px;
-      a {
-        color: #336699;
-      }
-      a:hover {
-        color: #fff;
-        background: #336699;
-      }
-    }
-    .meta {
-      background: #E9F4E9;
-      //height: 1.62em;
-      //line-height: 1.2em;
-      margin: 5px 0 15px 0;
-      padding: 2px 0 2px 7px;
-      //border-bottom: 1px solid #ccc;
-      //border-top: 1px solid #dedede;
-      vertical-align:middle;
-      a img {
-        vertical-align:middle;
-        }
-      a{
-      vertical-align:middle;
-      }
-    }
-    .post-signature {
-      text-align: left;
-      padding: 0 0 0px 7px;
-      a{
-        color: #006600;
-        padding: 0px 4px;
-      }
-      a:hover {
-      color: #fff;
-      background: #006600;
-      padding: 0px 4px;
-      }
-    }
+  border-bottom: 1px solid #ddd;
+  padding: 0.5em 0;
+  .title {
+    font-size: 1.2em;
+    padding: 0 7px;
+    margin: 5px 0 5px 0;
+    font-weight: normal;
+    line-height: 1em;
 
+    a{
+      font-weight: normal;
+      color: #000;
+    }
+  }
+  .content {
+    line-height: 1em;
+    padding: 5px 0px 3px 7px;
+    margin-bottom: 5px;
+    a {
+      color: #336699;
+    }
+  }
+  .meta {
+    background: #E9F4E9;
+    //height: 1.62em;
+    //line-height: 1.2em;
+    margin: 5px 0 15px 0;
+    padding: 2px 0 2px 7px;
+    //border-bottom: 1px solid #ccc;
+    //border-top: 1px solid #dedede;
+    vertical-align:middle;
+    a img {
+      vertical-align:middle;
+      }
+    a{
+    vertical-align:middle;
+    }
+  }
+  .post-signature {
+    text-align: left;
+    padding: 0 0 0px 7px;
+    font-size: 60%;
+    color: #ccc;
+    .user {
+      font-weight: bold;
+    }
+    a{
+      color: #aaa;
+      padding: 0px 4px;
+      &:hover {
+        color: #666;
+      }
+    }
+    img {
+      margin-right: 0.25em;
+    }
+  }
 }
 .breadcrumb {
   padding: 5px 0 5px 7px;
   a{
     color: #006600;
   }
-  a:hover{
-    background: #006600;
-    color: #fff;
-  }
 }
 
-.comment {
-  padding-top: 0.4em;
-  padding-bottom: 0.4em;
+.post {
+  margin: 0.4em 0;
+  padding: 0.4em 0;
   .author {
     color: #777;
+    font-size: 0.7em;
     a {
       color: #336699 !important;
       padding: 0 4px;
-      &:hover {
-        color: #fff !important;
-        background: #336699;
-        padding: 0 4px;
-       }
      }
+  }
+  .floor {
+    font-size: 0.3em;
+    color: #ccc;
+  }
+  a.reply {
+    color: #336699 !important;
+    font-size: 0.5em;
   }
   .score {
     text-decoration: italic;
@@ -186,8 +181,11 @@ a{ text-decoration: none; }
     }
   }
   .time {
-      font-size: 0.8em;
-      color: #777;
+    font-size: 0.5em;
+    color: #777;
+  }
+  .body {
+    margin: 0.4em 0;
   }
 }
 
@@ -249,8 +247,6 @@ h3 {
     padding: 0.4em 7px;
 }
 
-
-
 .notice {
     background: none repeat scroll 0 0 #FFF9E3;
     border: 1px solid #FADC80;
@@ -267,7 +263,6 @@ h3 {
 }
 .topic-owner .floor {
   font-weight: bold;
-
 }
 .topic-owner {
   .author {
@@ -278,11 +273,6 @@ h3 {
       color: #006600 !important;
       background: #E9F4E9;
       padding: 0 4px 0 4px;
-    }
-    a:hover {
-        background:#006600;
-        color: #fff !important;
-        padding: 0 4px 0 4px;
     }
   }
 }

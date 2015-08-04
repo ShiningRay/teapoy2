@@ -6,13 +6,17 @@
   -# unless topic.tag_line.blank?
   -#  %p.tags= show_tags(topic, @current_tag)
   .post-signature{:class => topic.anonymous ? '' : 'topic-owner'}><
+    %span.comments_link><
+      - if topic.comment_status == 'closed'
+        禁止评论
+      - else
+        = link_to topic_path(group, topic, :anchor => "comments-list") do
+          = image_tag(asset_path('comment_reply.png'), :alt => '评论')
+          = topic.posts.size - 1
     - unless topic.anonymous
       - user = topic.user
       - if user
-        - if user.name?
-          = link_to user.name, user, :class => 'user'
-        - else
-          = link_to user.login, user, :class => 'user'
+        = link_to user.name_or_login, user, :class => 'user'
     %span.user-action-time><
       发布于
       = link_to group.name, group if @show_group
@@ -22,14 +26,8 @@
     - if logged_in? && current_user == topic.group.owner && topic.status == 'pending'
       = link_to '通过', publish_topic_path(group,topic)
       = link_to '移出', move_out_topic_path(group,topic)
-  .meta><
-    - if post
-      = rating_link(post, :up)
-      = rating_link(post, :dn)
-    %span.comments_link><
-      - if topic.comment_status == 'closed'
-        禁止评论
-      - else
-        = link_to topic_path(group, topic, :anchor => "comments-list") do
-          = image_tag(asset_path('comment_reply.png'), :alt => '评论')
-          = topic.posts.size - 1
+  / .meta><
+  /   - if post
+  /     = rating_link(post, :up)
+  /     = rating_link(post, :dn)
+
