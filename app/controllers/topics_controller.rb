@@ -61,13 +61,13 @@ class TopicsController < ApplicationController
     if params[:group_id]
       if params[:group_id] == 'all' or params[:group_id] == 'topics' and @group.blank?
         gids = Group.not_show_in_list.collect{|g|g.id}
-        scope = Topic.unscoped.where(status: 'publish').where.not(:group_id => gids)
+        @scope = Topic.unscoped.where(status: 'publish').where.not(:group_id => gids)
       else
         find_group
         return show_404 unless @group
         raise User::NotAuthorized if @group and @group.private and (not logged_in? or !current_user.is_member_of?(@group))
         return render template: "/groups/pending" if @group.status == "pending" # raise error and rescue from to render error pages
-        scope = @group.public_topics.where(status: 'publish')
+        @scope = @group.public_topics.where(status: 'publish')
       end
     end
 
@@ -78,24 +78,24 @@ class TopicsController < ApplicationController
       params[:order] = 'hottest'
       @limit = params[:limit]
       @next_limit = KEYS[i+1]
-      scope = scope.hottest
+      @scope = scope.hottest
       if @limit != 'all' and l = DateRanges[@limit]
         pre = l.to_i / 360
         ago = l.ago.to_i
         @expires_in = pre
         ago -= ago % pre
-        scope = scope.after(Time.at(ago))
+        @scope = scope.after(Time.at(ago))
       end
     elsif params[:order] == "latest"
       @order = "latest"
-      scope = scope.latest_created
+      @scope = scope.latest_created
     else
       params[:order] = 'latest_replied'
-      scope = scope.latest_replied
+      @scope = scope.latest_replied
     end
 
-    scope = scope.where(:id.gt => params[:id]).sort(id: -1) if params[:after]
-    scope = scope.where(:id.lt => params[:id]).sort(id: 1) if params[:before]
+    @scope = scope.where(:id.gt => params[:id]).sort(id: -1) if params[:after]
+    @scope = scope.where(:id.lt => params[:id]).sort(id: 1) if params[:before]
 
     @topics = scope.includes(:group, :user).page(params[:page])
 
