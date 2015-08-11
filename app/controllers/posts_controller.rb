@@ -45,7 +45,9 @@ class PostsController < ApplicationController
         render @posts if request.xhr?
       end
 
-      format.json
+      format.json {
+        render json: @posts
+      }
       format.wml
     end
   end

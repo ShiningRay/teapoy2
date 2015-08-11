@@ -32,5 +32,11 @@
 #
 
 class PostSerializer < ActiveModel::Serializer
-  attributes :id, :content, :status, :pos, :neg
+  attributes :id, :content, :pos, :neg
+  has_one :user
+  def content
+    (Rails.cache.fetch([object, :content]) do
+      Redcarpet::Markdown.new(Redcarpet::Render::HTML, filter_html: true, strikethrough: true, hard_wrap: true).render(object.content.to_s)
+    end)
+  end
 end

@@ -1,19 +1,20 @@
-%dl
-  %dt &sect;
-  %dt.group 圈子数
-  %dd.count= link_to number_with_delimiter(Group.count, :locale => :en), groups_path
-  %dt.group 文章数
-  %dd.count=number_with_delimiter(Topic.count, :locale => :en)
-  %dt.group 用户数
-  %dd.count= link_to number_with_delimiter(User.count, :locale => :en), signup_path
-  %p.sub2
-    %a{:href=>"http://weibo.com/bolingwang",:target=>"_blank"}
-      %img{:src=>"#{asset_path('sina.png')}",:alt=>"新浪微博"}
-    %a{:href=>"http://t.qq.com/bling_bling2005",:target=>"_blank"}
-      %img{:src=>"#{asset_path('qq.png')}",:alt=>"腾讯微博"}
-    %a{:href=>"http://page.renren.com/601014085",:target=>"_blank"}
-      %img{:src=>"#{asset_path('renren.png')}",:alt=>"人人网"}
-    %a{:href=>"http://blingling.diandian.com",:target=>"_blank"}
-      %img{:src=>"#{asset_path('diandian.png')}",:alt=>"点点"}
-    %a{:href=>"http://www.douban.com/people/bling_ling",:target=>"_blank"}
-      %img{:src=>"#{asset_path('douban.png')}",:alt=>"豆瓣"}
+- cache 'stats', expires_in: 30.minutes do
+  %dl
+    %dt &sect;
+    %dt.group 圈子数
+    %dd.count= link_to number_with_delimiter(Group.count, :locale => :en), groups_path
+    %dt.group 文章数
+    %dd.count=number_with_delimiter(Topic.count, :locale => :en)
+    %dt.group 用户数
+    %dd.count= link_to number_with_delimiter(User.count, :locale => :en), signup_path
+    %p.sub2
+      %a{:href=>"http://weibo.com/bolingwang",:target=>"_blank"}
+        %img{:src=>"#{asset_path('sina.png')}",:alt=>"新浪微博"}
+      %a{:href=>"http://t.qq.com/bling_bling2005",:target=>"_blank"}
+        %img{:src=>"#{asset_path('qq.png')}",:alt=>"腾讯微博"}
+      %a{:href=>"http://page.renren.com/601014085",:target=>"_blank"}
+        %img{:src=>"#{asset_path('renren.png')}",:alt=>"人人网"}
+      %a{:href=>"http://blingling.diandian.com",:target=>"_blank"}
+        %img{:src=>"#{asset_path('diandian.png')}",:alt=>"点点"}
+      %a{:href=>"http://www.douban.com/people/bling_ling",:target=>"_blank"}
+        %img{:src=>"#{asset_path('douban.png')}",:alt=>"豆瓣"}
