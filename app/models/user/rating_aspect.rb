@@ -36,11 +36,17 @@ module User::RatingAspect
   def ratings_for *post
     r = {}
     ratings.where(:post_id => post.collect{|i|i.id}).select('post_id, score').each do |i|
+      r[i.post_id] = i.score
+    end
+    r
+  end
+  def ratings_for_ids *post_ids
+    r = {}
+    ratings.where(:post_id => post_ids).select('post_id, score').each do |i|
       r[i.post_id] = r.score
     end
     r
   end
-
   def rate_status(post)
     Rating.status_for(has_rated?(post))
   end

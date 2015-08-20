@@ -56,7 +56,7 @@ $(function(){
     if(post.hasClass('mine')){
       return;
     }
-    $.get('/posts/'+sr.id(post)+'/'+(dir > 0 ? 'up' : 'dn'));
+    $.post('/posts/'+sr.id(post)+'/'+(dir > 0 ? 'up' : 'dn'));
     if(voted === 0){
       if(dir > 0){
         score++;

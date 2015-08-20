@@ -162,11 +162,10 @@ class User < ActiveRecord::Base
 
   # ---------------------------------------
   validates :login, format: {
-                      with: /\A[a-zA-Z0-9_-]+\z/,
-                      allow_blank: true, allow_nil: true
+                      with: /\A[a-zA-Z0-9_-]+\z/
                     },
-                    uniqueness: {allow_blank: true, allow_nil: true},
-                    length: { in: 3..50, allow_blank: true, allow_nil: true }
+                    uniqueness: true,
+                    length: { in: 3..50 }
   #validates_presence_of     :login
  # validates_format_of       :login,     with: /\A[a-zA-Z0-9_-]+\z/,
  #                           allow_nil: true, allow_blank: true

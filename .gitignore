@@ -25,3 +25,5 @@ log/mailman.output
 .env
 .env.*
 coverage
+
+.tags

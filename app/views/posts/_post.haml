@@ -4,11 +4,12 @@
   - t = post.total_score
   - user = post.user.try :decorate
   - anon = post.anonymous or post.user_id == 0 or (not user) or user.deleted?
-  - mine = post.user == current_user ? 'mine' : ''
+
   =#post.floor
   %li.post.cf.post{:id => "post_#{post.id}",
-                :class => [cycle('odd', 'even'), mine, read_status_class(post), user.class_names],
+                :class => [cycle('odd', 'even'), read_status_class(post), user.class_names],
                 :data  => {:user_id => post.anonymous ? '' : post.user_id,
+                            :id => post.id,
                             :parent_id => post.parent_id,
                             :floor  => f,
                             :date   => post.created_at.strftime('%Y-%m-%d %H:%M:%S')}}

@@ -20,6 +20,7 @@
 //= require 'salary'
 //= require 'notification'
 //= require 'poll'
+//= require 'post'
 //= require 'jquery/jquery.url'
 //= require simditor
 //= require simditor-dropzone

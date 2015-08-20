@@ -14,6 +14,7 @@
         = link_to user, :class => 'user' do
           = image_tag user.avatar.thumb
           = user.name_or_login
+          
     %span.user-action-time><
       %time.timeago.relativetime{datetime: topic.created_at.iso8601}=topic.created_at
     - if logged_in? && current_user.own_topic?(topic)
@@ -21,4 +22,3 @@
     - if logged_in? && current_user == topic.group.owner && topic.status == 'pending'
       = link_to '通过', publish_topic_path(group,topic)
       = link_to '移出', move_out_topic_path(group,topic)
-

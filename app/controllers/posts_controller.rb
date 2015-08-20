@@ -238,10 +238,10 @@ class PostsController < ApplicationController
 
   # Please Refer to ScoreMetal
   def scores
-    ids = params[:ids].split(/ |\+/).collect{|i|i.to_i}
-    posts = Post.find_all_by_id(ids)
+    ids = params[:ids].is_a?(Array) ? params[:ids] : params[:ids].split(/ |\+/).collect{|i|i.to_i}
+    posts = Post.where(id: ids).select('id,score').to_a
     if logged_in?
-      rated = current_user.ratings_for(posts)
+      rated = current_user.ratings_for(*posts)
       response.headers['Cache-Control'] = 'private'
     else
       response.headers['Cache-Control'] = 'public'
@@ -249,10 +249,10 @@ class PostsController < ApplicationController
 
     m = {}
 
-    s.each do |r|
+    posts.each do |r|
       id = r.id
-      json = r.as_json
-      if logged_in?
+      json = {score: r.score}
+      if rated
         json['rated'] = rated[id]
       end
       m[id] = json

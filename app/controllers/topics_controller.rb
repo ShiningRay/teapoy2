@@ -205,8 +205,7 @@ class TopicsController < ApplicationController
   # Please Refer to ScoreMetal
   def scores
     ids = params[:ids].split(/ |\+/).collect{|i|i.to_i}
-    s = Topic.find_all_by_id(ids)
-    s.reject!{|a|a.top_post.blank?}
+    s = Topic.where(id: ids)
     if logged_in?
       rated = current_user.ratings_for(ids)
       watched = current_user.subscribed_for?(ids)
@@ -258,7 +257,7 @@ class TopicsController < ApplicationController
       t= Regexp.new @term
       topics = collection.public_topics.where(:title => t).page(params[:page])
     else
-      redirect_to topics_path(@group)
+      redirect_to(topics_path(@group))
     end
     #render action: :index
   end

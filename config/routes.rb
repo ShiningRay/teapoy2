@@ -65,6 +65,7 @@ Teapoy::Application.routes.draw do
 
   post '/posts/:id/up', to: 'posts#up', as: :up_post
   post '/posts/:id/dn', to: 'posts#dn', as: :dn_post
+  get '/posts/scores.json', to: 'posts#scores'
   # resources :posts do
   #   member do
   #     post :repost
