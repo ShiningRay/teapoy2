@@ -353,6 +353,7 @@ Teapoy::Application.routes.draw do
     end
 
     resources :topics do
+      resource :title, module: 'topics', only: :update
       collection do
         get 'latest_comment(/page/:page)(.:format)', :action => :index, :order => 'latest_comment'
         get 'latest(/page/:page)(.:format)', :action => :index, :order => 'latest', :as => 'latest'

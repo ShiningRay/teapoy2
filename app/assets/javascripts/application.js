@@ -33,7 +33,10 @@
 //= require turbolinks.redirect
 //= require nprogress
 //= require nprogress-turbolinks
+//= require x-editable/dist/bootstrap3-editable/js/bootstrap-editable
 
+$.fn.editable.defaults.mode = 'inline';
+$.fn.editable.defaults.ajaxOptions = {type: "PUT"};
 $(function() {
   $('.relativetime').timeago();
 });

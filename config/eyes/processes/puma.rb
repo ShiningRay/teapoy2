@@ -13,5 +13,7 @@ process 'puma' do
   #   check :memory, below: 500.megabytes, times: 3
   # end
   check :memory, below: 600.megabytes, times: 3
+  check :http, url: 'http://www.bling0.com/', pattern: /博聆网/,
+                 every: 10.seconds, times: [2, 3], timeout: 5.second
 end
 end

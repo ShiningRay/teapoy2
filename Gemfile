@@ -18,6 +18,7 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-qtip2'
   gem 'rails-assets-ichord--simditor-dropzone'
   gem 'rails-assets-throttle-debounce'
+  gem 'rails-assets-x-editable'
 end
   gem 'jquery-rails'
   gem 'turbolinks'

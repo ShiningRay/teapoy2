@@ -490,6 +490,8 @@ GEM
     rails-assets-throttle-debounce (0.1.1)
     rails-assets-to-markdown (1.2.1)
     rails-assets-waypoints (3.1.1)
+    rails-assets-x-editable (1.5.1)
+      rails-assets-jquery (>= 1.6)
     rails-deprecated_sanitizer (1.0.3)
       activesupport (>= 4.2.0.alpha)
     rails-dom-testing (1.0.6)
@@ -781,6 +783,7 @@ DEPENDENCIES
   rails-assets-throttle-debounce!
   rails-assets-to-markdown!
   rails-assets-waypoints!
+  rails-assets-x-editable!
   rails-i18n (~> 4.0.0)
   rails-observers
   rb-fsevent

@@ -13,3 +13,14 @@
 -else
   = render @posts
   = paginate @posts
+
+- if logged_in? and current_user == @topic.user
+  - content_for :javascripts do
+    :javascript
+      $(function(){
+        $('.entry-title').editable({
+          type: 'text',
+          pk: #{@topic.id},
+          url: "#{j group_topic_title_url(@group, @topic)}",
+        });
+      })
