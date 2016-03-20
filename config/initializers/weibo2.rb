@@ -1,5 +1,5 @@
-WeiboOAuth2::Config.api_key = "1898592352"
-WeiboOAuth2::Config.api_secret = '1cf8056abde9b4dcb97f7bfa6bae74a5'
+WeiboOAuth2::Config.api_key = Rails.application.secrets.oauth['weibo']['key']
+WeiboOAuth2::Config.api_secret = Rails.application.secrets.oauth['weibo']['secret']
 if Rails.env.production?
   WeiboOAuth2::Config.redirect_uri = 'http://www.bling0.com/syncs/sina/callback'
 else
