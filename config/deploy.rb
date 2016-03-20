@@ -2,7 +2,7 @@
 lock '3.4.0'
 set :application, "teapoy2"
 set :scm, :git
-set :repo_url, "git@github.com:hging/teapoy2.git"
+set :repo_url, "git@github.com:shiningray/teapoy2.git"
 set :deploy_to, '/srv/teapoy2'
 set :format, :pretty
 set :pty, true
